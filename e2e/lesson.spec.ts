@@ -28,7 +28,11 @@ test("complete the lesson with keyboard controls, reloads, hints, and a gated so
     path: testInfo.outputPath("course.png"),
     fullPage: true,
   });
-  await page.getByRole("link", { name: "Start lesson" }).click();
+  await page
+    .getByRole("article")
+    .filter({ hasText: "Statements, Truth Values" })
+    .getByRole("link", { name: "Start lesson" })
+    .click();
   await expect(
     page.getByRole("button", { name: "Start problem 1" }),
   ).toBeVisible();

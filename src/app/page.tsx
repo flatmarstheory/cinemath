@@ -49,8 +49,14 @@ export default function Home() {
           <h2>{course.title}</h2>
           <p>{course.description}</p>
           <div className="course-details">
-            <span>01 available lesson</span>
-            <span>5 purposeful problems</span>
+            <span>
+              {String(lessons.length).padStart(2, "0")} available{" "}
+              {lessons.length === 1 ? "lesson" : "lessons"}
+            </span>
+            <span>
+              {lessons.reduce((sum, l) => sum + l.problems.length, 0)}{" "}
+              purposeful problems
+            </span>
             <span>Learn at your pace</span>
           </div>
         </div>

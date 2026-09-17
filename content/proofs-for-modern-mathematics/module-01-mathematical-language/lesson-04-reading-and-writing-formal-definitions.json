@@ -1,0 +1,283 @@
+{
+  "lessonId": "pfmm-m1-l4-reading-and-writing-formal-definitions",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-01-mathematical-language",
+  "title": "Reading and Writing Formal Definitions",
+  "learningObjective": "State and apply the formal, existentially-quantified definitions of even, odd, and divisibility, and use them directly in a short argument.",
+  "estimatedMinutes": { "min": 15, "max": 20 },
+  "prerequisites": [
+    "universal-quantifier",
+    "existential-quantifier",
+    "negation-of-conditional"
+  ],
+  "conceptsIntroduced": [
+    "formal-definition",
+    "even-integer",
+    "odd-integer",
+    "divisibility"
+  ],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "This lesson uses the existential quantifier ($\\exists$, Lesson 1) and the conditional's negation (Lesson 3) to state and use precise definitions."
+    },
+    "encounter": {
+      "bodyMarkdown": "\"$n$ is even\" feels obvious — until a proof needs you to *use* that fact as a formula, not a feeling. What can you actually write down about $n$ that captures \"even,\" and nothing more or less?"
+    },
+    "explain": {
+      "bodyMarkdown": "A **formal definition** replaces an intuitive idea with a precise, quantified statement you can manipulate algebraically.\n\n- $n$ is **even** $\\iff \\exists k \\in \\mathbb{Z}$ such that $n = 2k$.\n- $n$ is **odd** $\\iff \\exists k \\in \\mathbb{Z}$ such that $n = 2k + 1$.\n- $a$ **divides** $b$, written $a \\mid b$, $\\iff \\exists k \\in \\mathbb{Z}$ such that $b = ak$.\n\nEach definition follows the same pattern: an existential quantifier introduces a witness integer $k$, and an equation pins down exactly what \"even,\" \"odd,\" or \"divides\" means in terms of $k$. To *use* a definition in a proof, you introduce that witness by name (\"let $n = 2k$ for some integer $k$\") and then compute with it — exactly like the existence proof strategy from Lesson 1."
+    },
+    "reflect": {
+      "bodyMarkdown": "A common error is defining \"even\" as \"$n$ divided by 2 has no remainder\" without ever naming the witness $k$ — that description is true, but it isn't yet something you can substitute into an equation. Whenever a proof needs to use a definition, the first move is almost always \"let [the defined quantity] $=$ [the formula], for some integer $k$.\""
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m1-l4-p1-definition-of-even",
+      "version": 1,
+      "lessonId": "pfmm-m1-l4-reading-and-writing-formal-definitions",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which is the correct formal definition of \"$n$ is even\"?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$\\exists k \\in \\mathbb{Z}$ such that $n = 2k$",
+            "accessibleLabel": "There exists an integer k such that n equals 2k."
+          },
+          {
+            "id": "b",
+            "label": "$\\exists k \\in \\mathbb{Z}$ such that $n = 2k + 1$",
+            "accessibleLabel": "There exists an integer k such that n equals 2k plus 1."
+          },
+          {
+            "id": "c",
+            "label": "$\\forall k \\in \\mathbb{Z},\\ n = 2k$",
+            "accessibleLabel": "For every integer k, n equals 2k."
+          },
+          { "id": "d", "label": "$n = 2$", "accessibleLabel": "n equals 2." }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The correct definition needs exactly one quantifier, and it should allow $n$ to be any even integer, not just one specific value."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The witness $k$ only needs to exist once — it doesn't need to work for every integer $k$, just one."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "(c) fails: no single $n$ equals $2k$ for *every* integer $k$. (d) only describes the number 2 itself, not evenness in general. (b) is the definition of odd, not even."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "(a) is correct: $\\exists k \\in \\mathbb{Z}$ such that $n = 2k$ says $n$ is exactly twice some integer — the defining property of even numbers."
+        }
+      ],
+      "solutionMarkdown": "Evenness means $n$ is exactly twice *some* integer, which is captured with an existential quantifier over the witness $k$: $\\exists k \\in \\mathbb{Z}$ such that $n = 2k$. Option (b) is the definition of *odd*. Option (c) uses $\\forall$, which would force $n$ to equal $2k$ for every integer $k$ — impossible for any fixed $n$. Option (d) only describes the single number 2.",
+      "concepts": [
+        "formal-definition",
+        "even-integer",
+        "existential-quantifier"
+      ],
+      "prerequisites": ["existential-quantifier"],
+      "difficulty": 1,
+      "misconceptionTags": ["universal-quantifier-in-existence-definition"]
+    },
+    {
+      "id": "pfmm-m1-l4-p2-definition-of-divides",
+      "version": 1,
+      "lessonId": "pfmm-m1-l4-reading-and-writing-formal-definitions",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which is the correct formal definition of \"$a$ divides $b$\" (written $a \\mid b$)?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$\\exists k \\in \\mathbb{Z}$ such that $b = ak$",
+            "accessibleLabel": "There exists an integer k such that b equals a times k."
+          },
+          {
+            "id": "b",
+            "label": "$\\exists k \\in \\mathbb{Z}$ such that $a = bk$",
+            "accessibleLabel": "There exists an integer k such that a equals b times k."
+          },
+          {
+            "id": "c",
+            "label": "$\\frac{a}{b} \\in \\mathbb{Z}$",
+            "accessibleLabel": "a divided by b is an integer."
+          },
+          {
+            "id": "d",
+            "label": "$a < b$",
+            "accessibleLabel": "a is less than b."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "\"$a$ divides $b$\" means $b$ is a whole-number multiple of $a$ — figure out which side of the equation should be the multiple."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "If $a$ divides $b$, then $b$ can be written as $a$ times some integer. Watch the order carefully: (a) and (b) swap which variable is being multiplied."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "(b) actually defines \"$b$ divides $a$,\" the reverse relation. (c) is a true consequence when $b \\neq 0$, but not the definition itself, and it breaks when $b = 0$. (d) isn't about multiples at all."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "(a) is correct: $\\exists k \\in \\mathbb{Z}$ such that $b = ak$ says $b$ is $a$ times some integer — exactly \"$a$ divides $b$.\""
+        }
+      ],
+      "solutionMarkdown": "\"$a$ divides $b$\" means $b$ is an integer multiple of $a$: $\\exists k \\in \\mathbb{Z}$ such that $b = ak$. Option (b) has the roles reversed and defines $b \\mid a$ instead. Option (c) is a true restatement only when $b \\neq 0$ and isn't the primary definition (division isn't defined at $b=0$, but divisibility is). Option (d) has nothing to do with multiples.",
+      "concepts": [
+        "formal-definition",
+        "divisibility",
+        "existential-quantifier"
+      ],
+      "prerequisites": ["existential-quantifier"],
+      "difficulty": 2,
+      "misconceptionTags": ["reversing-divisibility-direction"]
+    },
+    {
+      "id": "pfmm-m1-l4-p3-fill-odd-definition",
+      "version": 1,
+      "lessonId": "pfmm-m1-l4-reading-and-writing-formal-definitions",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the formal definition: $n$ is odd $\\iff \\exists k \\in \\mathbb{Z}$ such that $n =$ ___ $\\cdot k +$ ___.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Coefficient of k", "acceptedValues": ["2"] },
+          { "id": "b2", "label": "Constant term", "acceptedValues": ["1"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Compare this to the definition of even from earlier in the lesson: $n = 2k$. Odd numbers are one more than an even number."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "If an even number is $2k$, then the very next integer after it — which is odd — is $2k$ plus how much?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Every odd number sits exactly one more than some even number $2k$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n = 2k + 1$: coefficient $2$, constant $1$."
+        }
+      ],
+      "solutionMarkdown": "An odd integer is one more than an even integer. Since even integers have the form $2k$, odd integers have the form $n = 2k + 1$ for some integer $k$ — so the coefficient is $2$ and the constant term is $1$.",
+      "concepts": ["formal-definition", "odd-integer"],
+      "prerequisites": ["even-integer", "existential-quantifier"],
+      "difficulty": 1,
+      "misconceptionTags": ["confusing-odd-and-even-formula"]
+    },
+    {
+      "id": "pfmm-m1-l4-p4-counterexample-even-square",
+      "version": 1,
+      "lessonId": "pfmm-m1-l4-reading-and-writing-formal-definitions",
+      "type": "counterexample_builder",
+      "promptMarkdown": "The following statement is false:\n\n$$\\forall n \\in \\mathbb{Z},\\ \\text{if } n \\text{ is even, then } n^2 \\text{ is odd}$$\n\nConstruct a counterexample: give a specific even integer $n$ for which the claim fails (i.e., $n$ is even but $n^2$ is also even, not odd).",
+      "answerSpec": {
+        "constraints": ["n must be an integer (n ∈ ℤ)", "n must be even"],
+        "predicateDescription": "The submitted n must be even, which automatically makes n^2 even too, disproving the claim that n^2 must be odd.",
+        "checkerNotes": "Parse the learner's submitted integer n, then check n is even (n % 2 == 0) and n*n is even. Any even integer is accepted, including 0 and negatives.",
+        "checker": "integer-even-with-even-square"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "By definition, $n$ is even means $n = 2k$ for some integer $k$. Try the smallest such witnesses first."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "You need an even $n$, and you need $n^2$ to actually be even (not odd) to break the claim. Compute $n^2$ for a small even $n$ and check."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Try $n = 2$: is $2$ even? Is $2^2 = 4$ even?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n = 2$ works: $2$ is even, and $2^2 = 4$ is even, not odd — breaking the claimed conditional. ($n=0$ and any other even integer also work.)"
+        }
+      ],
+      "solutionMarkdown": "By definition, if $n$ is even, $n = 2k$ for some integer $k$, so $n^2 = 4k^2 = 2(2k^2)$, which is even by the same definition (witness $2k^2$). So *every* even $n$ makes $n^2$ even, never odd — any even integer, such as $n = 2$, is a valid counterexample to the claim that an even $n$ forces an odd $n^2$.",
+      "concepts": ["even-integer", "formal-definition"],
+      "prerequisites": ["even-integer", "negation-of-conditional"],
+      "difficulty": 2,
+      "misconceptionTags": [
+        "assuming-universal-conditional-true-without-checking-definition"
+      ]
+    },
+    {
+      "id": "pfmm-m1-l4-p5-order-even-square-proof",
+      "version": 1,
+      "lessonId": "pfmm-m1-l4-reading-and-writing-formal-definitions",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a direct proof that: if $n$ is even, then $n^2$ is even.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Assume $n$ is even, so by definition $n = 2k$ for some integer $k$."
+          },
+          { "id": "s2", "textMarkdown": "Then $n^2 = (2k)^2 = 4k^2$." },
+          {
+            "id": "s3",
+            "textMarkdown": "So $n^2 = 2(2k^2)$, where $2k^2$ is an integer."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Therefore, by the definition of even, $n^2$ is even."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "A direct proof starts by using the hypothesis's definition to name a witness — here, that means writing $n$ using the definition of even first."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Once $n$ is written as $2k$, the next step is a direct computation of $n^2$ in terms of $k$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The computation needs to be reshaped into the form $2 \\times (\\text{some integer})$ before you can invoke the definition of even again for the conclusion."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: introduce the witness ($n=2k$), compute $n^2$, rewrite it as $2$ times an integer, then conclude $n^2$ is even by definition."
+        }
+      ],
+      "solutionMarkdown": "A direct proof from a definition follows a fixed shape: **use the hypothesis's definition to introduce a witness, compute with it, then match the conclusion's definition**.\n\n1. \"$n$ is even\" is unpacked using its definition: $n = 2k$ for some integer $k$. This witness must be introduced before anything can be computed.\n2. Squaring both sides gives $n^2 = 4k^2$, a direct computation.\n3. Rewriting $4k^2$ as $2(2k^2)$ puts the expression into the shape the definition of even requires: $2$ times an integer.\n4. Since $2k^2$ is an integer, $n^2 = 2(2k^2)$ matches the definition of even exactly, completing the proof.",
+      "concepts": ["even-integer", "formal-definition"],
+      "prerequisites": ["even-integer"],
+      "difficulty": 2,
+      "misconceptionTags": [
+        "asserting-conclusion-without-matching-definition-form"
+      ]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": [
+      "formal-definition",
+      "even-integer",
+      "odd-integer",
+      "divisibility"
+    ],
+    "notes": "Same plain-language 'developing'/'solid' snapshot as Lesson 1."
+  }
+}

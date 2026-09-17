@@ -11,7 +11,13 @@ export default async function LessonPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const lesson = lessons.find((item) => item.lessonId === slug);
-  if (!lesson) notFound();
-  return <LessonPlayer lesson={lesson} courseTitle={course.title} />;
+  const index = lessons.findIndex((item) => item.lessonId === slug);
+  if (index === -1) notFound();
+  return (
+    <LessonPlayer
+      lesson={lessons[index]}
+      courseTitle={course.title}
+      lessonNumber={index + 1}
+    />
+  );
 }

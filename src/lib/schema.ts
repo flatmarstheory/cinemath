@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+// Deliberately closed set of author-selectable checkers, not arbitrary code — see docs/content-authoring-guide.md.
+export const counterexampleCheckerIds = [
+  "integer-square-not-greater",
+  "integer-even-with-even-square",
+] as const;
+export type CounterexampleCheckerId = (typeof counterexampleCheckerIds)[number];
+
 const text = z.string().min(1);
 const ids = z.array(text);
 const base = {
@@ -86,8 +93,28 @@ export const problemSchema = z.discriminatedUnion("type", [
       constraints: ids,
       predicateDescription: text,
       checkerNotes: text,
-      checker: z.literal("integer-square-not-greater"),
+      checker: z.enum(counterexampleCheckerIds),
     }),
+  }),
+  z.object({
+    ...base,
+    type: z.literal("proof_fill_blank"),
+    answerSpec: z
+      .object({
+        blanks: z
+          .array(
+            z.object({
+              id: text,
+              label: text,
+              acceptedValues: text.array().min(1),
+            }),
+          )
+          .min(1),
+      })
+      .refine(
+        (s) => new Set(s.blanks.map((b) => b.id)).size === s.blanks.length,
+        "Blank ids must be unique",
+      ),
   }),
 ]);
 const section = z.object({ bodyMarkdown: z.string() });
@@ -143,5 +170,6 @@ export const answerSchema = z.discriminatedUnion("kind", [
     inner: z.enum(["", "forall", "exists"]),
     relation: z.enum(["", "=", "neq"]),
   }),
+  z.object({ kind: z.literal("blanks"), values: z.record(text, z.string()) }),
 ]);
 export type Answer = z.infer<typeof answerSchema>;

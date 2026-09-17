@@ -17,7 +17,9 @@ content/
 
 Example: `content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-01-statements-and-quantifiers.json`
 
-Once Phase 2 builds the content loader/validator, this directory maps directly into `packages/content/` without a format change — only a location move.
+`src/lib/content-loader.ts` discovers every `*.json` file under `content/` (except `catalog.json`) automatically and validates each against `lessonSchema`. **Adding a lesson means adding a JSON file in this shape — no import to register, no UI or grading code to change**, as long as the lesson uses already-supported problem types. Run `npm run validate:content` to validate all authored content on its own (useful while authoring, and it runs as part of `npm run check` and CI); it reports which file failed and why.
+
+This directory maps directly into `packages/content/` without a format change whenever the repository grows into the full monorepo shape — only a location move.
 
 ## Lesson file shape
 
@@ -69,11 +71,24 @@ Notes:
 | `numeric` | `{ correctValue: number, tolerance: number, toleranceType: "absolute" \| "relative" }` |
 | `symbolic` | `{ correctExpression: string, equivalenceForm: string }` — `equivalenceForm` names the normalization used for comparison (e.g., `"propositional-normal-form"`). |
 | `proof_ordering` | `{ steps: {id, textMarkdown}[], correctOrder: string[], alternateValidOrders?: string[][] }` |
-| `proof_fill_blank` | `{ blanks: {id, acceptedValues: string[]}[] }` |
-| `counterexample_builder` | `{ constraints: string[], predicateDescription: string, checkerNotes: string }` — `checkerNotes` describes, in plain language, exactly how a programmatic checker will validate a submission; the actual checker is implemented in Phase 2. |
+| `proof_fill_blank` | `{ blanks: {id, label, acceptedValues: string[]}[] }` — `label` is the accessible field label shown next to each blank's input; `acceptedValues` are matched case- and whitespace-insensitively. |
+| `counterexample_builder` | `{ constraints: string[], predicateDescription: string, checkerNotes: string, checker }` — `checkerNotes` describes, in plain language, exactly how the checker validates a submission; `checker` selects one of a small, closed registry of deterministic integer-predicate checkers (see below). |
 | `proof_free_response` | Not used until Phase 4; when introduced, `answerSpec` holds the rubric reference, not a gradable spec. |
 
-For multiple-choice options, `accessibleLabel` is an authored spoken-language description used as the form control name. Keep `label` as Markdown with KaTeX math for the visible option. The Phase 1 counterexample also requires `checker: "integer-square-not-greater"` to select its explicit deterministic validator; English `checkerNotes` are documentation, not executable rules.
+For multiple-choice options, `accessibleLabel` is an authored spoken-language description used as the form control name. Keep `label` as Markdown with KaTeX math for the visible option.
+
+### Counterexample checkers
+
+`counterexample_builder` never executes author-supplied code. `checker` must be one of `counterexampleCheckerIds` in `src/lib/schema.ts`, each backed by a hand-written, unit-tested function in `src/lib/grading.ts`:
+
+- `integer-square-not-greater`: accepts integers $n$ with $n^2 \le n$.
+- `integer-even-with-even-square`: accepts even integers (whose square is, consequently, also even).
+
+Authoring a counterexample problem against a new predicate means adding a new checker id to both files and a unit test — a small, explicit code change, not a content-only change. This keeps grading fully deterministic and safe.
+
+### `proof_fill_blank` UI
+
+Blanks render as one labeled text input per entry, below the prompt (not inline inside the KaTeX-rendered `promptMarkdown`), matching how `proof_ordering` renders its steps as a separate list. Author `acceptedValues` as plain tokens a learner would actually type (numbers, short words, or simple symbols) rather than full LaTeX, since matching is a case-insensitive string comparison, not symbolic equivalence.
 
 Every `answerSpec` must be sufficient on its own for deterministic grading — see `docs/grading-policy.md`.
 

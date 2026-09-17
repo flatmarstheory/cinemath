@@ -1,0 +1,293 @@
+{
+  "lessonId": "pfmm-m1-l3-negating-compound-and-quantified-statements",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-01-mathematical-language",
+  "title": "Negating Compound and Quantified Statements",
+  "learningObjective": "Apply De Morgan's laws to negate conjunctions, disjunctions, and conditionals, and combine that with quantifier negation to negate mixed statements correctly.",
+  "estimatedMinutes": { "min": 15, "max": 20 },
+  "prerequisites": [
+    "conjunction",
+    "disjunction",
+    "conditional",
+    "universal-quantifier",
+    "existential-quantifier",
+    "quantifier-negation"
+  ],
+  "conceptsIntroduced": [
+    "de-morgans-laws",
+    "negation-of-conjunction",
+    "negation-of-disjunction",
+    "negation-of-conditional",
+    "mixed-quantifier-negation"
+  ],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Two earlier ideas combine in this lesson: negating $\\forall$/$\\exists$ (Lesson 1), and the connectives $\\land$, $\\lor$, $\\to$ (Lesson 2)."
+    },
+    "encounter": {
+      "bodyMarkdown": "\"It is not the case that I brought a coat and an umbrella.\" Does that mean you brought neither? Or could you have brought exactly one? Get this wrong and a proof by contradiction can go looking for the wrong contradiction."
+    },
+    "explain": {
+      "bodyMarkdown": "**De Morgan's laws** tell you how negation distributes over $\\land$ and $\\lor$:\n\n$$\\lnot(P \\land Q) \\iff \\lnot P \\lor \\lnot Q$$\n$$\\lnot(P \\lor Q) \\iff \\lnot P \\land \\lnot Q$$\n\nIn words: negating \"both\" gives \"at least one fails\"; negating \"at least one\" gives \"both fail.\" The connective flips every time you push a negation through it.\n\n**Negating a conditional** follows from Lesson 2's equivalence:\n\n$$\\lnot(P \\to Q) \\iff P \\land \\lnot Q$$\n\nA conditional's negation is not another conditional — it's a conjunction: the antecedent holds, and the consequent fails.\n\n**Mixed statements.** A statement with quantifiers *and* connectives is negated one layer at a time, from the outside in: flip each quantifier as you pass it (Lesson 1's rule), and once you reach the innermost connective, apply the matching law above."
+    },
+    "reflect": {
+      "bodyMarkdown": "The most common error is negating $P \\land Q$ as $\\lnot P \\land \\lnot Q$ (forgetting to flip the connective) or negating $P \\to Q$ as $\\lnot P \\to \\lnot Q$ (treating it like another conditional, when the correct negation is a conjunction). Both errors quietly produce a statement that isn't actually the negation — worth checking against a single test case before trusting a negation you've written."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m1-l3-p1-negate-conjunction",
+      "version": 1,
+      "lessonId": "pfmm-m1-l3-negating-compound-and-quantified-statements",
+      "type": "multiple_choice",
+      "promptMarkdown": "What is the correct negation of $P \\land Q$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$\\lnot P \\land \\lnot Q$",
+            "accessibleLabel": "Not P and not Q."
+          },
+          {
+            "id": "b",
+            "label": "$\\lnot P \\lor \\lnot Q$",
+            "accessibleLabel": "Not P or not Q."
+          },
+          { "id": "c", "label": "$P \\lor Q$", "accessibleLabel": "P or Q." },
+          {
+            "id": "d",
+            "label": "$\\lnot P \\lor Q$",
+            "accessibleLabel": "Not P or Q."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Use De Morgan's law for conjunction from the Explain section: it tells you exactly what $\\lnot(P \\land Q)$ becomes."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Negating \"both hold\" means \"at least one fails,\" which is a disjunction, not a conjunction — and each individual piece gets negated too."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Rule out (a): it keeps the connective as $\\land$, which is the un-flipped mistake. Rule out (c) and (d): they don't negate both sides."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$\\lnot(P \\land Q) \\iff \\lnot P \\lor \\lnot Q$ — both the connective and each side are negated, matching (b)."
+        }
+      ],
+      "solutionMarkdown": "By De Morgan's law, $\\lnot(P \\land Q) \\iff \\lnot P \\lor \\lnot Q$. Two things change: the connective flips from $\\land$ to $\\lor$, and each side is individually negated. Option (a) keeps $\\land$, which is the classic un-flipped error; (c) and (d) don't negate both sides.",
+      "concepts": ["de-morgans-laws", "negation-of-conjunction"],
+      "prerequisites": ["conjunction", "disjunction"],
+      "difficulty": 1,
+      "misconceptionTags": ["negating-connective-without-flipping"]
+    },
+    {
+      "id": "pfmm-m1-l3-p2-negate-conditional-english",
+      "version": 1,
+      "lessonId": "pfmm-m1-l3-negating-compound-and-quantified-statements",
+      "type": "multiple_choice",
+      "promptMarkdown": "What is the correct negation of \"If it rains, the game is cancelled\"?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "If it does not rain, the game is not cancelled.",
+            "accessibleLabel": "If it does not rain, the game is not cancelled."
+          },
+          {
+            "id": "b",
+            "label": "It rains, and the game is not cancelled.",
+            "accessibleLabel": "It rains, and the game is not cancelled."
+          },
+          {
+            "id": "c",
+            "label": "It does not rain, and the game is cancelled.",
+            "accessibleLabel": "It does not rain, and the game is cancelled."
+          },
+          {
+            "id": "d",
+            "label": "If the game is cancelled, it rains.",
+            "accessibleLabel": "If the game is cancelled, it rains."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Symbolize first: let $R$ = \"it rains\" and $C$ = \"the game is cancelled.\" The sentence is $R \\to C$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "From the Explain section, $\\lnot(P \\to Q) \\iff P \\land \\lnot Q$ — the negation of a conditional is a conjunction, not another conditional."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "So $\\lnot(R \\to C)$ is $R \\land \\lnot C$: it *does* rain, and the game is *not* cancelled. That rules out (a) and (d), which are still conditionals."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "(c) has the wrong side negated (no rain, but cancelled — that doesn't contradict the original). (b) matches $R \\land \\lnot C$ exactly."
+        }
+      ],
+      "solutionMarkdown": "Symbolize the sentence as $R \\to C$ (\"it rains\" $\\to$ \"the game is cancelled\"). By the conditional-negation rule, $\\lnot(R \\to C) \\iff R \\land \\lnot C$: it rains, and the game is *not* cancelled. Options (a) and (d) are still conditionals, which is the wrong shape for a negated conditional. Option (c) negates the wrong side. Option (b), \"it rains, and the game is not cancelled,\" is the one case that actually breaks the original promise.",
+      "concepts": ["negation-of-conditional"],
+      "prerequisites": ["conditional"],
+      "difficulty": 2,
+      "misconceptionTags": ["negating-conditional-as-another-conditional"]
+    },
+    {
+      "id": "pfmm-m1-l3-p3-fill-de-morgan-blanks",
+      "version": 1,
+      "lessonId": "pfmm-m1-l3-negating-compound-and-quantified-statements",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete De Morgan's law: $\\lnot(P \\lor Q) \\iff$ ___ $\\land$ ___. Type each blank as \"not P\" or \"not Q.\"",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "First blank",
+            "acceptedValues": ["not p", "¬p"]
+          },
+          {
+            "id": "b2",
+            "label": "Second blank",
+            "acceptedValues": ["not q", "¬q"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This is the disjunction version of De Morgan's law — look at the second equation in the Explain section."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Negating \"at least one holds\" means \"both fail\" — the connective becomes $\\land$, and each side is individually negated."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The first blank negates $P$; the second blank negates $Q$. Don't leave either side un-negated."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$\\lnot(P \\lor Q) \\iff \\lnot P \\land \\lnot Q$ — \"not P\" and \"not Q.\""
+        }
+      ],
+      "solutionMarkdown": "By De Morgan's law for disjunction, $\\lnot(P \\lor Q) \\iff \\lnot P \\land \\lnot Q$: negating \"$P$ or $Q$\" means both individually fail. The connective flips from $\\lor$ to $\\land$, and each side is negated — \"not P\" and \"not Q.\"",
+      "concepts": ["de-morgans-laws", "negation-of-disjunction"],
+      "prerequisites": ["disjunction", "conjunction"],
+      "difficulty": 2,
+      "misconceptionTags": ["negating-connective-without-flipping"]
+    },
+    {
+      "id": "pfmm-m1-l3-p4-order-mixed-negation",
+      "version": 1,
+      "lessonId": "pfmm-m1-l3-negating-compound-and-quantified-statements",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps that fully negate $\\forall x,\\ \\exists y \\text{ such that } (P(x) \\to Q(x,y))$, pushing the negation all the way in.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Flip the outer $\\forall x$ to $\\exists x$: $\\exists x,\\ \\lnot\\big(\\exists y,\\ P(x) \\to Q(x,y)\\big)$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Flip the inner $\\exists y$ to $\\forall y$: $\\exists x,\\ \\forall y,\\ \\lnot\\big(P(x) \\to Q(x,y)\\big)$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Negate the conditional using $\\lnot(P \\to Q) \\iff P \\land \\lnot Q$: $\\lnot(P(x) \\to Q(x,y)) \\iff P(x) \\land \\lnot Q(x,y)$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Combine: the full negation is $\\exists x,\\ \\forall y,\\ P(x) \\land \\lnot Q(x,y)$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Work from the outside in, one quantifier at a time, exactly as in Lesson 1 — don't touch the conditional until both quantifiers are handled."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The outermost symbol is $\\forall x$, so it must flip first. The $\\exists y$ underneath it flips second."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Only after both quantifiers have flipped do you apply the conditional-negation rule to what's left inside."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: flip $\\forall x$ to $\\exists x$, flip $\\exists y$ to $\\forall y$, negate the conditional into a conjunction, then state the combined result."
+        }
+      ],
+      "solutionMarkdown": "Negating a mixed quantifier/connective statement is done one layer at a time, strictly outside in.\n\n1. The outermost symbol, $\\forall x$, flips to $\\exists x$, leaving everything after it negated.\n2. The next symbol, $\\exists y$, flips to $\\forall y$.\n3. What remains, $\\lnot(P(x) \\to Q(x,y))$, is a negated conditional, so apply $\\lnot(P \\to Q) \\iff P \\land \\lnot Q$.\n4. Assembling the pieces in order gives the fully negated statement: $\\exists x,\\ \\forall y,\\ P(x) \\land \\lnot Q(x,y)$. Skipping a quantifier or negating the conditional too early produces an incorrect result, so this order is the only valid one.",
+      "concepts": [
+        "mixed-quantifier-negation",
+        "negation-of-conditional",
+        "quantifier-negation"
+      ],
+      "prerequisites": ["quantifier-negation", "negation-of-conditional"],
+      "difficulty": 4,
+      "misconceptionTags": [
+        "negating-only-outermost-quantifier",
+        "negating-conditional-as-another-conditional"
+      ]
+    },
+    {
+      "id": "pfmm-m1-l3-p5-count-conditional-negation-rows",
+      "version": 1,
+      "lessonId": "pfmm-m1-l3-negating-compound-and-quantified-statements",
+      "type": "numeric",
+      "promptMarkdown": "There are 4 combinations of truth values for $P$ and $Q$. For how many of them is $\\lnot(P \\to Q)$ true?",
+      "answerSpec": {
+        "correctValue": 1,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Recall $\\lnot(P \\to Q) \\iff P \\land \\lnot Q$ from the Explain section, and think about when a conjunction is true."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$P \\land \\lnot Q$ needs both $P$ true and $\\lnot Q$ true (i.e. $Q$ false) — that pins down a single combination of $P$ and $Q$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Check each of the 4 combinations: (T,T), (T,F), (F,T), (F,F). Only one has $P$ true and $Q$ false."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Exactly one combination — $P$ true, $Q$ false — makes $\\lnot(P \\to Q)$ true."
+        }
+      ],
+      "solutionMarkdown": "Since $\\lnot(P \\to Q) \\iff P \\land \\lnot Q$, this statement is true exactly when $P$ is true and $Q$ is false simultaneously — a single, specific combination out of the four possible truth-value pairs. This matches the fact that $P \\to Q$ itself is false in exactly one case, so its negation is true in exactly that same one case.",
+      "concepts": ["negation-of-conditional", "truth-table"],
+      "prerequisites": ["negation-of-conditional"],
+      "difficulty": 2,
+      "misconceptionTags": ["negating-conditional-as-another-conditional"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": [
+      "de-morgans-laws",
+      "negation-of-conjunction",
+      "negation-of-disjunction",
+      "negation-of-conditional",
+      "mixed-quantifier-negation"
+    ],
+    "notes": "Same plain-language 'developing'/'solid' snapshot as Lesson 1."
+  }
+}

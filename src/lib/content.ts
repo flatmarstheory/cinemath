@@ -1,26 +1,8 @@
-import lessonData from "../../content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-01-statements-and-quantifiers.json";
-import catalog from "../../content/catalog.json";
-import { z } from "zod";
-import { lessonSchema } from "./schema";
-import { quantifierSpec } from "./grading";
+import { join } from "node:path";
+import { loadContent } from "./content-loader";
 
-export const course = z
-  .object({
-    slug: z.string(),
-    title: z.string(),
-    description: z.string(),
-    modules: z.array(z.object({ slug: z.string(), title: z.string() })),
-  })
-  .parse(catalog);
-export const lessons = [lessonSchema.parse(lessonData)];
-for (const lesson of lessons) {
-  if (
-    lesson.courseSlug !== course.slug ||
-    !course.modules.some((m) => m.slug === lesson.moduleSlug)
-  )
-    throw new Error("Lesson must belong to a seeded course and module");
-  for (const problem of lesson.problems) {
-    if (problem.type === "symbolic")
-      quantifierSpec(problem.answerSpec.correctExpression);
-  }
-}
+// Server-only: every authored lesson under content/ is discovered and
+// validated here. Adding a lesson means adding a JSON file — no import to
+// register and no UI/grading changes, as long as it uses supported types.
+const { course, lessons } = loadContent(join(process.cwd(), "content"));
+export { course, lessons };

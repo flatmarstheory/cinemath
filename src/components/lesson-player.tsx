@@ -19,20 +19,37 @@ import {
 } from "@/lib/progress";
 import { MathContent } from "./math-content";
 import { AnswerInput } from "./answer-input";
+import { analyticsEventFor, emitAnalyticsEvent } from "@/lib/analytics";
 
 export function LessonPlayer({
   lesson,
   courseTitle,
+  lessonNumber = 1,
 }: {
   lesson: Lesson;
   courseTitle: string;
+  lessonNumber?: number;
 }) {
   const [progress, setProgress] = useState<Progress | null>(null);
   const [storageMessage, setStorageMessage] = useState("");
   const [feedback, setFeedback] = useState("");
   const [showTheory, setShowTheory] = useState(false);
+  // Detected client-side (not via server searchParams) so this route stays statically generated.
+  const [preview, setPreview] = useState(false);
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
+    const isPreview =
+      new URLSearchParams(window.location.search).get("preview") === "1";
+    // Browser-only URL is read after the server's identical loading screen.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPreview(isPreview);
+    if (isPreview) {
+      setProgress(newProgress(lesson));
+      setStorageMessage(
+        "Preview mode: this run is not saved and does not touch a learner's real progress.",
+      );
+      return;
+    }
     let loaded = newProgress(lesson);
     let message = "Progress saves automatically in this browser.";
     try {
@@ -50,7 +67,6 @@ export function LessonPlayer({
         "Browser storage is unavailable. You can still learn, but progress will not survive a reload.";
     }
     // Browser-only storage is hydrated after the server's identical loading screen.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProgress(loaded);
     setStorageMessage(message);
   }, [lesson]);
@@ -65,8 +81,13 @@ export function LessonPlayer({
     );
 
   const act = (action: Action) => {
+    const problemBefore = lesson.problems[progress.index];
     const next = transition(lesson, progress, action);
     setProgress(next);
+    emitAnalyticsEvent(
+      analyticsEventFor(lesson, problemBefore, progress, next, action),
+    );
+    if (preview) return;
     try {
       localStorage.setItem(storageKey(lesson), encodeProgress(lesson, next));
       setStorageMessage("Progress saves automatically in this browser.");
@@ -112,7 +133,10 @@ export function LessonPlayer({
       <nav className="lesson-breadcrumb" aria-label="Breadcrumb">
         <Link href="/">← Course</Link>
         <span>{courseTitle}</span>
-        <span className="pill">LESSON 01</span>
+        <span className="pill">
+          LESSON {String(lessonNumber).padStart(2, "0")}
+        </span>
+        {preview && <span className="pill preview-pill">PREVIEW</span>}
       </nav>
       <div className="learning-layout">
         <aside className="lesson-sidebar">

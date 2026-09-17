@@ -1,0 +1,273 @@
+{
+  "lessonId": "pfmm-m1-l2-compound-statements-and-connectives",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-01-mathematical-language",
+  "title": "Compound Statements and Logical Connectives",
+  "learningObjective": "Evaluate the truth value of compound statements built with $\\land$, $\\lor$, $\\lnot$, and $\\to$, and translate between English connectives and their symbolic form.",
+  "estimatedMinutes": { "min": 15, "max": 20 },
+  "prerequisites": ["statement"],
+  "conceptsIntroduced": [
+    "conjunction",
+    "disjunction",
+    "negation-connective",
+    "conditional",
+    "truth-table"
+  ],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "In the previous lesson, a **statement** was any sentence with a definite truth value. This lesson builds bigger statements out of smaller ones."
+    },
+    "encounter": {
+      "bodyMarkdown": "Consider: \"It is raining, and I have an umbrella.\" This is false the moment either half is false — no rain, or no umbrella. Now consider: \"If it is raining, then I have an umbrella.\" This one is only false in one specific case. Which case?"
+    },
+    "explain": {
+      "bodyMarkdown": "Given statements $P$ and $Q$, four connectives combine them into new statements:\n\n- **Conjunction** $P \\land Q$ (\"$P$ and $Q$\"): true exactly when *both* $P$ and $Q$ are true.\n- **Disjunction** $P \\lor Q$ (\"$P$ or $Q$\"): true when *at least one* of $P$, $Q$ is true (this is the inclusive \"or\" — both being true still counts).\n- **Negation** $\\lnot P$ (\"not $P$\"): true exactly when $P$ is false.\n- **Conditional** $P \\to Q$ (\"if $P$ then $Q$\"): false in exactly one case — when $P$ is true and $Q$ is false. In every other case, including when $P$ is false, $P \\to Q$ is true.\n\nThe conditional is the one that surprises people: $P \\to Q$ makes no claim at all when $P$ is false, so it's automatically counted true. \"If it is raining, then I have an umbrella\" isn't lying on a sunny day — it simply hasn't been tested."
+    },
+    "reflect": {
+      "bodyMarkdown": "The most common error with $P \\to Q$ is treating it as symmetric with $Q \\to P$, or assuming it's false whenever $P$ is false. Neither is true: $P \\to Q$ only fails in the single case $P$ true, $Q$ false. Keep this one case memorized — every later lesson on proof strategy depends on it."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m1-l2-p1-evaluate-connectives",
+      "version": 1,
+      "lessonId": "pfmm-m1-l2-compound-statements-and-connectives",
+      "type": "multiple_choice",
+      "promptMarkdown": "Suppose $P$ is true and $Q$ is false. Exactly one of the following is true. Which one?",
+      "answerSpec": {
+        "options": [
+          { "id": "a", "label": "$P \\land Q$", "accessibleLabel": "P and Q." },
+          {
+            "id": "b",
+            "label": "$P \\to Q$",
+            "accessibleLabel": "If P then Q."
+          },
+          {
+            "id": "c",
+            "label": "$\\lnot P \\lor Q$",
+            "accessibleLabel": "Not P, or Q."
+          },
+          { "id": "d", "label": "$P \\lor Q$", "accessibleLabel": "P or Q." }
+        ],
+        "correctOptionIds": ["d"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Work out each connective's truth condition from the Explain section, one option at a time, using $P = \\text{true}$, $Q = \\text{false}$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$\\land$ needs both sides true. $\\to$ is false exactly when its left side is true and its right side is false — check whether that's the case here."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "(a) needs $Q$ true — it isn't. (b) has $P$ true and $Q$ false, which is the one case $\\to$ is false. (c) is $\\lnot P \\lor Q$, and both $\\lnot P$ and $Q$ are false here."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Only $P \\lor Q$ needs just one side true, and $P$ is true, so (d) is the true statement; (a), (b), and (c) are all false under this assignment."
+        }
+      ],
+      "solutionMarkdown": "With $P$ true and $Q$ false:\n\n- (a) $P \\land Q$ is **false**: conjunction needs both sides true, and $Q$ is false.\n- (b) $P \\to Q$ is **false**: this is exactly the one case a conditional fails — true antecedent, false consequent.\n- (c) $\\lnot P \\lor Q$ is **false**: $\\lnot P$ is false (since $P$ is true) and $Q$ is false, so neither side of the disjunction holds.\n- (d) $P \\lor Q$ is **true**: disjunction only needs one side true, and $P$ is true.\n\nOnly (d) is true.",
+      "concepts": ["conjunction", "disjunction", "conditional"],
+      "prerequisites": ["statement"],
+      "difficulty": 1,
+      "misconceptionTags": ["treating-disjunction-as-exclusive-or"]
+    },
+    {
+      "id": "pfmm-m1-l2-p2-translate-english-connective",
+      "version": 1,
+      "lessonId": "pfmm-m1-l2-compound-statements-and-connectives",
+      "type": "multiple_choice",
+      "promptMarkdown": "Let $E$ mean \"you enter\" and $T$ mean \"you have a ticket.\" Which symbolic statement correctly translates: \"You may enter only if you have a ticket\"?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$T \\to E$",
+            "accessibleLabel": "If you have a ticket, then you enter."
+          },
+          {
+            "id": "b",
+            "label": "$E \\to T$",
+            "accessibleLabel": "If you enter, then you have a ticket."
+          },
+          {
+            "id": "c",
+            "label": "$E \\land T$",
+            "accessibleLabel": "You enter and you have a ticket."
+          },
+          {
+            "id": "d",
+            "label": "$E \\lor T$",
+            "accessibleLabel": "You enter or you have a ticket."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "\"Only if\" states a *necessary* condition, not a sufficient one — it says what must be true for the first part to hold, not what guarantees it."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "\"$E$ only if $T$\" means: whenever $E$ happens, $T$ must also hold. That's a conditional — which direction?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "If entering ($E$) requires having a ticket ($T$), then entering is the condition that forces the ticket requirement: $E \\to T$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "\"$E$ only if $T$\" translates to $E \\to T$: entering without a ticket is exactly the case this conditional forbids, since it would make $E$ true and $T$ false."
+        }
+      ],
+      "solutionMarkdown": "\"$P$ only if $Q$\" is a standard idiom for $P \\to Q$: it says that $P$ being true forces $Q$ to be true, i.e. $P$ cannot hold without $Q$. Here $P$ is $E$ (\"you enter\") and $Q$ is $T$ (\"you have a ticket\"), so the translation is $E \\to T$. Option (a), $T \\to E$, reverses the direction and would instead mean \"having a ticket guarantees entry,\" which is a stronger and different claim.",
+      "concepts": ["conditional"],
+      "prerequisites": ["conditional"],
+      "difficulty": 1,
+      "misconceptionTags": ["reversing-conditional-direction"]
+    },
+    {
+      "id": "pfmm-m1-l2-p3-fill-truth-values",
+      "version": 1,
+      "lessonId": "pfmm-m1-l2-compound-statements-and-connectives",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Suppose $P$ is true and $Q$ is false. Fill in the truth value (T or F) of each compound statement.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "P → Q", "acceptedValues": ["F", "false"] },
+          { "id": "b2", "label": "P ∨ Q", "acceptedValues": ["T", "true"] },
+          { "id": "b3", "label": "¬P", "acceptedValues": ["F", "false"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Evaluate each connective independently using its truth condition from the Explain section — don't let one answer influence another."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$P \\to Q$ is false only when $P$ is true and $Q$ is false. $P \\lor Q$ needs only one true side. $\\lnot P$ flips $P$'s value."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "With $P$ true, $Q$ false: $P \\to Q$ hits its one false case. $P \\lor Q$ is true because $P$ alone is enough. $\\lnot P$ is false because $P$ is true."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$P \\to Q$ = F, $P \\lor Q$ = T, $\\lnot P$ = F."
+        }
+      ],
+      "solutionMarkdown": "With $P$ true and $Q$ false:\n\n- $P \\to Q$ is **F**: this is the one case a conditional is false — true antecedent, false consequent.\n- $P \\lor Q$ is **T**: disjunction only needs one true side, and $P$ supplies it.\n- $\\lnot P$ is **F**: negation flips $P$'s truth value, and $P$ is true, so $\\lnot P$ is false.",
+      "concepts": [
+        "conditional",
+        "disjunction",
+        "negation-connective",
+        "truth-table"
+      ],
+      "prerequisites": ["conditional", "disjunction", "negation-connective"],
+      "difficulty": 2,
+      "misconceptionTags": ["treating-conditional-as-symmetric"]
+    },
+    {
+      "id": "pfmm-m1-l2-p4-count-true-rows",
+      "version": 1,
+      "lessonId": "pfmm-m1-l2-compound-statements-and-connectives",
+      "type": "numeric",
+      "promptMarkdown": "A truth table for $P \\lor Q$ has 4 rows, one for each combination of truth values of $P$ and $Q$. In how many of those rows is $P \\lor Q$ true?",
+      "answerSpec": {
+        "correctValue": 3,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "List all four combinations of $P$ and $Q$: (T,T), (T,F), (F,T), (F,F), and evaluate $P \\lor Q$ for each."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$P \\lor Q$ is false in exactly one combination — the one where both $P$ and $Q$ are false."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "(T,T) → true, (T,F) → true, (F,T) → true, (F,F) → false. Count the trues."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Three of the four rows — every combination except (F,F) — make $P \\lor Q$ true."
+        }
+      ],
+      "solutionMarkdown": "Disjunction $P \\lor Q$ is false only when *both* $P$ and $Q$ are false, and true otherwise. Of the four combinations of truth values for $P$ and $Q$, exactly one — both false — makes $P \\lor Q$ false, so the other three make it true.",
+      "concepts": ["disjunction", "truth-table"],
+      "prerequisites": ["disjunction"],
+      "difficulty": 2,
+      "misconceptionTags": ["assuming-or-requires-both-true"]
+    },
+    {
+      "id": "pfmm-m1-l2-p5-order-conditional-negation-argument",
+      "version": 1,
+      "lessonId": "pfmm-m1-l2-compound-statements-and-connectives",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of the argument that $\\lnot(P \\to Q)$ is logically equivalent to $P \\land \\lnot Q$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "$P \\to Q$ is false in exactly one case: when $P$ is true and $Q$ is false."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "So $\\lnot(P \\to Q)$ is true in exactly that one case: $P$ true and $Q$ false."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "$P \\land \\lnot Q$ is also true in exactly that one case: $P$ true and $Q$ false."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since both statements are true in exactly the same case and false everywhere else, $\\lnot(P \\to Q)$ and $P \\land \\lnot Q$ are equivalent."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": [["s1", "s3", "s2", "s4"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This is an equivalence argument: show both statements are true in exactly the same cases."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "You need $P \\to Q$'s truth condition before you can talk about its negation — that has to come first."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Once you know when $\\lnot(P \\to Q)$ is true, and separately when $P \\land \\lnot Q$ is true, comparing them is the last step."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Start from $P \\to Q$'s one false case, negate it, evaluate $P \\land \\lnot Q$ in the same case, then conclude they match."
+        }
+      ],
+      "solutionMarkdown": "This is an equivalence proof by comparing truth conditions.\n\n1. First establish when $P \\to Q$ is false: exactly when $P$ is true and $Q$ is false (its only false case).\n2. Negating that: $\\lnot(P \\to Q)$ is true in exactly that same one case.\n3. Separately, $P \\land \\lnot Q$ is true exactly when $P$ is true and $Q$ is false — the same case, found independently.\n4. Since the two statements agree on every possible truth assignment, they're logically equivalent. (Steps 2 and 3 can be swapped since neither depends on the other, but step 1 must come first and step 4 must come last.)",
+      "concepts": ["conditional", "conjunction", "negation-connective"],
+      "prerequisites": ["conditional", "conjunction", "negation-connective"],
+      "difficulty": 3,
+      "misconceptionTags": ["negating-conditional-as-conjunction-of-negations"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": [
+      "conjunction",
+      "disjunction",
+      "negation-connective",
+      "conditional",
+      "truth-table"
+    ],
+    "notes": "Same plain-language 'developing'/'solid' snapshot as Lesson 1; Phase 3 tunable model applies uniformly across lessons once built."
+  }
+}

@@ -44,23 +44,25 @@ This satisfies the Phase 0 exit criterion of 6–8 modules.
 
 ## Module 1 lesson breakdown
 
-Module 1 is the only module with a fully authored lesson in the first vertical slice. Its lessons:
+All four planned Module 1 lessons are fully authored as of Phase 2 (20 problems total):
 
-1. **Statements, truth values, and quantifiers** — *fully authored for the first vertical slice (see `content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-01-statements-and-quantifiers.json`)*
-2. Compound statements and logical connectives *(planned, not yet authored)*
-3. Negation of compound and quantified statements *(planned, not yet authored)*
-4. Reading and writing formal definitions *(planned, not yet authored)*
+1. **Statements, truth values, and quantifiers** — `content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-01-statements-and-quantifiers.json`
+2. **Compound statements and logical connectives** — `content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-02-compound-statements-and-connectives.json`
+3. **Negating compound and quantified statements** — `content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-03-negating-compound-and-quantified-statements.json`
+4. **Reading and writing formal definitions** — `content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-04-reading-and-writing-formal-definitions.json`
 
-Only Lesson 1 is in scope for Phase 0/Phase 1. Lessons 2–4 are listed to show the module has a coherent arc, per the content quality checklist's expectation that prerequisites are linked, not to be built yet.
+Modules 2–8 remain unauthored; they're listed above to show the course has a coherent arc, per the content quality checklist's expectation that prerequisites are linked.
 
-## Lesson 1 summary
+## Lesson summaries
 
-- **Title:** Statements, Truth Values, and Quantifiers
-- **Learning objective:** Distinguish valid mathematical statements from non-statements, and correctly interpret, evaluate, and negate quantified statements using ∀ and ∃.
-- **Prerequisites:** None (course entry point).
-- **Concepts introduced:** `statement`, `truth-value`, `universal-quantifier`, `existential-quantifier`, `quantifier-negation`.
-- **Estimated time:** 15–20 minutes.
-- **Problems:** 5, covering multiple choice, symbolic negation, proof ordering, and counterexample construction (see the lesson template and content-authoring guide for format details).
+| # | Title | Objective | Concepts introduced | Problems |
+|---|---|---|---|---|
+| 1 | Statements, Truth Values, and Quantifiers | Distinguish statements from non-statements; interpret, evaluate, and negate $\forall$/$\exists$ statements. | `statement`, `truth-value`, `universal-quantifier`, `existential-quantifier`, `quantifier-negation` | 5 (multiple choice ×2, symbolic, proof ordering, counterexample) |
+| 2 | Compound Statements and Logical Connectives | Evaluate compound statements with $\land$, $\lor$, $\lnot$, $\to$; translate English to symbols. | `conjunction`, `disjunction`, `negation-connective`, `conditional`, `truth-table` | 5 (multiple choice ×2, fill-in-the-blank, numeric, proof ordering) |
+| 3 | Negating Compound and Quantified Statements | Apply De Morgan's laws and conditional negation, combined with quantifier negation, to mixed statements. | `de-morgans-laws`, `negation-of-conjunction`, `negation-of-disjunction`, `negation-of-conditional`, `mixed-quantifier-negation` | 5 (multiple choice ×2, fill-in-the-blank, proof ordering, numeric) |
+| 4 | Reading and Writing Formal Definitions | State and use the formal definitions of even, odd, and divisibility. | `formal-definition`, `even-integer`, `odd-integer`, `divisibility` | 5 (multiple choice ×2, fill-in-the-blank, counterexample, proof ordering) |
+
+Each problem has a full 4-step hint ladder, a worked solution, concept/prerequisite/misconception tags, and a deterministic `answerSpec`, per `docs/content-authoring-guide.md`. Adding a lesson only requires a new JSON file under `content/`; see `docs/architecture.md` for how the content loader discovers it automatically.
 
 ## Prerequisite structure across modules
 

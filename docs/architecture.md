@@ -1,4 +1,4 @@
-# Phase 1 architecture
+# Architecture (Phase 1, extended in Phase 2)
 
 ## Application
 
@@ -18,7 +18,16 @@ The Phase 0 lesson already includes symbolic negation, proof ordering, and a cou
 - Counterexample: the named `integer-square-not-greater` checker evaluates the stated predicate using `BigInt` after validating safe integer input. The added `checker` field makes execution explicit rather than interpreting English `checkerNotes`. The prompt, accepted answers, and solution have not changed, so its existing problem version is retained.
 - Numeric: an explicit absolute or relative tolerance. Relative tolerance at a zero reference accepts only zero. This generic input is available without adding a sixth exercise.
 
-To add a lesson using supported forms, author another JSON file and register its import in `src/lib/content.ts`; no UI or grading changes are required. Add course/module metadata to `content/catalog.json` as needed. New mathematical checker families or richer symbolic forms require explicit code and tests. A file-discovery authoring command is deferred to Phase 2.
+To add a lesson using supported forms, author another JSON file under `content/`; `src/lib/content-loader.ts` discovers and validates it automatically, so no import needs registering and no UI or grading changes are required. Add course/module metadata to `content/catalog.json` as needed. New mathematical checker families or richer symbolic forms require explicit code and tests.
+
+## Phase 2 additions
+
+- **File-discovery content loader.** `src/lib/content-loader.ts` walks `content/`, validates the catalog and every lesson JSON file with Zod, and cross-checks lesson/course/module references. `src/lib/content.ts` (server-only) calls it with `content/` at the repository root; `scripts/validate-content.ts` calls it standalone for authors and CI (`npm run validate:content`, wired into `npm run check`). A `ContentValidationError` names the offending file and every Zod issue, so invalid content fails with a specific, actionable message rather than a generic parse error.
+- **`proof_fill_blank`.** A new problem type: one or more labeled blanks, each with a list of accepted plain-text values matched case- and whitespace-insensitively. Rendered as labeled text inputs below the prompt, mirroring `proof_ordering`'s pattern of keeping structured input separate from the KaTeX-rendered prompt.
+- **Generalized counterexample checker.** `checker` is now one of a small, explicit enum (`counterexampleCheckerIds` in `schema.ts`) backed by a registry of pure integer-predicate functions in `grading.ts`, instead of a single hardcoded literal. Adding a new counterexample predicate means adding one entry to both, plus a unit test — never arbitrary author-supplied code.
+- **Problem-level analytics events.** `src/lib/analytics.ts` derives a typed `AnalyticsEvent` (`lesson_start`, `problem_view`, `answer_submit`, `hint_reveal`, `solution_reveal`, `lesson_complete`) from each state transition as a pure, unit-tested function, and `emitAnalyticsEvent` dispatches it as a `cinemath:analytics` DOM `CustomEvent` (plus a dev-mode console log) for a future analytics provider to subscribe to. There is no backend yet — this defines the event contract and proves it's derivable from state.
+- **Preview mode.** Visiting a lesson at `?preview=1` runs the exact learner UI without reading or writing `localStorage` (detected client-side, so the route stays statically generated) and shows a "PREVIEW" indicator, so an author can test a new or edited lesson without touching real learner progress or needing to clear storage between runs.
+- **Four fully authored Module 1 lessons, 20 problems total**, across six interaction types (`multiple_choice`, `symbolic`, `proof_ordering`, `counterexample_builder`, `numeric`, `proof_fill_blank`), satisfying the Phase 2 exit criterion of 20–30 authored problems and at least three production-ready interaction types.
 
 ## State and persistence
 
@@ -40,9 +49,9 @@ This is an anonymous local demo, not a secure examination system: reference answ
 
 ## Verification
 
-Unit tests cover every authored answer type, all quantifier combinations, alternative proof orders, numeric tolerances, malformed inputs, both counterexamples, reveal thresholds, progression, persistence recovery, version isolation, and summary semantics. A rendering test visits authored math and checks for KaTeX errors and MathML output.
+Unit tests cover every authored answer type, all quantifier combinations, alternative proof orders, numeric tolerances, malformed inputs, both counterexamples, reveal thresholds, progression, persistence recovery, version isolation, and summary semantics. A rendering test visits authored math and checks for KaTeX errors and MathML output. `tests/phase2.test.ts` adds `proof_fill_blank` grading (including case/whitespace-insensitive matching and rejection of incomplete or mismatched blanks), the two-entry counterexample checker registry, analytics event derivation for every action type, and content-loader failure modes against on-the-fly invalid-content fixtures.
 
-Playwright runs the production build at desktop and 360px mobile widths. It completes all five problems with hints, a solution reveal, incorrect and invalid answers, saved drafts, reloads, and a return to the course. It also exercises corrupt and blocked storage. Axe checks the course, introduction, problems, and completion, alongside viewport overflow and browser error checks. CI installs Chromium, runs the checks/build, and executes browser tests.
+Playwright runs the production build at desktop and 360px mobile widths. `e2e/lesson.spec.ts` completes Lesson 1's five problems with hints, a solution reveal, incorrect and invalid answers, saved drafts, reloads, and a return to the course, and exercises corrupt and blocked storage. `e2e/lesson2.spec.ts` completes Lesson 2's `proof_fill_blank` and `numeric` problems end to end and verifies preview mode neither persists nor requires the server to opt the route out of static generation. Axe checks the course, introduction, problems, and completion, alongside viewport overflow and browser error checks. CI installs Chromium, runs the checks/build, and executes browser tests.
 
 ## Deployment and release checklist
 

@@ -163,6 +163,30 @@ export function AnswerInput({
       </fieldset>
     );
   }
+  if (problem.type === "proof_fill_blank" && answer.kind === "blanks") {
+    return (
+      <fieldset className="fill-blanks" disabled={disabled}>
+        <legend>Fill in each blank</legend>
+        {problem.answerSpec.blanks.map((blank) => (
+          <label className="blank-label" key={blank.id}>
+            {blank.label}
+            <input
+              type="text"
+              value={answer.values[blank.id] ?? ""}
+              onChange={(e) =>
+                onChange({
+                  kind: "blanks",
+                  values: { ...answer.values, [blank.id]: e.target.value },
+                })
+              }
+              autoComplete="off"
+              placeholder="Type your answer"
+            />
+          </label>
+        ))}
+      </fieldset>
+    );
+  }
   if (answer.kind === "number")
     return (
       <fieldset disabled={disabled}>

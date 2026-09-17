@@ -1,4 +1,16 @@
-import type { Answer, Problem } from "./schema";
+import type { Answer, CounterexampleCheckerId, Problem } from "./schema";
+
+// Deliberately bounded set of integer predicates, not arbitrary code execution.
+const counterexampleCheckers: Record<
+  CounterexampleCheckerId,
+  (n: bigint) => boolean
+> = {
+  "integer-square-not-greater": (n) => n * n <= n,
+  "integer-even-with-even-square": (n) => {
+    const mod = ((n % 2n) + 2n) % 2n;
+    return mod === 0n && (n * n) % 2n === 0n;
+  },
+};
 
 // Deliberately bounded structured normal form, not a general symbolic algebra engine.
 export function quantifierSpec(expression: string) {
@@ -31,6 +43,13 @@ export function initialAnswer(problem: Problem): Answer {
       };
     case "symbolic":
       return { kind: "quantifiers", outer: "", inner: "", relation: "" };
+    case "proof_fill_blank":
+      return {
+        kind: "blanks",
+        values: Object.fromEntries(
+          problem.answerSpec.blanks.map((b) => [b.id, ""]),
+        ),
+      };
     default:
       return { kind: "number", value: "" };
   }
@@ -109,7 +128,27 @@ export function grade(problem: Problem, answer: Answer): Grade {
             "Enter a whole integer within the supported safe integer range.",
         };
       const n = BigInt(answer.value.trim());
-      correct = n * n <= n;
+      correct = counterexampleCheckers[problem.answerSpec.checker](n);
+      break;
+    }
+    case "proof_fill_blank": {
+      if (answer.kind !== "blanks")
+        return {
+          valid: false,
+          message: "Fill in every blank before checking.",
+        };
+      const blanks = problem.answerSpec.blanks;
+      const filled = blanks.every((b) => answer.values[b.id]?.trim());
+      if (!filled)
+        return {
+          valid: false,
+          message: "Fill in every blank before checking.",
+        };
+      correct = blanks.every((b) =>
+        b.acceptedValues
+          .map((v) => v.trim().toLowerCase())
+          .includes(answer.values[b.id]!.trim().toLowerCase()),
+      );
       break;
     }
     case "numeric": {
@@ -142,6 +181,8 @@ export function grade(problem: Problem, answer: Answer): Grade {
           counterexample_builder:
             "This integer does not disprove the claim. Try a boundary value.",
           numeric: "Not quite. Check your calculation and try again.",
+          proof_fill_blank:
+            "Not quite. Re-read the definition or rule each blank comes from.",
         }[problem.type],
   };
 }
