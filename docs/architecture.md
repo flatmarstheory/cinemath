@@ -1,4 +1,6 @@
-# Architecture (Phase 1, extended in Phase 2)
+# Architecture
+
+**Current Phase 3 implementation:** see [accounts, persistence, mastery, and deployment](phase-3.md). The descriptions below document the Phase 1/2 guest experience. Account mode adds an API and persistent SQLite storage and supersedes the former no-database deployment instructions.
 
 ## Application
 

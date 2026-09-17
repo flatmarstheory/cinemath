@@ -23,6 +23,14 @@ const progressSchema = z.object({
   stage: z.enum(["intro", "practice", "complete"]),
   index: z.number().int().nonnegative(),
   records: z.array(recordSchema),
+  reviewAttempts: z
+    .array(
+      z.object({
+        problemIndex: z.number().int().nonnegative(),
+        attempt: attemptSchema,
+      }),
+    )
+    .optional(),
 });
 export type Progress = z.infer<typeof progressSchema>;
 export type ProblemProgress = Progress["records"][number];
@@ -117,6 +125,13 @@ export function decodeProgress(lesson: Lesson, raw: string): Progress {
     .object({ contentSnapshot: z.unknown(), progress: progressSchema })
     .parse(JSON.parse(raw) as unknown);
   const progress = envelope.progress;
+  for (const entry of progress.reviewAttempts ?? []) {
+    const problem = lesson.problems[entry.problemIndex];
+    if (!problem) throw new Error("Unknown review problem");
+    const result = grade(problem, entry.attempt.answer);
+    if (!result.valid || result.correct !== entry.attempt.correct)
+      throw new Error("Invalid review attempt");
+  }
   if (
     JSON.stringify(envelope.contentSnapshot) !== JSON.stringify(lesson) ||
     progress.lessonId !== lesson.lessonId ||

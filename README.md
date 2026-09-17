@@ -6,14 +6,14 @@ Phase 1 implemented one anonymous, end-to-end lesson: **Statements, Truth Values
 
 ## Run locally
 
-Use Node.js 22.13+ (Node 24 LTS recommended) and npm.
+Use Node.js 24 and npm.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000). No environment variables, database, or accounts are required.
+Open [localhost:3000](http://localhost:3000). Guest practice needs no account. Account storage is initialized automatically in `data/cinemath.sqlite`. Set `CINEMATH_DB_PATH` to a persistent disk path for production; do not use an ephemeral serverless filesystem.
 
 ```sh
 npm run check          # TypeScript, lint, unit tests, formatting, content validation
@@ -36,7 +36,7 @@ Run `npm run build` before the browser tests. If Chromium cannot be downloaded, 
 - Attempts, drafts, hint use, solution reveals, and position survive reloads in the same browser. Each save includes the original content and problem versions. Storage failures are visible and do not block practice.
 - Accuracy means correct on the first valid attempt. The summary also reports total attempts, hints, solutions, and a conservative concept snapshot. Answers copied after a solution reveal do not count toward the snapshot's correct total.
 
-Progress is local to this browser and origin. Clearing browser data removes it; it does not sync across devices. Answer keys are delivered to the browser for this low-stakes demo. The solution gate is a learning interaction, not an anti-cheating boundary.
+Guest progress is local to this browser and origin. Account progress syncs across signed-in devices. The dashboard provides profiles, review settings, concept mastery, targeted practice, JSON export, and data/account deletion. Answer keys are delivered to the browser for this low-stakes demo. The solution gate is a learning interaction, not an anti-cheating boundary.
 
 ## Structure
 
@@ -49,6 +49,10 @@ Progress is local to this browser and origin. Clearing browser data removes it; 
 - [Architecture and deployment](docs/architecture.md): behavior, limitations, and deployment instructions.
 - [Roadmap](ROADMAP.md): phases and exit criteria.
 - [Product specification](docs/product-spec.md), [grading policy](docs/grading-policy.md), and [authoring guide](docs/content-authoring-guide.md): product and instructional constraints.
+
+## Phase 3
+
+Authentication, server-persisted progress, profiles, deterministic chronological mastery, resume, targeted review, and privacy controls are implemented. See [Phase 3 architecture and operations](docs/phase-3.md) for the exact mastery model, storage setup, concurrency behavior, and retention policy. Password recovery is not included; no email addresses are collected. Production hosting requires one Node instance with a persistent SQLite disk.
 
 ## Phase status
 

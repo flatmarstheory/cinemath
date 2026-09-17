@@ -17,6 +17,8 @@ import {
   type Action,
   type Progress,
 } from "@/lib/progress";
+import { accountAction, learnerData } from "@/lib/account-client";
+import { ReviewPractice } from "./review-practice";
 import { MathContent } from "./math-content";
 import { AnswerInput } from "./answer-input";
 import { analyticsEventFor, emitAnalyticsEvent } from "@/lib/analytics";
@@ -36,6 +38,11 @@ export function LessonPlayer({
   const [showTheory, setShowTheory] = useState(false);
   // Detected client-side (not via server searchParams) so this route stays statically generated.
   const [preview, setPreview] = useState(false);
+  const account = useRef<string | null>(null);
+  const revision = useRef(0);
+  const pending = useRef(Promise.resolve());
+  const failed = useRef(false);
+  const [reviewConcept, setReviewConcept] = useState<string | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     const isPreview =
@@ -50,25 +57,48 @@ export function LessonPlayer({
       );
       return;
     }
-    let loaded = newProgress(lesson);
-    let message = "Progress saves automatically in this browser.";
-    try {
-      const raw = localStorage.getItem(storageKey(lesson));
-      if (raw) {
+    let cancelled = false;
+    void learnerData()
+      .then((data) => {
+        if (cancelled) return;
+        account.current = data.account?.id || null;
+        setReviewConcept(
+          new URLSearchParams(window.location.search).get("review"),
+        );
+        let loaded = newProgress(lesson);
+        let message = "Progress saves automatically in this browser.";
         try {
-          loaded = decodeProgress(lesson, raw);
+          const saved = data.progress?.find(
+            (row) => row.lesson_id === lesson.lessonId,
+          );
+          revision.current = saved?.revision || 0;
+          const raw = data.account
+            ? saved?.value
+            : localStorage.getItem(storageKey(lesson));
+          if (raw) {
+            try {
+              loaded = decodeProgress(lesson, raw);
+            } catch {
+              message =
+                "Your saved progress could not be restored. A fresh lesson is ready; the old save is kept until you continue.";
+            }
+          }
         } catch {
           message =
-            "Your saved progress could not be restored. A fresh lesson is ready; the old save is kept until you continue.";
+            "Browser storage is unavailable. You can still learn, but progress will not survive a reload.";
         }
-      }
-    } catch {
-      message =
-        "Browser storage is unavailable. You can still learn, but progress will not survive a reload.";
-    }
-    // Browser-only storage is hydrated after the server's identical loading screen.
-    setProgress(loaded);
-    setStorageMessage(message);
+        // Browser-only storage is hydrated after the server's identical loading screen.
+        setProgress(loaded);
+        setStorageMessage(
+          data.account ? "Progress saves to your account." : message,
+        );
+      })
+      .catch((error) => {
+        if (!cancelled) setStorageMessage(error.message);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [lesson]);
   useEffect(() => {
     heading.current?.focus();
@@ -76,18 +106,37 @@ export function LessonPlayer({
   if (!progress)
     return (
       <main id="main" className="empty-state" aria-busy="true">
-        Opening your lesson…
+        {storageMessage || "Opening your lesson…"}
       </main>
     );
 
-  const act = (action: Action) => {
-    const problemBefore = lesson.problems[progress.index];
-    const next = transition(lesson, progress, action);
-    setProgress(next);
-    emitAnalyticsEvent(
-      analyticsEventFor(lesson, problemBefore, progress, next, action),
-    );
+  const persist = (next: Progress) => {
     if (preview) return;
+    if (failed.current) return;
+    if (account.current) {
+      setStorageMessage("Saving to your account…");
+      pending.current = pending.current.then(async () => {
+        if (failed.current) return;
+        try {
+          const result = await accountAction({
+            action: "progress",
+            accountId: account.current,
+            lessonId: lesson.lessonId,
+            value: encodeProgress(lesson, next),
+            revision: revision.current,
+          });
+          revision.current = result.revision;
+          setStorageMessage("Progress saved to your account.");
+        } catch (error) {
+          failed.current = true;
+          setStorageMessage(
+            (error as Error).message +
+              " Keep this tab open; changes are not saved. Reload to reconnect.",
+          );
+        }
+      });
+      return;
+    }
     try {
       localStorage.setItem(storageKey(lesson), encodeProgress(lesson, next));
       setStorageMessage("Progress saves automatically in this browser.");
@@ -97,6 +146,28 @@ export function LessonPlayer({
       );
     }
   };
+  const act = (action: Action) => {
+    const problemBefore = lesson.problems[progress.index];
+    const next = transition(lesson, progress, action);
+    setProgress(next);
+    emitAnalyticsEvent(
+      analyticsEventFor(lesson, problemBefore, progress, next, action),
+    );
+    persist(next);
+  };
+  if (reviewConcept && !preview)
+    return (
+      <ReviewPractice
+        lesson={lesson}
+        concept={reviewConcept}
+        progress={progress}
+        message={storageMessage}
+        onSave={(next) => {
+          setProgress(next);
+          persist(next);
+        }}
+      />
+    );
   const record = progress.records[progress.index];
   const problem = lesson.problems[progress.index];
   const solved = record.attempts.some((a) => a.correct);

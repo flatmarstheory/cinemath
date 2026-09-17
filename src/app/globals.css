@@ -122,6 +122,13 @@ button {
   letter-spacing: 0.14em;
   line-height: 1.6;
 }
+.header-dashboard-link {
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 3px;
+}
 .edition {
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -823,6 +830,124 @@ select {
   border: 1px solid var(--line);
   background: var(--white);
   border-radius: 4px;
+}
+.dashboard-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 72px 5% 100px;
+}
+.dashboard-header {
+  max-width: 650px;
+  margin-bottom: 44px;
+}
+.dashboard-overview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 70px;
+}
+.dashboard-overview div {
+  background: var(--white);
+  padding: 24px;
+}
+.dashboard-overview strong {
+  display: block;
+  font:
+    400 2.4rem/1 Georgia,
+    "Times New Roman",
+    serif;
+}
+.dashboard-overview span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.dashboard-section {
+  border-top: 1px solid var(--line);
+  padding: 36px 0 48px;
+}
+.dashboard-list {
+  display: grid;
+  gap: 12px;
+}
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 22px 24px;
+}
+.dashboard-card h3 {
+  margin-bottom: 5px;
+}
+.dashboard-card p {
+  margin-bottom: 0;
+}
+.review-list,
+.mastery-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.review-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+  gap: 20px;
+}
+.review-list strong,
+.review-list small {
+  display: block;
+  text-transform: capitalize;
+}
+.review-list small {
+  color: var(--muted);
+}
+.mastery-list li {
+  display: grid;
+  grid-template-columns: 1fr minmax(120px, 2fr) 54px;
+  gap: 18px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+  text-transform: capitalize;
+}
+.mastery-list progress {
+  width: 100%;
+}
+.settings-section {
+  max-width: 620px;
+}
+.settings-section label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.settings-section input:not([type="checkbox"]) {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 10px 12px;
+}
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400 !important;
+}
+.danger-button {
+  border: 1px solid #9a493b;
+  background: transparent;
+  color: #80392e;
+  padding: 10px 15px;
+  font-weight: 700;
 }
 .mastery h2 {
   font-size: 1.7rem;

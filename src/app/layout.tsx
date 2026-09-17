@@ -27,12 +27,15 @@ export default function RootLayout({
           <span className="header-note">
             A little clarity. A deeper understanding.
           </span>
+          <Link href="/dashboard" className="header-dashboard-link">
+            Your dashboard
+          </Link>
           <span className="edition">THE FIRST CHAPTER</span>
         </header>
         {children}
         <footer className="site-footer">
           <span>CineMath · Mathematics, made active.</span>
-          <span>No account needed. Your progress stays in this browser.</span>
+          <span>Practice as a guest, or sign in to save across devices.</span>
         </footer>
       </body>
     </html>
