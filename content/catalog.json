@@ -1,0 +1,11 @@
+{
+  "slug": "proofs-for-modern-mathematics",
+  "title": "Proofs for Modern Mathematics",
+  "description": "Learn to read, evaluate, and write proofs. Build mathematical confidence one carefully chosen problem at a time.",
+  "modules": [
+    {
+      "slug": "module-01-mathematical-language",
+      "title": "Mathematical language"
+    }
+  ]
+}

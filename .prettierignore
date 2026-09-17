@@ -1,0 +1,19 @@
+node_modules
+.next
+out
+package-lock.json
+playwright-report
+test-results
+coverage
+next-env.d.ts
+*.tsbuildinfo
+# Preserve the original Phase 0 planning documents.
+ROADMAP.md
+CLAUDE.md
+docs/content-authoring-guide.md
+docs/course-map.md
+docs/grading-policy.md
+docs/lesson-template.md
+docs/pedagogical-principles.md
+docs/product-spec.md
+docs/wireframes.md

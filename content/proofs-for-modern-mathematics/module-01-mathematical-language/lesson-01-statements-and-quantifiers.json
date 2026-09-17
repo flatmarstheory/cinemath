@@ -3,8 +3,11 @@
   "courseSlug": "proofs-for-modern-mathematics",
   "moduleSlug": "module-01-mathematical-language",
   "title": "Statements, Truth Values, and Quantifiers",
-  "learningObjective": "Distinguish valid mathematical statements from non-statements, and correctly interpret, evaluate, and negate quantified statements using \u2200 and \u2203.",
-  "estimatedMinutes": { "min": 15, "max": 20 },
+  "learningObjective": "Distinguish valid mathematical statements from non-statements, and correctly interpret, evaluate, and negate quantified statements using ∀ and ∃.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 20
+  },
   "prerequisites": [],
   "conceptsIntroduced": [
     "statement",
@@ -21,10 +24,10 @@
       "bodyMarkdown": "Consider three sentences:\n\n1. \"$x + 1 = 5$\"\n2. \"For every real number $x$, $x + 1 = 5$.\"\n3. \"Is $7$ prime?\"\n\nOnly one of these has a definite, unambiguous truth value on its own. Which one, and why do the other two fail?"
     },
     "explain": {
-      "bodyMarkdown": "A **statement** (or *proposition*) is a sentence that is either true or false, but not both, and not dependent on an unspecified variable. \"$x + 1 = 5$\" is not a statement by itself \u2014 its truth depends on the unspecified value of $x$. It becomes a statement once every variable is bound, either by assigning it a value or by **quantifying** it.\n\nThe two quantifiers you need for this lesson:\n\n- **Universal quantifier** $\\forall$ (\"for all\"): $\\forall x \\in S,\\ P(x)$ is true exactly when $P(x)$ holds for *every* element $x$ of $S$.\n- **Existential quantifier** $\\exists$ (\"there exists\"): $\\exists x \\in S,\\ P(x)$ is true exactly when $P(x)$ holds for *at least one* element $x$ of $S$.\n\nQuestions (\"Is 7 prime?\") and value judgments (\"Math is beautiful\") are never statements, regardless of quantifiers, because they don't assert something with an objective truth value.\n\n**Negating quantifiers.** To negate a quantified statement, flip the quantifier and negate what follows it:\n\n$$\\neg(\\forall x \\in S,\\ P(x)) \\iff \\exists x \\in S,\\ \\neg P(x)$$\n$$\\neg(\\exists x \\in S,\\ P(x)) \\iff \\forall x \\in S,\\ \\neg P(x)$$\n\nThis rule applies one quantifier at a time, from the outside in, when a statement has more than one quantifier."
+      "bodyMarkdown": "A **statement** (or *proposition*) is a sentence that is either true or false, but not both, and not dependent on an unspecified variable. \"$x + 1 = 5$\" is not a statement by itself — its truth depends on the unspecified value of $x$. It becomes a statement once every variable is bound, either by assigning it a value or by **quantifying** it.\n\nThe two quantifiers you need for this lesson:\n\n- **Universal quantifier** $\\forall$ (\"for all\"): $\\forall x \\in S,\\ P(x)$ is true exactly when $P(x)$ holds for *every* element $x$ of $S$.\n- **Existential quantifier** $\\exists$ (\"there exists\"): $\\exists x \\in S,\\ P(x)$ is true exactly when $P(x)$ holds for *at least one* element $x$ of $S$.\n\nQuestions (\"Is 7 prime?\") and value judgments (\"Math is beautiful\") are never statements, regardless of quantifiers, because they don't assert something with an objective truth value.\n\n**Negating quantifiers.** To negate a quantified statement, flip the quantifier and negate what follows it:\n\n$$\\neg(\\forall x \\in S,\\ P(x)) \\iff \\exists x \\in S,\\ \\neg P(x)$$\n$$\\neg(\\exists x \\in S,\\ P(x)) \\iff \\forall x \\in S,\\ \\neg P(x)$$\n\nThis rule applies one quantifier at a time, from the outside in, when a statement has more than one quantifier."
     },
     "reflect": {
-      "bodyMarkdown": "The most common error in this lesson is treating an **open sentence** (one with a free, unbound variable) as if it already has a truth value \u2014 it doesn't until every variable is quantified or assigned. The second most common error is negating a quantified statement by only negating the inner predicate and forgetting to flip the quantifier itself. Both errors show up again once you start writing proofs, so it's worth being precise here."
+      "bodyMarkdown": "The most common error in this lesson is treating an **open sentence** (one with a free, unbound variable) as if it already has a truth value — it doesn't until every variable is quantified or assigned. The second most common error is negating a quantified statement by only negating the inner predicate and forgetting to flip the quantifier itself. Both errors show up again once you start writing proofs, so it's worth being precise here."
     }
   },
   "problems": [
@@ -36,20 +39,48 @@
       "promptMarkdown": "Which of the following is a mathematical statement (has a definite, unambiguous truth value)?",
       "answerSpec": {
         "options": [
-          { "id": "a", "label": "$x^2 \\geq 0$" },
-          { "id": "b", "label": "For every real number $x$, $x^2 \\geq 0$." },
-          { "id": "c", "label": "Is 7 a prime number?" },
-          { "id": "d", "label": "Mathematics is beautiful." }
+          {
+            "id": "a",
+            "label": "$x^2 \\geq 0$",
+            "accessibleLabel": "x squared is greater than or equal to zero."
+          },
+          {
+            "id": "b",
+            "label": "For every real number $x$, $x^2 \\geq 0$.",
+            "accessibleLabel": "For every real number x, x squared is greater than or equal to zero."
+          },
+          {
+            "id": "c",
+            "label": "Is 7 a prime number?",
+            "accessibleLabel": "Is seven a prime number?"
+          },
+          {
+            "id": "d",
+            "label": "Mathematics is beautiful.",
+            "accessibleLabel": "Mathematics is beautiful."
+          }
         ],
         "correctOptionIds": ["b"]
       },
       "hints": [
-        { "order": 1, "bodyMarkdown": "Ask, for each option, whether it is true or false *right now*, with no further information supplied." },
-        { "order": 2, "bodyMarkdown": "A sentence with a free variable (one that isn't quantified or assigned) is not yet a statement \u2014 see the definition of *statement* in the Explain section." },
-        { "order": 3, "bodyMarkdown": "Option (a) has a free variable $x$. Options (c) and (d) aren't assertions with a truth value at all. Only one option quantifies its variable and asserts something objectively true or false." },
-        { "order": 4, "bodyMarkdown": "Option (b) binds $x$ with $\\forall$, turning the open sentence in (a) into a statement \u2014 and a true one, since every real number squared is non-negative. (a) is an open sentence, (c) is a question, (d) is an opinion." }
+        {
+          "order": 1,
+          "bodyMarkdown": "Ask, for each option, whether it is true or false *right now*, with no further information supplied."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "A sentence with a free variable (one that isn't quantified or assigned) is not yet a statement — see the definition of *statement* in the Explain section."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (a) has a free variable $x$. Options (c) and (d) aren't assertions with a truth value at all. Only one option quantifies its variable and asserts something objectively true or false."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (b) binds $x$ with $\\forall$, turning the open sentence in (a) into a statement — and a true one, since every real number squared is non-negative. (a) is an open sentence, (c) is a question, (d) is an opinion."
+        }
       ],
-      "solutionMarkdown": "Option (a), \"$x^2 \\geq 0$\", is an **open sentence**: its truth depends on the unspecified $x$, so it isn't a statement yet. Option (c) is a question, and option (d) is a value judgment \u2014 neither asserts something with an objective truth value. Option (b), \"For every real number $x$, $x^2 \\geq 0$\", binds $x$ with the universal quantifier, making it a full statement, and a true one: the square of any real number is non-negative.",
+      "solutionMarkdown": "Option (a), \"$x^2 \\geq 0$\", is an **open sentence**: its truth depends on the unspecified $x$, so it isn't a statement yet. Option (c) is a question, and option (d) is a value judgment — neither asserts something with an objective truth value. Option (b), \"For every real number $x$, $x^2 \\geq 0$\", binds $x$ with the universal quantifier, making it a full statement, and a true one: the square of any real number is non-negative.",
       "concepts": ["statement", "universal-quantifier"],
       "prerequisites": [],
       "difficulty": 1,
@@ -63,24 +94,59 @@
       "promptMarkdown": "Exactly one of the following statements is true. Which one?",
       "answerSpec": {
         "options": [
-          { "id": "a", "label": "$\\forall x \\in \\mathbb{R},\\ x^2 > 0$" },
-          { "id": "b", "label": "$\\exists x \\in \\mathbb{R},\\ x^2 = -1$" },
-          { "id": "c", "label": "$\\forall x \\in \\mathbb{R},\\ x^2 \\geq 0$" },
-          { "id": "d", "label": "$\\exists x \\in \\mathbb{Z},\\ x + 1 = x$" }
+          {
+            "id": "a",
+            "label": "$\\forall x \\in \\mathbb{R},\\ x^2 > 0$",
+            "accessibleLabel": "For every real number x, x squared is strictly greater than zero."
+          },
+          {
+            "id": "b",
+            "label": "$\\exists x \\in \\mathbb{R},\\ x^2 = -1$",
+            "accessibleLabel": "There exists a real number x whose square equals negative one."
+          },
+          {
+            "id": "c",
+            "label": "$\\forall x \\in \\mathbb{R},\\ x^2 \\geq 0$",
+            "accessibleLabel": "For every real number x, x squared is greater than or equal to zero."
+          },
+          {
+            "id": "d",
+            "label": "$\\exists x \\in \\mathbb{Z},\\ x + 1 = x$",
+            "accessibleLabel": "There exists an integer x such that x plus one equals x."
+          }
         ],
         "correctOptionIds": ["c"]
       },
       "hints": [
-        { "order": 1, "bodyMarkdown": "For a $\\forall$ statement to be true, it must hold for *every* element, with no exceptions \u2014 check small or boundary values like $0$ and negative numbers." },
-        { "order": 2, "bodyMarkdown": "For an $\\exists$ statement to be true, you only need to find *one* witness that makes the predicate hold; if you're confident none exists, the statement is false." },
-        { "order": 3, "bodyMarkdown": "Test $x = 0$ against options (a) and (c). Test whether any real number squares to a negative number for (b). Test whether $x + 1 = x$ can ever hold for (d)." },
-        { "order": 4, "bodyMarkdown": "(a) fails at $x=0$ since $0^2 = 0 \\not> 0$. (b) is false: no real number squares to $-1$. (d) is false: $x+1=x$ has no solution. (c) holds for every real $x$, including $0$, so it's the true statement." }
+        {
+          "order": 1,
+          "bodyMarkdown": "For a $\\forall$ statement to be true, it must hold for *every* element, with no exceptions — check small or boundary values like $0$ and negative numbers."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "For an $\\exists$ statement to be true, you only need to find *one* witness that makes the predicate hold; if you're confident none exists, the statement is false."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Test $x = 0$ against options (a) and (c). Test whether any real number squares to a negative number for (b). Test whether $x + 1 = x$ can ever hold for (d)."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "(a) fails at $x=0$ since $0^2 = 0 \\not> 0$. (b) is false: no real number squares to $-1$. (d) is false: $x+1=x$ has no solution. (c) holds for every real $x$, including $0$, so it's the true statement."
+        }
       ],
       "solutionMarkdown": "Check each option against its quantifier:\n\n- (a) $\\forall x \\in \\mathbb{R}, x^2 > 0$ is **false**: at $x = 0$, $x^2 = 0$, which is not $> 0$.\n- (b) $\\exists x \\in \\mathbb{R}, x^2 = -1$ is **false**: a real number squared is never negative.\n- (c) $\\forall x \\in \\mathbb{R}, x^2 \\geq 0$ is **true**: the square of any real number is non-negative, with no exceptions.\n- (d) $\\exists x \\in \\mathbb{Z}, x + 1 = x$ is **false**: this equation simplifies to $1 = 0$, which never holds.\n\nOnly (c) is true.",
-      "concepts": ["universal-quantifier", "existential-quantifier", "truth-value"],
+      "concepts": [
+        "universal-quantifier",
+        "existential-quantifier",
+        "truth-value"
+      ],
       "prerequisites": ["statement"],
       "difficulty": 2,
-      "misconceptionTags": ["forgetting-universal-needs-no-exceptions", "existential-needs-only-one-witness"]
+      "misconceptionTags": [
+        "forgetting-universal-needs-no-exceptions",
+        "existential-needs-only-one-witness"
+      ]
     },
     {
       "id": "pfmm-m1-l1-p3-negate-quantified-statement",
@@ -93,16 +159,35 @@
         "equivalenceForm": "quantifier-negation-normal-form"
       },
       "hints": [
-        { "order": 1, "bodyMarkdown": "Negate one quantifier at a time, from the outside in: the outermost quantifier here is $\\forall x$." },
-        { "order": 2, "bodyMarkdown": "Recall the rule from the Explain section: $\\neg(\\forall x, P(x)) \\iff \\exists x, \\neg P(x)$, and the matching rule for $\\exists$." },
-        { "order": 3, "bodyMarkdown": "After flipping $\\forall x$ to $\\exists x$, you still have $\\neg(\\exists y \\in \\mathbb{R}, x+y=0)$ left to negate \u2014 apply the rule again to that inner part." },
-        { "order": 4, "bodyMarkdown": "Flipping $\\forall x$ gives $\\exists x$. Flipping the inner $\\exists y \\in \\mathbb{R}, x+y=0$ gives $\\forall y \\in \\mathbb{R}, x+y \\neq 0$. Combined: $\\exists x \\in \\mathbb{R}, \\forall y \\in \\mathbb{R}, x+y \\neq 0$." }
+        {
+          "order": 1,
+          "bodyMarkdown": "Negate one quantifier at a time, from the outside in: the outermost quantifier here is $\\forall x$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Recall the rule from the Explain section: $\\neg(\\forall x, P(x)) \\iff \\exists x, \\neg P(x)$, and the matching rule for $\\exists$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "After flipping $\\forall x$ to $\\exists x$, you still have $\\neg(\\exists y \\in \\mathbb{R}, x+y=0)$ left to negate — apply the rule again to that inner part."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Flipping $\\forall x$ gives $\\exists x$. Flipping the inner $\\exists y \\in \\mathbb{R}, x+y=0$ gives $\\forall y \\in \\mathbb{R}, x+y \\neq 0$. Combined: $\\exists x \\in \\mathbb{R}, \\forall y \\in \\mathbb{R}, x+y \\neq 0$."
+        }
       ],
-      "solutionMarkdown": "Apply the negation rule to each quantifier in turn, working from the outside in.\n\nStart: $\\neg\\big(\\forall x \\in \\mathbb{R},\\ \\exists y \\in \\mathbb{R},\\ x+y=0\\big)$\n\nStep 1 \u2014 flip the outer $\\forall$: $\\exists x \\in \\mathbb{R},\\ \\neg\\big(\\exists y \\in \\mathbb{R},\\ x+y=0\\big)$\n\nStep 2 \u2014 flip the inner $\\exists$: $\\exists x \\in \\mathbb{R},\\ \\forall y \\in \\mathbb{R},\\ \\neg(x+y=0)$\n\nStep 3 \u2014 simplify the innermost negation: $\\exists x \\in \\mathbb{R},\\ \\forall y \\in \\mathbb{R},\\ x+y \\neq 0$\n\n(As a sanity check, the original statement is true \u2014 every real $x$ has a $y=-x$ with $x+y=0$ \u2014 so its negation should be false, and indeed no real $x$ makes $x+y\\neq0$ hold for *every* $y$.)",
-      "concepts": ["quantifier-negation", "universal-quantifier", "existential-quantifier"],
+      "solutionMarkdown": "Apply the negation rule to each quantifier in turn, working from the outside in.\n\nStart: $\\neg\\big(\\forall x \\in \\mathbb{R},\\ \\exists y \\in \\mathbb{R},\\ x+y=0\\big)$\n\nStep 1 — flip the outer $\\forall$: $\\exists x \\in \\mathbb{R},\\ \\neg\\big(\\exists y \\in \\mathbb{R},\\ x+y=0\\big)$\n\nStep 2 — flip the inner $\\exists$: $\\exists x \\in \\mathbb{R},\\ \\forall y \\in \\mathbb{R},\\ \\neg(x+y=0)$\n\nStep 3 — simplify the innermost negation: $\\exists x \\in \\mathbb{R},\\ \\forall y \\in \\mathbb{R},\\ x+y \\neq 0$\n\n(As a sanity check, the original statement is true — every real $x$ has a $y=-x$ with $x+y=0$ — so its negation should be false, and indeed no real $x$ makes $x+y\\neq0$ hold for *every* $y$.)",
+      "concepts": [
+        "quantifier-negation",
+        "universal-quantifier",
+        "existential-quantifier"
+      ],
       "prerequisites": ["universal-quantifier", "existential-quantifier"],
       "difficulty": 3,
-      "misconceptionTags": ["negating-without-flipping-quantifier", "negating-only-outermost-quantifier"]
+      "misconceptionTags": [
+        "negating-without-flipping-quantifier",
+        "negating-only-outermost-quantifier"
+      ]
     },
     {
       "id": "pfmm-m1-l1-p4-order-existence-proof",
@@ -112,21 +197,45 @@
       "promptMarkdown": "Arrange the following steps into a valid proof of the statement:\n\n$$\\exists n \\in \\mathbb{Z} \\text{ such that } n \\text{ is even and } n > 100$$",
       "answerSpec": {
         "steps": [
-          { "id": "s1", "textMarkdown": "Let $n = 102$." },
-          { "id": "s2", "textMarkdown": "$n$ is an integer greater than $100$, since $102 > 100$." },
-          { "id": "s3", "textMarkdown": "$n$ is even, since $102 = 2 \\cdot 51$." },
-          { "id": "s4", "textMarkdown": "Therefore, there exists an even integer greater than $100$." }
+          {
+            "id": "s1",
+            "textMarkdown": "Let $n = 102$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "$n$ is an integer greater than $100$, since $102 > 100$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "$n$ is even, since $102 = 2 \\cdot 51$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Therefore, there exists an even integer greater than $100$."
+          }
         ],
         "correctOrder": ["s1", "s2", "s3", "s4"],
         "alternateValidOrders": [["s1", "s3", "s2", "s4"]]
       },
       "hints": [
-        { "order": 1, "bodyMarkdown": "This is an existence ($\\exists$) proof, so the standard strategy is: name a specific witness, then check it satisfies every required property." },
-        { "order": 2, "bodyMarkdown": "The statement requires two properties of $n$: being even, and being greater than $100$. Both need to be verified about the same witness before you can conclude." },
-        { "order": 3, "bodyMarkdown": "Naming the witness must come first \u2014 you can't check properties of a number you haven't introduced yet. The concluding sentence must come last." },
-        { "order": 4, "bodyMarkdown": "Correct order: name the witness ($n=102$), then verify each required property (greater than 100, and even, in either order), then conclude." }
+        {
+          "order": 1,
+          "bodyMarkdown": "This is an existence ($\\exists$) proof, so the standard strategy is: name a specific witness, then check it satisfies every required property."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The statement requires two properties of $n$: being even, and being greater than $100$. Both need to be verified about the same witness before you can conclude."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Naming the witness must come first — you can't check properties of a number you haven't introduced yet. The concluding sentence must come last."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: name the witness ($n=102$), then verify each required property (greater than 100, and even, in either order), then conclude."
+        }
       ],
-      "solutionMarkdown": "An existence proof follows a fixed strategy: **name a specific witness, then verify it has every property the statement requires, then conclude**.\n\n1. \"Let $n = 102$.\" \u2014 introduces the witness. Must come first; nothing can be verified about a number that hasn't been named.\n2. \"$n$ is an integer greater than $100$, since $102 > 100$.\" \u2014 verifies the first required property.\n3. \"$n$ is even, since $102 = 2 \\cdot 51$.\" \u2014 verifies the second required property. Steps 2 and 3 can be swapped without breaking the proof, since neither depends on the other.\n4. \"Therefore, there exists an even integer greater than $100$.\" \u2014 the conclusion, restating the original claim now that a witness satisfying it has been exhibited. Must come last.",
+      "solutionMarkdown": "An existence proof follows a fixed strategy: **name a specific witness, then verify it has every property the statement requires, then conclude**.\n\n1. \"Let $n = 102$.\" — introduces the witness. Must come first; nothing can be verified about a number that hasn't been named.\n2. \"$n$ is an integer greater than $100$, since $102 > 100$.\" — verifies the first required property.\n3. \"$n$ is even, since $102 = 2 \\cdot 51$.\" — verifies the second required property. Steps 2 and 3 can be swapped without breaking the proof, since neither depends on the other.\n4. \"Therefore, there exists an even integer greater than $100$.\" — the conclusion, restating the original claim now that a witness satisfying it has been exhibited. Must come last.",
       "concepts": ["existential-quantifier", "statement"],
       "prerequisites": ["existential-quantifier"],
       "difficulty": 2,
@@ -139,25 +248,45 @@
       "type": "counterexample_builder",
       "promptMarkdown": "The following statement is false:\n\n$$\\forall n \\in \\mathbb{Z},\\ n^2 > n$$\n\nConstruct a counterexample: give a specific integer $n$ for which $n^2 > n$ is false (i.e., $n^2 \\leq n$).",
       "answerSpec": {
-        "constraints": ["n must be an integer (n \u2208 \u2124)"],
-        "predicateDescription": "The submitted n must satisfy n^2 \u2264 n (i.e., it must violate n^2 > n).",
+        "constraints": ["n must be an integer (n ∈ ℤ)"],
+        "predicateDescription": "The submitted n must satisfy n^2 ≤ n (i.e., it must violate n^2 > n).",
+        "checker": "integer-square-not-greater",
         "checkerNotes": "Parse the learner's submitted integer n, then evaluate n*n <= n. Accept if true. Valid answers include n = 0 and n = 1; any other integer satisfying n^2 <= n is also accepted."
       },
       "hints": [
-        { "order": 1, "bodyMarkdown": "To disprove a $\\forall$ statement, you only need one value of $n$ where the inner predicate fails \u2014 this mirrors the negation rule from the Explain section." },
-        { "order": 2, "bodyMarkdown": "You need an integer where $n^2$ is *not* strictly greater than $n$, i.e. where $n^2 \\leq n$. Try small integers, including $0$, $1$, and negative numbers." },
-        { "order": 3, "bodyMarkdown": "Check $n = 0$: is $0^2 > 0$? Check $n = 1$: is $1^2 > 1$? One of these (in fact both) fails the original statement." },
-        { "order": 4, "bodyMarkdown": "$n = 0$ works: $0^2 = 0$, and $0 > 0$ is false, so the statement fails for $n=0$. ($n=1$ also works, since $1^2=1$ and $1>1$ is false.)" }
+        {
+          "order": 1,
+          "bodyMarkdown": "To disprove a $\\forall$ statement, you only need one value of $n$ where the inner predicate fails — this mirrors the negation rule from the Explain section."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "You need an integer where $n^2$ is *not* strictly greater than $n$, i.e. where $n^2 \\leq n$. Try small integers, including $0$, $1$, and negative numbers."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Check $n = 0$: is $0^2 > 0$? Check $n = 1$: is $1^2 > 1$? One of these (in fact both) fails the original statement."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n = 0$ works: $0^2 = 0$, and $0 > 0$ is false, so the statement fails for $n=0$. ($n=1$ also works, since $1^2=1$ and $1>1$ is false.)"
+        }
       ],
-      "solutionMarkdown": "By the negation rule, $\\neg(\\forall n \\in \\mathbb{Z}, n^2 > n)$ is equivalent to $\\exists n \\in \\mathbb{Z}, n^2 \\leq n$ \u2014 so disproving the universal statement means exhibiting one integer where the inequality fails.\n\nTake $n = 0$: then $n^2 = 0$, and $0 > 0$ is false. So $n = 0$ is a valid counterexample.\n\n($n = 1$ also works: $1^2 = 1$, and $1 > 1$ is false. Negative integers don't work as counterexamples here, since for $n < 0$, $n^2$ is positive and strictly greater than the negative $n$.)",
+      "solutionMarkdown": "By the negation rule, $\\neg(\\forall n \\in \\mathbb{Z}, n^2 > n)$ is equivalent to $\\exists n \\in \\mathbb{Z}, n^2 \\leq n$ — so disproving the universal statement means exhibiting one integer where the inequality fails.\n\nTake $n = 0$: then $n^2 = 0$, and $0 > 0$ is false. So $n = 0$ is a valid counterexample.\n\n($n = 1$ also works: $1^2 = 1$, and $1 > 1$ is false. Negative integers don't work as counterexamples here, since for $n < 0$, $n^2$ is positive and strictly greater than the negative $n$.)",
       "concepts": ["universal-quantifier", "quantifier-negation"],
       "prerequisites": ["universal-quantifier", "quantifier-negation"],
       "difficulty": 3,
-      "misconceptionTags": ["assuming-universal-statement-true-without-checking-boundary-cases"]
+      "misconceptionTags": [
+        "assuming-universal-statement-true-without-checking-boundary-cases"
+      ]
     }
   ],
   "master": {
-    "conceptsUpdated": ["statement", "universal-quantifier", "existential-quantifier", "quantifier-negation"],
+    "conceptsUpdated": [
+      "statement",
+      "universal-quantifier",
+      "existential-quantifier",
+      "quantifier-negation"
+    ],
     "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
   }
 }

@@ -65,13 +65,15 @@ Notes:
 
 | Type | `answerSpec` shape |
 |---|---|
-| `multiple_choice` | `{ options: {id, label}[], correctOptionIds: string[] }` |
+| `multiple_choice` | `{ options: {id, label, accessibleLabel}[], correctOptionIds: string[] }` |
 | `numeric` | `{ correctValue: number, tolerance: number, toleranceType: "absolute" \| "relative" }` |
 | `symbolic` | `{ correctExpression: string, equivalenceForm: string }` — `equivalenceForm` names the normalization used for comparison (e.g., `"propositional-normal-form"`). |
 | `proof_ordering` | `{ steps: {id, textMarkdown}[], correctOrder: string[], alternateValidOrders?: string[][] }` |
 | `proof_fill_blank` | `{ blanks: {id, acceptedValues: string[]}[] }` |
 | `counterexample_builder` | `{ constraints: string[], predicateDescription: string, checkerNotes: string }` — `checkerNotes` describes, in plain language, exactly how a programmatic checker will validate a submission; the actual checker is implemented in Phase 2. |
 | `proof_free_response` | Not used until Phase 4; when introduced, `answerSpec` holds the rubric reference, not a gradable spec. |
+
+For multiple-choice options, `accessibleLabel` is an authored spoken-language description used as the form control name. Keep `label` as Markdown with KaTeX math for the visible option. The Phase 1 counterexample also requires `checker: "integer-square-not-greater"` to select its explicit deterministic validator; English `checkerNotes` are documentation, not executable rules.
 
 Every `answerSpec` must be sufficient on its own for deterministic grading — see `docs/grading-policy.md`.
 
