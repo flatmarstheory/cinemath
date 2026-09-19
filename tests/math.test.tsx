@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-import { lessons } from "../src/lib/content";
+import { lessons, glossaries } from "../src/lib/content";
 import { MathContent } from "../src/components/math-content";
 
 it("renders every authored mathematical string without KaTeX errors and with MathML", () => {
@@ -16,5 +16,6 @@ it("renders every authored mathematical string without KaTeX errors and with Mat
       Object.values(value).forEach(visit);
   }
   visit(lessons);
+  visit(glossaries);
   expect(mathCount).toBeGreaterThan(30);
 });

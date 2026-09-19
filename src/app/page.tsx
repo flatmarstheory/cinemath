@@ -1,8 +1,18 @@
-import { course, lessons } from "@/lib/content";
+import { courses, lessons as allLessons } from "@/lib/content";
+import { CourseSwitcher } from "@/components/course-switcher";
+import { notFound } from "next/navigation";
 import { MathContent } from "@/components/math-content";
 import { LessonLink } from "@/components/lesson-link";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ course?: string }>;
+}) {
+  const { course: slug } = await searchParams;
+  const course = slug ? courses.find((c) => c.slug === slug) : courses[0];
+  if (!course) notFound();
+  const lessons = allLessons.filter((l) => l.courseSlug === course.slug);
   return (
     <main id="main" className="course-page">
       <section className="hero">
@@ -44,10 +54,19 @@ export default function Home() {
         </div>
       </section>
       <section id="course" className="course-section">
+        <CourseSwitcher courses={courses} selected={course.slug} path="/" />
         <div className="section-intro">
           <p className="eyebrow">YOUR STARTING POINT</p>
           <h2>{course.title}</h2>
           <p>{course.description}</p>
+          <div className="course-tools">
+            <a href={`/course/prerequisites?course=${course.slug}`}>
+              Prerequisite map ↗
+            </a>
+            <a href={`/certificate?course=${course.slug}`}>
+              Course certificate ↗
+            </a>
+          </div>
           <div className="course-details">
             <span>
               {String(course.modules.length).padStart(2, "0")} modules

@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "CineMath · Learn by reasoning",
   description:
-    "A hands-on, proof-based mathematics course: eight modules, progressive hints, and room to think.",
+    "Learn proofs and linear algebra through active reasoning, progressive hints, and room to think.",
 };
 export default function RootLayout({
   children,
@@ -28,6 +28,7 @@ export default function RootLayout({
             A little clarity. A deeper understanding.
           </span>
           <nav className="header-nav" aria-label="Course tools">
+            <Link href="/#course">Courses</Link>
             <Link href="/course/prerequisites">Map</Link>
             <Link href="/glossary">Glossary</Link>
             <Link href="/search">Search</Link>
@@ -36,7 +37,7 @@ export default function RootLayout({
               Your dashboard
             </Link>
           </nav>
-          <span className="edition">THE FULL COURSE</span>
+          <span className="edition">ROOM TO THINK</span>
         </header>
         {children}
         <footer className="site-footer">

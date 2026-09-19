@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { hasSameOrigin } from "@/lib/request-origin";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { store, hashToken, allowAiFeedback } from "@/lib/account-store";
 import { lessons } from "@/lib/content";
 import { proofWordCount } from "@/lib/grading";
-import {
-  gradeProofAttempt,
-  proofFeedbackEnabled,
-} from "@/lib/ai-feedback";
+import { gradeProofAttempt, proofFeedbackEnabled } from "@/lib/ai-feedback";
 
 export const runtime = "nodejs";
 const cookie = "cinemath_session";
@@ -39,7 +37,7 @@ function sessionAccountId(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  if (req.headers.get("origin") !== req.nextUrl.origin)
+  if (!hasSameOrigin(req))
     return response({ error: "Invalid request origin." }, 403);
   if (Number(req.headers.get("content-length") || 0) > 100000)
     return response({ error: "Request too large." }, 413);
@@ -74,7 +72,9 @@ export async function POST(req: NextRequest) {
     `ip:${req.headers.get("x-forwarded-for")?.split(",")[0].trim() || "unknown"}`;
   if (!allowAiFeedback(store(), limitKey))
     return response(
-      { error: "You've reached today's AI feedback limit. Try again tomorrow." },
+      {
+        error: "You've reached today's AI feedback limit. Try again tomorrow.",
+      },
       429,
     );
 

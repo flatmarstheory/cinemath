@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { hasSameOrigin } from "@/lib/request-origin";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { store, allowAnalytics } from "@/lib/account-store";
@@ -57,7 +58,7 @@ const purgeSchema = z.object({
 // localStorage progress), so the origin check below is defense-in-depth
 // against noise, not an authorization boundary.
 export async function POST(req: NextRequest) {
-  if (req.headers.get("origin") !== req.nextUrl.origin)
+  if (!hasSameOrigin(req))
     return response({ error: "Invalid request origin." }, 403);
   if (Number(req.headers.get("content-length") || 0) > 5000)
     return response({ error: "Request too large." }, 413);

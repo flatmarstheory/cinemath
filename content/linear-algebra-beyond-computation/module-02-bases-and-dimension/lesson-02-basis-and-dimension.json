@@ -1,0 +1,266 @@
+{
+  "lessonId": "labc-m2-basis-and-dimension",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-02-bases-and-dimension",
+  "title": "A basis makes coordinates unique",
+  "kind": "checkpoint",
+  "status": "published",
+  "learningObjective": "Use the basis criterion to justify coordinates and dimension.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-span", "la-independence"],
+  "conceptsIntroduced": ["la-basis", "la-dimension"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "What separate claims are expressed by spanning and independence?"
+    },
+    "encounter": {
+      "bodyMarkdown": "A location needs two numbers in the plane. Why do two parallel reference arrows fail to provide a coordinate system?"
+    },
+    "explain": {
+      "bodyMarkdown": "A basis is both spanning and independent. Spanning gives existence of a coordinate representation; independence gives uniqueness: subtract two representations and use the zero relation. In a finite-dimensional space all bases have the same size, the dimension. Consequently a list of $n$ vectors in an $n$-dimensional space is a basis if it spans, or equivalently if it is independent. In $P_2$, the list $(1,x,x^2)$ is a basis, so the dimension is three, despite the degree bound being two. The zero space has dimension zero."
+    },
+    "reflect": {
+      "bodyMarkdown": "Count basis vectors, not coordinates in a particular drawing or the maximum polynomial degree. The basis theorem requires a finite-dimensional space and the right list length."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m2-basis-and-dimension-p1",
+      "version": 1,
+      "lessonId": "labc-m2-basis-and-dimension",
+      "type": "multiple_choice",
+      "promptMarkdown": "Why does a basis give exactly one representation for each vector?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Independence gives existence and spanning gives uniqueness.",
+            "accessibleLabel": "Independence gives existence and spanning gives uniqueness."
+          },
+          {
+            "id": "b",
+            "label": "Spanning gives existence and independence gives uniqueness.",
+            "accessibleLabel": "Spanning gives existence and independence gives uniqueness."
+          },
+          {
+            "id": "c",
+            "label": "Any spanning list gives uniqueness.",
+            "accessibleLabel": "Any spanning list gives uniqueness."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Separate existence from uniqueness."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Compare two representations by subtracting them."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Independence rules out nonzero coefficients in their difference."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Spanning supplies at least one expression. The difference of two expressions is a zero relation, so independence forces equal coefficients."
+        }
+      ],
+      "solutionMarkdown": "Spanning supplies at least one expression. The difference of two expressions is a zero relation, so independence forces equal coefficients.",
+      "concepts": ["la-basis", "la-dimension"],
+      "prerequisites": ["la-span", "la-independence"],
+      "difficulty": 1,
+      "misconceptionTags": ["basis-and-dimension-definition-confusion"]
+    },
+    {
+      "id": "labc-m2-basis-and-dimension-p2",
+      "version": 1,
+      "lessonId": "labc-m2-basis-and-dimension",
+      "type": "numeric",
+      "promptMarkdown": "What is $\\dim P_3$, the real polynomials of degree at most three?",
+      "answerSpec": {
+        "correctValue": 4,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Count the coefficients that can be chosen independently."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use one monomial for each allowed degree."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Degrees run from zero through three."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The basis is $(1,x,x^2,x^3)$, with four elements. Include the constant term."
+        }
+      ],
+      "solutionMarkdown": "The basis is $(1,x,x^2,x^3)$, with four elements. Include the constant term.",
+      "concepts": ["la-basis", "la-dimension"],
+      "prerequisites": ["la-span", "la-independence"],
+      "difficulty": 2,
+      "misconceptionTags": ["basis-and-dimension-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m2-basis-and-dimension-p3",
+      "version": 1,
+      "lessonId": "labc-m2-basis-and-dimension",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which ordered list is a basis of $\\mathbb R^2$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$((1,0),(2,0))$.",
+            "accessibleLabel": "((1,0),(2,0))."
+          },
+          {
+            "id": "b",
+            "label": "$((1,0),(0,1),(1,1))$.",
+            "accessibleLabel": "((1,0),(0,1),(1,1))."
+          },
+          {
+            "id": "c",
+            "label": "$((1,1),(1,-1))$.",
+            "accessibleLabel": "((1,1),(1,-1))."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Check both span and independence."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "In dimension two, two independent vectors suffice."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "For the third list, adding and subtracting coordinate equations isolates the coefficients."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The third list is independent: its zero relation forces both coefficients to vanish. Two independent vectors in the plane form a basis. The first list cannot span, and the second is redundant."
+        }
+      ],
+      "solutionMarkdown": "The third list is independent: its zero relation forces both coefficients to vanish. Two independent vectors in the plane form a basis. The first list cannot span, and the second is redundant.",
+      "concepts": ["la-basis", "la-dimension"],
+      "prerequisites": ["la-span", "la-independence"],
+      "difficulty": 2,
+      "misconceptionTags": ["basis-and-dimension-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m2-basis-and-dimension-p4",
+      "version": 1,
+      "lessonId": "labc-m2-basis-and-dimension",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "In the ordered basis $B=((1,1),(1,-1))$, write $(4,2)=a(1,1)+b(1,-1)$. Enter its coordinates.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "a",
+            "label": "First coordinate",
+            "acceptedValues": ["3"]
+          },
+          {
+            "id": "b",
+            "label": "Second coordinate",
+            "acceptedValues": ["1"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Match the ordinary coordinates of the vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Expand the proposed basis combination."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Adding the two equations gives $2a=6$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Solve $a+b=4$, $a-b=2$: adding gives $a=3$, then $b=1$. Coordinates depend on the ordered basis."
+        }
+      ],
+      "solutionMarkdown": "Solve $a+b=4$, $a-b=2$: adding gives $a=3$, then $b=1$. Coordinates depend on the ordered basis.",
+      "concepts": ["la-basis", "la-dimension"],
+      "prerequisites": ["la-span", "la-independence"],
+      "difficulty": 3,
+      "misconceptionTags": ["basis-and-dimension-condition-confusion"]
+    },
+    {
+      "id": "labc-m2-basis-and-dimension-p5",
+      "version": 1,
+      "lessonId": "labc-m2-basis-and-dimension",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove uniqueness of basis coordinates.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $v=\\sum_i a_i b_i=\\sum_i c_i b_i$ for a basis $(b_i)$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Subtract to get $\\sum_i(a_i-c_i)b_i=0$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Independence of the basis forces every $a_i-c_i=0$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Hence $a_i=c_i$ for all $i$, so the coordinates are unique."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Compare two possible coordinate lists."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "A basis is independent."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Subtraction produces a relation to which independence applies."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The strategy is to turn equality of representations into a zero relation. Independence then gives coordinate-by-coordinate equality."
+        }
+      ],
+      "solutionMarkdown": "The strategy is to turn equality of representations into a zero relation. Independence then gives coordinate-by-coordinate equality.",
+      "concepts": ["la-basis", "la-dimension"],
+      "prerequisites": ["la-span", "la-independence"],
+      "difficulty": 3,
+      "misconceptionTags": ["basis-and-dimension-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-basis", "la-dimension"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

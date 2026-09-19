@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { CourseSwitcher } from "./course-switcher";
 import { useEffect, useState } from "react";
 import type { Course } from "@/lib/content-loader";
 import type { Lesson } from "@/lib/schema";
@@ -9,9 +10,11 @@ import { learnerData } from "@/lib/account-client";
 import { defaultProfile, readProfile } from "@/lib/learner-data";
 
 export function Certificate({
+  courses,
   course,
   lessons,
 }: {
+  courses: Course[];
   course: Course;
   lessons: Lesson[];
 }) {
@@ -65,10 +68,15 @@ export function Certificate({
         <div className="dashboard-header">
           <p className="eyebrow">COURSE COMPLETION</p>
           <h1>Not quite yet</h1>
+          <CourseSwitcher
+            courses={courses}
+            selected={course.slug}
+            path="/certificate"
+          />
           <p className="completion-lede">
-            Your shareable completion certificate unlocks once every lesson
-            in {course.title} is complete. You&apos;ve finished {done} of{" "}
-            {total} so far.
+            Your shareable completion certificate unlocks once every lesson in{" "}
+            {course.title} is complete. You&apos;ve finished {done} of {total}{" "}
+            so far.
           </p>
         </div>
         <progress value={done} max={total} aria-label="Course progress" />
@@ -85,23 +93,28 @@ export function Certificate({
       <div className="dashboard-header no-print">
         <p className="eyebrow">COURSE COMPLETION</p>
         <h1>Your certificate is ready</h1>
+        <CourseSwitcher
+          courses={courses}
+          selected={course.slug}
+          path="/certificate"
+        />
         <p className="completion-lede">
-          Print this page or save it as a PDF to keep or share a record of
-          your work. This certifies course completion on CineMath, not an
-          accredited or third-party-verified credential.
+          Print this page or save it as a PDF to keep or share a record of your
+          work. This certifies course completion on CineMath, not an accredited
+          or third-party-verified credential.
         </p>
         <button className="button" onClick={() => window.print()}>
           Print / Save as PDF
         </button>
       </div>
       <section className="certificate" aria-label="Certificate of completion">
-        <p className="certificate-eyebrow">CineMath · Certificate of Completion</p>
+        <p className="certificate-eyebrow">
+          CineMath · Certificate of Completion
+        </p>
         <h2 className="certificate-name">
           {displayName || "A CineMath learner"}
         </h2>
-        <p className="certificate-body">
-          has completed every lesson of
-        </p>
+        <p className="certificate-body">has completed every lesson of</p>
         <h3 className="certificate-course">{course.title}</h3>
         <p className="certificate-meta">
           {total} lessons ·{" "}

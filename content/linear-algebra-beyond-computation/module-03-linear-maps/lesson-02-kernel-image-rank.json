@@ -1,0 +1,261 @@
+{
+  "lessonId": "labc-m3-kernel-image-rank",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-03-linear-maps",
+  "title": "What a map loses and what it reaches",
+  "kind": "checkpoint",
+  "status": "published",
+  "learningObjective": "Use kernel, image, and rank–nullity to explain injectivity and solvability.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-linear-map", "la-dimension"],
+  "conceptsIntroduced": ["la-kernel", "la-image", "la-rank-nullity"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "A linear map sends zero to zero. Can it send anything else there?"
+    },
+    "encounter": {
+      "bodyMarkdown": "The map $T(x,y,z)=(x+y,z)$ reaches every point of the plane, but different triples have the same image. How much information has it lost?"
+    },
+    "explain": {
+      "bodyMarkdown": "The kernel is $\\{v:T(v)=0\\}$ and the image is $\\{T(v):v\\in V\\}$. Both are subspaces, of the domain and codomain respectively. A map is injective exactly when its kernel is zero: $T(u)=T(v)$ means $u-v\\in\\ker T$. It is surjective exactly when its image is the entire codomain. Rank–nullity states $\\dim V=\\dim\\ker T+\\dim\\operatorname{im}T$ for a finite-dimensional domain. One proof extends a kernel basis to a domain basis; the images of the added vectors form an image basis. If $T(x_0)=b$, every solution is $x_0+k$ with $k\\in\\ker T$."
+    },
+    "reflect": {
+      "bodyMarkdown": "Rank and nullity add to the dimension of the domain. Having a small kernel concerns uniqueness, while having a large image concerns existence."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m3-kernel-image-rank-p1",
+      "version": 1,
+      "lessonId": "labc-m3-kernel-image-rank",
+      "type": "multiple_choice",
+      "promptMarkdown": "For $T(x,y,z)=(x+y,z)$, what is the kernel?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$\\{(t,-t,0):t\\in\\mathbb R\\}$.",
+            "accessibleLabel": "(t,-t,0):tinreal numbers."
+          },
+          {
+            "id": "b",
+            "label": "$\\{(t,t,0):t\\in\\mathbb R\\}$.",
+            "accessibleLabel": "(t,t,0):tinreal numbers."
+          },
+          {
+            "id": "c",
+            "label": "$\\mathbb R^2$.",
+            "accessibleLabel": "real numbers^2."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Solve the equation that the output is zero."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The kernel consists of domain vectors."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The two equations are $x+y=0$ and $z=0$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Set both output coordinates to zero: $x+y=0$ and $z=0$. Thus $(x,y,z)=(t,-t,0)$."
+        }
+      ],
+      "solutionMarkdown": "Set both output coordinates to zero: $x+y=0$ and $z=0$. Thus $(x,y,z)=(t,-t,0)$.",
+      "concepts": ["la-kernel", "la-image", "la-rank-nullity"],
+      "prerequisites": ["la-linear-map", "la-dimension"],
+      "difficulty": 1,
+      "misconceptionTags": ["kernel-image-rank-definition-confusion"]
+    },
+    {
+      "id": "labc-m3-kernel-image-rank-p2",
+      "version": 1,
+      "lessonId": "labc-m3-kernel-image-rank",
+      "type": "numeric",
+      "promptMarkdown": "A linear map from a five-dimensional space has rank three. What is its nullity?",
+      "answerSpec": {
+        "correctValue": 2,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Find the missing dimension."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use rank–nullity with the domain dimension."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Subtract the rank from five."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Rank–nullity gives $5=3+\\dim\\ker T$, so the nullity is two."
+        }
+      ],
+      "solutionMarkdown": "Rank–nullity gives $5=3+\\dim\\ker T$, so the nullity is two.",
+      "concepts": ["la-kernel", "la-image", "la-rank-nullity"],
+      "prerequisites": ["la-linear-map", "la-dimension"],
+      "difficulty": 2,
+      "misconceptionTags": ["kernel-image-rank-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m3-kernel-image-rank-p3",
+      "version": 1,
+      "lessonId": "labc-m3-kernel-image-rank",
+      "type": "multiple_choice",
+      "promptMarkdown": "For a linear map, which condition is equivalent to injectivity?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "The image is zero.",
+            "accessibleLabel": "The image is zero."
+          },
+          {
+            "id": "b",
+            "label": "The kernel consists only of zero.",
+            "accessibleLabel": "The kernel consists only of zero."
+          },
+          {
+            "id": "c",
+            "label": "The rank equals the codomain dimension.",
+            "accessibleLabel": "The rank equals the codomain dimension."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Translate equal outputs into a zero output."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use linearity on a difference."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "A nonzero kernel vector produces a collision with zero."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "A collision gives $T(u-v)=0$. If the kernel is zero, $u-v=0$, so inputs are equal. Conversely an injective map cannot send a nonzero vector to zero."
+        }
+      ],
+      "solutionMarkdown": "A collision gives $T(u-v)=0$. If the kernel is zero, $u-v=0$, so inputs are equal. Conversely an injective map cannot send a nonzero vector to zero.",
+      "concepts": ["la-kernel", "la-image", "la-rank-nullity"],
+      "prerequisites": ["la-linear-map", "la-dimension"],
+      "difficulty": 2,
+      "misconceptionTags": ["kernel-image-rank-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m3-kernel-image-rank-p4",
+      "version": 1,
+      "lessonId": "labc-m3-kernel-image-rank",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "If $T(x_0)=b$ and $k\\in\\ker T$, then $T(x_0+k)=b+\\boxed{\\phantom{0}}$. Enter the kernel contribution.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "kernel",
+            "label": "Kernel contribution",
+            "acceptedValues": ["0"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Use the meaning of membership in the kernel."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Expand the output of a sum."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The image of the kernel vector is zero."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Linearity gives $T(x_0+k)=T(x_0)+T(k)=b+0=b$. This explains the whole affine family of solutions."
+        }
+      ],
+      "solutionMarkdown": "Linearity gives $T(x_0+k)=T(x_0)+T(k)=b+0=b$. This explains the whole affine family of solutions.",
+      "concepts": ["la-kernel", "la-image", "la-rank-nullity"],
+      "prerequisites": ["la-linear-map", "la-dimension"],
+      "difficulty": 3,
+      "misconceptionTags": ["kernel-image-rank-condition-confusion"]
+    },
+    {
+      "id": "labc-m3-kernel-image-rank-p5",
+      "version": 1,
+      "lessonId": "labc-m3-kernel-image-rank",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove that a linear map with zero kernel is injective.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Assume $\\ker T=\\{0\\}$ and suppose $T(u)=T(v)$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Subtract and use linearity to obtain $T(u-v)=0$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "The kernel assumption gives $u-v=0$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Thus $u=v$, establishing injectivity."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Begin with equal outputs."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Linearity allows subtraction inside the map."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Their difference must belong to the zero kernel."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Turn a potential collision into a kernel vector, then use the hypothesis to rule out a difference between the inputs."
+        }
+      ],
+      "solutionMarkdown": "Turn a potential collision into a kernel vector, then use the hypothesis to rule out a difference between the inputs.",
+      "concepts": ["la-kernel", "la-image", "la-rank-nullity"],
+      "prerequisites": ["la-linear-map", "la-dimension"],
+      "difficulty": 3,
+      "misconceptionTags": ["kernel-image-rank-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-kernel", "la-image", "la-rank-nullity"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

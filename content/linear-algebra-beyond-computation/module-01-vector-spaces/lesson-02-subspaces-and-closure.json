@@ -1,0 +1,266 @@
+{
+  "lessonId": "labc-m1-subspaces-and-closure",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-01-vector-spaces",
+  "title": "Subspaces: a test that proves something",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Use the subspace test to distinguish linear constraints from affine ones.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-vector-space"],
+  "conceptsIntroduced": ["la-subspace"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Which vector must belong to every vector space? What does closure under scalar multiplication demand?"
+    },
+    "encounter": {
+      "bodyMarkdown": "The parallel lines $x+y=0$ and $x+y=1$ have the same shape. Why can only one inherit the vector-space structure of the plane?"
+    },
+    "explain": {
+      "bodyMarkdown": "A subset $W$ of a real vector space is a subspace if it contains zero and $au+bv\\in W$ whenever $u,v\\in W$ and $a,b\\in\\mathbb R$. This combined closure condition gives addition and scalar multiplication; the other axioms are inherited. Homogeneous linear constraints survive linear combinations. A translated constraint such as $x+y=1$ usually fails even the zero test. Intersections of subspaces are subspaces; unions need not be."
+    },
+    "reflect": {
+      "bodyMarkdown": "Passing the zero test is necessary but not sufficient. A proof of closure uses arbitrary elements; one successful example does not prove a universal statement."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m1-subspaces-and-closure-p1",
+      "version": 1,
+      "lessonId": "labc-m1-subspaces-and-closure",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which subset of $\\mathbb R^2$ is a subspace?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$x+y=1$.",
+            "accessibleLabel": "x+y=1."
+          },
+          {
+            "id": "b",
+            "label": "$x+y=0$.",
+            "accessibleLabel": "x+y=0."
+          },
+          {
+            "id": "c",
+            "label": "$x\\geq0$.",
+            "accessibleLabel": "x is at least 0."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Test zero and arbitrary linear combinations."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Homogeneous linear equations are preserved under linear combinations."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "For two vectors with coordinate sum zero, the new sum is $a\\cdot0+b\\cdot0$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The homogeneous equation is preserved by all linear combinations. The translated line excludes zero; the half-plane fails multiplication by negative scalars."
+        }
+      ],
+      "solutionMarkdown": "The homogeneous equation is preserved by all linear combinations. The translated line excludes zero; the half-plane fails multiplication by negative scalars.",
+      "concepts": ["la-subspace"],
+      "prerequisites": ["la-vector-space"],
+      "difficulty": 1,
+      "misconceptionTags": ["subspaces-and-closure-definition-confusion"]
+    },
+    {
+      "id": "labc-m1-subspaces-and-closure-p2",
+      "version": 1,
+      "lessonId": "labc-m1-subspaces-and-closure",
+      "type": "numeric",
+      "promptMarkdown": "The set $W=\\{(x,y):xy=0\\}$ contains $u=(1,0)$ and $v=(0,1)$. Compute the product of the coordinates of $u+v$.",
+      "answerSpec": {
+        "correctValue": 1,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Test whether the proposed sum stays in the set."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Add the two vectors coordinatewise."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The sum has both coordinates equal to one."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The sum is $(1,1)$, whose coordinate product is $1$, so it lies outside $W$. This disproves closure under addition."
+        }
+      ],
+      "solutionMarkdown": "The sum is $(1,1)$, whose coordinate product is $1$, so it lies outside $W$. This disproves closure under addition.",
+      "concepts": ["la-subspace"],
+      "prerequisites": ["la-vector-space"],
+      "difficulty": 2,
+      "misconceptionTags": ["subspaces-and-closure-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m1-subspaces-and-closure-p3",
+      "version": 1,
+      "lessonId": "labc-m1-subspaces-and-closure",
+      "type": "multiple_choice",
+      "promptMarkdown": "If $U$ and $W$ are subspaces, which set is always a subspace?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$U\\cup W$.",
+            "accessibleLabel": "Ucup W."
+          },
+          {
+            "id": "b",
+            "label": "$U\\cap W$.",
+            "accessibleLabel": "Ucap W."
+          },
+          {
+            "id": "c",
+            "label": "The complement of $U$.",
+            "accessibleLabel": "The complement of U."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Find a construction preserving both membership conditions."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Apply closure separately in each subspace."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "A vector in the intersection belongs to each set at once."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Zero lies in the intersection. Any linear combination of vectors in both sets remains in both sets. The coordinate axes show that a union can fail closure."
+        }
+      ],
+      "solutionMarkdown": "Zero lies in the intersection. Any linear combination of vectors in both sets remains in both sets. The coordinate axes show that a union can fail closure.",
+      "concepts": ["la-subspace"],
+      "prerequisites": ["la-vector-space"],
+      "difficulty": 2,
+      "misconceptionTags": ["subspaces-and-closure-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m1-subspaces-and-closure-p4",
+      "version": 1,
+      "lessonId": "labc-m1-subspaces-and-closure",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "For $W=\\{(x,y,z):x-2y+z=0\\}$, take $u,v\\in W$. The defining expression for $au+bv$ is $a\\cdot\\boxed{\\phantom{0}}+b\\cdot\\boxed{\\phantom{0}}$. Enter the two values.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "u",
+            "label": "Value for u",
+            "acceptedValues": ["0"]
+          },
+          {
+            "id": "v",
+            "label": "Value for v",
+            "acceptedValues": ["0"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Evaluate the constraint on each original vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use the assumption that both vectors belong to the set."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Each defining expression equals the right side of the constraint."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Each original vector satisfies the homogeneous constraint, so both expressions are zero. Their linear combination is zero too."
+        }
+      ],
+      "solutionMarkdown": "Each original vector satisfies the homogeneous constraint, so both expressions are zero. Their linear combination is zero too.",
+      "concepts": ["la-subspace"],
+      "prerequisites": ["la-vector-space"],
+      "difficulty": 3,
+      "misconceptionTags": ["subspaces-and-closure-condition-confusion"]
+    },
+    {
+      "id": "labc-m1-subspaces-and-closure-p5",
+      "version": 1,
+      "lessonId": "labc-m1-subspaces-and-closure",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove that the intersection of two subspaces is a subspace.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $U,W$ be subspaces; their intersection contains zero."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Choose $u,v\\in U\\cap W$ and real scalars $a,b$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Closure in $U$ and in $W$ puts $au+bv$ in both sets."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Thus $au+bv\\in U\\cap W$; the subspace test applies."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Establish the two requirements of the subspace test."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use closure in each of the original subspaces."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The same linear combination belongs to both sets."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Zero belongs to both sets. For arbitrary intersection elements, closure in each original subspace proves closure in their intersection."
+        }
+      ],
+      "solutionMarkdown": "Zero belongs to both sets. For arbitrary intersection elements, closure in each original subspace proves closure in their intersection.",
+      "concepts": ["la-subspace"],
+      "prerequisites": ["la-vector-space"],
+      "difficulty": 3,
+      "misconceptionTags": ["subspaces-and-closure-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-subspace"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

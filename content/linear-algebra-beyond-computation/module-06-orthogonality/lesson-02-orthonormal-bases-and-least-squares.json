@@ -1,0 +1,297 @@
+{
+  "lessonId": "labc-m6-orthonormal-bases-and-least-squares",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-06-orthogonality",
+  "title": "From orthonormal bases to least squares",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Explain least-squares solutions through orthogonal projection onto a column space.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": [
+    "la-projection",
+    "la-orthogonality",
+    "la-coordinates",
+    "la-kernel"
+  ],
+  "conceptsIntroduced": ["la-least-squares"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "A closest-point residual is orthogonal to the entire target subspace. How can a basis reduce that condition to finitely many equations?"
+    },
+    "encounter": {
+      "bodyMarkdown": "Three measurements may not fit a model exactly. The best fit is not an arbitrary compromise: its residual is perpendicular to every direction the model can produce."
+    },
+    "explain": {
+      "bodyMarkdown": "Gram–Schmidt builds an orthonormal basis from an independent list: subtract projections onto earlier unit vectors, then normalize the nonzero residual. For orthonormal columns $q_i$, projection is $\\sum_i\\langle b,q_i\\rangle q_i$. For a real matrix $A$, the vectors $Ax$ fill its column space. Minimizing $\\|Ax-b\\|^2$ is therefore projection, characterized by $A^T(Ax-b)=0$, the normal equations. If the columns are independent, $A^TA$ is invertible because $x^TA^TAx=\\|Ax\\|^2>0$ for nonzero $x$. If columns are dependent, the closest output is still unique but its coefficients need not be."
+    },
+    "reflect": {
+      "bodyMarkdown": "Distinguish the fitted vector from the parameter vector. Orthogonal projection is unique even when redundant model columns produce several coefficient lists."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m6-orthonormal-bases-and-least-squares-p1",
+      "version": 1,
+      "lessonId": "labc-m6-orthonormal-bases-and-least-squares",
+      "type": "multiple_choice",
+      "promptMarkdown": "In Gram–Schmidt, what follows subtracting the projections onto earlier orthonormal vectors?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Normalize the remaining nonzero vector.",
+            "accessibleLabel": "Normalize the remaining nonzero vector."
+          },
+          {
+            "id": "b",
+            "label": "Add the projections again.",
+            "accessibleLabel": "Add the projections again."
+          },
+          {
+            "id": "c",
+            "label": "Always discard the remaining vector.",
+            "accessibleLabel": "Always discard the remaining vector."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Separate removal of old directions from setting the length."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "An orthonormal vector must be orthogonal and have unit norm."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Subtracting projections achieves only the first condition."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The residual is orthogonal to the earlier vectors. For independent input vectors it is nonzero, so divide by its norm to obtain a unit vector."
+        }
+      ],
+      "solutionMarkdown": "The residual is orthogonal to the earlier vectors. For independent input vectors it is nonzero, so divide by its norm to obtain a unit vector.",
+      "concepts": ["la-least-squares"],
+      "prerequisites": [
+        "la-projection",
+        "la-orthogonality",
+        "la-coordinates",
+        "la-kernel"
+      ],
+      "difficulty": 1,
+      "misconceptionTags": [
+        "orthonormal-bases-and-least-squares-definition-confusion"
+      ]
+    },
+    {
+      "id": "labc-m6-orthonormal-bases-and-least-squares-p2",
+      "version": 1,
+      "lessonId": "labc-m6-orthonormal-bases-and-least-squares",
+      "type": "numeric",
+      "promptMarkdown": "For $u=(1,0)$ and $v=(1,2)$, subtract the projection of $v$ onto $u$. What is the norm of the residual?",
+      "answerSpec": {
+        "correctValue": 2,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Find the residual before measuring its length."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Project onto the first coordinate axis."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Only the second coordinate remains."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The projection is $(1,0)$, leaving $(0,2)$ of norm two. Normalizing would yield $(0,1)$."
+        }
+      ],
+      "solutionMarkdown": "The projection is $(1,0)$, leaving $(0,2)$ of norm two. Normalizing would yield $(0,1)$.",
+      "concepts": ["la-least-squares"],
+      "prerequisites": [
+        "la-projection",
+        "la-orthogonality",
+        "la-coordinates",
+        "la-kernel"
+      ],
+      "difficulty": 2,
+      "misconceptionTags": [
+        "orthonormal-bases-and-least-squares-coordinate-confusion"
+      ]
+    },
+    {
+      "id": "labc-m6-orthonormal-bases-and-least-squares-p3",
+      "version": 1,
+      "lessonId": "labc-m6-orthonormal-bases-and-least-squares",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which equation characterizes a least-squares solution to $Ax\\approx b$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$Ax=0$.",
+            "accessibleLabel": "Ax=0."
+          },
+          {
+            "id": "b",
+            "label": "$A^T(Ax-b)=0$.",
+            "accessibleLabel": "A^T(Ax-b)=0."
+          },
+          {
+            "id": "c",
+            "label": "$A^Tx=b$ for all matrix sizes.",
+            "accessibleLabel": "A^Tx=b for all matrix sizes."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Express orthogonality to every model direction."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Columns span the possible outputs."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Multiplication by the transpose collects dot products with columns."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The residual must be orthogonal to every column of $A$. Stacking these dot products yields $A^T(Ax-b)=0$."
+        }
+      ],
+      "solutionMarkdown": "The residual must be orthogonal to every column of $A$. Stacking these dot products yields $A^T(Ax-b)=0$.",
+      "concepts": ["la-least-squares"],
+      "prerequisites": [
+        "la-projection",
+        "la-orthogonality",
+        "la-coordinates",
+        "la-kernel"
+      ],
+      "difficulty": 2,
+      "misconceptionTags": [
+        "orthonormal-bases-and-least-squares-missing-hypothesis"
+      ]
+    },
+    {
+      "id": "labc-m6-orthonormal-bases-and-least-squares-p4",
+      "version": 1,
+      "lessonId": "labc-m6-orthonormal-bases-and-least-squares",
+      "type": "numeric",
+      "promptMarkdown": "Fit a constant $c$ to measurements $2,4,9$ by minimizing $(c-2)^2+(c-4)^2+(c-9)^2$. Find $c$.",
+      "answerSpec": {
+        "correctValue": 5,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Treat the constant model as a one-column linear map."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Apply the normal equation or require the residual sum to vanish."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The three measurements sum to fifteen."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The column is $(1,1,1)$, so the normal equation is $3c=2+4+9=15$. Thus $c=5$, the mean."
+        }
+      ],
+      "solutionMarkdown": "The column is $(1,1,1)$, so the normal equation is $3c=2+4+9=15$. Thus $c=5$, the mean.",
+      "concepts": ["la-least-squares"],
+      "prerequisites": [
+        "la-projection",
+        "la-orthogonality",
+        "la-coordinates",
+        "la-kernel"
+      ],
+      "difficulty": 3,
+      "misconceptionTags": [
+        "orthonormal-bases-and-least-squares-condition-confusion"
+      ]
+    },
+    {
+      "id": "labc-m6-orthonormal-bases-and-least-squares-p5",
+      "version": 1,
+      "lessonId": "labc-m6-orthonormal-bases-and-least-squares",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove that independent columns make $A^TA$ invertible.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Assume $A$ has independent columns and let $A^TAx=0$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Multiply on the left by $x^T$ to obtain $\\|Ax\\|^2=0$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Thus $Ax=0$; column independence implies $x=0$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "The square matrix $A^TA$ has zero kernel, so it is invertible."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Show the normal-equation matrix has zero kernel."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Connect its quadratic expression with a squared norm."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Independent columns make $Ax=0$ possible only for $x=0$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "A squared norm can vanish only at zero. Column independence then removes all nontrivial kernel vectors of the square matrix."
+        }
+      ],
+      "solutionMarkdown": "A squared norm can vanish only at zero. Column independence then removes all nontrivial kernel vectors of the square matrix.",
+      "concepts": ["la-least-squares"],
+      "prerequisites": [
+        "la-projection",
+        "la-orthogonality",
+        "la-coordinates",
+        "la-kernel"
+      ],
+      "difficulty": 3,
+      "misconceptionTags": [
+        "orthonormal-bases-and-least-squares-unsupported-inference"
+      ]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-least-squares"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

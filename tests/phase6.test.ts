@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { allLessons, course, glossary, lessons } from "../src/lib/content";
-import { ContentValidationError, loadContent } from "../src/lib/content-loader";
+import { loadContent } from "../src/lib/content-loader";
 import { glossarySchema, lessonSchema } from "../src/lib/schema";
 
 const baseLesson = {
@@ -27,7 +27,11 @@ const baseLesson = {
       lessonId: "l1",
       type: "numeric" as const,
       promptMarkdown: "?",
-      answerSpec: { correctValue: 1, tolerance: 0, toleranceType: "absolute" as const },
+      answerSpec: {
+        correctValue: 1,
+        tolerance: 0,
+        toleranceType: "absolute" as const,
+      },
       hints: [1, 2, 3, 4].map((order) => ({ order, bodyMarkdown: "h" })),
       solutionMarkdown: "s",
       concepts: ["x"],
@@ -107,7 +111,11 @@ describe("content loader: drafts, glossary, reserved filenames (Phase 6)", () =>
       );
       writeFileSync(
         join(dir, "published.json"),
-        JSON.stringify({ ...baseLesson, lessonId: "published" }),
+        JSON.stringify({
+          ...baseLesson,
+          lessonId: "published",
+          problems: [{ ...baseLesson.problems[0], lessonId: "published" }],
+        }),
       );
       writeFileSync(
         join(dir, "draft.json"),
@@ -195,8 +203,8 @@ describe("the authored Phase 6 course as a whole", () => {
   it("spans all 8 roadmap modules with published content", () => {
     expect(course.modules.length).toBe(8);
     const modulesWithContent = new Set(lessons.map((l) => l.moduleSlug));
-    for (const module of course.modules)
-      expect(modulesWithContent.has(module.slug)).toBe(true);
+    for (const mod of course.modules)
+      expect(modulesWithContent.has(mod.slug)).toBe(true);
   });
   it("has a capstone module whose lessons are all kind 'capstone'", () => {
     const capstoneLessons = lessons.filter(
@@ -206,15 +214,13 @@ describe("the authored Phase 6 course as a whole", () => {
     for (const lesson of capstoneLessons) expect(lesson.kind).toBe("capstone");
   });
   it("has a checkpoint in every Phase 6 module (2-7; module 1 predates checkpoints, module 8 is the capstone)", () => {
-    for (const module of course.modules) {
+    for (const mod of course.modules) {
       if (
-        module.slug === "module-01-mathematical-language" ||
-        module.slug === "module-08-capstone-proof-workshop"
+        mod.slug === "module-01-mathematical-language" ||
+        mod.slug === "module-08-capstone-proof-workshop"
       )
         continue;
-      const moduleLessons = lessons.filter(
-        (l) => l.moduleSlug === module.slug,
-      );
+      const moduleLessons = lessons.filter((l) => l.moduleSlug === mod.slug);
       const checkpoints = moduleLessons.filter((l) => l.kind === "checkpoint");
       expect(checkpoints.length).toBeGreaterThanOrEqual(1);
     }
@@ -236,8 +242,8 @@ describe("the authored Phase 6 course as a whole", () => {
     expect([...missing]).toEqual([]);
   });
   it("rejects a lesson whose id collides with another lesson's id", () => {
-    expect(
-      new Set(allLessons.map((l) => l.lessonId)).size,
-    ).toBe(allLessons.length);
+    expect(new Set(allLessons.map((l) => l.lessonId)).size).toBe(
+      allLessons.length,
+    );
   });
 });

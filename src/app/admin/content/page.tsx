@@ -6,6 +6,7 @@ const TOKEN_KEY = "cinemath:admin-token";
 type ContentRow = {
   lessonId: string;
   title: string;
+  courseTitle: string;
   moduleTitle: string;
   kind: "lesson" | "checkpoint" | "capstone";
   status: "draft" | "published";
@@ -61,9 +62,8 @@ export default function AdminContentPage() {
     <main id="main" className="dashboard-page">
       <h1>Content publishing status</h1>
       <p className="muted">
-        Operator-only. Lists every authored lesson, including drafts the
-        public course page never renders (see{" "}
-        <code>src/lib/content.ts</code>).
+        Operator-only. Lists every authored lesson, including drafts the public
+        course page never renders (see <code>src/lib/content.ts</code>).
       </p>
       <form onSubmit={(e) => void load(e)}>
         <label>
@@ -112,7 +112,11 @@ export default function AdminContentPage() {
               <tbody>
                 {data.lessons.map((row) => (
                   <tr key={row.lessonId}>
-                    <td>{row.moduleTitle}</td>
+                    <td>
+                      {row.courseTitle}
+                      <br />
+                      {row.moduleTitle}
+                    </td>
                     <td>{row.title}</td>
                     <td>{row.kind}</td>
                     <td>{row.status}</td>

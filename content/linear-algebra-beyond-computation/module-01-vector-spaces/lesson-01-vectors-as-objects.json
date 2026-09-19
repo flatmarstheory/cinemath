@@ -1,0 +1,266 @@
+{
+  "lessonId": "labc-m1-vectors-as-objects",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-01-vector-spaces",
+  "title": "Vectors are more than arrows",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Recognize a real vector space by its operations and axioms.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": [],
+  "conceptsIntroduced": ["la-vector-space"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall how to add ordered pairs and multiply each coordinate by a real number. No calculus is needed; familiarity with elementary algebra and the idea of a proof is enough."
+    },
+    "encounter": {
+      "bodyMarkdown": "An arrow, a polynomial, and a list of sensor readings look different. What lets the same rules describe all three?"
+    },
+    "explain": {
+      "bodyMarkdown": "A real vector space has addition and multiplication by real scalars. Addition is associative and commutative, has a zero vector and additive inverses. Scalars satisfy $a(bv)=(ab)v$, $1v=v$, $a(u+v)=au+av$, and $(a+b)v=av+bv$. Operations must stay inside the set. Polynomials of degree at most two, including the zero polynomial, form $P_2$: adding them cannot create a higher-degree term. Polynomials of degree exactly two do not form a vector space. The zero vector need not look like a list of zeros; in a function space it is the function that is zero everywhere."
+    },
+    "reflect": {
+      "bodyMarkdown": "The objects do not determine whether a set is a vector space: the operations and closure do. A single failed axiom is enough to refute a claim."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m1-vectors-as-objects-p1",
+      "version": 1,
+      "lessonId": "labc-m1-vectors-as-objects",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which set is a real vector space with the usual polynomial operations?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Polynomials of degree exactly two.",
+            "accessibleLabel": "Polynomials of degree exactly two."
+          },
+          {
+            "id": "b",
+            "label": "Polynomials of degree at most two, including zero.",
+            "accessibleLabel": "Polynomials of degree at most two, including zero."
+          },
+          {
+            "id": "c",
+            "label": "Polynomials with leading coefficient one.",
+            "accessibleLabel": "Polynomials with leading coefficient one."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Check which set contains the additive identity."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "A vector space must be closed under every real scalar."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Multiplication by zero tests two of the options immediately."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Degree at most two is preserved by sums and scalar multiples, and includes the zero polynomial. The other sets exclude zero."
+        }
+      ],
+      "solutionMarkdown": "Degree at most two is preserved by sums and scalar multiples, and includes the zero polynomial. The other sets exclude zero.",
+      "concepts": ["la-vector-space"],
+      "prerequisites": [],
+      "difficulty": 1,
+      "misconceptionTags": ["vectors-as-objects-definition-confusion"]
+    },
+    {
+      "id": "labc-m1-vectors-as-objects-p2",
+      "version": 1,
+      "lessonId": "labc-m1-vectors-as-objects",
+      "type": "numeric",
+      "promptMarkdown": "In $\\mathbb R^2$, let $u=(2,-1)$ and $v=(-1,3)$. What is the second coordinate of $2u+v$?",
+      "answerSpec": {
+        "correctValue": 1,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Track only the requested coordinate."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Scalar multiplication acts on each coordinate."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The second coordinate is $2(-1)+3$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Compute coordinatewise: $2u+v=(4,-2)+(-1,3)=(3,1)$. The second coordinate is $1$."
+        }
+      ],
+      "solutionMarkdown": "Compute coordinatewise: $2u+v=(4,-2)+(-1,3)=(3,1)$. The second coordinate is $1$.",
+      "concepts": ["la-vector-space"],
+      "prerequisites": [],
+      "difficulty": 2,
+      "misconceptionTags": ["vectors-as-objects-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m1-vectors-as-objects-p3",
+      "version": 1,
+      "lessonId": "labc-m1-vectors-as-objects",
+      "type": "multiple_choice",
+      "promptMarkdown": "Let $S=\\{(x,y):x>0\\}$ with ordinary operations. Which is a valid reason it is not a real vector space?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "It has infinitely many elements.",
+            "accessibleLabel": "It has infinitely many elements."
+          },
+          {
+            "id": "b",
+            "label": "It contains vectors of different lengths.",
+            "accessibleLabel": "It contains vectors of different lengths."
+          },
+          {
+            "id": "c",
+            "label": "It does not contain the zero vector.",
+            "accessibleLabel": "It does not contain the zero vector."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Find a required element missing from the set."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Every vector space contains an additive identity."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Check the inequality at $(0,0)$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The zero vector has first coordinate zero, so it is not in $S$. Infinitely many elements and different lengths cause no problem."
+        }
+      ],
+      "solutionMarkdown": "The zero vector has first coordinate zero, so it is not in $S$. Infinitely many elements and different lengths cause no problem.",
+      "concepts": ["la-vector-space"],
+      "prerequisites": [],
+      "difficulty": 2,
+      "misconceptionTags": ["vectors-as-objects-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m1-vectors-as-objects-p4",
+      "version": 1,
+      "lessonId": "labc-m1-vectors-as-objects",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the scalar distributive law: $(a+b)v=\\boxed{\\phantom{a}}v+\\boxed{\\phantom{b}}v$. Enter the scalar in each blank.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "first",
+            "label": "First scalar",
+            "acceptedValues": ["a"]
+          },
+          {
+            "id": "second",
+            "label": "Second scalar",
+            "acceptedValues": ["b"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Identify the coefficients on the two copies of the vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Distribute multiplication across scalar addition."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "One term uses the first scalar and the other uses the second."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The law is $(a+b)v=av+bv$. It links addition of scalars to addition of vectors."
+        }
+      ],
+      "solutionMarkdown": "The law is $(a+b)v=av+bv$. It links addition of scalars to addition of vectors.",
+      "concepts": ["la-vector-space"],
+      "prerequisites": [],
+      "difficulty": 3,
+      "misconceptionTags": ["vectors-as-objects-condition-confusion"]
+    },
+    {
+      "id": "labc-m1-vectors-as-objects-p5",
+      "version": 1,
+      "lessonId": "labc-m1-vectors-as-objects",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange this proof that the additive identity is unique.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Suppose $z$ and $w$ are both additive identities."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Because $w$ is an identity, $z+w=z$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Because $z$ is an identity, the same sum $z+w=w$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Comparing these two equalities gives $z=w$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Show that any two proposed identities are equal."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use each identity on the same sum."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Evaluate $z+w$ using first $w$, then $z$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Compare the same sum in two ways. The defining property of each identity forces the sum to equal both of them, so they coincide."
+        }
+      ],
+      "solutionMarkdown": "Compare the same sum in two ways. The defining property of each identity forces the sum to equal both of them, so they coincide.",
+      "concepts": ["la-vector-space"],
+      "prerequisites": [],
+      "difficulty": 3,
+      "misconceptionTags": ["vectors-as-objects-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-vector-space"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

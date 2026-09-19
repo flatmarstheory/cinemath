@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { lessons, allLessons, course } from "@/lib/content";
+import { lessons, allLessons, courses } from "@/lib/content";
 import { LessonPlayer } from "@/components/lesson-player";
 
 export function generateStaticParams() {
@@ -16,8 +16,14 @@ export default async function LessonPage({
     return (
       <LessonPlayer
         lesson={lessons[index]}
-        courseTitle={course.title}
-        lessonNumber={index + 1}
+        courseTitle={
+          courses.find((c) => c.slug === lessons[index].courseSlug)!.title
+        }
+        lessonNumber={
+          lessons
+            .filter((l) => l.courseSlug === lessons[index].courseSlug)
+            .findIndex((l) => l.lessonId === slug) + 1
+        }
       />
     );
   // Draft lessons (Phase 6 "Instructor/editor publishing workflow") are
@@ -25,5 +31,10 @@ export default async function LessonPage({
   // by an editor's direct preview link (see src/app/admin/content).
   const draft = allLessons.find((item) => item.lessonId === slug);
   if (!draft) notFound();
-  return <LessonPlayer lesson={draft} courseTitle={course.title} />;
+  return (
+    <LessonPlayer
+      lesson={draft}
+      courseTitle={courses.find((c) => c.slug === draft.courseSlug)!.title}
+    />
+  );
 }

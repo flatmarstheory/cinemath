@@ -1,6 +1,7 @@
 import { afterAll, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { lessons } from "../src/lib/content";
+import type { ProofFeedbackResult } from "../src/lib/proof-feedback-schema";
 
 process.env.CINEMATH_DB_PATH = ":memory:";
 process.env.CINEMATH_AI_FEEDBACK_ENABLED = "1";
@@ -8,8 +9,8 @@ process.env.CINEMATH_AI_FEEDBACK_ENABLED = "1";
 // vi.mock factories are hoisted above imports, so referenced values must
 // come from vi.hoisted rather than plain module-scope consts.
 const { mockResult, gradeProofAttempt } = vi.hoisted(() => {
-  const mockResult = {
-    category: "correct" as const,
+  const mockResult: ProofFeedbackResult = {
+    category: "correct",
     rationale: "Uses the definition and computes correctly.",
     nextStep: "Nothing further needed.",
     confidence: 0.9,

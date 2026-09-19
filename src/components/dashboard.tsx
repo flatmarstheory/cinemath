@@ -238,8 +238,8 @@ export function Dashboard({ lessons }: { lessons: Lesson[] }) {
         <h2>Ideas worth revisiting</h2>
         <p className="muted">
           A concept appears here if it needs more practice, or once it
-          hasn&apos;t been practiced in a while — the more solid a concept,
-          the longer it stays off this list before resurfacing.
+          hasn&apos;t been practiced in a while — the more solid a concept, the
+          longer it stays off this list before resurfacing.
         </p>
         {reviews.length === 0 ? (
           <p className="muted">
@@ -252,7 +252,9 @@ export function Dashboard({ lessons }: { lessons: Lesson[] }) {
             {reviews.map((item) => (
               <li key={`${item.lessonId}-${item.conceptId}`}>
                 <span>
-                  <strong>{item.conceptId.replaceAll("-", " ")}</strong>
+                  <strong>
+                    {item.conceptId.replace(/^la-/, "").replaceAll("-", " ")}
+                  </strong>
                   <small>
                     {item.lessonTitle} · {item.reason}
                   </small>
@@ -283,7 +285,7 @@ export function Dashboard({ lessons }: { lessons: Lesson[] }) {
             <li key={record.conceptId}>
               <span>
                 <Link href={`/glossary#${record.conceptId}`}>
-                  {record.conceptId.replaceAll("-", " ")}
+                  {record.conceptId.replace(/^la-/, "").replaceAll("-", " ")}
                 </Link>
               </span>
               <progress

@@ -1,0 +1,302 @@
+{
+  "lessonId": "labc-m6-structure-capstone",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-06-orthogonality",
+  "title": "Capstone: recognize the structure",
+  "kind": "capstone",
+  "status": "published",
+  "learningObjective": "Connect orthogonal projection, eigenstructure, and rank to justify properties of a symmetric operator.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": [
+    "la-diagonalization",
+    "la-projection",
+    "la-least-squares",
+    "la-rank-nullity"
+  ],
+  "conceptsIntroduced": ["la-spectral-theorem"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Which facts describe the same operator from different perspectives: kernel, image, eigenvectors, and a closest-point residual?"
+    },
+    "encounter": {
+      "bodyMarkdown": "A projection satisfies $P^2=P$: applying it twice changes nothing further. What does this tell you about its eigenvalues, and why is symmetry the extra ingredient for an orthogonal projection?"
+    },
+    "explain": {
+      "bodyMarkdown": "The real spectral theorem says a real symmetric matrix has an orthonormal eigenbasis, so $A=QDQ^T$. This is stronger than arbitrary diagonalization. If also $P^2=P$, then any eigenvalue satisfies $\\lambda^2=\\lambda$, hence is zero or one. The image is the eigenspace for one and the kernel is the eigenspace for zero. Symmetry makes them orthogonal. Consequently symmetric idempotent matrices are exactly orthogonal projections. Idempotence alone does not guarantee orthogonality. Use the earlier tools to explain these claims rather than relying only on a matrix calculation."
+    },
+    "reflect": {
+      "bodyMarkdown": "The hypotheses do different work: idempotence restricts eigenvalues, symmetry gives orthogonality, and rank counts retained directions. Keep each implication attached to its assumption."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m6-structure-capstone-p1",
+      "version": 1,
+      "lessonId": "labc-m6-structure-capstone",
+      "type": "multiple_choice",
+      "promptMarkdown": "A real matrix $P$ satisfies $P^2=P$. Select every possible eigenvalue.",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$0$.",
+            "accessibleLabel": "0."
+          },
+          {
+            "id": "b",
+            "label": "$-1$.",
+            "accessibleLabel": "-1."
+          },
+          {
+            "id": "c",
+            "label": "$1$.",
+            "accessibleLabel": "1."
+          }
+        ],
+        "correctOptionIds": ["a", "c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Apply the operator identity to a nonzero eigenvector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Replace each action by multiplication by its eigenvalue."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The scalar equation is $\\lambda^2=\\lambda$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "For an eigenvector, $P^2v=\\lambda^2v$ and $Pv=\\lambda v$. Thus $\\lambda(\\lambda-1)=0$, so only zero and one are possible."
+        }
+      ],
+      "solutionMarkdown": "For an eigenvector, $P^2v=\\lambda^2v$ and $Pv=\\lambda v$. Thus $\\lambda(\\lambda-1)=0$, so only zero and one are possible.",
+      "concepts": ["la-spectral-theorem"],
+      "prerequisites": [
+        "la-diagonalization",
+        "la-projection",
+        "la-least-squares",
+        "la-rank-nullity"
+      ],
+      "difficulty": 2,
+      "misconceptionTags": ["structure-capstone-definition-confusion"]
+    },
+    {
+      "id": "labc-m6-structure-capstone-p2",
+      "version": 1,
+      "lessonId": "labc-m6-structure-capstone",
+      "type": "numeric",
+      "promptMarkdown": "An orthogonal projection on $\\mathbb R^5$ has image dimension two. What is its kernel dimension?",
+      "answerSpec": {
+        "correctValue": 3,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Relate dimensions of retained and removed directions."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use rank–nullity on the five-dimensional domain."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Subtract the image dimension from the domain dimension."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Rank–nullity gives $5=2+\\dim\\ker P$. Three dimensions are removed and two retained."
+        }
+      ],
+      "solutionMarkdown": "Rank–nullity gives $5=2+\\dim\\ker P$. Three dimensions are removed and two retained.",
+      "concepts": ["la-spectral-theorem"],
+      "prerequisites": [
+        "la-diagonalization",
+        "la-projection",
+        "la-least-squares",
+        "la-rank-nullity"
+      ],
+      "difficulty": 2,
+      "misconceptionTags": ["structure-capstone-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m6-structure-capstone-p3",
+      "version": 1,
+      "lessonId": "labc-m6-structure-capstone",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which hypothesis guarantees a real orthonormal eigenbasis?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "The matrix is real and symmetric.",
+            "accessibleLabel": "The matrix is real and symmetric."
+          },
+          {
+            "id": "b",
+            "label": "The matrix has determinant one.",
+            "accessibleLabel": "The matrix has determinant one."
+          },
+          {
+            "id": "c",
+            "label": "The matrix has a repeated eigenvalue.",
+            "accessibleLabel": "The matrix has a repeated eigenvalue."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Identify the hypothesis of the spectral theorem."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Orthonormal diagonalization is stronger than arbitrary diagonalization."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Symmetry is the condition that connects eigenstructure with the inner product."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The real spectral theorem applies to real symmetric matrices. Determinant and eigenvalue multiplicity alone do not guarantee even an eigenbasis."
+        }
+      ],
+      "solutionMarkdown": "The real spectral theorem applies to real symmetric matrices. Determinant and eigenvalue multiplicity alone do not guarantee even an eigenbasis.",
+      "concepts": ["la-spectral-theorem"],
+      "prerequisites": [
+        "la-diagonalization",
+        "la-projection",
+        "la-least-squares",
+        "la-rank-nullity"
+      ],
+      "difficulty": 3,
+      "misconceptionTags": ["structure-capstone-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m6-structure-capstone-p4",
+      "version": 1,
+      "lessonId": "labc-m6-structure-capstone",
+      "type": "multiple_choice",
+      "promptMarkdown": "For $P=\\begin{pmatrix}1&1\\\\0&0\\end{pmatrix}$, $P^2=P$. Why is this not an orthogonal projection?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Its image is not a subspace.",
+            "accessibleLabel": "Its image is not a subspace."
+          },
+          {
+            "id": "b",
+            "label": "Its kernel and image are not orthogonal.",
+            "accessibleLabel": "Its kernel and image are not orthogonal."
+          },
+          {
+            "id": "c",
+            "label": "It is not linear.",
+            "accessibleLabel": "It is not linear."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Find the image and kernel and compare their directions."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Idempotence need not imply symmetry or orthogonality."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The first coordinate axis is not perpendicular to $(-1,1)$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The image is the span of $(1,0)$, while the kernel is the span of $(-1,1)$. Their dot product is $-1$, not zero. This is an oblique projection."
+        }
+      ],
+      "solutionMarkdown": "The image is the span of $(1,0)$, while the kernel is the span of $(-1,1)$. Their dot product is $-1$, not zero. This is an oblique projection.",
+      "concepts": ["la-spectral-theorem"],
+      "prerequisites": [
+        "la-diagonalization",
+        "la-projection",
+        "la-least-squares",
+        "la-rank-nullity"
+      ],
+      "difficulty": 3,
+      "misconceptionTags": ["structure-capstone-condition-confusion"]
+    },
+    {
+      "id": "labc-m6-structure-capstone-p5",
+      "version": 1,
+      "lessonId": "labc-m6-structure-capstone",
+      "type": "proof_ordering",
+      "promptMarkdown": "For symmetric $P$ with $P^2=P$, prove that $Pv$ is the closest point to $v$ in the image of $P$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Write $p=Pv$ and $r=v-Pv$; then $Pr=Pv-P^2v=0$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "For any $w=Pu$ in the image, symmetry gives $\\langle r,w\\rangle=\\langle Pr,u\\rangle=0$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Thus $p$ lies in the image and its residual is orthogonal to that image."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "The closest-point property of orthogonal projection shows that $p$ is the unique minimizer."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Identify a candidate and test its residual against the target subspace."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use idempotence first and symmetry second."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Move the symmetric operator across the inner product."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Idempotence puts the residual in the kernel. Symmetry makes it perpendicular to the image. The earlier closest-point theorem then completes the argument."
+        }
+      ],
+      "solutionMarkdown": "Idempotence puts the residual in the kernel. Symmetry makes it perpendicular to the image. The earlier closest-point theorem then completes the argument.",
+      "concepts": ["la-spectral-theorem"],
+      "prerequisites": [
+        "la-diagonalization",
+        "la-projection",
+        "la-least-squares",
+        "la-rank-nullity"
+      ],
+      "difficulty": 4,
+      "misconceptionTags": ["structure-capstone-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-spectral-theorem"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

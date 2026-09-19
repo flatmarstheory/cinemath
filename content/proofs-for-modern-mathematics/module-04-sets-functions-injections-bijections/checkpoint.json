@@ -42,7 +42,7 @@
       "version": 1,
       "lessonId": "pfmm-m4-checkpoint",
       "type": "proof_fill_blank",
-      "promptMarkdown": "Complete the element-chasing proof that $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 6\\} \\subseteq \\{n \\in \\mathbb{Z} : n \\text{ is even}\\}$.\n\nLet $n$ be an arbitrary element of $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 6\\}$. By definition, $n = 6k$ for some integer $k$. Then $n = 2 \\cdot (\\text{___})$, and since $k$ is an integer, $3k$ is an ___. Therefore $n$ is even.",
+      "promptMarkdown": "Complete the element-chasing proof that $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 6\\} \\subseteq \\{n \\in \\mathbb{Z} : n \\text{ is even}\\}$.\n\nLet $n$ be an arbitrary element of $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 6\\}$. By definition, $n = 6k$ for some integer $k$. Then $n = 2 \\cdot (\\boxed{\\phantom{0}})$, and since $k$ is an integer, $3k$ is an ___. Therefore $n$ is even.",
       "answerSpec": {
         "blanks": [
           { "id": "b1", "label": "Expression equal to n/2", "acceptedValues": ["3k"] },

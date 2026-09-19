@@ -28,7 +28,50 @@ To preview a lesson exactly as a learner would see it, without touching saved pr
 
 Run `npm run build` before the browser tests. If Chromium cannot be downloaded, set `PLAYWRIGHT_CHANNEL=chrome` to use an installed Chrome browser (PowerShell: `$env:PLAYWRIGHT_CHANNEL = "chrome"`). Playwright starts its own production server on port 3100. `npm run format` formats the implementation; original planning documents retain their existing formatting.
 
+## Run with Docker Compose
+
+With Docker Engine running and the Docker Compose v2 plugin installed, run from
+the repository root:
+
+```sh
+docker compose up --build -d --wait
+```
+
+Open [localhost:3000](http://localhost:3000). This builds and runs the production
+app on Node.js 24 as a non-root user. No host Node.js installation is required.
+The first build needs internet access to download the base image and npm packages.
+On Docker Desktop, use Linux containers.
+
+SQLite accounts, progress, and analytics are stored in the `cinemath-data` named
+volume at `/app/data/cinemath.sqlite`, and survive container rebuilds and
+`docker compose down`. The host's existing `data/` directory is not imported.
+Guest progress stays in the browser and is tied to the site origin.
+
+Optionally copy `.env.example` to `.env` before starting. Set `CINEMATH_PORT=3001`
+to use [localhost:3001](http://localhost:3001), or configure the optional AI and
+admin settings. Compose passes these settings at runtime; `.env` files are
+excluded from the image. The port is bound to `127.0.0.1` for local testing.
+
+```sh
+docker compose ps                    # Check container health
+docker compose logs -f app           # Follow application logs
+docker compose down                  # Stop, preserving the database
+docker compose up --build -d --wait  # Rebuild after code or content changes
+```
+
+There is no source-code mount or hot reload in this production setup. To reset
+all stored accounts and server data, `docker compose down --volumes` deletes the
+database volume permanently. Run only one app instance against this SQLite volume.
+
 ## What works
+
+**New course:** Linear Algebra Beyond Computation adds 6 modules, 13 lessons,
+65 problems, and a 20-term glossary. Choose it from the course selector on the
+home page, or open
+[the linear algebra course](http://localhost:3000/?course=linear-algebra-beyond-computation#course).
+See [the curriculum and implementation notes](docs/linear-algebra-course.md).
+Login and registration now have separate modes, responsive styling, password
+visibility controls, and guidance for creating an account.
 
 - Course page, lesson introduction, five sequential problems, reflection, and completion summary.
 - Unlimited valid attempts, deterministic feedback, and all three progressive hints.

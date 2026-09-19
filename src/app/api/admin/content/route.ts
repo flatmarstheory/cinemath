@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { allLessons, course } from "@/lib/content";
+import { allLessons, course, courses } from "@/lib/content";
 
 export const runtime = "nodejs";
 
@@ -28,12 +28,16 @@ export async function GET(req: NextRequest) {
   if (!authorized(req)) return response({ error: "Unauthorized." }, 401);
   return response({
     course,
+    courses,
     lessons: allLessons.map((lesson) => ({
       lessonId: lesson.lessonId,
       title: lesson.title,
+      courseTitle: courses.find((c) => c.slug === lesson.courseSlug)!.title,
       moduleSlug: lesson.moduleSlug,
       moduleTitle:
-        course.modules.find((m) => m.slug === lesson.moduleSlug)?.title ??
+        courses
+          .find((c) => c.slug === lesson.courseSlug)
+          ?.modules.find((m) => m.slug === lesson.moduleSlug)?.title ??
         lesson.moduleSlug,
       kind: lesson.kind,
       status: lesson.status,

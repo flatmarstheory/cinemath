@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { hasSameOrigin } from "@/lib/request-origin";
 import { randomUUID } from "node:crypto";
 import { store, allowFeedback } from "@/lib/account-store";
 import { feedbackSchema } from "@/lib/feedback-schema";
@@ -15,7 +16,7 @@ function response(value: unknown, status = 200) {
 // Closed-beta feedback capture (ROADMAP.md Phase 5). Anyone can submit —
 // guests included — same trust model as the analytics beacon.
 export async function POST(req: NextRequest) {
-  if (req.headers.get("origin") !== req.nextUrl.origin)
+  if (!hasSameOrigin(req))
     return response({ error: "Invalid request origin." }, 403);
   if (Number(req.headers.get("content-length") || 0) > 20000)
     return response({ error: "Request too large." }, 413);

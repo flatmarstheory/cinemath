@@ -1,0 +1,267 @@
+{
+  "lessonId": "labc-m5-eigenvectors-and-invariant-directions",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-05-eigenstructure",
+  "title": "Directions a transformation preserves",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Interpret eigenvectors and determine eigenspaces from a linear map.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-linear-map", "la-kernel", "la-determinant"],
+  "conceptsIntroduced": ["la-eigenvector", "la-eigenspace"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "A kernel records vectors mapped to zero. How could a kernel also describe vectors whose direction is preserved?"
+    },
+    "encounter": {
+      "bodyMarkdown": "A diagonal map stretches the coordinate axes without turning them. A quarter-turn of the real plane preserves no real line through the origin."
+    },
+    "explain": {
+      "bodyMarkdown": "An eigenvector is a nonzero vector $v$ with $Av=\\lambda v$. Zero is allowed as an eigenvalue but never as an eigenvector. The eigenspace for $\\lambda$ is $\\ker(A-\\lambda I)$ and includes zero. For a square matrix, eigenvalues solve $\\det(A-\\lambda I)=0$. Real matrices need not have real eigenvalues: a plane quarter-turn has characteristic equation $\\lambda^2+1=0$. In this course we work over the real numbers unless explicitly stated otherwise."
+    },
+    "reflect": {
+      "bodyMarkdown": "Eigenvectors describe preserved lines, not necessarily fixed vectors. A negative eigenvalue reverses direction; zero collapses it. The field matters."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m5-eigenvectors-and-invariant-directions-p1",
+      "version": 1,
+      "lessonId": "labc-m5-eigenvectors-and-invariant-directions",
+      "type": "multiple_choice",
+      "promptMarkdown": "For $A=\\operatorname{diag}(2,3)$, which is an eigenvector?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$(1,1)$.",
+            "accessibleLabel": "(1,1)."
+          },
+          {
+            "id": "b",
+            "label": "$(0,0)$.",
+            "accessibleLabel": "(0,0)."
+          },
+          {
+            "id": "c",
+            "label": "$(1,0)$.",
+            "accessibleLabel": "(1,0)."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Look for a nonzero vector whose image is a scalar multiple."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Compute the diagonal action coordinatewise."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The two coordinates are stretched by different factors."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The image of $(1,0)$ is $2(1,0)$. The mixed vector maps to $(2,3)$, not a scalar multiple of $(1,1)$, and zero is excluded by definition."
+        }
+      ],
+      "solutionMarkdown": "The image of $(1,0)$ is $2(1,0)$. The mixed vector maps to $(2,3)$, not a scalar multiple of $(1,1)$, and zero is excluded by definition.",
+      "concepts": ["la-eigenvector", "la-eigenspace"],
+      "prerequisites": ["la-linear-map", "la-kernel", "la-determinant"],
+      "difficulty": 1,
+      "misconceptionTags": [
+        "eigenvectors-and-invariant-directions-definition-confusion"
+      ]
+    },
+    {
+      "id": "labc-m5-eigenvectors-and-invariant-directions-p2",
+      "version": 1,
+      "lessonId": "labc-m5-eigenvectors-and-invariant-directions",
+      "type": "numeric",
+      "promptMarkdown": "If $v\\ne0$ and $Av=-4v$, what is the eigenvalue?",
+      "answerSpec": {
+        "correctValue": -4,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Identify the scalar multiplying the original vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Compare with $Av=\\lambda v$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The sign is part of the scalar."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The scalar in the defining equation is the eigenvalue, so it is $-4$. A negative eigenvalue is valid."
+        }
+      ],
+      "solutionMarkdown": "The scalar in the defining equation is the eigenvalue, so it is $-4$. A negative eigenvalue is valid.",
+      "concepts": ["la-eigenvector", "la-eigenspace"],
+      "prerequisites": ["la-linear-map", "la-kernel", "la-determinant"],
+      "difficulty": 2,
+      "misconceptionTags": [
+        "eigenvectors-and-invariant-directions-coordinate-confusion"
+      ]
+    },
+    {
+      "id": "labc-m5-eigenvectors-and-invariant-directions-p3",
+      "version": 1,
+      "lessonId": "labc-m5-eigenvectors-and-invariant-directions",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which statement about zero is correct?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Zero can be an eigenvalue, but the zero vector cannot be an eigenvector.",
+            "accessibleLabel": "Zero can be an eigenvalue, but the zero vector cannot be an eigenvector."
+          },
+          {
+            "id": "b",
+            "label": "Zero can be an eigenvector, but never an eigenvalue.",
+            "accessibleLabel": "Zero can be an eigenvector, but never an eigenvalue."
+          },
+          {
+            "id": "c",
+            "label": "Neither can ever be zero.",
+            "accessibleLabel": "Neither can ever be zero."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Distinguish a scalar eigenvalue from a vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Consider a map that collapses a nonzero vector."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "For such a vector the eigenvalue equation holds with scalar zero."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "A nonzero kernel vector is an eigenvector with eigenvalue zero. Requiring eigenvectors to be nonzero prevents every scalar from being an eigenvalue."
+        }
+      ],
+      "solutionMarkdown": "A nonzero kernel vector is an eigenvector with eigenvalue zero. Requiring eigenvectors to be nonzero prevents every scalar from being an eigenvalue.",
+      "concepts": ["la-eigenvector", "la-eigenspace"],
+      "prerequisites": ["la-linear-map", "la-kernel", "la-determinant"],
+      "difficulty": 2,
+      "misconceptionTags": [
+        "eigenvectors-and-invariant-directions-missing-hypothesis"
+      ]
+    },
+    {
+      "id": "labc-m5-eigenvectors-and-invariant-directions-p4",
+      "version": 1,
+      "lessonId": "labc-m5-eigenvectors-and-invariant-directions",
+      "type": "numeric",
+      "promptMarkdown": "What is the dimension of the eigenspace for $\\lambda=2$ of $A=\\operatorname{diag}(2,2,5)$?",
+      "answerSpec": {
+        "correctValue": 2,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Find the number of independent free coordinates."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Subtract twice the identity."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Only the third diagonal entry remains nonzero."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The equation $(A-2I)v=0$ forces the third coordinate to zero, leaving the first two free. The eigenspace has dimension two."
+        }
+      ],
+      "solutionMarkdown": "The equation $(A-2I)v=0$ forces the third coordinate to zero, leaving the first two free. The eigenspace has dimension two.",
+      "concepts": ["la-eigenvector", "la-eigenspace"],
+      "prerequisites": ["la-linear-map", "la-kernel", "la-determinant"],
+      "difficulty": 3,
+      "misconceptionTags": [
+        "eigenvectors-and-invariant-directions-condition-confusion"
+      ]
+    },
+    {
+      "id": "labc-m5-eigenvectors-and-invariant-directions-p5",
+      "version": 1,
+      "lessonId": "labc-m5-eigenvectors-and-invariant-directions",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove that an eigenspace is a subspace.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Fix $\\lambda$ and write $E_\\lambda=\\{v:(A-\\lambda I)v=0\\}$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "The map $v\\mapsto(A-\\lambda I)v$ is linear."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Its kernel is a subspace, and that kernel is $E_\\lambda$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Therefore $E_\\lambda$ is a subspace, including the zero vector."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Express the eigenspace as the kernel of a map."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The difference of linear maps is linear."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Use the subspace property of a kernel."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Rewrite the eigenvalue equation as a homogeneous linear equation, then apply the kernel subspace property. The eigenspace includes zero even though eigenvectors do not."
+        }
+      ],
+      "solutionMarkdown": "Rewrite the eigenvalue equation as a homogeneous linear equation, then apply the kernel subspace property. The eigenspace includes zero even though eigenvectors do not.",
+      "concepts": ["la-eigenvector", "la-eigenspace"],
+      "prerequisites": ["la-linear-map", "la-kernel", "la-determinant"],
+      "difficulty": 3,
+      "misconceptionTags": [
+        "eigenvectors-and-invariant-directions-unsupported-inference"
+      ]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-eigenvector", "la-eigenspace"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

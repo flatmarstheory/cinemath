@@ -1,39 +1,74 @@
 {
-  "slug": "proofs-for-modern-mathematics",
-  "title": "Proofs for Modern Mathematics",
-  "description": "Learn to read, evaluate, and write proofs. Build mathematical confidence one carefully chosen problem at a time.",
-  "modules": [
+  "courses": [
     {
-      "slug": "module-01-mathematical-language",
-      "title": "Mathematical language"
+      "slug": "proofs-for-modern-mathematics",
+      "title": "Proofs for Modern Mathematics",
+      "description": "Learn to read, evaluate, and write proofs. Build mathematical confidence one carefully chosen problem at a time.",
+      "modules": [
+        {
+          "slug": "module-01-mathematical-language",
+          "title": "Mathematical language"
+        },
+        {
+          "slug": "module-02-direct-proofs-and-definitions",
+          "title": "Direct proofs and definitions"
+        },
+        {
+          "slug": "module-03-contrapositive-and-contradiction",
+          "title": "Contrapositive and proof by contradiction"
+        },
+        {
+          "slug": "module-04-sets-functions-injections-bijections",
+          "title": "Sets, functions, injections, and bijections"
+        },
+        {
+          "slug": "module-05-induction-and-recursive-reasoning",
+          "title": "Induction and recursive reasoning"
+        },
+        {
+          "slug": "module-06-counterexamples-and-proof-debugging",
+          "title": "Counterexamples, edge cases, and proof debugging"
+        },
+        {
+          "slug": "module-07-relations-equivalence-invariants",
+          "title": "Relations, equivalence, and invariants"
+        },
+        {
+          "slug": "module-08-capstone-proof-workshop",
+          "title": "Capstone proof workshop"
+        }
+      ]
     },
     {
-      "slug": "module-02-direct-proofs-and-definitions",
-      "title": "Direct proofs and definitions"
-    },
-    {
-      "slug": "module-03-contrapositive-and-contradiction",
-      "title": "Contrapositive and proof by contradiction"
-    },
-    {
-      "slug": "module-04-sets-functions-injections-bijections",
-      "title": "Sets, functions, injections, and bijections"
-    },
-    {
-      "slug": "module-05-induction-and-recursive-reasoning",
-      "title": "Induction and recursive reasoning"
-    },
-    {
-      "slug": "module-06-counterexamples-and-proof-debugging",
-      "title": "Counterexamples, edge cases, and proof debugging"
-    },
-    {
-      "slug": "module-07-relations-equivalence-invariants",
-      "title": "Relations, equivalence, and invariants"
-    },
-    {
-      "slug": "module-08-capstone-proof-workshop",
-      "title": "Capstone proof workshop"
+      "slug": "linear-algebra-beyond-computation",
+      "title": "Linear Algebra Beyond Computation",
+      "description": "Understand the structure behind the calculations. Reason about vector spaces, linear maps, eigenvectors, and orthogonality through proofs and carefully chosen examples. Familiarity with elementary algebra and proof reasoning is recommended; no calculus is required.",
+      "modules": [
+        {
+          "slug": "module-01-vector-spaces",
+          "title": "Vector spaces and subspaces"
+        },
+        {
+          "slug": "module-02-bases-and-dimension",
+          "title": "Span, independence, and dimension"
+        },
+        {
+          "slug": "module-03-linear-maps",
+          "title": "Linear maps and rank–nullity"
+        },
+        {
+          "slug": "module-04-matrices-and-determinants",
+          "title": "Coordinates and determinants"
+        },
+        {
+          "slug": "module-05-eigenstructure",
+          "title": "Eigenvalues and diagonalization"
+        },
+        {
+          "slug": "module-06-orthogonality",
+          "title": "Orthogonality and synthesis"
+        }
+      ]
     }
   ]
 }

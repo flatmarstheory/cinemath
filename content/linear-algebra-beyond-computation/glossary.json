@@ -1,0 +1,125 @@
+{
+  "courseSlug": "linear-algebra-beyond-computation",
+  "terms": [
+    {
+      "id": "la-vector-space",
+      "term": "Vector space",
+      "definitionMarkdown": "A set with vector addition and real scalar multiplication satisfying associativity and commutativity of addition, a zero vector, additive inverses, the two distributive laws, scalar associativity, and $1v=v$. This course uses real vector spaces.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-subspace",
+      "term": "Subspace",
+      "definitionMarkdown": "A subset of a vector space that contains zero and is closed under addition and scalar multiplication, using the ambient operations.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-span",
+      "term": "Span",
+      "definitionMarkdown": "The set of all finite linear combinations of the given vectors. It is the smallest subspace containing them.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-independence",
+      "term": "Linear independence",
+      "definitionMarkdown": "Vectors $v_1,\\ldots,v_k$ are linearly independent if $a_1v_1+\\cdots+a_kv_k=0$ implies that every coefficient is zero.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-basis",
+      "term": "Basis",
+      "definitionMarkdown": "A linearly independent spanning set. An ordered basis gives every vector a unique list of coordinates.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-dimension",
+      "term": "Dimension",
+      "definitionMarkdown": "The number of vectors in any basis of a finite-dimensional vector space. The zero space has dimension zero and the empty basis.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-linear-map",
+      "term": "Linear map",
+      "definitionMarkdown": "A map $T:V\\to W$ satisfying $T(au+bv)=aT(u)+bT(v)$ for every pair of vectors and real scalars.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-kernel",
+      "term": "Kernel",
+      "definitionMarkdown": "For a linear map $T:V\\to W$, the subspace $\\ker T=\\{v\\in V:T(v)=0\\}$ of the domain.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-image",
+      "term": "Image",
+      "definitionMarkdown": "For a linear map $T:V\\to W$, the subspace $\\operatorname{im}T=\\{T(v):v\\in V\\}$ of the codomain.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-rank-nullity",
+      "term": "Rank–nullity",
+      "definitionMarkdown": "For a linear map on a finite-dimensional domain, $\\dim V=\\dim\\ker T+\\dim\\operatorname{im}T$. The latter two quantities are nullity and rank.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-coordinates",
+      "term": "Coordinates",
+      "definitionMarkdown": "Relative to an ordered basis $B=(b_1,\\ldots,b_n)$, the coordinate column $[v]_B$ lists the unique coefficients in $v=\\sum_i c_i b_i$.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-determinant",
+      "term": "Determinant",
+      "definitionMarkdown": "For a square real matrix, a signed volume scale. It is alternating and multilinear in the columns, equals one on the identity, is multiplicative, and is nonzero exactly when the matrix is invertible.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-eigenvector",
+      "term": "Eigenvector",
+      "definitionMarkdown": "A nonzero vector $v$ satisfying $Av=\\lambda v$. The scalar $\\lambda$ is its eigenvalue. Zero is permitted as an eigenvalue, never as an eigenvector.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-eigenspace",
+      "term": "Eigenspace",
+      "definitionMarkdown": "The subspace $E_\\lambda=\\ker(A-\\lambda I)$, including zero. Its nonzero vectors are the eigenvectors for $\\lambda$.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-diagonalization",
+      "term": "Diagonalization",
+      "definitionMarkdown": "A factorization $A=PDP^{-1}$ with $P$ invertible and $D$ diagonal. It exists over the chosen field exactly when there is a basis of eigenvectors.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-inner-product",
+      "term": "Inner product",
+      "definitionMarkdown": "On a real vector space, a symmetric bilinear pairing $\\langle u,v\\rangle$ with $\\langle v,v\\rangle>0$ for nonzero $v$. On $\\mathbb R^n$, the standard example is the dot product.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-orthogonality",
+      "term": "Orthogonality",
+      "definitionMarkdown": "Vectors are orthogonal when their inner product is zero. A list is orthonormal when its vectors have unit length and distinct vectors are orthogonal.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-projection",
+      "term": "Orthogonal projection",
+      "definitionMarkdown": "The vector $p$ in a subspace $W$ such that $v-p$ is orthogonal to every vector of $W$. For an orthonormal basis $q_i$ of $W$, $p=\\sum_i\\langle v,q_i\\rangle q_i$.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-least-squares",
+      "term": "Least squares",
+      "definitionMarkdown": "Choosing $x$ to minimize $\\|Ax-b\\|^2$. Minimizers satisfy $A^T(Ax-b)=0$; the coefficient vector is unique when the columns of $A$ are independent.",
+      "relatedTerms": []
+    },
+    {
+      "id": "la-spectral-theorem",
+      "term": "Real spectral theorem",
+      "definitionMarkdown": "Every real symmetric matrix has an orthonormal basis of real eigenvectors, so $A=QDQ^T$ with $Q$ orthogonal and $D$ real diagonal.",
+      "relatedTerms": []
+    }
+  ]
+}

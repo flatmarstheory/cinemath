@@ -1,0 +1,257 @@
+{
+  "lessonId": "labc-m5-diagonalization",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-05-eigenstructure",
+  "title": "An eigenbasis simplifies repeated action",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Decide whether an operator has an eigenbasis and explain the resulting diagonalization.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-eigenspace", "la-basis", "la-coordinates"],
+  "conceptsIntroduced": ["la-diagonalization"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "What happens to the matrix of a map when each chosen basis vector is only rescaled?"
+    },
+    "encounter": {
+      "bodyMarkdown": "A repeated stretch is easy to predict along eigenvectors. But a shear can have a repeated eigenvalue without supplying enough eigenvectors."
+    },
+    "explain": {
+      "bodyMarkdown": "If the columns of an invertible $P$ are eigenvectors, then $AP=PD$ where $D$ lists their eigenvalues. Hence $A=PDP^{-1}$ and $A^k=PD^kP^{-1}$ for positive integers $k$. An $n$-dimensional operator is diagonalizable exactly when it has $n$ independent eigenvectors. Distinct eigenvalues give independent eigenvectors; a repeated eigenvalue may or may not supply enough. The identity is diagonalizable despite a single eigenvalue, while $\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$ has only a one-dimensional eigenspace and is not diagonalizable."
+    },
+    "reflect": {
+      "bodyMarkdown": "Multiplicity in the characteristic polynomial is not the number of independent eigenvectors. Count eigenspace dimensions, and state the field."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m5-diagonalization-p1",
+      "version": 1,
+      "lessonId": "labc-m5-diagonalization",
+      "type": "multiple_choice",
+      "promptMarkdown": "A real two-by-two matrix has two distinct real eigenvalues. Which follows?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "It is diagonalizable over the reals.",
+            "accessibleLabel": "It is diagonalizable over the reals."
+          },
+          {
+            "id": "b",
+            "label": "It is the identity.",
+            "accessibleLabel": "It is the identity."
+          },
+          {
+            "id": "c",
+            "label": "It has no real eigenvectors.",
+            "accessibleLabel": "It has no real eigenvectors."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Count how many independent eigenvectors are available."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Distinct eigenvalues produce independent eigenvectors."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Two are enough for a basis in dimension two."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Eigenvectors for distinct eigenvalues are independent. Two independent vectors in the plane form a basis, so diagonalization follows."
+        }
+      ],
+      "solutionMarkdown": "Eigenvectors for distinct eigenvalues are independent. Two independent vectors in the plane form a basis, so diagonalization follows.",
+      "concepts": ["la-diagonalization"],
+      "prerequisites": ["la-eigenspace", "la-basis", "la-coordinates"],
+      "difficulty": 1,
+      "misconceptionTags": ["diagonalization-definition-confusion"]
+    },
+    {
+      "id": "labc-m5-diagonalization-p2",
+      "version": 1,
+      "lessonId": "labc-m5-diagonalization",
+      "type": "numeric",
+      "promptMarkdown": "For $A=\\begin{pmatrix}1&1\\\\0&1\\end{pmatrix}$, what is $\\dim\\ker(A-I)$?",
+      "answerSpec": {
+        "correctValue": 1,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Solve the homogeneous system after subtracting the identity."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The off-diagonal entry is still one."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Only the first coordinate can vary freely."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The equation $(A-I)(x,y)=(y,0)=0$ forces $y=0$ and leaves $x$ free. The eigenspace dimension is one."
+        }
+      ],
+      "solutionMarkdown": "The equation $(A-I)(x,y)=(y,0)=0$ forces $y=0$ and leaves $x$ free. The eigenspace dimension is one.",
+      "concepts": ["la-diagonalization"],
+      "prerequisites": ["la-eigenspace", "la-basis", "la-coordinates"],
+      "difficulty": 2,
+      "misconceptionTags": ["diagonalization-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m5-diagonalization-p3",
+      "version": 1,
+      "lessonId": "labc-m5-diagonalization",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which statement about a repeated eigenvalue is true?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "It always prevents diagonalization.",
+            "accessibleLabel": "It always prevents diagonalization."
+          },
+          {
+            "id": "b",
+            "label": "It always guarantees diagonalization.",
+            "accessibleLabel": "It always guarantees diagonalization."
+          },
+          {
+            "id": "c",
+            "label": "It may or may not allow enough independent eigenvectors.",
+            "accessibleLabel": "It may or may not allow enough independent eigenvectors."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Compare the identity and the shear."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Diagonalization requires a basis, not just roots."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The two examples have different eigenspace dimensions."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The identity has a full eigenbasis, while the shear in this lesson does not. Both have a repeated eigenvalue. Eigenspace dimension is decisive."
+        }
+      ],
+      "solutionMarkdown": "The identity has a full eigenbasis, while the shear in this lesson does not. Both have a repeated eigenvalue. Eigenspace dimension is decisive.",
+      "concepts": ["la-diagonalization"],
+      "prerequisites": ["la-eigenspace", "la-basis", "la-coordinates"],
+      "difficulty": 2,
+      "misconceptionTags": ["diagonalization-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m5-diagonalization-p4",
+      "version": 1,
+      "lessonId": "labc-m5-diagonalization",
+      "type": "numeric",
+      "promptMarkdown": "If $Av=2v$ with $v\\ne0$, then $A^3v=cv$. Find $c$.",
+      "answerSpec": {
+        "correctValue": 8,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Follow the eigenvector through three applications."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Each application multiplies it by the same scalar."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The overall factor is the product of three twos."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Apply the relation repeatedly: $A^3v=2^3v=8v$. This avoids multiplying a full matrix three times."
+        }
+      ],
+      "solutionMarkdown": "Apply the relation repeatedly: $A^3v=2^3v=8v$. This avoids multiplying a full matrix three times.",
+      "concepts": ["la-diagonalization"],
+      "prerequisites": ["la-eigenspace", "la-basis", "la-coordinates"],
+      "difficulty": 3,
+      "misconceptionTags": ["diagonalization-condition-confusion"]
+    },
+    {
+      "id": "labc-m5-diagonalization-p5",
+      "version": 1,
+      "lessonId": "labc-m5-diagonalization",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove that two eigenvectors with distinct eigenvalues are independent.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $Au=\\lambda u$, $Av=\\mu v$, with $u,v\\ne0$ and $\\lambda\\ne\\mu$; suppose $au+bv=0$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Apply $A$ to get $a\\lambda u+b\\mu v=0$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Subtract $\\lambda$ times the original relation to obtain $b(\\mu-\\lambda)v=0$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since $v\\ne0$ and $\\mu-\\lambda\\ne0$, $b=0$; the original relation then gives $a=0$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Show a zero relation must have trivial coefficients."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Apply the operator to the relation."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Subtract a multiple of the original equation to eliminate one term."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Use the map to create a second relation and eliminate one vector. The distinct eigenvalues make the remaining scalar factor nonzero."
+        }
+      ],
+      "solutionMarkdown": "Use the map to create a second relation and eliminate one vector. The distinct eigenvalues make the remaining scalar factor nonzero.",
+      "concepts": ["la-diagonalization"],
+      "prerequisites": ["la-eigenspace", "la-basis", "la-coordinates"],
+      "difficulty": 3,
+      "misconceptionTags": ["diagonalization-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-diagonalization"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

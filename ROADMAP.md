@@ -513,6 +513,36 @@ The exact algorithm must be documented, deterministic, unit-tested, and visible 
 
 **Goal:** Establish sustainable economics only after retention and instructional value are validated.
 
+### Phase 7 (1) - Expansion foundation and deployment readiness
+
+**Status:** Complete
+
+The first Phase 7 increment establishes the technical and content foundation for
+expansion without introducing payment gates:
+
+- Generalized content loading and validation from one course to a catalog of
+  courses, with course-aware lessons, glossaries, modules, search, prerequisites,
+  and navigation.
+- Added *Linear Algebra Beyond Computation* with 6 modules, 13 lessons, 65
+  problems, and a 20-term glossary, alongside the continuing *Proofs for Modern
+  Mathematics* course.
+- Added course selection and expanded learner-facing presentation, including
+  responsive account flows, dashboard and certificate updates, and shared visual
+  styling for the expanded product surface.
+- Extended the instructor/editor content surface and API routes for multi-course
+  content, learner data, feedback, analytics, and proof feedback, with request
+  origin checks and schema validation at the boundaries.
+- Added production deployment support with a standalone Next.js build, Docker
+  image, Docker Compose configuration, persistent SQLite volume, and documented
+  environment configuration.
+- Updated content, unit, integration, and browser coverage for the new course,
+  account flows, content validation, request-origin checks, and existing lesson
+  behavior.
+
+This increment does not claim monetization readiness. Payment, pricing, and
+subscription experiments remain subject to the retention and instructional-value
+criteria below.
+
 ### Possible model
 
 - Free first module or free foundational course

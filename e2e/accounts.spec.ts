@@ -7,9 +7,12 @@ test("account progress resumes across browsers and targeted review preserves it"
   const username = `learner_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
   const password = "a-unique-long-password";
   await page.goto("/dashboard");
+  await page
+    .getByRole("button", { name: "Create account", exact: true })
+    .click();
   await page.getByLabel("Username", { exact: true }).fill(username);
   await page.getByLabel("Password", { exact: true }).fill(password);
-  await page.getByRole("button", { name: "Create account" }).click();
+  await page.getByRole("button", { name: "Create my account" }).click();
   await expect(page.getByText(`Signed in as ${username}.`)).toBeVisible();
   await page.getByLabel("Display name (optional)").fill("Ada");
   await expect(page.getByText("Settings saved.")).toBeVisible();
@@ -25,7 +28,7 @@ test("account progress resumes across browsers and targeted review preserves it"
     await other.goto("http://127.0.0.1:3100/dashboard");
     await other.getByLabel("Username", { exact: true }).fill(username);
     await other.getByLabel("Password", { exact: true }).fill(password);
-    await other.getByRole("button", { name: "Sign in", exact: true }).click();
+    await other.getByRole("button", { name: "Sign in to continue" }).click();
     await expect(
       other.getByRole("heading", { name: "Ada's dashboard" }),
     ).toBeVisible();

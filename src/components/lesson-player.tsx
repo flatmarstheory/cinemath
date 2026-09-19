@@ -50,6 +50,9 @@ export function LessonPlayer({
   // Detected client-side (not via server searchParams) so this route stays statically generated.
   const [preview, setPreview] = useState(false);
   const account = useRef<string | null>(null);
+  const [feedbackLearnerId, setFeedbackLearnerId] = useState<string | null>(
+    null,
+  );
   const revision = useRef(0);
   const pending = useRef(Promise.resolve());
   const failed = useRef(false);
@@ -73,6 +76,7 @@ export function LessonPlayer({
       .then((data) => {
         if (cancelled) return;
         account.current = data.account?.id || null;
+        setFeedbackLearnerId(data.account?.id || anonLearnerId());
         setReviewConcept(
           new URLSearchParams(window.location.search).get("review"),
         );
@@ -169,8 +173,7 @@ export function LessonPlayer({
       action,
     );
     emitAnalyticsEvent(event);
-    if (!preview)
-      sendAnalyticsEvent(event, account.current || anonLearnerId());
+    if (!preview) sendAnalyticsEvent(event, account.current || anonLearnerId());
     persist(next);
   };
   if (reviewConcept && !preview)
@@ -250,7 +253,7 @@ export function LessonPlayer({
   return (
     <main id="main" className="learning-page">
       <nav className="lesson-breadcrumb" aria-label="Breadcrumb">
-        <Link href="/">← Course</Link>
+        <Link href={`/?course=${lesson.courseSlug}#course`}>← Course</Link>
         <span>{courseTitle}</span>
         <span className="pill">
           {lesson.kind === "lesson"
@@ -395,7 +398,9 @@ export function LessonPlayer({
                     {feedbackCategoryLabel[latest.aiFeedback.category]}
                   </p>
                   <p>{latest.aiFeedback.rationale}</p>
-                  <p className="muted">Next step: {latest.aiFeedback.nextStep}</p>
+                  <p className="muted">
+                    Next step: {latest.aiFeedback.nextStep}
+                  </p>
                   {latest.aiFeedback.fallback && (
                     <p className="muted">
                       AI feedback was unavailable for this attempt — you can
@@ -404,8 +409,8 @@ export function LessonPlayer({
                     </p>
                   )}
                   <p className="muted">
-                    Educational feedback grounded in this problem&apos;s
-                    rubric — not formal proof verification.
+                    Educational feedback grounded in this problem&apos;s rubric
+                    — not formal proof verification.
                   </p>
                 </div>
               )}
@@ -553,7 +558,9 @@ export function LessonPlayer({
                       <div>
                         <strong>
                           <Link href={`/glossary#${concept.id}`}>
-                            {concept.id.replaceAll("-", " ")}
+                            {concept.id
+                              .replace(/^la-/, "")
+                              .replaceAll("-", " ")}
                           </Link>
                         </strong>
                         <span>
@@ -571,7 +578,10 @@ export function LessonPlayer({
                 </ul>
               </section>
               <div className="completion-actions">
-                <Link href="/" className="button">
+                <Link
+                  href={`/?course=${lesson.courseSlug}#course`}
+                  className="button"
+                >
                   Back to course ↗
                 </Link>
                 <button
@@ -581,10 +591,10 @@ export function LessonPlayer({
                   Revisit the explanation
                 </button>
               </div>
-              {!preview && (
+              {!preview && feedbackLearnerId && (
                 <LessonFeedback
                   lessonId={lesson.lessonId}
-                  learnerId={account.current || anonLearnerId()}
+                  learnerId={feedbackLearnerId}
                 />
               )}
             </>

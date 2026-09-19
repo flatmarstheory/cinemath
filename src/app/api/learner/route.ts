@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { hasSameOrigin } from "@/lib/request-origin";
 import { randomBytes, randomUUID } from "node:crypto";
 import { z } from "zod";
 import {
@@ -63,7 +64,7 @@ export async function GET(req: NextRequest) {
   });
 }
 export async function POST(req: NextRequest) {
-  if (req.headers.get("origin") !== req.nextUrl.origin)
+  if (!hasSameOrigin(req))
     return response({ error: "Invalid request origin." }, 403);
   if (Number(req.headers.get("content-length") || 0) > 2000000)
     return response({ error: "Request too large." }, 413);

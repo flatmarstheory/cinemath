@@ -1,0 +1,266 @@
+{
+  "lessonId": "labc-m4-coordinates-and-matrices",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-04-matrices-and-determinants",
+  "title": "A matrix is a map in coordinates",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Interpret matrix columns and change of basis as representations of a linear map.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-linear-map", "la-basis"],
+  "conceptsIntroduced": ["la-coordinates"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "A map is determined by what it does to a basis. How can those images be recorded as numbers?"
+    },
+    "encounter": {
+      "bodyMarkdown": "The same vector can have coordinates $(4,2)$ or $(3,1)$, depending on the chosen basis. The vector has not moved; the description changed."
+    },
+    "explain": {
+      "bodyMarkdown": "For input basis $B$ and output basis $C$, column $j$ of $[T]_{C\\leftarrow B}$ is $[T(b_j)]_C$. Thus $[T(v)]_C=[T]_{C\\leftarrow B}[v]_B$. If $P$ has a new basis as columns in old coordinates, then $[v]_{old}=P[v]_{new}$. For an operator represented by $A$ in the old basis, the new matrix is $P^{-1}AP$: convert in, apply the map, convert out. Matrix order matters; the rightmost operation acts first."
+    },
+    "reflect": {
+      "bodyMarkdown": "Always state the ordered bases and direction of conversion. Changing coordinates does not change the map or its intrinsic rank."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m4-coordinates-and-matrices-p1",
+      "version": 1,
+      "lessonId": "labc-m4-coordinates-and-matrices",
+      "type": "multiple_choice",
+      "promptMarkdown": "The columns of a matrix for $T$ record:",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Images of the input basis vectors in the output basis.",
+            "accessibleLabel": "Images of the input basis vectors in the output basis."
+          },
+          {
+            "id": "b",
+            "label": "Rows of the inverse map.",
+            "accessibleLabel": "Rows of the inverse map."
+          },
+          {
+            "id": "c",
+            "label": "Eigenvalues in decreasing order.",
+            "accessibleLabel": "Eigenvalues in decreasing order."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Evaluate the matrix on a basis coordinate vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Matrix multiplication selects a column for a standard unit input."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The chosen column is the output coordinate list."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Multiplying by the $j$th standard coordinate vector selects column $j$. That input represents the $j$th input basis vector."
+        }
+      ],
+      "solutionMarkdown": "Multiplying by the $j$th standard coordinate vector selects column $j$. That input represents the $j$th input basis vector.",
+      "concepts": ["la-coordinates"],
+      "prerequisites": ["la-linear-map", "la-basis"],
+      "difficulty": 1,
+      "misconceptionTags": ["coordinates-and-matrices-definition-confusion"]
+    },
+    {
+      "id": "labc-m4-coordinates-and-matrices-p2",
+      "version": 1,
+      "lessonId": "labc-m4-coordinates-and-matrices",
+      "type": "numeric",
+      "promptMarkdown": "In $B=((1,1),(1,-1))$, the vector $v$ has coordinates $(2,3)$. What is the second ordinary coordinate of $v$?",
+      "answerSpec": {
+        "correctValue": -1,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Convert basis coordinates back to an actual vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use coordinates as coefficients of the ordered basis."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The second coordinate is $2-3$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Reconstruct $v=2(1,1)+3(1,-1)=(5,-1)$. The requested coordinate is $-1$."
+        }
+      ],
+      "solutionMarkdown": "Reconstruct $v=2(1,1)+3(1,-1)=(5,-1)$. The requested coordinate is $-1$.",
+      "concepts": ["la-coordinates"],
+      "prerequisites": ["la-linear-map", "la-basis"],
+      "difficulty": 2,
+      "misconceptionTags": ["coordinates-and-matrices-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m4-coordinates-and-matrices-p3",
+      "version": 1,
+      "lessonId": "labc-m4-coordinates-and-matrices",
+      "type": "multiple_choice",
+      "promptMarkdown": "If $[v]_{old}=P[v]_{new}$, the new matrix of an operator with old matrix $A$ is:",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$PAP^{-1}$.",
+            "accessibleLabel": "PAP^-1."
+          },
+          {
+            "id": "b",
+            "label": "$P^{-1}AP$.",
+            "accessibleLabel": "P^-1AP."
+          },
+          {
+            "id": "c",
+            "label": "$AP$.",
+            "accessibleLabel": "AP."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Follow an input through both coordinate systems."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Compositions act from right to left."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The last step converts old output coordinates back to new."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "First apply $P$ to enter old coordinates, then $A$, then $P^{-1}$ to return. Reading these right to left gives $P^{-1}AP$."
+        }
+      ],
+      "solutionMarkdown": "First apply $P$ to enter old coordinates, then $A$, then $P^{-1}$ to return. Reading these right to left gives $P^{-1}AP$.",
+      "concepts": ["la-coordinates"],
+      "prerequisites": ["la-linear-map", "la-basis"],
+      "difficulty": 2,
+      "misconceptionTags": ["coordinates-and-matrices-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m4-coordinates-and-matrices-p4",
+      "version": 1,
+      "lessonId": "labc-m4-coordinates-and-matrices",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Let $T(1,0)=(2,3)$ and $T(0,1)=(-1,4)$. Enter the two entries of the first column of its standard matrix.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "top",
+            "label": "Top entry",
+            "acceptedValues": ["2"]
+          },
+          {
+            "id": "bottom",
+            "label": "Bottom entry",
+            "acceptedValues": ["3"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Identify which input basis vector defines the first column."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use the column interpretation of a linear map."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Only the first of the two given images is needed."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The first column is the image of the first standard basis vector, namely $(2,3)$. Images belong in columns, not rows."
+        }
+      ],
+      "solutionMarkdown": "The first column is the image of the first standard basis vector, namely $(2,3)$. Images belong in columns, not rows.",
+      "concepts": ["la-coordinates"],
+      "prerequisites": ["la-linear-map", "la-basis"],
+      "difficulty": 3,
+      "misconceptionTags": ["coordinates-and-matrices-condition-confusion"]
+    },
+    {
+      "id": "labc-m4-coordinates-and-matrices-p5",
+      "version": 1,
+      "lessonId": "labc-m4-coordinates-and-matrices",
+      "type": "proof_ordering",
+      "promptMarkdown": "Derive the change-of-basis formula.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $x=[v]_{new}$ and let $P$ convert new coordinates to old."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Then $[v]_{old}=Px$, so $[T(v)]_{old}=APx$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Converting the output back gives $[T(v)]_{new}=P^{-1}APx$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since this holds for all $x$, the new matrix is $P^{-1}AP$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Start with new input coordinates."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use the given direction of the conversion matrix."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The inverse conversion must be the leftmost factor."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Keep track of the coordinate space after every operation. Conversion, application, and conversion back yield similarity."
+        }
+      ],
+      "solutionMarkdown": "Keep track of the coordinate space after every operation. Conversion, application, and conversion back yield similarity.",
+      "concepts": ["la-coordinates"],
+      "prerequisites": ["la-linear-map", "la-basis"],
+      "difficulty": 3,
+      "misconceptionTags": ["coordinates-and-matrices-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-coordinates"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

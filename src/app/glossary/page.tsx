@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { glossary, course } from "@/lib/content";
+import { glossary } from "@/lib/content";
 import { MathContent } from "@/components/math-content";
 
 export const metadata = { title: "Glossary · CineMath" };
@@ -16,12 +16,11 @@ export default function GlossaryPage() {
     <main id="main" className="dashboard-page">
       <div className="dashboard-header">
         <p className="eyebrow">SHARED VOCABULARY</p>
-        <h1>{course.title} glossary</h1>
+        <h1>Mathematics glossary</h1>
         <p className="completion-lede">
-          Every term below is defined once, here, and used consistently
-          across every lesson — the same concept id you see in your
-          dashboard&apos;s mastery list links back to its definition on this
-          page.
+          Every term below is defined once, here, and used consistently across
+          every lesson — the same concept id you see in your dashboard&apos;s
+          mastery list links back to its definition on this page.
         </p>
       </div>
       {terms.length === 0 ? (

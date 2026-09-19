@@ -1,0 +1,265 @@
+{
+  "lessonId": "labc-m6-inner-products-and-projection",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-06-orthogonality",
+  "title": "Orthogonality gives the closest point",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Use orthogonal decomposition to justify projection as a closest-point construction.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-basis", "la-subspace"],
+  "conceptsIntroduced": [
+    "la-inner-product",
+    "la-orthogonality",
+    "la-projection"
+  ],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "A basis gives coordinates but does not necessarily measure lengths or angles. What extra structure would let it do so?"
+    },
+    "encounter": {
+      "bodyMarkdown": "To approximate a point by a point on a line, the shortest connecting segment meets the line at a right angle. How can that picture become a proof?"
+    },
+    "explain": {
+      "bodyMarkdown": "A real inner product is symmetric and bilinear, with $\\langle v,v\\rangle>0$ for nonzero $v$. It defines $\\|v\\|^2=\\langle v,v\\rangle$ and orthogonality by zero inner product. For a nonzero vector $u$, the projection of $v$ onto its line is $p=\\frac{\\langle v,u\\rangle}{\\langle u,u\\rangle}u$. Then $v-p$ is orthogonal to $u$. More generally, if $p\\in W$ and $v-p\\perp W$, for every $w\\in W$ the Pythagorean identity gives $\\|v-w\\|^2=\\|v-p\\|^2+\\|p-w\\|^2$. Thus $p$ is the unique closest point in $W$."
+    },
+    "reflect": {
+      "bodyMarkdown": "The denominator matters unless the direction vector is unit length. Orthogonality turns an approximation claim into an exact minimization proof."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m6-inner-products-and-projection-p1",
+      "version": 1,
+      "lessonId": "labc-m6-inner-products-and-projection",
+      "type": "numeric",
+      "promptMarkdown": "Using the standard dot product, compute $\\langle(1,2),(2,-1)\\rangle$.",
+      "answerSpec": {
+        "correctValue": 0,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Multiply matching coordinates and add."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use the standard dot product."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The two products have opposite signs and equal magnitude."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The dot product is $1\\cdot2+2(-1)=0$, so the vectors are orthogonal."
+        }
+      ],
+      "solutionMarkdown": "The dot product is $1\\cdot2+2(-1)=0$, so the vectors are orthogonal.",
+      "concepts": ["la-inner-product", "la-orthogonality", "la-projection"],
+      "prerequisites": ["la-basis", "la-subspace"],
+      "difficulty": 1,
+      "misconceptionTags": [
+        "inner-products-and-projection-definition-confusion"
+      ]
+    },
+    {
+      "id": "labc-m6-inner-products-and-projection-p2",
+      "version": 1,
+      "lessonId": "labc-m6-inner-products-and-projection",
+      "type": "multiple_choice",
+      "promptMarkdown": "For nonzero $u$, the projection of $v$ onto its span is:",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$\\langle v,u\\rangle u$ for every $u$.",
+            "accessibleLabel": "langle v,urangle u for every u."
+          },
+          {
+            "id": "b",
+            "label": "$\\frac{\\langle v,u\\rangle}{\\langle u,u\\rangle}u$.",
+            "accessibleLabel": "(langle v,urangle) divided by (langle u,urangle)u."
+          },
+          {
+            "id": "c",
+            "label": "$v-u$.",
+            "accessibleLabel": "v-u."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Find a multiple of the direction whose residual is orthogonal."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Set the residual dot product with the direction to zero."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The coefficient must divide by the squared length of the direction."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Write the projection as $cu$ and enforce $(v-cu)\\perp u$. Solving gives $c=\\langle v,u\\rangle/\\langle u,u\\rangle$."
+        }
+      ],
+      "solutionMarkdown": "Write the projection as $cu$ and enforce $(v-cu)\\perp u$. Solving gives $c=\\langle v,u\\rangle/\\langle u,u\\rangle$.",
+      "concepts": ["la-inner-product", "la-orthogonality", "la-projection"],
+      "prerequisites": ["la-basis", "la-subspace"],
+      "difficulty": 2,
+      "misconceptionTags": [
+        "inner-products-and-projection-coordinate-confusion"
+      ]
+    },
+    {
+      "id": "labc-m6-inner-products-and-projection-p3",
+      "version": 1,
+      "lessonId": "labc-m6-inner-products-and-projection",
+      "type": "numeric",
+      "promptMarkdown": "Project $v=(3,1)$ onto the line spanned by $u=(1,1)$. What is the first coordinate of the projection?",
+      "answerSpec": {
+        "correctValue": 2,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Compute the scalar coefficient before reconstructing the vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Divide the dot product by the squared length."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The numerator is four and the denominator is two."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The coefficient is $(3+1)/(1+1)=2$. The projection is $(2,2)$, so the first coordinate is two."
+        }
+      ],
+      "solutionMarkdown": "The coefficient is $(3+1)/(1+1)=2$. The projection is $(2,2)$, so the first coordinate is two.",
+      "concepts": ["la-inner-product", "la-orthogonality", "la-projection"],
+      "prerequisites": ["la-basis", "la-subspace"],
+      "difficulty": 2,
+      "misconceptionTags": ["inner-products-and-projection-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m6-inner-products-and-projection-p4",
+      "version": 1,
+      "lessonId": "labc-m6-inner-products-and-projection",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "For the preceding projection $p=(2,2)$ of $v=(3,1)$, enter the two coordinates of the residual $v-p$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "x",
+            "label": "First residual coordinate",
+            "acceptedValues": ["1"]
+          },
+          {
+            "id": "y",
+            "label": "Second residual coordinate",
+            "acceptedValues": ["-1"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Subtract the projection from the original vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Subtraction is coordinatewise."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The first coordinate decreases by two, as does the second."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The residual is $(1,-1)$, and its dot product with $(1,1)$ is zero. This checks the geometric condition."
+        }
+      ],
+      "solutionMarkdown": "The residual is $(1,-1)$, and its dot product with $(1,1)$ is zero. This checks the geometric condition.",
+      "concepts": ["la-inner-product", "la-orthogonality", "la-projection"],
+      "prerequisites": ["la-basis", "la-subspace"],
+      "difficulty": 3,
+      "misconceptionTags": ["inner-products-and-projection-condition-confusion"]
+    },
+    {
+      "id": "labc-m6-inner-products-and-projection-p5",
+      "version": 1,
+      "lessonId": "labc-m6-inner-products-and-projection",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove the closest-point property when $p\\in W$ and $v-p\\perp W$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Choose any $w\\in W$ and write $v-w=(v-p)+(p-w)$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Because $p-w\\in W$, the two terms are orthogonal."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Pythagoras gives $\\|v-w\\|^2=\\|v-p\\|^2+\\|p-w\\|^2$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "The last term is nonnegative and vanishes only for $w=p$, so $p$ is the unique closest point."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Compare the proposed closest point with an arbitrary competitor."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use the orthogonal decomposition of the error."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The second squared length cannot be negative."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Split the error into orthogonal components. The extra component can only increase the squared distance, strictly unless it is zero."
+        }
+      ],
+      "solutionMarkdown": "Split the error into orthogonal components. The extra component can only increase the squared distance, strictly unless it is zero.",
+      "concepts": ["la-inner-product", "la-orthogonality", "la-projection"],
+      "prerequisites": ["la-basis", "la-subspace"],
+      "difficulty": 3,
+      "misconceptionTags": [
+        "inner-products-and-projection-unsupported-inference"
+      ]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": [
+      "la-inner-product",
+      "la-orthogonality",
+      "la-projection"
+    ],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

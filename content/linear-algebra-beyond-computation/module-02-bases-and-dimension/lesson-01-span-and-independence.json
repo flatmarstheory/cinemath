@@ -1,0 +1,266 @@
+{
+  "lessonId": "labc-m2-span-and-independence",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-02-bases-and-dimension",
+  "title": "Generating a space without redundancy",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Distinguish spanning from linear independence using relations among vectors.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-subspace"],
+  "conceptsIntroduced": ["la-span", "la-independence"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "A subspace must contain every linear combination of its vectors. What is the smallest subspace containing a given list?"
+    },
+    "encounter": {
+      "bodyMarkdown": "Two arrows can point in different directions, or one can be a rescaled copy of the other. When does a second vector contribute a new direction?"
+    },
+    "explain": {
+      "bodyMarkdown": "The span of $v_1,\\ldots,v_k$ is all sums $a_1v_1+\\cdots+a_kv_k$ with real coefficients. A list is independent when the only combination equal to zero has every coefficient zero. A nontrivial relation signals redundancy: a vector with nonzero coefficient can be expressed using the others. Spanning says a list reaches the target space; independence says it has no redundancy. These are different claims. The empty list is independent and spans the zero space."
+    },
+    "reflect": {
+      "bodyMarkdown": "A vector list may span a space while being redundant, or be independent while failing to span the target. Always name the ambient or target space."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m2-span-and-independence-p1",
+      "version": 1,
+      "lessonId": "labc-m2-span-and-independence",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which vector lies in $\\operatorname{span}\\{(1,2)\\}$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$(2,1)$.",
+            "accessibleLabel": "(2,1)."
+          },
+          {
+            "id": "b",
+            "label": "$(1,0)$.",
+            "accessibleLabel": "(1,0)."
+          },
+          {
+            "id": "c",
+            "label": "$(3,6)$.",
+            "accessibleLabel": "(3,6)."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Look for a scalar multiple of the generator."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Both coordinates must use the same scalar."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "If the first coordinate is $t$, the second must be $2t$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The span consists of $(t,2t)$. Taking $t=3$ gives $(3,6)$; the other vectors do not satisfy the coordinate ratio."
+        }
+      ],
+      "solutionMarkdown": "The span consists of $(t,2t)$. Taking $t=3$ gives $(3,6)$; the other vectors do not satisfy the coordinate ratio.",
+      "concepts": ["la-span", "la-independence"],
+      "prerequisites": ["la-subspace"],
+      "difficulty": 1,
+      "misconceptionTags": ["span-and-independence-definition-confusion"]
+    },
+    {
+      "id": "labc-m2-span-and-independence-p2",
+      "version": 1,
+      "lessonId": "labc-m2-span-and-independence",
+      "type": "numeric",
+      "promptMarkdown": "Find $a$ in $(5,3)=a(1,0)+3(1,1)$.",
+      "answerSpec": {
+        "correctValue": 2,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Match the first coordinates."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Expand the linear combination coordinatewise."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The first coordinate is $a+3$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The right side is $(a+3,3)$, so $a+3=5$ and $a=2$."
+        }
+      ],
+      "solutionMarkdown": "The right side is $(a+3,3)$, so $a+3=5$ and $a=2$.",
+      "concepts": ["la-span", "la-independence"],
+      "prerequisites": ["la-subspace"],
+      "difficulty": 2,
+      "misconceptionTags": ["span-and-independence-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m2-span-and-independence-p3",
+      "version": 1,
+      "lessonId": "labc-m2-span-and-independence",
+      "type": "multiple_choice",
+      "promptMarkdown": "The list $(1,0),(0,1),(1,1)$ in $\\mathbb R^2$ is:",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Spanning and independent.",
+            "accessibleLabel": "Spanning and independent."
+          },
+          {
+            "id": "b",
+            "label": "Spanning but dependent.",
+            "accessibleLabel": "Spanning but dependent."
+          },
+          {
+            "id": "c",
+            "label": "Independent but not spanning.",
+            "accessibleLabel": "Independent but not spanning."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Check coverage and redundancy separately."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "A vector expressible through the others gives dependence."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The third vector is the sum of the first two."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The first two vectors already span the plane. The third is their sum, so the list has a nontrivial relation and is dependent."
+        }
+      ],
+      "solutionMarkdown": "The first two vectors already span the plane. The third is their sum, so the list has a nontrivial relation and is dependent.",
+      "concepts": ["la-span", "la-independence"],
+      "prerequisites": ["la-subspace"],
+      "difficulty": 2,
+      "misconceptionTags": ["span-and-independence-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m2-span-and-independence-p4",
+      "version": 1,
+      "lessonId": "labc-m2-span-and-independence",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "If $a(1,1)+b(1,-1)=(0,0)$, adding the coordinate equations gives $2a=0$. Enter $a$ and then $b$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "a",
+            "label": "Coefficient a",
+            "acceptedValues": ["0"]
+          },
+          {
+            "id": "b",
+            "label": "Coefficient b",
+            "acceptedValues": ["0"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Find all coefficients producing zero."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Equate both coordinates to zero."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Adding the equations eliminates $b$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The equations are $a+b=0$ and $a-b=0$. Their sum gives $a=0$, and substitution gives $b=0$, proving independence."
+        }
+      ],
+      "solutionMarkdown": "The equations are $a+b=0$ and $a-b=0$. Their sum gives $a=0$, and substitution gives $b=0$, proving independence.",
+      "concepts": ["la-span", "la-independence"],
+      "prerequisites": ["la-subspace"],
+      "difficulty": 3,
+      "misconceptionTags": ["span-and-independence-condition-confusion"]
+    },
+    {
+      "id": "labc-m2-span-and-independence-p5",
+      "version": 1,
+      "lessonId": "labc-m2-span-and-independence",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove that any list containing the zero vector is dependent.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Suppose a list contains a zero vector in position $j$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Assign coefficient $1$ to position $j$ and $0$ to every other position."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "This linear combination equals zero but its coefficients are not all zero."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Therefore the list is linearly dependent."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Construct a nontrivial combination equal to zero."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use the zero vector already in the list."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Its coefficient can be nonzero without changing the sum."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Give an explicit nontrivial relation: multiplying the zero vector by one and all other vectors by zero suffices."
+        }
+      ],
+      "solutionMarkdown": "Give an explicit nontrivial relation: multiplying the zero vector by one and all other vectors by zero suffices.",
+      "concepts": ["la-span", "la-independence"],
+      "prerequisites": ["la-subspace"],
+      "difficulty": 3,
+      "misconceptionTags": ["span-and-independence-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-span", "la-independence"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

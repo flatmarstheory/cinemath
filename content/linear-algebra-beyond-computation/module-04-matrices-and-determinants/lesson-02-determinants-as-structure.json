@@ -1,0 +1,257 @@
+{
+  "lessonId": "labc-m4-determinants-as-structure",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-04-matrices-and-determinants",
+  "title": "Determinants measure collapse",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Interpret determinants as signed volume scaling and an invertibility test.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-coordinates", "la-rank-nullity"],
+  "conceptsIntroduced": ["la-determinant"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "When does a square linear map have zero kernel? What happens geometrically when independent directions become dependent?"
+    },
+    "encounter": {
+      "bodyMarkdown": "A shear tilts a square without changing its area. A projection flattens it to a line. A determinant distinguishes these effects with one number."
+    },
+    "explain": {
+      "bodyMarkdown": "For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $\\det A=ad-bc$. Its absolute value is the area scale; its sign records orientation. In dimension $n$, the determinant is the signed volume scale, normalized to one at the identity, multilinear and alternating in the columns. Dependent columns give zero. A square matrix is invertible exactly when its determinant is nonzero. Determinants multiply under composition: $\\det(AB)=\\det A\\det B$. Similar matrices have the same determinant because the factors from $P$ and $P^{-1}$ cancel."
+    },
+    "reflect": {
+      "bodyMarkdown": "A determinant is defined for square matrices. Zero means volume collapse, not necessarily that the map sends every vector to zero."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m4-determinants-as-structure-p1",
+      "version": 1,
+      "lessonId": "labc-m4-determinants-as-structure",
+      "type": "numeric",
+      "promptMarkdown": "What is the determinant of the shear $\\begin{pmatrix}1&3\\\\0&1\\end{pmatrix}$?",
+      "answerSpec": {
+        "correctValue": 1,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Apply the two-by-two determinant formula."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Subtract the off-diagonal product from the diagonal product."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The off-diagonal product has a zero factor."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The formula gives $1\\cdot1-3\\cdot0=1$. This shear preserves area and orientation."
+        }
+      ],
+      "solutionMarkdown": "The formula gives $1\\cdot1-3\\cdot0=1$. This shear preserves area and orientation.",
+      "concepts": ["la-determinant"],
+      "prerequisites": ["la-coordinates", "la-rank-nullity"],
+      "difficulty": 1,
+      "misconceptionTags": ["determinants-as-structure-definition-confusion"]
+    },
+    {
+      "id": "labc-m4-determinants-as-structure-p2",
+      "version": 1,
+      "lessonId": "labc-m4-determinants-as-structure",
+      "type": "multiple_choice",
+      "promptMarkdown": "A real square matrix has determinant zero. What must be true?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Every entry is zero.",
+            "accessibleLabel": "Every entry is zero."
+          },
+          {
+            "id": "b",
+            "label": "Its columns are dependent.",
+            "accessibleLabel": "Its columns are dependent."
+          },
+          {
+            "id": "c",
+            "label": "It reverses orientation without changing volume.",
+            "accessibleLabel": "It reverses orientation without changing volume."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Interpret zero as collapse of full-dimensional volume."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Invertibility is equivalent to independent columns."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "A projection can have nonzero entries and still collapse a direction."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Zero determinant means the columns fail to form a basis. A projection such as $\\operatorname{diag}(1,0)$ is nonzero but has dependent columns."
+        }
+      ],
+      "solutionMarkdown": "Zero determinant means the columns fail to form a basis. A projection such as $\\operatorname{diag}(1,0)$ is nonzero but has dependent columns.",
+      "concepts": ["la-determinant"],
+      "prerequisites": ["la-coordinates", "la-rank-nullity"],
+      "difficulty": 2,
+      "misconceptionTags": ["determinants-as-structure-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m4-determinants-as-structure-p3",
+      "version": 1,
+      "lessonId": "labc-m4-determinants-as-structure",
+      "type": "numeric",
+      "promptMarkdown": "A plane transformation scales one coordinate by $-2$ and the other by $3$. What is its signed area scale?",
+      "answerSpec": {
+        "correctValue": -6,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Distinguish signed scale from absolute area scale."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Multiply the two diagonal entries."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The negative factor records a reversal of orientation."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Its diagonal matrix has determinant $(-2)3=-6$. Areas grow by six, with orientation reversed."
+        }
+      ],
+      "solutionMarkdown": "Its diagonal matrix has determinant $(-2)3=-6$. Areas grow by six, with orientation reversed.",
+      "concepts": ["la-determinant"],
+      "prerequisites": ["la-coordinates", "la-rank-nullity"],
+      "difficulty": 2,
+      "misconceptionTags": ["determinants-as-structure-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m4-determinants-as-structure-p4",
+      "version": 1,
+      "lessonId": "labc-m4-determinants-as-structure",
+      "type": "multiple_choice",
+      "promptMarkdown": "If $B=P^{-1}AP$, how do the determinants compare?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "They are equal.",
+            "accessibleLabel": "They are equal."
+          },
+          {
+            "id": "b",
+            "label": "They are always reciprocals.",
+            "accessibleLabel": "They are always reciprocals."
+          },
+          {
+            "id": "c",
+            "label": "They differ by $\\det P$.",
+            "accessibleLabel": "They differ by det P."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Expand the determinant of the three factors."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use multiplicativity and the determinant of an inverse."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The first and last determinant factors multiply to one."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Multiplicativity gives $\\det B=\\det(P^{-1})\\det A\\det P=\\det A$. The change of coordinates cancels."
+        }
+      ],
+      "solutionMarkdown": "Multiplicativity gives $\\det B=\\det(P^{-1})\\det A\\det P=\\det A$. The change of coordinates cancels.",
+      "concepts": ["la-determinant"],
+      "prerequisites": ["la-coordinates", "la-rank-nullity"],
+      "difficulty": 3,
+      "misconceptionTags": ["determinants-as-structure-condition-confusion"]
+    },
+    {
+      "id": "labc-m4-determinants-as-structure-p5",
+      "version": 1,
+      "lessonId": "labc-m4-determinants-as-structure",
+      "type": "proof_ordering",
+      "promptMarkdown": "Prove that an invertible square matrix has nonzero determinant.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $A$ be invertible, so $AA^{-1}=I$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Take determinants and use multiplicativity: $\\det A\\det A^{-1}=\\det I$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Since $\\det I=1$, the product on the left is nonzero."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Therefore $\\det A\\ne0$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Use the equation defining an inverse."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Determinants multiply under composition."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The identity determinant is one."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Apply the determinant to the inverse identity. A product equal to one cannot have a zero factor."
+        }
+      ],
+      "solutionMarkdown": "Apply the determinant to the inverse identity. A product equal to one cannot have a zero factor.",
+      "concepts": ["la-determinant"],
+      "prerequisites": ["la-coordinates", "la-rank-nullity"],
+      "difficulty": 3,
+      "misconceptionTags": ["determinants-as-structure-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-determinant"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

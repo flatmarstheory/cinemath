@@ -1,0 +1,266 @@
+{
+  "lessonId": "labc-m3-linear-maps",
+  "courseSlug": "linear-algebra-beyond-computation",
+  "moduleSlug": "module-03-linear-maps",
+  "title": "A transformation is determined by a basis",
+  "kind": "lesson",
+  "status": "published",
+  "learningObjective": "Test linearity and determine a linear map from its values on a basis.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 25
+  },
+  "prerequisites": ["la-basis"],
+  "conceptsIntroduced": ["la-linear-map"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Every vector has a unique expansion in a chosen basis. What happens if a map preserves that expansion?"
+    },
+    "encounter": {
+      "bodyMarkdown": "The rule $T(x,y)=(x+y,y)$ shears the plane, while $F(x,y)=(x+1,y)$ translates it. Both look simple; only one is linear."
+    },
+    "explain": {
+      "bodyMarkdown": "A map $T:V\\to W$ is linear if $T(au+bv)=aT(u)+bT(v)$ for all vectors and real scalars. In particular $T(0)=0$, although this alone is not sufficient. Choosing images of a basis determines exactly one linear map: extend to every vector by its unique basis expansion. Matrix multiplication is an example because it distributes over sums and respects scalar multiplication. A nonzero translation is not linear."
+    },
+    "reflect": {
+      "bodyMarkdown": "Do not confuse a simple formula or a graph with straight lines with linearity. Preservation of arbitrary linear combinations is the criterion."
+    }
+  },
+  "problems": [
+    {
+      "id": "labc-m3-linear-maps-p1",
+      "version": 1,
+      "lessonId": "labc-m3-linear-maps",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which map from $\\mathbb R^2$ to $\\mathbb R^2$ is linear?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$(x,y)\\mapsto(x+1,y)$.",
+            "accessibleLabel": "(x,y)mapsto(x+1,y)."
+          },
+          {
+            "id": "b",
+            "label": "$(x,y)\\mapsto(x+y,2y)$.",
+            "accessibleLabel": "(x,y)mapsto(x+y,2y)."
+          },
+          {
+            "id": "c",
+            "label": "$(x,y)\\mapsto(x^2,y)$.",
+            "accessibleLabel": "(x,y)mapsto(x^2,y)."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Check for constants and nonlinear powers."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "A fixed matrix defines a linear map."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The second map has matrix $\\begin{pmatrix}1&1\\\\0&2\\end{pmatrix}$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The second formula is a fixed linear combination of coordinates. The translation fails at zero and squaring fails scalar preservation."
+        }
+      ],
+      "solutionMarkdown": "The second formula is a fixed linear combination of coordinates. The translation fails at zero and squaring fails scalar preservation.",
+      "concepts": ["la-linear-map"],
+      "prerequisites": ["la-basis"],
+      "difficulty": 1,
+      "misconceptionTags": ["linear-maps-definition-confusion"]
+    },
+    {
+      "id": "labc-m3-linear-maps-p2",
+      "version": 1,
+      "lessonId": "labc-m3-linear-maps",
+      "type": "numeric",
+      "promptMarkdown": "For linear $T:\\mathbb R^2\\to\\mathbb R$, suppose $T(1,0)=3$ and $T(0,1)=-2$. Find $T(2,5)$.",
+      "answerSpec": {
+        "correctValue": -4,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Expand the input in the standard basis."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Apply linearity to the expansion."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The coefficients on the known outputs are two and five."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Expand $(2,5)=2(1,0)+5(0,1)$, so $T(2,5)=2\\cdot3+5(-2)=-4$."
+        }
+      ],
+      "solutionMarkdown": "Expand $(2,5)=2(1,0)+5(0,1)$, so $T(2,5)=2\\cdot3+5(-2)=-4$.",
+      "concepts": ["la-linear-map"],
+      "prerequisites": ["la-basis"],
+      "difficulty": 2,
+      "misconceptionTags": ["linear-maps-coordinate-confusion"]
+    },
+    {
+      "id": "labc-m3-linear-maps-p3",
+      "version": 1,
+      "lessonId": "labc-m3-linear-maps",
+      "type": "multiple_choice",
+      "promptMarkdown": "A map satisfies $F(0)=0$. What follows?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "It must be linear.",
+            "accessibleLabel": "It must be linear."
+          },
+          {
+            "id": "b",
+            "label": "It must be injective.",
+            "accessibleLabel": "It must be injective."
+          },
+          {
+            "id": "c",
+            "label": "This is necessary for linearity but not sufficient.",
+            "accessibleLabel": "This is necessary for linearity but not sufficient."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Look for a map that passes this one test but fails another."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Linearity also requires scalar preservation."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Try a square function at one and two."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The map $F(x)=x^2$ sends zero to zero but $F(2)=4\\ne2F(1)$. One necessary condition does not prove all of linearity."
+        }
+      ],
+      "solutionMarkdown": "The map $F(x)=x^2$ sends zero to zero but $F(2)=4\\ne2F(1)$. One necessary condition does not prove all of linearity.",
+      "concepts": ["la-linear-map"],
+      "prerequisites": ["la-basis"],
+      "difficulty": 2,
+      "misconceptionTags": ["linear-maps-missing-hypothesis"]
+    },
+    {
+      "id": "labc-m3-linear-maps-p4",
+      "version": 1,
+      "lessonId": "labc-m3-linear-maps",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "A linear map obeys $T(3u-2v)=aT(u)+bT(v)$. Enter $a$ and $b$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "a",
+            "label": "Coefficient a",
+            "acceptedValues": ["3"]
+          },
+          {
+            "id": "b",
+            "label": "Coefficient b",
+            "acceptedValues": ["-2"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Keep the original scalar coefficients."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Use preservation of linear combinations."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The second term is subtraction, so its scalar is negative."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Linearity preserves the coefficients in the input combination, including the negative sign."
+        }
+      ],
+      "solutionMarkdown": "Linearity preserves the coefficients in the input combination, including the negative sign.",
+      "concepts": ["la-linear-map"],
+      "prerequisites": ["la-basis"],
+      "difficulty": 3,
+      "misconceptionTags": ["linear-maps-condition-confusion"]
+    },
+    {
+      "id": "labc-m3-linear-maps-p5",
+      "version": 1,
+      "lessonId": "labc-m3-linear-maps",
+      "type": "proof_ordering",
+      "promptMarkdown": "Show that two linear maps agreeing on a basis agree everywhere.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $S,T$ agree on a basis $(b_i)$ and choose any vector $v$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Write its basis expansion $v=\\sum_i a_i b_i$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Linearity and agreement on each basis vector give $S(v)=\\sum_i a_i S(b_i)=\\sum_i a_i T(b_i)=T(v)$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since $v$ was arbitrary, $S=T$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Compare the outputs on an arbitrary vector."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Expand that vector in a basis."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The two expansions use equal images for every basis vector."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "A basis reaches every vector. Linearity converts its expansion to an output expansion, where the agreement hypothesis can be used."
+        }
+      ],
+      "solutionMarkdown": "A basis reaches every vector. Linearity converts its expansion to an output expansion, where the agreement hypothesis can be used.",
+      "concepts": ["la-linear-map"],
+      "prerequisites": ["la-basis"],
+      "difficulty": 3,
+      "misconceptionTags": ["linear-maps-unsupported-inference"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["la-linear-map"],
+    "notes": "Interpret correct first attempts as evidence on these concepts; hints and solution reveals remain visible in the summary."
+  }
+}

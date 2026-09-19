@@ -1,4 +1,4 @@
-import { lessons, glossary, course } from "@/lib/content";
+import { lessons, glossary, courses } from "@/lib/content";
 import { SearchClient } from "@/components/search-client";
 
 export const metadata = { title: "Search · CineMath" };
@@ -12,13 +12,10 @@ export default function SearchPage() {
   const lessonSummaries = lessons.map((lesson) => ({
     lessonId: lesson.lessonId,
     title: lesson.title,
-    moduleTitle:
-      course.modules.find((m) => m.slug === lesson.moduleSlug)?.title ?? "",
+    moduleTitle: `${courses.find((c) => c.slug === lesson.courseSlug)?.title} · ${courses.find((c) => c.slug === lesson.courseSlug)?.modules.find((m) => m.slug === lesson.moduleSlug)?.title ?? ""}`,
     learningObjective: lesson.learningObjective,
     kind: lesson.kind,
-    concepts: [
-      ...new Set(lesson.problems.flatMap((p) => p.concepts)),
-    ].sort(),
+    concepts: [...new Set(lesson.problems.flatMap((p) => p.concepts))].sort(),
   }));
   const glossaryTerms = (glossary?.terms ?? []).map((t) => ({
     id: t.id,
@@ -29,10 +26,10 @@ export default function SearchPage() {
     <main id="main" className="dashboard-page">
       <div className="dashboard-header">
         <p className="eyebrow">FIND SOMETHING SPECIFIC</p>
-        <h1>Search {course.title}</h1>
+        <h1>Search all courses</h1>
         <p className="completion-lede">
-          Search lessons by title, objective, or concept, and glossary terms
-          by name or definition.
+          Search lessons by title, objective, or concept, and glossary terms by
+          name or definition.
         </p>
       </div>
       <SearchClient lessons={lessonSummaries} glossaryTerms={glossaryTerms} />

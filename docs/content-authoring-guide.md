@@ -17,7 +17,9 @@ content/
 
 Example: `content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-01-statements-and-quantifiers.json`
 
-`src/lib/content-loader.ts` discovers every `*.json` file under `content/` (except `catalog.json`) automatically and validates each against `lessonSchema`. **Adding a lesson means adding a JSON file in this shape — no import to register, no UI or grading code to change**, as long as the lesson uses already-supported problem types. Run `npm run validate:content` to validate all authored content on its own (useful while authoring, and it runs as part of `npm run check` and CI); it reports which file failed and why.
+`src/lib/content-loader.ts` discovers every `*.json` file under `content/` (except `catalog.json` and `glossary.json`) automatically and validates each against `lessonSchema`. **Adding a lesson means adding a JSON file in this shape — no import to register, no UI or grading code to change**, as long as the lesson uses already-supported problem types. Run `npm run validate:content` to validate all authored content on its own (useful while authoring, and it runs as part of `npm run check` and CI); it reports which file failed and why.
+
+The root catalog now contains a `courses` array. Register each course and its modules there; each lesson's module must belong to its declared course. Keep lesson IDs globally unique and prefix new course concept IDs to avoid glossary and mastery collisions. Each course has its own `glossary.json`. See [Linear Algebra Beyond Computation](linear-algebra-course.md) for the second course's sequence and scope.
 
 This directory maps directly into `packages/content/` without a format change whenever the repository grows into the full monorepo shape — only a location move.
 

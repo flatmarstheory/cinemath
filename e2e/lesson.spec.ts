@@ -131,7 +131,7 @@ test("recovers from corrupt storage and reports unavailable persistence", async 
   await page.getByRole("button", { name: "Start problem 1" }).click();
   await page.evaluate(() => {
     const key = Object.keys(localStorage).find((k) =>
-      k.startsWith("cinemath:"),
+      k.startsWith("cinemath:v1:pfmm-m1-l1-statements-and-quantifiers:"),
     );
     if (key) localStorage.setItem(key, "not json");
   });

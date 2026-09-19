@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { course, lessons, glossary } from "@/lib/content";
+import { courses, lessons as allLessons, glossary } from "@/lib/content";
+import { CourseSwitcher } from "@/components/course-switcher";
+import { notFound } from "next/navigation";
 
 export const metadata = { title: "Prerequisite map · CineMath" };
 
@@ -10,7 +12,15 @@ export const metadata = { title: "Prerequisite map · CineMath" };
 // definition), and a list needs no separate accessible-text fallback the
 // way an SVG graph would (CLAUDE.md: accessibility is an acceptance
 // criterion, not a follow-up pass).
-export default function PrerequisiteMapPage() {
+export default async function PrerequisiteMapPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ course?: string }>;
+}) {
+  const { course: slug } = await searchParams;
+  const course = slug ? courses.find((c) => c.slug === slug) : courses[0];
+  if (!course) notFound();
+  const lessons = allLessons.filter((l) => l.courseSlug === course.slug);
   const known = new Set(glossary?.terms.map((t) => t.id) ?? []);
   const term = (id: string) =>
     glossary?.terms.find((t) => t.id === id)?.term ?? id.replaceAll("-", " ");
@@ -20,11 +30,16 @@ export default function PrerequisiteMapPage() {
         <p className="eyebrow">HOW THE COURSE FITS TOGETHER</p>
         <h1>Prerequisite map</h1>
         <p className="completion-lede">
-          {course.title} is a linear sequence of modules — each module
-          assumes the concepts introduced by the ones before it. Every lesson
-          below lists exactly what it requires and what it introduces.
+          {course.title} is a linear sequence of modules — each module assumes
+          the concepts introduced by the ones before it. Every lesson below
+          lists exactly what it requires and what it introduces.
         </p>
       </div>
+      <CourseSwitcher
+        courses={courses}
+        selected={course.slug}
+        path="/course/prerequisites"
+      />
       {course.modules.map((module, moduleIndex) => {
         const moduleLessons = lessons.filter(
           (l) => l.moduleSlug === module.slug,
@@ -44,9 +59,7 @@ export default function PrerequisiteMapPage() {
                       {lesson.title}
                     </Link>
                     {lesson.kind !== "lesson" && (
-                      <span className="pill">
-                        {lesson.kind.toUpperCase()}
-                      </span>
+                      <span className="pill">{lesson.kind.toUpperCase()}</span>
                     )}
                   </div>
                   <dl className="prereq-detail">

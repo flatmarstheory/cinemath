@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "127.0.0.1:${CINEMATH_PORT:-3000}:3000"
+    environment:
+      CINEMATH_DB_PATH: /app/data/cinemath.sqlite
+      CINEMATH_AI_FEEDBACK_ENABLED: ${CINEMATH_AI_FEEDBACK_ENABLED:-0}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      CINEMATH_ADMIN_TOKEN: ${CINEMATH_ADMIN_TOKEN:-}
+    volumes:
+      - cinemath-data:/app/data
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+
+volumes:
+  cinemath-data:

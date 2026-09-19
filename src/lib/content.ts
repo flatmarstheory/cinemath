@@ -6,7 +6,12 @@ import { loadContent } from "./content-loader";
 // register and no UI/grading changes, as long as it uses supported types.
 // `lessons` is published-only (what learners see); `allLessons` also
 // includes drafts, for the Phase 6 admin content workflow.
-const { course, lessons, allLessons, glossary } = loadContent(
+const { course, courses, lessons, allLessons, glossaries } = loadContent(
   join(process.cwd(), "content"),
 );
-export { course, lessons, allLessons, glossary };
+// Global glossary anchors remain stable across lessons, search, and mastery.
+const glossary = {
+  courseSlug: "all",
+  terms: glossaries.flatMap((g) => g.terms),
+};
+export { course, courses, lessons, allLessons, glossary, glossaries };

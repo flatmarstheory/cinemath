@@ -48,7 +48,7 @@ export function ReviewPractice({
   return (
     <main id="main" className="dashboard-page">
       <p className="eyebrow">TARGETED REVIEW</p>
-      <h1>{concept.replaceAll("-", " ")}</h1>
+      <h1>{concept.replace(/^la-/, "").replaceAll("-", " ")}</h1>
       <p>
         Fresh practice adds evidence to your mastery without resetting lesson
         completion.
