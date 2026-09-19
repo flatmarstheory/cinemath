@@ -20,7 +20,19 @@
       "bodyMarkdown": "A shear tilts a square without changing its area. A projection flattens it to a line. A determinant distinguishes these effects with one number."
     },
     "explain": {
-      "bodyMarkdown": "For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $\\det A=ad-bc$. Its absolute value is the area scale; its sign records orientation. In dimension $n$, the determinant is the signed volume scale, normalized to one at the identity, multilinear and alternating in the columns. Dependent columns give zero. A square matrix is invertible exactly when its determinant is nonzero. Determinants multiply under composition: $\\det(AB)=\\det A\\det B$. Similar matrices have the same determinant because the factors from $P$ and $P^{-1}$ cancel."
+      "bodyMarkdown": "For $A=\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}$, $\\det A=ad-bc$. Its absolute value is the area scale; its sign records orientation. In dimension $n$, the determinant is the signed volume scale, normalized to one at the identity, multilinear and alternating in the columns. Dependent columns give zero. A square matrix is invertible exactly when its determinant is nonzero. Determinants multiply under composition: $\\det(AB)=\\det A\\det B$. Similar matrices have the same determinant because the factors from $P$ and $P^{-1}$ cancel.",
+      "figure": {
+        "kind": "matrix-grid",
+        "caption": "det A = ad − bc = (3)(4) − (1)(2) = 10, the factor by which A scales area.",
+        "rows": [
+          [3, 1],
+          [2, 4]
+        ],
+        "highlight": [
+          [0, 0],
+          [1, 1]
+        ]
+      }
     },
     "reflect": {
       "bodyMarkdown": "A determinant is defined for square matrices. Zero means volume collapse, not necessarily that the map sends every vector to zero."

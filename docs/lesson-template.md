@@ -17,10 +17,12 @@ Copy this structure for every new lesson file at `content/<course-slug>/<module-
       "bodyMarkdown": "1-2 sentences or one quick question activating prior concepts. Omit/empty for a course's first lesson."
     },
     "encounter": {
-      "bodyMarkdown": "A concrete puzzle, example, or failure case. Must not open with a formal definition."
+      "bodyMarkdown": "A concrete puzzle, example, or failure case. Must not open with a formal definition.",
+      "figure": "optional — see 'Figures' in docs/content-authoring-guide.md; omit the field entirely if no diagram is needed"
     },
     "explain": {
-      "bodyMarkdown": "Only the theory needed for this lesson's objective. KaTeX-compatible math."
+      "bodyMarkdown": "Only the theory needed for this lesson's objective. KaTeX-compatible math.",
+      "figure": "optional, same shape as above"
     },
     "reflect": {
       "bodyMarkdown": "Why the method(s) worked, and the common error(s) tied to this lesson's misconceptionTags."
@@ -33,6 +35,7 @@ Copy this structure for every new lesson file at `content/<course-slug>/<module-
       "lessonId": "must match lessonId above",
       "type": "multiple_choice | numeric | symbolic | proof_ordering | proof_fill_blank | proof_free_response | counterexample_builder",
       "promptMarkdown": "the question, KaTeX-compatible",
+      "figure": "optional diagram accompanying the prompt — see 'Figures' in docs/content-authoring-guide.md; omit the field entirely if no diagram is needed",
       "answerSpec": "shape depends on type — see docs/content-authoring-guide.md",
       "hints": [
         { "order": 1, "bodyMarkdown": "restate the goal precisely" },

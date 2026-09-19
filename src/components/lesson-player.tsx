@@ -22,6 +22,7 @@ import { requestProofFeedback } from "@/lib/ai-feedback-client";
 import { ReviewPractice } from "./review-practice";
 import { LessonFeedback } from "./lesson-feedback";
 import { MathContent } from "./math-content";
+import { Figure } from "./diagrams/figure";
 import { AnswerInput } from "./answer-input";
 import { analyticsEventFor, emitAnalyticsEvent } from "@/lib/analytics";
 import { anonLearnerId, sendAnalyticsEvent } from "@/lib/analytics-client";
@@ -237,16 +238,25 @@ export function LessonPlayer({
         <p className="eyebrow">01 / GET READY</p>
         <h2>A familiar starting point</h2>
         <MathContent>{lesson.loop.retrieve.bodyMarkdown}</MathContent>
+        {lesson.loop.retrieve.figure && (
+          <Figure figure={lesson.loop.retrieve.figure} />
+        )}
       </section>
       <section className="lesson-section encounter">
         <p className="eyebrow">02 / ENCOUNTER</p>
-        <h2>When does a sentence say something?</h2>
+        <h2>Meet the idea</h2>
         <MathContent>{lesson.loop.encounter.bodyMarkdown}</MathContent>
+        {lesson.loop.encounter.figure && (
+          <Figure figure={lesson.loop.encounter.figure} />
+        )}
       </section>
       <section className="lesson-section">
         <p className="eyebrow">03 / THE IDEA</p>
-        <h2>A precise language for your reasoning</h2>
+        <h2>How it works</h2>
         <MathContent>{lesson.loop.explain.bodyMarkdown}</MathContent>
+        {lesson.loop.explain.figure && (
+          <Figure figure={lesson.loop.explain.figure} />
+        )}
       </section>
     </>
   );
@@ -264,7 +274,7 @@ export function LessonPlayer({
       </nav>
       <div className="learning-layout">
         <aside className="lesson-sidebar">
-          <p className="eyebrow">THE LANGUAGE OF PROOF</p>
+          <p className="eyebrow">{courseTitle.toUpperCase()}</p>
           <h2>{lesson.title}</h2>
           <p className="muted">
             {lesson.estimatedMinutes.min}–{lesson.estimatedMinutes.max} minutes
@@ -296,9 +306,7 @@ export function LessonPlayer({
         <div className="lesson-workspace">
           {progress.stage === "intro" && (
             <>
-              <p className="eyebrow">
-                A FOUNDATION FOR EVERYTHING THAT FOLLOWS
-              </p>
+              <p className="eyebrow">LEARN IT BY DOING IT</p>
               <h1 tabIndex={-1} ref={heading}>
                 {lesson.title}
               </h1>
@@ -342,6 +350,7 @@ export function LessonPlayer({
               </h1>
               <div className="problem-prompt">
                 <MathContent>{problem.promptMarkdown}</MathContent>
+                {problem.figure && <Figure figure={problem.figure} />}
               </div>
               <form
                 onSubmit={
@@ -501,11 +510,11 @@ export function LessonPlayer({
             <>
               <p className="eyebrow">ONE STEP FURTHER</p>
               <h1 ref={heading} tabIndex={-1}>
-                A clearer way to think.
+                Progress you can see.
               </h1>
               <p className="completion-lede">
-                Lesson complete. You’ve practiced the language that turns an
-                idea into a mathematical claim.
+                Lesson complete. You’ve worked through this idea yourself,
+                not just watched someone else solve it.
               </p>
               <h2>{lesson.title}</h2>
               <dl className="summary-grid">

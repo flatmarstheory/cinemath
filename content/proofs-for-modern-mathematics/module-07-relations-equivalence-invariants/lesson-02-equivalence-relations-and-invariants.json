@@ -16,7 +16,24 @@
       "bodyMarkdown": "Recall from the previous lesson that a relation can be reflexive, symmetric, and transitive, and that you already proved \"$\\equiv \\pmod 5$\" is reflexive and transitive."
     },
     "encounter": {
-      "bodyMarkdown": "\"$\\equiv \\pmod 5$\" splits the integers into groups: $\\ldots, -5, 0, 5, 10, \\ldots$ all land together, $\\ldots, -4,1,6,11,\\ldots$ land together, and so on. Every integer falls into exactly one such group.\n\nGiven two specific integers, like $17$ and $24$, how could you *prove* they are essentially \"the same\" (same group) or provably \"different\" (different groups) — without listing out every group?"
+      "bodyMarkdown": "\"$\\equiv \\pmod 5$\" splits the integers into groups: $\\ldots, -5, 0, 5, 10, \\ldots$ all land together, $\\ldots, -4,1,6,11,\\ldots$ land together, and so on. Every integer falls into exactly one such group.\n\nGiven two specific integers, like $17$ and $24$, how could you *prove* they are essentially \"the same\" (same group) or provably \"different\" (different groups) — without listing out every group?",
+      "figure": {
+        "kind": "relation-graph",
+        "caption": "0 ≡ 5 and 1 ≡ 6 and 2 ≡ 7 (mod 5) — each pair shares a class; the pairs stay separate from one another.",
+        "nodes": [
+          { "id": "n0", "label": "0" },
+          { "id": "n5", "label": "5" },
+          { "id": "n1", "label": "1" },
+          { "id": "n6", "label": "6" },
+          { "id": "n2", "label": "2" },
+          { "id": "n7", "label": "7" }
+        ],
+        "edges": [
+          { "from": "n0", "to": "n5", "directed": false },
+          { "from": "n1", "to": "n6", "directed": false },
+          { "from": "n2", "to": "n7", "directed": false }
+        ]
+      }
     },
     "explain": {
       "bodyMarkdown": "A relation that is reflexive, symmetric, **and** transitive all at once is called an **equivalence relation** — it behaves enough like equality to meaningfully partition a set into groups.\n\nFor an equivalence relation $R$ on $A$ and an element $a \\in A$, the **equivalence class** of $a$ is $[a] = \\{x \\in A : xRa\\}$ — every element related to $a$. Every element of $A$ belongs to exactly one equivalence class, and two elements have the *same* class exactly when they're related.\n\nTo prove $a$ and $b$ are equivalent, you show $aRb$ directly, usually via the relation's definition. To prove $a$ and $b$ are **not** equivalent, checking finitely many properties they *share* never suffices — instead, find an **invariant**: a quantity that any two related elements must share. If $a$ and $b$ have *different* values of that invariant, they cannot possibly be related, because the invariant would then have to match.\n\nFor \"$\\equiv \\pmod 5$\", the natural invariant is the remainder upon division by $5$: two integers are related exactly when their remainders mod $5$ agree. So $17$ and $24$ are related iff $17 \\bmod 5 = 24 \\bmod 5$."
@@ -123,6 +140,20 @@
       "lessonId": "pfmm-m7-l2-equivalence-relations-and-invariants",
       "type": "proof_ordering",
       "promptMarkdown": "Arrange the steps of an invariant argument proving that $17$ and $24$ are **not** congruent mod $5$ (i.e., $17 \\not\\equiv 24 \\pmod 5$).",
+      "figure": {
+        "kind": "relation-graph",
+        "caption": "17 and 24 sit in different classes: remainder 2 versus remainder 4, so no edge connects them.",
+        "nodes": [
+          { "id": "n17", "label": "17" },
+          { "id": "n12", "label": "12" },
+          { "id": "n24", "label": "24" },
+          { "id": "n19", "label": "19" }
+        ],
+        "edges": [
+          { "from": "n17", "to": "n12", "directed": false },
+          { "from": "n24", "to": "n19", "directed": false }
+        ]
+      },
       "answerSpec": {
         "steps": [
           { "id": "s1", "textMarkdown": "Compute $17 \\bmod 5$: since $17 = 5 \\cdot 3 + 2$, the remainder is $2$." },

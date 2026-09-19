@@ -20,7 +20,18 @@
       "bodyMarkdown": "An arrow, a polynomial, and a list of sensor readings look different. What lets the same rules describe all three?"
     },
     "explain": {
-      "bodyMarkdown": "A real vector space has addition and multiplication by real scalars. Addition is associative and commutative, has a zero vector and additive inverses. Scalars satisfy $a(bv)=(ab)v$, $1v=v$, $a(u+v)=au+av$, and $(a+b)v=av+bv$. Operations must stay inside the set. Polynomials of degree at most two, including the zero polynomial, form $P_2$: adding them cannot create a higher-degree term. Polynomials of degree exactly two do not form a vector space. The zero vector need not look like a list of zeros; in a function space it is the function that is zero everywhere."
+      "bodyMarkdown": "A real vector space has addition and multiplication by real scalars. Addition is associative and commutative, has a zero vector and additive inverses. Scalars satisfy $a(bv)=(ab)v$, $1v=v$, $a(u+v)=au+av$, and $(a+b)v=av+bv$. Operations must stay inside the set. Polynomials of degree at most two, including the zero polynomial, form $P_2$: adding them cannot create a higher-degree term. Polynomials of degree exactly two do not form a vector space. The zero vector need not look like a list of zeros; in a function space it is the function that is zero everywhere.",
+      "figure": {
+        "kind": "vector-plane",
+        "caption": "In ℝ², u + v is found tip-to-tail — the same addition rule that must hold in any vector space.",
+        "xRange": [-3, 3],
+        "yRange": [-3, 3],
+        "vectors": [
+          { "from": { "x": 0, "y": 0 }, "to": { "x": 2, "y": -1 }, "label": "u", "color": "primary" },
+          { "from": { "x": 0, "y": 0 }, "to": { "x": -1, "y": 3 }, "label": "v", "color": "accent" },
+          { "from": { "x": 0, "y": 0 }, "to": { "x": 1, "y": 2 }, "label": "u+v", "color": "muted" }
+        ]
+      }
     },
     "reflect": {
       "bodyMarkdown": "The objects do not determine whether a set is a vector space: the operations and closure do. A single failed axiom is enough to refute a claim."
@@ -83,6 +94,16 @@
       "lessonId": "labc-m1-vectors-as-objects",
       "type": "numeric",
       "promptMarkdown": "In $\\mathbb R^2$, let $u=(2,-1)$ and $v=(-1,3)$. What is the second coordinate of $2u+v$?",
+      "figure": {
+        "kind": "vector-plane",
+        "caption": "u and v, ready to be scaled and added.",
+        "xRange": [-3, 5],
+        "yRange": [-3, 4],
+        "vectors": [
+          { "from": { "x": 0, "y": 0 }, "to": { "x": 2, "y": -1 }, "label": "u", "color": "primary" },
+          { "from": { "x": 0, "y": 0 }, "to": { "x": -1, "y": 3 }, "label": "v", "color": "accent" }
+        ]
+      },
       "answerSpec": {
         "correctValue": 1,
         "tolerance": 0,

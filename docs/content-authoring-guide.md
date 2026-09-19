@@ -94,6 +94,27 @@ Blanks render as one labeled text input per entry, below the prompt (not inline 
 
 Every `answerSpec` must be sufficient on its own for deterministic grading — see `docs/grading-policy.md`.
 
+## Figures (optional diagrams, plots, and charts)
+
+Any lesson loop section (`retrieve`, `encounter`, `explain`, `reflect`) and any problem may carry one optional `figure`, rendered as accessible inline SVG by `src/components/diagrams`. A figure is data, authored in the lesson JSON exactly like `promptMarkdown` — never freeform drawing code. Use one wherever a picture would replace a paragraph of description: an example set, a plotted function, a vector diagram, a relation, or a matrix.
+
+`figure` is validated by `figureSchema` in `src/lib/schema.ts` as a closed, discriminated set of kinds:
+
+| `kind` | Use for | Key fields |
+|---|---|---|
+| `number-line` | Intervals, quantifier examples, included/excluded points | `min`, `max`, `points: {value, label, style: "include"\|"exclude"}[]`, `intervals: {from, to, closedFrom, closedTo, label?}[]` |
+| `function-plot` | Graphing a named function, marking specific inputs/outputs | `domain: [number, number]`, `range?`, `curves: {preset, label, color}[]`, `markedPoints: {x, y, label}[]` |
+| `set-diagram` | Venn diagrams for 2–3 sets, set operations, element membership | `sets: {id, label}[]` (2–3), `shadedRegions: string[][]` (each entry: the set ids whose intersection is shaded), `elements: {label, memberOf: string[]}[]` |
+| `vector-plane` | Vectors in ℝ², sums, spans | `xRange`, `yRange`, `vectors: {from?, to, label, color}[]` |
+| `relation-graph` | Relations, equivalence classes, induction chains | `nodes: {id, label}[]`, `edges: {from, to, directed}[]` |
+| `matrix-grid` | Matrices, determinants, highlighted rows/columns/entries | `rows: number[][]`, `highlight: [row, col][]` |
+
+Every figure kind requires a `caption`, which doubles as its accessible label (rendered as visible `<figcaption>` text and as the SVG's `aria-label`) — write it as a complete, standalone sentence a screen-reader user could act on without seeing the picture.
+
+`function-plot` never evaluates an author-supplied expression (this would be a small computer algebra system, an explicit `ROADMAP.md` non-goal). Instead, `curves[].preset` selects from the closed `functionPresetIds` registry in `src/lib/schema.ts` (`identity`, `square`, `cube`, `reciprocal`, `abs`, `sqrt`, `sin`, `floor`, `exp`, `negation`, `constant-zero`, `triangular`, `power-of-two`). Adding a new preset means adding its id to that list and its plain-JS implementation to `presets` in `src/components/diagrams/function-plot.tsx` — the same small, explicit, unit-testable pattern as counterexample checkers.
+
+See `content/proofs-for-modern-mathematics/module-01-mathematical-language/lesson-01-statements-and-quantifiers.json` and `content/linear-algebra-beyond-computation/module-01-vector-spaces/lesson-01-vectors-as-objects.json` for worked examples of each kind in context.
+
 ## Content quality checklist (must pass before publishing any problem)
 
 1. The learning objective is singular and explicit.
@@ -114,7 +135,7 @@ A second reviewer (human or a fresh read-through) should confirm this checklist 
 1. Confirm the module and lesson slot in `docs/course-map.md`; add a row if this is a new lesson.
 2. Write the single learning objective first. If it doesn't fit in one sentence, split the lesson.
 3. Draft the lesson loop stages (Retrieve/Encounter/Explain) using `docs/lesson-template.md`.
-4. Author problems in increasing difficulty, covering at least two problem types where the objective allows it (mirrors the required-format mix in `ROADMAP.md`).
+4. Author problems in increasing difficulty, covering at least two problem types where the objective allows it (mirrors the required-format mix in `ROADMAP.md`). Add a `figure` to a loop section or a problem wherever a diagram would do the explaining more clearly than another paragraph of prose (see Figures above).
 5. Write each problem's solution before its hints — hints are derived from the solution's reasoning, not written independently.
 6. Tag concepts, prerequisites, and misconceptions.
 7. Run the content quality checklist.

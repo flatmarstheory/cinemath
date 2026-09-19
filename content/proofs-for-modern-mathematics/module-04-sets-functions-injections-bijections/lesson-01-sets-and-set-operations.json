@@ -18,7 +18,22 @@
       "bodyMarkdown": "Let $A = \\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 4\\}$ and $B = \\{n \\in \\mathbb{Z} : n \\text{ is even}\\}$.\n\nIs $A \\subseteq B$? Checking a few elements — $4, 8, 12$ — all look even. But checking finitely many elements of an infinite set never proves a universal claim. How could you show $A \\subseteq B$ for *every* element of $A$ at once, without listing them?"
     },
     "explain": {
-      "bodyMarkdown": "For sets $A$ and $B$, **$A$ is a subset of $B$**, written $A \\subseteq B$, exactly when\n\n$$\\forall x,\\ x \\in A \\rightarrow x \\in B.$$\n\nThis is a universally quantified conditional, so it is proved the same way any $\\forall$-conditional statement is proved: by **element chasing**. Pick an arbitrary $x \\in A$ (naming it, but assuming nothing about it beyond membership in $A$), then show $x \\in B$ using only the definitions of $A$ and $B$. Since $x$ was arbitrary, the argument establishes the claim for *every* element of $A$ at once — this is exactly the direct-proof strategy applied to set membership.\n\nTwo sets are **equal**, $A = B$, exactly when $A \\subseteq B$ and $B \\subseteq A$ — each element chase is a separate, one-directional proof.\n\nThe standard set operations you'll chase elements through:\n\n- **Intersection**: $x \\in A \\cap B \\iff x \\in A \\text{ and } x \\in B$.\n- **Union**: $x \\in A \\cup B \\iff x \\in A \\text{ or } x \\in B$.\n\nWhen the hypothesis involves a union (an \"or\"), the proof typically splits into cases, one per disjunct."
+      "bodyMarkdown": "For sets $A$ and $B$, **$A$ is a subset of $B$**, written $A \\subseteq B$, exactly when\n\n$$\\forall x,\\ x \\in A \\rightarrow x \\in B.$$\n\nThis is a universally quantified conditional, so it is proved the same way any $\\forall$-conditional statement is proved: by **element chasing**. Pick an arbitrary $x \\in A$ (naming it, but assuming nothing about it beyond membership in $A$), then show $x \\in B$ using only the definitions of $A$ and $B$. Since $x$ was arbitrary, the argument establishes the claim for *every* element of $A$ at once — this is exactly the direct-proof strategy applied to set membership.\n\nTwo sets are **equal**, $A = B$, exactly when $A \\subseteq B$ and $B \\subseteq A$ — each element chase is a separate, one-directional proof.\n\nThe standard set operations you'll chase elements through:\n\n- **Intersection**: $x \\in A \\cap B \\iff x \\in A \\text{ and } x \\in B$.\n- **Union**: $x \\in A \\cup B \\iff x \\in A \\text{ or } x \\in B$.\n\nWhen the hypothesis involves a union (an \"or\"), the proof typically splits into cases, one per disjunct.",
+      "figure": {
+        "kind": "set-diagram",
+        "caption": "A ∩ B holds elements common to both sets; A ∪ B holds every element in at least one.",
+        "sets": [
+          { "id": "A", "label": "A" },
+          { "id": "B", "label": "B" }
+        ],
+        "shadedRegions": [["A", "B"]],
+        "elements": [
+          { "label": "5", "memberOf": ["A"] },
+          { "label": "2", "memberOf": ["A", "B"] },
+          { "label": "7", "memberOf": ["B"] },
+          { "label": "9", "memberOf": [] }
+        ]
+      }
     },
     "reflect": {
       "bodyMarkdown": "The most common error is treating a handful of checked examples as a proof of $A \\subseteq B$ — as with any $\\forall$ statement, no finite number of examples establishes it. The second common error is starting an element-chasing proof by assuming $x$ has some *specific* value, rather than keeping it fully general; the moment you assume something about $x$ beyond \"$x \\in A$\", the proof no longer covers every element."
@@ -198,6 +213,17 @@
       "lessonId": "pfmm-m4-l1-sets-and-set-operations",
       "type": "proof_ordering",
       "promptMarkdown": "Arrange the steps into a valid element-chasing proof that for any sets $A$, $B$, $C$:\n\n$$A \\cap (B \\cup C) \\subseteq (A \\cap B) \\cup (A \\cap C)$$",
+      "figure": {
+        "kind": "set-diagram",
+        "caption": "The shaded region is (A ∩ B) ∪ (A ∩ C) — exactly A ∩ (B ∪ C).",
+        "sets": [
+          { "id": "A", "label": "A" },
+          { "id": "B", "label": "B" },
+          { "id": "C", "label": "C" }
+        ],
+        "shadedRegions": [["A", "B"], ["A", "C"]],
+        "elements": []
+      },
       "answerSpec": {
         "steps": [
           { "id": "s1", "textMarkdown": "Let $x$ be an arbitrary element of $A \\cap (B \\cup C)$." },

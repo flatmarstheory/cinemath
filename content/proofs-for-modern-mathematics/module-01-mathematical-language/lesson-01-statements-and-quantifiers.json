@@ -92,6 +92,14 @@
       "lessonId": "pfmm-m1-l1-statements-and-quantifiers",
       "type": "multiple_choice",
       "promptMarkdown": "Exactly one of the following statements is true. Which one?",
+      "figure": {
+        "kind": "number-line",
+        "caption": "Boundary values like 0 are where a ∀ claim about ℝ most often breaks.",
+        "min": -3,
+        "max": 3,
+        "points": [{ "value": 0, "label": "x = 0", "style": "include" }],
+        "intervals": [{ "from": -3, "to": 3, "closedFrom": true, "closedTo": true, "label": "ℝ" }]
+      },
       "answerSpec": {
         "options": [
           {
@@ -247,6 +255,19 @@
       "lessonId": "pfmm-m1-l1-statements-and-quantifiers",
       "type": "counterexample_builder",
       "promptMarkdown": "The following statement is false:\n\n$$\\forall n \\in \\mathbb{Z},\\ n^2 > n$$\n\nConstruct a counterexample: give a specific integer $n$ for which $n^2 > n$ is false (i.e., $n^2 \\leq n$).",
+      "figure": {
+        "kind": "function-plot",
+        "caption": "Where the curve n² (blue) dips to or below the line n (gold), the claim n² > n fails.",
+        "domain": [-2, 3],
+        "curves": [
+          { "preset": "square", "label": "n²", "color": "primary" },
+          { "preset": "identity", "label": "n", "color": "accent" }
+        ],
+        "markedPoints": [
+          { "x": 0, "y": 0, "label": "n = 0" },
+          { "x": 1, "y": 1, "label": "n = 1" }
+        ]
+      },
       "answerSpec": {
         "constraints": ["n must be an integer (n ∈ ℤ)"],
         "predicateDescription": "The submitted n must satisfy n^2 ≤ n (i.e., it must violate n^2 > n).",

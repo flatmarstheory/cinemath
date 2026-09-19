@@ -20,7 +20,19 @@
       "bodyMarkdown": "The same vector can have coordinates $(4,2)$ or $(3,1)$, depending on the chosen basis. The vector has not moved; the description changed."
     },
     "explain": {
-      "bodyMarkdown": "For input basis $B$ and output basis $C$, column $j$ of $[T]_{C\\leftarrow B}$ is $[T(b_j)]_C$. Thus $[T(v)]_C=[T]_{C\\leftarrow B}[v]_B$. If $P$ has a new basis as columns in old coordinates, then $[v]_{old}=P[v]_{new}$. For an operator represented by $A$ in the old basis, the new matrix is $P^{-1}AP$: convert in, apply the map, convert out. Matrix order matters; the rightmost operation acts first."
+      "bodyMarkdown": "For input basis $B$ and output basis $C$, column $j$ of $[T]_{C\\leftarrow B}$ is $[T(b_j)]_C$. Thus $[T(v)]_C=[T]_{C\\leftarrow B}[v]_B$. If $P$ has a new basis as columns in old coordinates, then $[v]_{old}=P[v]_{new}$. For an operator represented by $A$ in the old basis, the new matrix is $P^{-1}AP$: convert in, apply the map, convert out. Matrix order matters; the rightmost operation acts first.",
+      "figure": {
+        "kind": "matrix-grid",
+        "caption": "The highlighted first column is [T(b₁)]_C — where T sends the first basis vector, written in C-coordinates.",
+        "rows": [
+          [2, 1],
+          [0, 3]
+        ],
+        "highlight": [
+          [0, 0],
+          [1, 0]
+        ]
+      }
     },
     "reflect": {
       "bodyMarkdown": "Always state the ordered bases and direction of conversion. Changing coordinates does not change the map or its intrinsic rank."

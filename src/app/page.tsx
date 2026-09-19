@@ -3,6 +3,8 @@ import { CourseSwitcher } from "@/components/course-switcher";
 import { notFound } from "next/navigation";
 import { MathContent } from "@/components/math-content";
 import { LessonLink } from "@/components/lesson-link";
+import { Figure } from "@/components/diagrams/figure";
+import { heroFigureFor, heroTagline } from "@/lib/course-presentation";
 
 export default async function Home({
   searchParams,
@@ -13,12 +15,13 @@ export default async function Home({
   const course = slug ? courses.find((c) => c.slug === slug) : courses[0];
   if (!course) notFound();
   const lessons = allLessons.filter((l) => l.courseSlug === course.slug);
+  const courseIndex = courses.findIndex((c) => c.slug === course.slug);
   return (
     <main id="main" className="course-page">
       <section className="hero">
         <div>
           <p className="eyebrow">
-            <span className="small-line" /> THINK CLEARLY. PROVE IT.
+            <span className="small-line" /> {heroTagline(course.slug)}
           </p>
           <h1>
             From following
@@ -27,10 +30,7 @@ export default async function Home({
             <br />
             <em>making it yours.</em>
           </h1>
-          <p className="hero-description">
-            Mathematics makes more sense when you do it. Work through the ideas,
-            test your reasoning, and find your own way to the proof.
-          </p>
+          <p className="hero-description">{course.description}</p>
           <a className="text-link" href="#course">
             Explore your first lesson <span aria-hidden="true">↓</span>
           </a>
@@ -39,47 +39,42 @@ export default async function Home({
           <span className="art-caption">
             A CLAIM. A QUESTION. A POSSIBILITY.
           </span>
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
-          <div className="art-equation">
-            <MathContent>{"$\\forall$"}</MathContent>
-            <span>
-              for every idea,
-              <br />a new way to think.
-            </span>
-          </div>
-          <span className="art-point point-one" />
-          <span className="art-point point-two" />
-          <span className="art-bottom">01 — THE LANGUAGE OF PROOF</span>
+          <Figure figure={heroFigureFor(course.slug)} />
+          <span className="art-bottom">
+            {String(courseIndex + 1).padStart(2, "0")} —{" "}
+            {course.title.toUpperCase()}
+          </span>
         </div>
       </section>
       <section id="course" className="course-section">
-        <CourseSwitcher courses={courses} selected={course.slug} path="/" />
-        <div className="section-intro">
-          <p className="eyebrow">YOUR STARTING POINT</p>
-          <h2>{course.title}</h2>
-          <p>{course.description}</p>
-          <div className="course-tools">
-            <a href={`/course/prerequisites?course=${course.slug}`}>
-              Prerequisite map ↗
-            </a>
-            <a href={`/certificate?course=${course.slug}`}>
-              Course certificate ↗
-            </a>
-          </div>
-          <div className="course-details">
-            <span>
-              {String(course.modules.length).padStart(2, "0")} modules
-            </span>
-            <span>
-              {String(lessons.length).padStart(2, "0")} available{" "}
-              {lessons.length === 1 ? "lesson" : "lessons"}
-            </span>
-            <span>
-              {lessons.reduce((sum, l) => sum + l.problems.length, 0)}{" "}
-              purposeful problems
-            </span>
-            <span>Learn at your pace</span>
+        <div className="course-section-head">
+          <CourseSwitcher courses={courses} selected={course.slug} path="/" />
+          <div className="section-intro">
+            <p className="eyebrow">YOUR STARTING POINT</p>
+            <h2>{course.title}</h2>
+            <p>{course.description}</p>
+            <div className="course-tools">
+              <a href={`/course/prerequisites?course=${course.slug}`}>
+                Prerequisite map ↗
+              </a>
+              <a href={`/certificate?course=${course.slug}`}>
+                Course certificate ↗
+              </a>
+            </div>
+            <div className="course-details">
+              <span>
+                {String(course.modules.length).padStart(2, "0")} modules
+              </span>
+              <span>
+                {String(lessons.length).padStart(2, "0")} available{" "}
+                {lessons.length === 1 ? "lesson" : "lessons"}
+              </span>
+              <span>
+                {lessons.reduce((sum, l) => sum + l.problems.length, 0)}{" "}
+                purposeful problems
+              </span>
+              <span>Learn at your pace</span>
+            </div>
           </div>
         </div>
         {course.modules.map((mod, moduleIndex) => {

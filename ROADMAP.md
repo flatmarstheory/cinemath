@@ -543,6 +543,53 @@ This increment does not claim monetization readiness. Payment, pricing, and
 subscription experiments remain subject to the retention and instructional-value
 criteria below.
 
+### Phase 7 (2) - Presentation, accessibility, and visual-content fixes
+
+**Status:** Complete
+
+Phase 7 (1) generalized the product to a course catalog but left the
+presentation layer un-generalized in places, and left every lesson as prose
+plus KaTeX with no supporting diagrams. This increment fixes both:
+
+- **Fixed course-specific copy leaking across courses.** The lesson player's
+  loop-stage headings, sidebar eyebrow, intro eyebrow, and completion
+  headline were hardcoded to *Proofs for Modern Mathematics* phrasing (e.g.
+  "THE LANGUAGE OF PROOF", "When does a sentence say something?") and
+  rendered verbatim on every course, including *Linear Algebra Beyond
+  Computation*. Replaced with course-aware or generic copy
+  (`src/components/lesson-player.tsx`).
+- **Added a diagram/figure system for lesson content.** A new closed,
+  discriminated `figureSchema` in `src/lib/schema.ts` (`number-line`,
+  `function-plot`, `set-diagram`, `vector-plane`, `relation-graph`,
+  `matrix-grid`) lets any lesson loop section or problem carry one optional
+  diagram, rendered as accessible inline SVG by `src/components/diagrams/`.
+  `function-plot` draws from a closed, unit-testable preset registry
+  (`functionPresetIds`) rather than evaluating author-supplied expressions,
+  keeping with the "no computer algebra system" non-goal and the existing
+  counterexample-checker pattern. Documented in
+  `docs/content-authoring-guide.md` and `docs/lesson-template.md`.
+- **Retrofitted 8 existing lessons with real diagrams** across both courses
+  (quantifiers, sets and set operations, functions, induction, equivalence
+  relations, vector spaces, coordinates and matrices, determinants) and gave
+  the homepage hero and course-switcher cards course-specific figures in
+  place of a static decorative placeholder.
+- **Fixed a course-section layout bug.** `.course-section`'s unscoped
+  CSS Grid auto-placed the course switcher, the intro text, and every module
+  block into a 2-column grid together, which — combined with the grid's
+  default `align-items: stretch` — stretched the course-switcher links into
+  large empty boxes instead of nav pills. Rescoped the grid to a dedicated
+  `.course-section-head` wrapper around just the switcher and intro.
+- **Redesigned the course switcher** as icon-labeled cards (a small
+  representative diagram per course) instead of plain text pills, and
+  removed a forced `#course` anchor-scroll on every click that caused an
+  abrupt jump even though the switcher already sits inside the visible
+  section.
+- Fixed two rendering bugs surfaced while building the diagram system: a
+  spurious line drawn across function-plot discontinuities (e.g. `1/x` at
+  `x=0`), and colliding SVG `id`s when two figures are mounted on the page
+  at once (e.g. a lesson's "Revisit the idea" panel open next to a problem
+  that also has a figure).
+
 ### Possible model
 
 - Free first module or free foundational course

@@ -9,6 +9,135 @@ export type CounterexampleCheckerId = (typeof counterexampleCheckerIds)[number];
 
 const text = z.string().min(1);
 const ids = z.array(text);
+
+// Closed set of author-selectable plot functions, not arbitrary code — same
+// pattern as counterexampleCheckerIds. Keeps figures deterministic and
+// avoids building a computer algebra system (ROADMAP.md non-goal).
+export const functionPresetIds = [
+  "identity",
+  "square",
+  "cube",
+  "reciprocal",
+  "abs",
+  "sqrt",
+  "sin",
+  "floor",
+  "exp",
+  "negation",
+  "constant-zero",
+  "triangular",
+  "power-of-two",
+] as const;
+export type FunctionPresetId = (typeof functionPresetIds)[number];
+
+const point2 = z.object({ x: z.number(), y: z.number() });
+const swatch = z.enum(["primary", "accent", "muted"]).default("primary");
+
+// A small library of illustrative diagrams authors can attach to a lesson
+// section or a problem, alongside the markdown — see
+// docs/content-authoring-guide.md. Rendered as accessible inline SVG by
+// src/components/diagrams. Deliberately a closed set of chart *kinds*, not a
+// general drawing DSL, to stay a "simple, testable component" (CLAUDE.md).
+export const figureSchema = z.discriminatedUnion("kind", [
+  z.object({
+    kind: z.literal("number-line"),
+    caption: text,
+    min: z.number(),
+    max: z.number(),
+    points: z
+      .array(
+        z.object({
+          value: z.number(),
+          label: text,
+          style: z.enum(["include", "exclude"]).default("include"),
+        }),
+      )
+      .default([]),
+    intervals: z
+      .array(
+        z.object({
+          from: z.number(),
+          to: z.number(),
+          closedFrom: z.boolean().default(true),
+          closedTo: z.boolean().default(true),
+          label: text.optional(),
+        }),
+      )
+      .default([]),
+  }),
+  z.object({
+    kind: z.literal("function-plot"),
+    caption: text,
+    domain: z.tuple([z.number(), z.number()]),
+    range: z.tuple([z.number(), z.number()]).optional(),
+    curves: z
+      .array(
+        z.object({
+          preset: z.enum(functionPresetIds),
+          label: text,
+          color: swatch,
+        }),
+      )
+      .min(1),
+    markedPoints: z
+      .array(z.object({ x: z.number(), y: z.number(), label: text }))
+      .default([]),
+  }),
+  z.object({
+    kind: z.literal("set-diagram"),
+    caption: text,
+    sets: z.array(z.object({ id: text, label: text })).min(2).max(3),
+    shadedRegions: z
+      .array(ids.min(1))
+      .default([])
+      .describe("Each entry lists the set ids whose intersection is shaded."),
+    elements: z
+      .array(z.object({ label: text, memberOf: ids }))
+      .default([])
+      .describe("memberOf lists the set ids this element belongs to (empty = outside every set)."),
+  }),
+  z.object({
+    kind: z.literal("vector-plane"),
+    caption: text,
+    xRange: z.tuple([z.number(), z.number()]),
+    yRange: z.tuple([z.number(), z.number()]),
+    vectors: z
+      .array(
+        z.object({
+          from: point2.default({ x: 0, y: 0 }),
+          to: point2,
+          label: text,
+          color: swatch,
+        }),
+      )
+      .min(1),
+  }),
+  z.object({
+    kind: z.literal("relation-graph"),
+    caption: text,
+    nodes: z.array(z.object({ id: text, label: text })).min(1),
+    edges: z
+      .array(
+        z.object({
+          from: text,
+          to: text,
+          directed: z.boolean().default(true),
+        }),
+      )
+      .default([]),
+  }),
+  z.object({
+    kind: z.literal("matrix-grid"),
+    caption: text,
+    rows: z.array(z.array(z.number()).min(1)).min(1),
+    highlight: z
+      .array(z.tuple([z.number(), z.number()]))
+      .default([])
+      .describe("Zero-indexed [row, col] cells to emphasize."),
+  }),
+]);
+export type Figure = z.infer<typeof figureSchema>;
+
 const base = {
   id: text,
   version: z.number().int().positive(),
@@ -28,6 +157,7 @@ const base = {
   prerequisites: ids,
   difficulty: z.number().int().min(1).max(5),
   misconceptionTags: ids,
+  figure: figureSchema.optional(),
 };
 const option = z.object({ id: text, label: text, accessibleLabel: text });
 export const problemSchema = z.discriminatedUnion("type", [
@@ -134,7 +264,10 @@ export const problemSchema = z.discriminatedUnion("type", [
       ),
   }),
 ]);
-const section = z.object({ bodyMarkdown: z.string() });
+const section = z.object({
+  bodyMarkdown: z.string(),
+  figure: figureSchema.optional(),
+});
 // "checkpoint" and "capstone" are the same gradable/authorable Lesson shape
 // (Phase 6, ROADMAP.md) — only their UI framing and course-page grouping
 // differ (docs/course-map.md). "draft" content is excluded from the public

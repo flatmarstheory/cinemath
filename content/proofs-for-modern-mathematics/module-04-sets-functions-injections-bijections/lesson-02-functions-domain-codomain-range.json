@@ -15,10 +15,25 @@
       "bodyMarkdown": "Recall from the previous lesson that $x \\in A$ is a precise, checkable statement about set membership. Functions are built on top of that idea: a function is a rule that assigns set elements to other set elements."
     },
     "encounter": {
-      "bodyMarkdown": "Consider the rule $f(x) = \\dfrac{1}{x}$, proposed as a function from $\\mathbb{R}$ to $\\mathbb{R}$.\n\nIs this rule actually well-defined for *every* real input? Try $x = 0$."
+      "bodyMarkdown": "Consider the rule $f(x) = \\dfrac{1}{x}$, proposed as a function from $\\mathbb{R}$ to $\\mathbb{R}$.\n\nIs this rule actually well-defined for *every* real input? Try $x = 0$.",
+      "figure": {
+        "kind": "function-plot",
+        "caption": "The curve 1/x never fills in a value at x = 0 — the rule assigns no output there.",
+        "domain": [-3, 3],
+        "range": [-6, 6],
+        "curves": [{ "preset": "reciprocal", "label": "1/x", "color": "primary" }],
+        "markedPoints": []
+      }
     },
     "explain": {
-      "bodyMarkdown": "A **function** $f : A \\to B$ assigns to *each* element of $A$ *exactly one* element of $B$. Here:\n\n- $A$ is the **domain**: the set of allowed inputs.\n- $B$ is the **codomain**: the set the outputs are declared to live in.\n- The **range** of $f$ is $\\{f(a) : a \\in A\\}$ — the set of outputs that actually occur. The range is always a subset of the codomain, $\\text{range}(f) \\subseteq B$, but it need not equal the codomain.\n\nA rule is **well-defined** as a function $A \\to B$ when both of the following hold:\n\n1. Every element of $A$ produces *some* output in $B$ (the rule doesn't fail for any input in the domain).\n2. Every element of $A$ produces *exactly one* output (the rule is unambiguous).\n\n$f(x) = \\frac{1}{x}$ fails condition 1 at $x = 0$: there is no real number equal to $\\frac{1}{0}$, so the rule doesn't assign *any* output to that input. It becomes well-defined only if the domain is restricted, e.g. $f : \\mathbb{R} \\setminus \\{0\\} \\to \\mathbb{R}$.\n\nTo prove range$(f) = S$ for some claimed set $S$, you generally prove both inclusions separately: range$(f) \\subseteq S$ (every output lands in $S$) and $S \\subseteq$ range$(f)$ (every element of $S$ is actually achieved by some input) — the same two-direction strategy used for set equality."
+      "bodyMarkdown": "A **function** $f : A \\to B$ assigns to *each* element of $A$ *exactly one* element of $B$. Here:\n\n- $A$ is the **domain**: the set of allowed inputs.\n- $B$ is the **codomain**: the set the outputs are declared to live in.\n- The **range** of $f$ is $\\{f(a) : a \\in A\\}$ — the set of outputs that actually occur. The range is always a subset of the codomain, $\\text{range}(f) \\subseteq B$, but it need not equal the codomain.\n\nA rule is **well-defined** as a function $A \\to B$ when both of the following hold:\n\n1. Every element of $A$ produces *some* output in $B$ (the rule doesn't fail for any input in the domain).\n2. Every element of $A$ produces *exactly one* output (the rule is unambiguous).\n\n$f(x) = \\frac{1}{x}$ fails condition 1 at $x = 0$: there is no real number equal to $\\frac{1}{0}$, so the rule doesn't assign *any* output to that input. It becomes well-defined only if the domain is restricted, e.g. $f : \\mathbb{R} \\setminus \\{0\\} \\to \\mathbb{R}$.\n\nTo prove range$(f) = S$ for some claimed set $S$, you generally prove both inclusions separately: range$(f) \\subseteq S$ (every output lands in $S$) and $S \\subseteq$ range$(f)$ (every element of $S$ is actually achieved by some input) — the same two-direction strategy used for set equality.",
+      "figure": {
+        "kind": "function-plot",
+        "caption": "f(x) = x² with codomain ℝ: the curve never dips below 0, so range(f) = [0, ∞) is a strict subset of the codomain.",
+        "domain": [-2.5, 2.5],
+        "curves": [{ "preset": "square", "label": "x²", "color": "primary" }],
+        "markedPoints": [{ "x": 0, "y": 0, "label": "range starts at 0" }]
+      }
     },
     "reflect": {
       "bodyMarkdown": "The most common error is confusing the codomain (the *declared* target set, chosen by whoever defines the function) with the range (the *actual* set of outputs) — a function's range can be a strict subset of its codomain, as with $f(x)=x^2$ mapping $\\mathbb{R} \\to \\mathbb{R}$, whose range $[0,\\infty)$ is not all of $\\mathbb{R}$. A second common error is checking well-definedness only at a few convenient inputs rather than confirming the rule succeeds, unambiguously, for *every* element of the stated domain."

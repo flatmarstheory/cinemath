@@ -100,7 +100,7 @@ test("complete the lesson with keyboard controls, reloads, hints, and a gated so
   await page.getByRole("button", { name: "Check answer", exact: true }).click();
   await page.getByRole("button", { name: "See your summary" }).click();
   await expect(
-    page.getByRole("heading", { name: "A clearer way to think." }),
+    page.getByRole("heading", { name: "Progress you can see." }),
   ).toBeFocused();
   await expect(page.locator(".summary-grid")).toContainText("4 / 5");
   await expect(page.locator(".summary-grid > div").nth(1)).toContainText("6");
@@ -115,7 +115,7 @@ test("complete the lesson with keyboard controls, reloads, hints, and a gated so
   });
   await page.reload();
   await expect(
-    page.getByRole("heading", { name: "A clearer way to think." }),
+    page.getByRole("heading", { name: "Progress you can see." }),
   ).toBeVisible();
   await page.getByRole("link", { name: "Back to course" }).click();
   await expect(

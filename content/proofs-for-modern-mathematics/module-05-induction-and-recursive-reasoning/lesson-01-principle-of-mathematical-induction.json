@@ -19,7 +19,24 @@
       "bodyMarkdown": "Recall a direct proof establishes a single statement from definitions and prior results in a finite chain of steps. But what if the statement you want to prove is really infinitely many statements at once — one for every integer $n$?"
     },
     "encounter": {
-      "bodyMarkdown": "Line up an infinite row of dominoes. If (1) the first domino falls, and (2) *whenever* any domino falls, the next one is guaranteed to fall too, then every domino in the row falls — no matter how long the row is.\n\nNow consider the conjecture $1+2+\\cdots+n=\\dfrac{n(n+1)}{2}$. You could check it for $n=1,2,3,\\dots$ forever and never finish, since there are infinitely many integers $n$ to check. A direct proof for \"generic $n$\" doesn't obviously work either, since the left side has a different number of terms for each $n$. How could you prove this holds for *every* positive integer $n$ at once, with a single finite argument?"
+      "bodyMarkdown": "Line up an infinite row of dominoes. If (1) the first domino falls, and (2) *whenever* any domino falls, the next one is guaranteed to fall too, then every domino in the row falls — no matter how long the row is.\n\nNow consider the conjecture $1+2+\\cdots+n=\\dfrac{n(n+1)}{2}$. You could check it for $n=1,2,3,\\dots$ forever and never finish, since there are infinitely many integers $n$ to check. A direct proof for \"generic $n$\" doesn't obviously work either, since the left side has a different number of terms for each $n$. How could you prove this holds for *every* positive integer $n$ at once, with a single finite argument?",
+      "figure": {
+        "kind": "relation-graph",
+        "caption": "The domino chain: P(1) falls, and each fallen domino P(k) knocks over P(k+1).",
+        "nodes": [
+          { "id": "n1", "label": "P(1)" },
+          { "id": "n2", "label": "P(2)" },
+          { "id": "n3", "label": "P(3)" },
+          { "id": "n4", "label": "P(4)" },
+          { "id": "n5", "label": "P(5)" }
+        ],
+        "edges": [
+          { "from": "n1", "to": "n2", "directed": true },
+          { "from": "n2", "to": "n3", "directed": true },
+          { "from": "n3", "to": "n4", "directed": true },
+          { "from": "n4", "to": "n5", "directed": true }
+        ]
+      }
     },
     "explain": {
       "bodyMarkdown": "The domino picture is exactly the **principle of mathematical induction**. To prove $\\forall n \\geq n_0,\\ P(n)$ for some starting integer $n_0$ (often $n_0=0$ or $n_0=1$), it suffices to prove two things:\n\n1. **Base case**: $P(n_0)$ is true — the first domino falls. This is usually a direct check.\n2. **Inductive step**: for an arbitrary but fixed integer $k \\geq n_0$, *assuming* $P(k)$ is true (this assumption is called the **inductive hypothesis**), prove that $P(k+1)$ is also true — whichever domino falls, the next one falls too.\n\nIf both hold, the principle of mathematical induction lets you conclude $P(n)$ is true for **all** integers $n \\geq n_0$, even though you only ever checked one base case and proved one general implication.\n\nCrucially, the inductive step does *not* assume $P(k)$ for every $k$ — that would be assuming what you're trying to prove. It assumes $P(k)$ for one arbitrary fixed $k$, and derives $P(k+1)$ from it using algebra or prior results, the same way any direct proof derives a conclusion from a hypothesis."
@@ -90,6 +107,16 @@
       "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
       "type": "proof_fill_blank",
       "promptMarkdown": "Complete the induction proof that for every integer $n \\geq 1$,\n\n$$1+2+\\cdots+n=\\frac{n(n+1)}{2}.$$\n\nFill in each blank below using the labels as your guide.",
+      "figure": {
+        "kind": "function-plot",
+        "caption": "The running sum 1+2+⋯+n lands exactly on n(n+1)/2 at every integer n.",
+        "domain": [0, 6],
+        "curves": [{ "preset": "triangular", "label": "n(n+1)/2", "color": "primary" }],
+        "markedPoints": [
+          { "x": 1, "y": 1, "label": "n=1" },
+          { "x": 4, "y": 10, "label": "n=4" }
+        ]
+      },
       "answerSpec": {
         "blanks": [
           {
@@ -144,6 +171,16 @@
       "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
       "type": "proof_ordering",
       "promptMarkdown": "Arrange the following steps into a valid induction proof that for every integer $n \\geq 1$,\n\n$$1+3+5+\\cdots+(2n-1)=n^2.$$",
+      "figure": {
+        "kind": "function-plot",
+        "caption": "The sum of the first n odd numbers lands exactly on n².",
+        "domain": [0, 5],
+        "curves": [{ "preset": "square", "label": "n²", "color": "primary" }],
+        "markedPoints": [
+          { "x": 2, "y": 4, "label": "n=2" },
+          { "x": 4, "y": 16, "label": "n=4" }
+        ]
+      },
       "answerSpec": {
         "steps": [
           {
@@ -259,6 +296,16 @@
       "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
       "type": "proof_fill_blank",
       "promptMarkdown": "Complete the induction proof that for every integer $n \\geq 1$,\n\n$$n<2^n.$$",
+      "figure": {
+        "kind": "function-plot",
+        "caption": "2ⁿ (blue) pulls further above n (gold) as n grows — the gap only widens.",
+        "domain": [0, 4],
+        "curves": [
+          { "preset": "power-of-two", "label": "2ⁿ", "color": "primary" },
+          { "preset": "identity", "label": "n", "color": "accent" }
+        ],
+        "markedPoints": []
+      },
       "answerSpec": {
         "blanks": [
           {
