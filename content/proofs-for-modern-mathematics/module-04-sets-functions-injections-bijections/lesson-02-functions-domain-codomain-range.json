@@ -1,0 +1,275 @@
+{
+  "lessonId": "pfmm-m4-l2-functions-domain-codomain-range",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-04-sets-functions-injections-bijections",
+  "title": "Functions, Domain, Codomain, and Range",
+  "learningObjective": "State the formal definition of a function and correctly distinguish its domain, codomain, and range, including verifying whether a proposed rule is well-defined.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 22
+  },
+  "prerequisites": ["statement", "universal-quantifier", "existential-quantifier", "set-membership-proof"],
+  "conceptsIntroduced": ["function-definition", "well-defined-function", "range-vs-codomain"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall from the previous lesson that $x \\in A$ is a precise, checkable statement about set membership. Functions are built on top of that idea: a function is a rule that assigns set elements to other set elements."
+    },
+    "encounter": {
+      "bodyMarkdown": "Consider the rule $f(x) = \\dfrac{1}{x}$, proposed as a function from $\\mathbb{R}$ to $\\mathbb{R}$.\n\nIs this rule actually well-defined for *every* real input? Try $x = 0$."
+    },
+    "explain": {
+      "bodyMarkdown": "A **function** $f : A \\to B$ assigns to *each* element of $A$ *exactly one* element of $B$. Here:\n\n- $A$ is the **domain**: the set of allowed inputs.\n- $B$ is the **codomain**: the set the outputs are declared to live in.\n- The **range** of $f$ is $\\{f(a) : a \\in A\\}$ — the set of outputs that actually occur. The range is always a subset of the codomain, $\\text{range}(f) \\subseteq B$, but it need not equal the codomain.\n\nA rule is **well-defined** as a function $A \\to B$ when both of the following hold:\n\n1. Every element of $A$ produces *some* output in $B$ (the rule doesn't fail for any input in the domain).\n2. Every element of $A$ produces *exactly one* output (the rule is unambiguous).\n\n$f(x) = \\frac{1}{x}$ fails condition 1 at $x = 0$: there is no real number equal to $\\frac{1}{0}$, so the rule doesn't assign *any* output to that input. It becomes well-defined only if the domain is restricted, e.g. $f : \\mathbb{R} \\setminus \\{0\\} \\to \\mathbb{R}$.\n\nTo prove range$(f) = S$ for some claimed set $S$, you generally prove both inclusions separately: range$(f) \\subseteq S$ (every output lands in $S$) and $S \\subseteq$ range$(f)$ (every element of $S$ is actually achieved by some input) — the same two-direction strategy used for set equality."
+    },
+    "reflect": {
+      "bodyMarkdown": "The most common error is confusing the codomain (the *declared* target set, chosen by whoever defines the function) with the range (the *actual* set of outputs) — a function's range can be a strict subset of its codomain, as with $f(x)=x^2$ mapping $\\mathbb{R} \\to \\mathbb{R}$, whose range $[0,\\infty)$ is not all of $\\mathbb{R}$. A second common error is checking well-definedness only at a few convenient inputs rather than confirming the rule succeeds, unambiguously, for *every* element of the stated domain."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m4-l2-p1-identify-not-well-defined",
+      "version": 1,
+      "lessonId": "pfmm-m4-l2-functions-domain-codomain-range",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which of the following proposed rules is **not** well-defined as a function from $\\mathbb{Z}$ to $\\mathbb{Z}$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$f(n) = n + 1$",
+            "accessibleLabel": "f of n equals n plus one."
+          },
+          {
+            "id": "b",
+            "label": "$f(n) = $ the integer $k$ such that $n = 2k$",
+            "accessibleLabel": "f of n equals the integer k such that n equals 2k."
+          },
+          {
+            "id": "c",
+            "label": "$f(n) = n^2$",
+            "accessibleLabel": "f of n equals n squared."
+          },
+          {
+            "id": "d",
+            "label": "$f(n) = -n$",
+            "accessibleLabel": "f of n equals negative n."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "For each rule, check whether *every* integer input actually produces an output that exists and lies in $\\mathbb{Z}$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Options (a), (c), (d) each apply an arithmetic operation ($+1$, squaring, negation) that integers are closed under — every integer input succeeds."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "For option (b), ask: if $n$ is odd, say $n = 3$, is there an integer $k$ with $3 = 2k$?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "There is no integer $k$ with $3 = 2k$ (that would require $k = 1.5$), so rule (b) assigns no output at all to $n=3$ — it fails condition 1 of well-definedness."
+        }
+      ],
+      "solutionMarkdown": "Rules (a), (c), (d) each apply a fixed arithmetic operation to $n$ ($+1$, squaring, negation) and integers are closed under addition, multiplication, and negation, so every integer input produces exactly one integer output — all three are well-defined.\n\nRule (b) fails: for it to assign an output to $n$, there must exist an integer $k$ with $n = 2k$, i.e. $n$ must be even. For an odd input such as $n = 3$, no such integer $k$ exists ($k$ would have to be $1.5$), so the rule produces *no* output at all for that input. A rule that fails to produce an output for some element of the stated domain is not well-defined on that domain.",
+      "concepts": ["well-defined-function", "function-definition"],
+      "prerequisites": ["universal-quantifier", "existential-quantifier"],
+      "difficulty": 1,
+      "misconceptionTags": ["checking-well-definedness-only-on-some-inputs"]
+    },
+    {
+      "id": "pfmm-m4-l2-p2-range-vs-codomain-square",
+      "version": 1,
+      "lessonId": "pfmm-m4-l2-functions-domain-codomain-range",
+      "type": "multiple_choice",
+      "promptMarkdown": "Let $f : \\mathbb{R} \\to \\mathbb{R}$ be given by $f(x) = x^2$. Which statement correctly describes its codomain and range?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Codomain is $\\mathbb{R}$; range is $[0, \\infty)$.",
+            "accessibleLabel": "The codomain is all real numbers; the range is the interval from zero to infinity, inclusive of zero."
+          },
+          {
+            "id": "b",
+            "label": "Codomain is $[0, \\infty)$; range is $\\mathbb{R}$.",
+            "accessibleLabel": "The codomain is the interval from zero to infinity; the range is all real numbers."
+          },
+          {
+            "id": "c",
+            "label": "Codomain and range are both $\\mathbb{R}$.",
+            "accessibleLabel": "The codomain and range are both all real numbers."
+          },
+          {
+            "id": "d",
+            "label": "Codomain and range are both $[0, \\infty)$.",
+            "accessibleLabel": "The codomain and range are both the interval from zero to infinity."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The codomain is whatever the function was *declared* to map into — read that directly from \"$f : \\mathbb{R} \\to \\mathbb{R}$\", regardless of what outputs actually occur."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The range is the set of outputs that actually occur: $\\{x^2 : x \\in \\mathbb{R}\\}$. Ask which real numbers can be written as $x^2$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Squares of real numbers are never negative, and every non-negative real number $y$ is achieved, e.g. by $x = \\sqrt{y}$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The codomain is declared as $\\mathbb{R}$ directly from the function's type signature. The range is exactly $[0,\\infty)$, since $x^2 \\geq 0$ always, and every non-negative real is achieved."
+        }
+      ],
+      "solutionMarkdown": "The codomain is read off the function's declared signature $f : \\mathbb{R} \\to \\mathbb{R}$: it is $\\mathbb{R}$, regardless of which outputs actually occur.\n\nThe range is the set of values actually achieved, $\\{x^2 : x \\in \\mathbb{R}\\}$. Since $x^2 \\geq 0$ for every real $x$, the range is contained in $[0,\\infty)$. Conversely, every $y \\geq 0$ is achieved by $x = \\sqrt{y}$, since $(\\sqrt{y})^2 = y$. So the range is exactly $[0, \\infty)$, a proper subset of the codomain $\\mathbb{R}$. That makes (a) correct.",
+      "concepts": ["range-vs-codomain", "function-definition"],
+      "prerequisites": ["subset-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["conflating-range-and-codomain"]
+    },
+    {
+      "id": "pfmm-m4-l2-p3-verify-well-defined-linear",
+      "version": 1,
+      "lessonId": "pfmm-m4-l2-functions-domain-codomain-range",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the argument that $f(n) = 2n + 1$ is well-defined as a function from $\\mathbb{Z}$ to $\\mathbb{Z}$.\n\nLet $n \\in \\mathbb{Z}$ be arbitrary. Since $\\mathbb{Z}$ is closed under multiplication, $2n$ is an ___. Since $\\mathbb{Z}$ is closed under ___, $2n + 1$ is also an integer. So every integer input $n$ produces exactly one integer output $2n+1$, computed by a single deterministic formula — hence $f$ is well-defined on all of $\\mathbb{Z}$.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Type of number 2n is", "acceptedValues": ["integer"] },
+          { "id": "b2", "label": "Operation ensuring 2n+1 stays an integer", "acceptedValues": ["addition"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Break the formula $2n+1$ into its two operations — multiplication by $2$, then adding $1$ — and check closure at each step."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$\\mathbb{Z}$ is closed under multiplication: a product of integers is an integer. Apply this to $2 \\cdot n$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$\\mathbb{Z}$ is also closed under a second operation applied to get from $2n$ to $2n+1$ — which one?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$2n$ is an integer (closure under multiplication), and $2n + 1$ is an integer (closure under addition), so the formula never fails to produce an integer output."
+        }
+      ],
+      "solutionMarkdown": "Let $n \\in \\mathbb{Z}$ be arbitrary. Since $2$ and $n$ are both integers and $\\mathbb{Z}$ is closed under multiplication, $2n \\in \\mathbb{Z}$. Since $2n$ and $1$ are both integers and $\\mathbb{Z}$ is closed under addition, $2n + 1 \\in \\mathbb{Z}$. The formula $2n+1$ is a single deterministic expression, so it produces exactly one value for each $n$. Together, every integer input produces exactly one integer output, so $f(n) = 2n+1$ is well-defined as a function $\\mathbb{Z} \\to \\mathbb{Z}$.",
+      "concepts": ["well-defined-function", "function-definition"],
+      "prerequisites": ["set-membership-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["checking-well-definedness-only-on-some-inputs"]
+    },
+    {
+      "id": "pfmm-m4-l2-p4-range-of-square-is-perfect-squares",
+      "version": 1,
+      "lessonId": "pfmm-m4-l2-functions-domain-codomain-range",
+      "type": "proof_ordering",
+      "promptMarkdown": "Let $f : \\mathbb{Z} \\to \\mathbb{Z}$ be given by $f(n) = n^2$. Arrange the steps into a valid two-direction proof that the range of $f$ is exactly the set of perfect squares, $S = \\{k^2 : k \\in \\mathbb{Z}\\}$.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Let $y$ be an arbitrary element of $\\text{range}(f)$." },
+          { "id": "s2", "textMarkdown": "By definition of range, $y = f(n) = n^2$ for some $n \\in \\mathbb{Z}$, so $y$ is a perfect square. This shows $\\text{range}(f) \\subseteq S$." },
+          { "id": "s3", "textMarkdown": "Conversely, let $k^2$ be an arbitrary element of $S$, where $k \\in \\mathbb{Z}$." },
+          { "id": "s4", "textMarkdown": "Then $f(k) = k^2$, so $k^2$ is achieved as an output of $f$, meaning $k^2 \\in \\text{range}(f)$. This shows $S \\subseteq \\text{range}(f)$." },
+          { "id": "s5", "textMarkdown": "Since $\\text{range}(f) \\subseteq S$ and $S \\subseteq \\text{range}(f)$, $\\text{range}(f) = S$." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Proving two sets are equal means proving both inclusions, one at a time — start with either direction, but keep each direction's steps together."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The $\\text{range}(f) \\subseteq S$ direction starts from an arbitrary output of $f$; the $S \\subseteq \\text{range}(f)$ direction starts from an arbitrary perfect square and must exhibit an input that produces it."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Each direction needs its own arbitrary element named before anything can be concluded about it — don't conclude an inclusion before naming its starting element."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: name an arbitrary range element and show it's a perfect square (first inclusion); then name an arbitrary perfect square and exhibit an input achieving it (second inclusion); then combine both inclusions into the final equality."
+        }
+      ],
+      "solutionMarkdown": "Proving a set equality $\\text{range}(f) = S$ requires both inclusions.\n\n**$\\text{range}(f) \\subseteq S$:** Let $y \\in \\text{range}(f)$ be arbitrary. By definition of range, $y = f(n) = n^2$ for some integer $n$, so $y$ is a perfect square, i.e. $y \\in S$.\n\n**$S \\subseteq \\text{range}(f)$:** Let $k^2 \\in S$ be arbitrary, with $k \\in \\mathbb{Z}$. Then $f(k) = k^2$ by definition of $f$, so $k^2$ is actually achieved as an output, i.e. $k^2 \\in \\text{range}(f)$.\n\nSince each set is a subset of the other, $\\text{range}(f) = S$.",
+      "concepts": ["range-vs-codomain", "function-definition"],
+      "prerequisites": ["subset-proof", "set-membership-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["proving-only-one-inclusion-for-set-equality"]
+    },
+    {
+      "id": "pfmm-m4-l2-p5-range-not-always-codomain",
+      "version": 1,
+      "lessonId": "pfmm-m4-l2-functions-domain-codomain-range",
+      "type": "multiple_choice",
+      "promptMarkdown": "A learner claims: \"The range of a function always equals its codomain.\" Which observation shows this claim is false?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "For $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2$, the codomain is $\\mathbb{R}$ but the range is only $[0, \\infty)$, so range and codomain differ.",
+            "accessibleLabel": "For f from the reals to the reals given by f of x equals x squared, the codomain is all reals but the range is only the non-negative reals, so range and codomain differ."
+          },
+          {
+            "id": "b",
+            "label": "For $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2$, both the domain and codomain are $\\mathbb{R}$, so the claim is true.",
+            "accessibleLabel": "For f from the reals to the reals given by f of x equals x squared, both the domain and codomain are all reals, so the claim is true."
+          },
+          {
+            "id": "c",
+            "label": "The range of a function is always a superset of its codomain, so they are never equal.",
+            "accessibleLabel": "The range of a function is always a superset of its codomain, so they are never equal."
+          },
+          {
+            "id": "d",
+            "label": "Domain and codomain must always be equal, which is what makes the claim false.",
+            "accessibleLabel": "Domain and codomain must always be equal, which is what makes the claim false."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "You need a specific function where you can compute both the codomain (from its declared signature) and the range (the set of outputs that actually occur), and compare them."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Recall problem 2 of this lesson: for $f(x) = x^2$ with $f : \\mathbb{R} \\to \\mathbb{R}$, what were the codomain and range?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The codomain was $\\mathbb{R}$ and the range was $[0,\\infty)$ — a strict subset, not the whole codomain. Options (c) and (d) each state a general rule about range vs. codomain or domain vs. codomain that isn't true in general."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (a) correctly identifies a concrete case where range $\\subsetneq$ codomain, which is enough to refute the universal claim \"range always equals codomain\"; one counterexample suffices."
+        }
+      ],
+      "solutionMarkdown": "To refute a universal claim like \"the range of a function always equals its codomain,\" one genuine counterexample suffices. For $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2$, the codomain is declared to be $\\mathbb{R}$, but the range is $[0,\\infty)$ (as shown in problem 2) — a proper subset. So this function's range does not equal its codomain, disproving the claim. Option (b) misreads the same example as supporting the claim. Options (c) and (d) each assert a different, also-false universal relationship (range is never a superset of the codomain in general, and domain need not equal codomain at all).",
+      "concepts": ["range-vs-codomain"],
+      "prerequisites": ["function-definition"],
+      "difficulty": 4,
+      "misconceptionTags": ["conflating-range-and-codomain"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["function-definition", "well-defined-function", "range-vs-codomain"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "lessonId": "pfmm-m8-l1-capstone-mixed-technique-proofs",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-08-capstone-proof-workshop",
+  "title": "Capstone: Choosing Your Proof Technique",
+  "kind": "capstone",
+  "learningObjective": "Given a claim with no hint about method, select and execute the appropriate proof technique — direct, contrapositive, contradiction, or induction — end to end.",
+  "estimatedMinutes": { "min": 20, "max": 30 },
+  "prerequisites": ["direct-proof", "contrapositive", "proof-by-contradiction", "mathematical-induction", "disproof-strategy", "divisibility"],
+  "conceptsIntroduced": ["technique-selection"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "This capstone assumes you can already execute a direct proof, a contrapositive proof, a proof by contradiction, and an induction proof individually — each from its own earlier module. What's new here is *choosing* among them with no label telling you which to use."
+    },
+    "encounter": {
+      "bodyMarkdown": "Every proof problem you've seen so far has told you, implicitly or explicitly, which technique to use — it appeared in a lesson named after that technique. In practice, a claim just arrives, with no such label. Given only \"if $n^2-4n+5$ is odd, then $n$ is even,\" would you reach for a direct proof, or something else? Getting this choice right, quickly, is most of what separates a fluent proof-writer from someone who can only follow a template."
+    },
+    "explain": {
+      "bodyMarkdown": "A short decision guide, built from patterns you've already seen:\n\n- **Direct proof** is the default: assume the hypothesis, compute forward to the conclusion. Reach for it first, unless the hypothesis is awkward to work with directly.\n- **Contrapositive** ($P \\Rightarrow Q$ is equivalent to $\\neg Q \\Rightarrow \\neg P$): try this when the hypothesis $P$ is hard to use directly, but the *negated conclusion* $\\neg Q$ gives you something concrete to compute with — often a giveaway is a hypothesis or conclusion phrased with \"not\" or an inequality that's awkward to manipulate forward.\n- **Contradiction**: reach for this on claims like \"there is no largest/smallest ___\" or existence-of-irrational-type claims, where assuming the *opposite* of what you want hands you a concrete object to derive an absurdity from.\n- **Induction**: use this for claims about *all* natural numbers (or integers from some starting point) that are naturally built up one step at a time from a smaller case — a base case anchors the claim, and an inductive step shows each case forces the next.\n\nNone of these signals is a guarantee — sometimes more than one technique works — but together they're a reliable first guess."
+    },
+    "reflect": {
+      "bodyMarkdown": "The skill this capstone tests isn't new proof mechanics — it's recognizing, from the *shape* of a claim alone, which mechanics to reach for. If you found yourself defaulting to direct proof out of habit even when the hypothesis was awkward, that's the exact instinct this lesson is meant to sharpen."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m8-l1-p1-choose-contrapositive",
+      "version": 1,
+      "lessonId": "pfmm-m8-l1-capstone-mixed-technique-proofs",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which proof strategy best fits proving the following claim?\n\n$$\\text{If } n^2 - 4n + 5 \\text{ is odd, then } n \\text{ is even.}$$",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Direct proof: assume $n^2-4n+5$ is odd and compute forward.",
+            "accessibleLabel": "Direct proof: assume n squared minus 4n plus 5 is odd and compute forward."
+          },
+          {
+            "id": "b",
+            "label": "Contrapositive: assume $n$ is odd and show $n^2-4n+5$ is even.",
+            "accessibleLabel": "Contrapositive: assume n is odd and show n squared minus 4n plus 5 is even."
+          },
+          {
+            "id": "c",
+            "label": "Proof by contradiction: assume $n^2-4n+5$ is odd and $n$ is odd, and derive an absurdity.",
+            "accessibleLabel": "Proof by contradiction: assume n squared minus 4n plus 5 is odd and n is odd, and derive an absurdity."
+          },
+          {
+            "id": "d",
+            "label": "Induction on $n$.",
+            "accessibleLabel": "Induction on n."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The hypothesis \"$n^2-4n+5$ is odd\" is awkward to use directly — you'd have to reason backward from a parity fact about a quadratic expression to a parity fact about $n$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The claim has the form $P \\Rightarrow Q$ where $Q$ (\"$n$ is even\") is easy to assume-the-negation-of: $\\neg Q$ is \"$n$ is odd,\" which is a clean, concrete starting point."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Try assuming $n$ is odd, i.e. $n=2k+1$, and computing $n^2-4n+5$ directly — does it come out even?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "With $n=2k+1$: $n^2-4n+5 = (2k+1)^2-4(2k+1)+5 = 4k^2+4k+1-8k-4+5 = 4k^2-4k+2 = 2(2k^2-2k+1)$, which is even. This is a clean direct computation once you've flipped to the contrapositive — option (b)."
+        }
+      ],
+      "solutionMarkdown": "The contrapositive of \"if $n^2-4n+5$ is odd, then $n$ is even\" is \"if $n$ is odd, then $n^2-4n+5$ is even,\" which is logically equivalent to the original claim. This version is much easier to prove directly: assume $n$ is odd, so $n=2k+1$ for some integer $k$. Then\n$$n^2-4n+5 = (2k+1)^2 - 4(2k+1) + 5 = (4k^2+4k+1) - (8k+4) + 5 = 4k^2-4k+2 = 2(2k^2-2k+1).$$\nSince $2k^2-2k+1$ is an integer, $n^2-4n+5$ is even. Proving the contrapositive proves the original claim, so option (b) is the right technique here — trying to go forward from \"$n^2-4n+5$ is odd\" directly would require inverting a quadratic, which is far messier.",
+      "concepts": ["technique-selection"],
+      "prerequisites": ["contrapositive", "direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["defaulting-to-direct-proof"]
+    },
+    {
+      "id": "pfmm-m8-l1-p2-order-no-smallest-rational",
+      "version": 1,
+      "lessonId": "pfmm-m8-l1-capstone-mixed-technique-proofs",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a proof of the claim: there is no smallest positive rational number.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Suppose, for contradiction, that a smallest positive rational number $r$ exists." },
+          { "id": "s2", "textMarkdown": "Consider $r/2$. Since $r$ is a positive rational number, $r/2$ is also a positive rational number." },
+          { "id": "s3", "textMarkdown": "Since $r > 0$, we have $r/2 < r$." },
+          { "id": "s4", "textMarkdown": "So $r/2$ is a positive rational number strictly smaller than $r$, contradicting the assumption that $r$ is the smallest positive rational number." },
+          { "id": "s5", "textMarkdown": "Therefore, no smallest positive rational number exists." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "\"There is no smallest ___\" is a classic signal for proof by contradiction: assume such a smallest object exists, then build something smaller."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Once you've assumed a smallest positive rational $r$ exists, the next move is to construct a specific rational number smaller than $r$ but still positive."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "You need to verify two things about your constructed number: that it's still a positive rational, and that it's strictly smaller than $r$ — both must be checked before you can point to the contradiction."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: assume a smallest $r$ exists, construct $r/2$, verify it's a smaller positive rational, note the contradiction with minimality, then conclude no smallest positive rational exists."
+        }
+      ],
+      "solutionMarkdown": "This is a proof by contradiction, matching the encounter's decision guide for \"there is no smallest/largest ___\" claims.\n\n1. Assume, for contradiction, that a smallest positive rational number $r$ exists.\n2. Construct a candidate for something smaller: $r/2$, which is a positive rational since $r$ is.\n3. Verify it's actually smaller: since $r>0$, dividing by $2$ gives $r/2 < r$.\n4. This contradicts the assumption that $r$ was the *smallest* positive rational, since $r/2$ is a smaller one.\n5. The assumption must be false, so no smallest positive rational number exists.",
+      "concepts": ["technique-selection"],
+      "prerequisites": ["proof-by-contradiction"],
+      "difficulty": 3,
+      "misconceptionTags": ["missing-explicit-contradiction-statement"]
+    },
+    {
+      "id": "pfmm-m8-l1-p3-fill-induction-2n-gt-nsquared",
+      "version": 1,
+      "lessonId": "pfmm-m8-l1-capstone-mixed-technique-proofs",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete this induction proof that $2^n > n^2$ for every integer $n \\geq 5$.\n\n**Base case** ($n=5$): $2^5 = 32$ and $5^2 = 25$, and $32 > 25$. ✓\n\n**Inductive step**: assume $2^k > k^2$ for some integer $k \\geq 5$ (inductive hypothesis). Then\n$$2^{k+1} = 2 \\cdot 2^k > 2 \\cdot k^2.$$\nSince $k \\geq 5$, one can check $2k^2 \\geq$ ___ $^2$, i.e. $2k^2 \\geq (k+1)^2$. Chaining these: $2^{k+1} > 2k^2 \\geq (k+1)^2$, so $2^{k+1} >$ ___.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Base of the squared term in the inequality 2k^2 ≥ (___)^2", "acceptedValues": ["k+1", "(k+1)"] },
+          { "id": "b2", "label": "Final expression the inductive step concludes 2^(k+1) exceeds", "acceptedValues": ["(k+1)^2", "(k+1)^2.", "k+1)^2"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The goal of the inductive step is to show $2^{k+1} > (k+1)^2$, matching the original claim with $n=k+1$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "You already have $2^{k+1} > 2k^2$ from the inductive hypothesis. If you can also show $2k^2 \\geq (k+1)^2$, chaining the two inequalities finishes the step."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Check $2k^2 - (k+1)^2 = 2k^2 - k^2 - 2k - 1 = k^2-2k-1$. For $k \\geq 5$: at $k=5$, $k^2-2k-1 = 25-10-1=14 > 0$, and this quantity only grows as $k$ increases, so $2k^2 \\geq (k+1)^2$ holds for every $k \\geq 5$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The blank quantities are $(k+1)$ and $(k+1)^2$: $2k^2 \\geq (k+1)^2$ holds since $k^2-2k-1 \\geq 14 > 0$ for $k \\geq 5$, and chaining $2^{k+1} > 2k^2 \\geq (k+1)^2$ gives $2^{k+1} > (k+1)^2$, completing the inductive step."
+        }
+      ],
+      "solutionMarkdown": "**Base case** ($n=5$): $2^5=32 > 25 = 5^2$. ✓\n\n**Inductive step**: assume $2^k > k^2$ for some integer $k \\geq 5$. Then $2^{k+1} = 2\\cdot 2^k > 2k^2$ by the inductive hypothesis.\n\nTo finish, we need $2k^2 \\geq (k+1)^2$. Expanding: $2k^2 - (k+1)^2 = 2k^2 - k^2 - 2k - 1 = k^2 - 2k - 1$. For $k \\geq 5$, $k^2-2k-1 \\geq 25-10-1 = 14 > 0$ (and this only increases as $k$ grows, since the derivative $2k-2>0$ for $k\\geq5$), so $2k^2 \\geq (k+1)^2$ for every $k\\geq5$.\n\nChaining the two inequalities: $2^{k+1} > 2k^2 \\geq (k+1)^2$, so $2^{k+1} > (k+1)^2$ — exactly the claim for $n=k+1$.\n\nBy induction, $2^n > n^2$ for every integer $n \\geq 5$.",
+      "concepts": ["technique-selection"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 4,
+      "misconceptionTags": ["induction-inequality-not-independently-verified"]
+    },
+    {
+      "id": "pfmm-m8-l1-p4-consecutive-integers-product-even",
+      "version": 1,
+      "lessonId": "pfmm-m8-l1-capstone-mixed-technique-proofs",
+      "type": "multiple_choice",
+      "promptMarkdown": "Why is $n^2 + n$ always even for every positive integer $n$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$n^2+n = n(n+1)$ is a product of two consecutive integers, and one of any two consecutive integers is always even, so their product is even.",
+            "accessibleLabel": "n squared plus n equals n times n plus 1, a product of two consecutive integers, one of which is always even."
+          },
+          {
+            "id": "b",
+            "label": "$n^2$ is always even, and adding $n$ to an even number always keeps it even.",
+            "accessibleLabel": "n squared is always even, and adding n to an even number always keeps it even."
+          },
+          {
+            "id": "c",
+            "label": "Every polynomial expression in $n$ with integer coefficients is even.",
+            "accessibleLabel": "Every polynomial expression in n with integer coefficients is even."
+          },
+          {
+            "id": "d",
+            "label": "$n^2+n$ is only even when $n$ itself is even.",
+            "accessibleLabel": "n squared plus n is only even when n itself is even."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Try factoring $n^2+n$ before checking parity directly."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$n^2+n = n(n+1)$. What can you say about the parity of $n$ and $n+1$ together?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Among any two consecutive integers, exactly one is even. Does it matter which factor, $n$ or $n+1$, is the even one?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Whichever of $n, n+1$ is even, the product $n(n+1)$ has an even factor, so the whole product is even — this holds for every $n$, without needing cases on whether $n$ itself is even or odd."
+        }
+      ],
+      "solutionMarkdown": "$n^2+n$ factors as $n(n+1)$, a product of two consecutive integers. Among any two consecutive integers, exactly one is even (if $n$ is even, it's $n$; if $n$ is odd, then $n+1$ is even). Either way, the product $n(n+1)$ has an even factor, and a product with at least one even factor is always even. So $n^2+n$ is even for every positive integer $n$, regardless of whether $n$ itself is even or odd — ruling out option (d), which wrongly claims it depends on $n$'s parity. (Option (b) is simply false: $n^2$ is odd whenever $n$ is odd.)",
+      "concepts": ["technique-selection"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["parity-conclusion-without-factoring"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["technique-selection"],
+    "notes": "This capstone measures cross-technique fluency rather than introducing a new proof method; a weak result here should route the learner back to whichever prerequisite module (2, 3, or 5) matches the missed problem."
+  }
+}

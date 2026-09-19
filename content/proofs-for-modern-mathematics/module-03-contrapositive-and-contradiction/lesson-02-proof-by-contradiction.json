@@ -1,0 +1,301 @@
+{
+  "lessonId": "pfmm-m3-l2-proof-by-contradiction",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-03-contrapositive-and-contradiction",
+  "title": "Proof by Contradiction",
+  "learningObjective": "Prove a statement by assuming its negation, deriving a logical contradiction, and concluding the original statement must be true.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 25
+  },
+  "prerequisites": ["direct-proof", "contrapositive", "negation-connective", "conditional"],
+  "conceptsIntroduced": ["proof-by-contradiction", "deriving-a-contradiction"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall that proof by contrapositive works by replacing $P \\Rightarrow Q$ with the logically equivalent $\\neg Q \\Rightarrow \\neg P$. Both direct proof and contrapositive proof need the target statement to be phrased as a conditional. What do you do when it isn't?"
+    },
+    "encounter": {
+      "bodyMarkdown": "Consider two claims: \"There is no largest integer\" and \"$\\sqrt{2}$ is irrational.\" Neither is phrased as \"if $P$ then $Q$\" — there's no obvious hypothesis to assume and no obvious conclusion to derive directly, and no obvious contrapositive to write down either. Yet both are provable. What single trick lets you attack a claim that isn't shaped like a conditional at all?"
+    },
+    "explain": {
+      "bodyMarkdown": "**Proof by contradiction** proves a statement $P$ by showing that assuming $\\neg P$ leads somewhere impossible:\n\n1. **Assume $\\neg P$** (the statement is false), for the sake of argument.\n2. **Derive a contradiction**: a pair of statements that cannot both be true (e.g., some statement $R$ and $\\neg R$), reasoning validly from $\\neg P$ and known facts.\n3. **Conclude $P$.** Since $\\neg P$ leads to something impossible, $\\neg P$ cannot be true, so $P$ must be true.\n\nFor \"there is no largest integer\": assume, for contradiction, that a largest integer $N$ exists. Then $N+1$ is an integer, and $N+1>N$ — but this contradicts $N$ being the largest integer (nothing was supposed to exceed it). Since the assumption leads to a contradiction, no largest integer exists.\n\nThe technique's power is exactly that it doesn't require $P$ to be a conditional: it applies to existence claims, uniqueness claims, and irrationality claims alike, because \"assume the opposite\" makes sense for *any* statement, not just implications."
+    },
+    "reflect": {
+      "bodyMarkdown": "The step people get wrong most often isn't the assumption — it's correctly identifying **the contradiction itself**. The contradiction is not simply \"the assumption turned out to be about a specific object\" (like naming $N$); it's a genuine clash between two things you've established: here, that $N+1$ exceeds $N$, directly conflicting with $N$ being *defined* as the largest. State explicitly which two facts are contradicting each other — a proof by contradiction that never says what contradicts what is incomplete, even if all the algebra is correct."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m3-l2-p1-starting-assumption",
+      "version": 1,
+      "lessonId": "pfmm-m3-l2-proof-by-contradiction",
+      "type": "multiple_choice",
+      "promptMarkdown": "What is the correct starting assumption for a proof by contradiction that \"there is no largest integer\"?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Assume, for contradiction, that a largest integer $N$ exists.",
+            "accessibleLabel": "Assume, for contradiction, that a largest integer N exists."
+          },
+          {
+            "id": "b",
+            "label": "Assume every integer is less than every other integer.",
+            "accessibleLabel": "Assume every integer is less than every other integer."
+          },
+          {
+            "id": "c",
+            "label": "Assume $N+1$ is the largest integer, where $N$ is any integer.",
+            "accessibleLabel": "Assume N plus 1 is the largest integer, where N is any integer."
+          },
+          {
+            "id": "d",
+            "label": "Assume there are only finitely many integers.",
+            "accessibleLabel": "Assume there are only finitely many integers."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Proof by contradiction begins by assuming the exact negation of the target statement — nothing more, nothing less."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The target statement is \"there is no largest integer\", i.e. $\\neg(\\exists N \\in \\mathbb{Z}, N \\text{ is largest})$. Its negation is exactly the existence claim this double-negates back to."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (b) and (d) assume much stronger, unrelated claims that go beyond simply negating \"there is no largest integer\". Option (c) begs the question by already naming a specific largest integer's successor as *also* largest."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The negation of \"there is no largest integer\" is precisely \"a largest integer exists\" — option (a), with no extra content added."
+        }
+      ],
+      "solutionMarkdown": "Proof by contradiction always starts by assuming exactly the negation of the target claim. \"There is no largest integer\" negates to \"a largest integer exists\", so the proof should open: \"Assume, for contradiction, that a largest integer $N$ exists\" — option (a). Options (b) and (d) assume something far stronger than the negation requires (and are not even equivalent to it). Option (c) is confused: it doesn't state a coherent assumption at all, since it presupposes a largest integer already named $N$ and simultaneously calls $N+1$ the largest.",
+      "concepts": ["proof-by-contradiction", "negation-connective"],
+      "prerequisites": ["negation-connective"],
+      "difficulty": 1,
+      "misconceptionTags": ["assuming-more-than-the-negation-requires"]
+    },
+    {
+      "id": "pfmm-m3-l2-p2-no-largest-integer",
+      "version": 1,
+      "lessonId": "pfmm-m3-l2-proof-by-contradiction",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a proof by contradiction that there is no largest integer.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Suppose, for contradiction, that there is a largest integer $N$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Consider $N+1$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "$N+1$ is an integer, and $N+1 > N$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "This contradicts the assumption that $N$ is the largest integer, so no largest integer exists."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The proof must first assume the negation of the target claim before anything else can be reasoned about."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "After assuming a largest integer $N$ exists, the standard move is to build a specific integer designed to exceed it."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "You need to verify $N+1$'s two relevant properties — being an integer, and exceeding $N$ — before you can point out the contradiction."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: assume a largest integer exists, introduce $N+1$, verify it's an integer greater than $N$, then state the contradiction and conclude."
+        }
+      ],
+      "solutionMarkdown": "The proof assumes the negation of the target claim first (step 1), then constructs a specific witness, $N+1$, designed to break that assumption (step 2). Its two relevant properties — being an integer, and exceeding $N$ — are verified next (step 3), since both are needed to contradict \"$N$ is the largest\". The proof closes by naming the contradiction explicitly: $N+1$ exceeding $N$ directly conflicts with $N$ being defined as the largest integer, so the assumption must be false (step 4).",
+      "concepts": ["proof-by-contradiction", "deriving-a-contradiction"],
+      "prerequisites": ["proof-by-contradiction"],
+      "difficulty": 2,
+      "misconceptionTags": ["leaving-the-contradiction-unstated"]
+    },
+    {
+      "id": "pfmm-m3-l2-p3-sqrt2-irrational",
+      "version": 1,
+      "lessonId": "pfmm-m3-l2-proof-by-contradiction",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the classic proof by contradiction that $\\sqrt{2}$ is irrational.\n\nProof: Suppose, for contradiction, that $\\sqrt{2}$ is rational. Then $\\sqrt{2} = a/b$ for integers $a,b$ with no common factor (in lowest terms), $b \\neq 0$. Squaring both sides and clearing the denominator: $2b^2 = \\underline{\\hspace{1.5cm}}$.\n\nThis means $a^2$ is even, so (by the contrapositive result from Lesson 1) $a$ is even: $a = 2k$ for some integer $k$. Substituting, $2b^2 = (2k)^2 = 4k^2$, so $b^2 = \\underline{\\hspace{1.5cm}}$.\n\nThis means $b^2$ is even, so $b$ is also even. But then $a$ and $b$ share a common factor of $\\underline{\\hspace{1.5cm}}$, contradicting the assumption that $a/b$ is in lowest terms. Therefore, $\\sqrt{2}$ is $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Value of a^2",
+            "acceptedValues": ["a^2", "a^2 "]
+          },
+          {
+            "id": "b2",
+            "label": "Value of b^2",
+            "acceptedValues": ["2k^2", "2k^2 ", "2*k^2"]
+          },
+          {
+            "id": "b3",
+            "label": "Common factor of a and b",
+            "acceptedValues": ["2"]
+          },
+          {
+            "id": "b4",
+            "label": "Conclusion about sqrt(2)",
+            "acceptedValues": ["irrational"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Squaring $\\sqrt{2}=a/b$ gives $2=a^2/b^2$; clear the denominator by multiplying both sides by $b^2$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "After $a=2k$ is substituted into $2b^2=a^2$, you get $2b^2=4k^2$. Divide both sides by $2$ to isolate $b^2$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "If both $a$ and $b$ are even, what integer divides both of them — the same integer that was supposed to be their *only* common factor, ruled out by the 'lowest terms' assumption?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "In order: $2b^2=a^2$; then $b^2=2k^2$; the shared factor is $2$; and since the assumption that $\\sqrt2$ is rational leads to a contradiction, $\\sqrt2$ is irrational."
+        }
+      ],
+      "solutionMarkdown": "Squaring $\\sqrt2=a/b$ and clearing the denominator gives $2b^2=a^2$. This shows $a^2$ is even, so (using the contrapositive result from Lesson 1) $a$ itself is even, $a=2k$. Substituting back: $2b^2=(2k)^2=4k^2$, so $b^2=2k^2$, which shows $b^2$ — and hence $b$ — is also even. But if both $a$ and $b$ are even, they share a common factor of $2$, contradicting the assumption that $a/b$ was already in lowest terms. Since assuming $\\sqrt2$ is rational leads to this contradiction, $\\sqrt2$ must be irrational. Note how this proof leans on the *previous* lesson's contrapositive result (\"$n^2$ even implies $n$ even\") twice, once for $a$ and once for $b$ — proof techniques compound.",
+      "concepts": ["proof-by-contradiction", "contrapositive"],
+      "prerequisites": ["proof-by-contradiction", "contrapositive", "even-integer"],
+      "difficulty": 3,
+      "misconceptionTags": ["forgetting-lowest-terms-assumption"]
+    },
+    {
+      "id": "pfmm-m3-l2-p4-identify-the-contradiction",
+      "version": 1,
+      "lessonId": "pfmm-m3-l2-proof-by-contradiction",
+      "type": "multiple_choice",
+      "promptMarkdown": "Consider this proof excerpt: \"Suppose, for contradiction, that $N$ is the largest integer. Then $N+1$ is an integer, and $N+1 > N$.\" What is the actual **contradiction** reached in this proof, as distinct from the assumption being tested?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "That $N$ is the largest integer.",
+            "accessibleLabel": "That N is the largest integer."
+          },
+          {
+            "id": "b",
+            "label": "That $N+1$ is an integer greater than $N$, which conflicts with $N$ being defined as the largest integer.",
+            "accessibleLabel": "That N plus 1 is an integer greater than N, which conflicts with N being defined as the largest integer."
+          },
+          {
+            "id": "c",
+            "label": "That $N$ is not an integer.",
+            "accessibleLabel": "That N is not an integer."
+          },
+          {
+            "id": "d",
+            "label": "That there are infinitely many integers greater than $N$.",
+            "accessibleLabel": "That there are infinitely many integers greater than N."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The contradiction is not the assumption itself — it's what the assumption, combined with valid reasoning, forces into conflict with something already established."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "\"$N$ is the largest integer\" (option a) is the *assumption*, not something derived from it — a contradiction has to be a consequence, not the starting premise."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Nothing in the excerpt claims $N$ isn't an integer (ruling out c), and the excerpt only produces one integer greater than $N$, not infinitely many (ruling out d)."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The genuine clash is between the derived fact \"$N+1 > N$\" and the assumption's built-in claim that nothing exceeds $N$ — that's option (b)."
+        }
+      ],
+      "solutionMarkdown": "A contradiction in this proof-type is a clash between something *derived* and something already *assumed or known* — not the assumption by itself. Here, the derived fact is \"$N+1$ is an integer with $N+1>N$\"; the thing it clashes with is the assumption's own built-in claim that $N$ is the largest integer, i.e. that no integer exceeds $N$. That clash is option (b). Option (a) mistakes the assumption itself for the contradiction — a common error, since a beginner may feel the whole assumption is 'the thing that's wrong', but logically it's the *derived consequence* clashing with the assumption that constitutes the contradiction. Options (c) and (d) simply aren't claims made anywhere in the argument.",
+      "concepts": ["deriving-a-contradiction"],
+      "prerequisites": ["proof-by-contradiction"],
+      "difficulty": 3,
+      "misconceptionTags": ["mistaking-the-assumption-for-the-contradiction"]
+    },
+    {
+      "id": "pfmm-m3-l2-p5-rational-plus-irrational",
+      "version": 1,
+      "lessonId": "pfmm-m3-l2-proof-by-contradiction",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a proof by contradiction that the sum of a rational number and an irrational number is irrational.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $r$ be rational and $x$ be irrational. Suppose, for contradiction, that $r+x$ is rational; call it $s$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "From $r+x=s$, it follows that $x = s - r$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Since $s$ and $r$ are both rational, and the rationals are closed under subtraction, $s-r$ is rational, so $x$ is rational."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "This contradicts the assumption that $x$ is irrational, so $r+x$ must be irrational."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The claim isn't phrased with an obvious hypothesis and conclusion to assume/derive directly, so contradiction is the natural strategy: assume the sum is rational and see what breaks."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Once $r+x=s$ is assumed rational, isolate $x$ algebraically before reasoning about its rationality."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "You need a fact about rational numbers being closed under subtraction to conclude $s-r$ is rational — this is what lets you say something new about $x$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: assume the sum is rational, isolate $x$, use closure of the rationals to show $x$ is rational, then state the contradiction with $x$ irrational."
+        }
+      ],
+      "solutionMarkdown": "The claim about a rational-plus-irrational sum isn't naturally a conditional to attack directly, so the proof assumes the negation: that $r+x$ is rational (step 1). Algebra isolates $x$ as $s-r$ (step 2). The key fact that finishes the proof is that the rationals are closed under subtraction, so $s-r$ — hence $x$ — would have to be rational (step 3). This directly contradicts the given fact that $x$ is irrational, so the assumption fails and $r+x$ must be irrational (step 4).",
+      "concepts": ["proof-by-contradiction", "deriving-a-contradiction"],
+      "prerequisites": ["proof-by-contradiction"],
+      "difficulty": 4,
+      "misconceptionTags": ["leaving-the-contradiction-unstated"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["proof-by-contradiction", "deriving-a-contradiction"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

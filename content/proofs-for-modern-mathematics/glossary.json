@@ -1,0 +1,353 @@
+{
+  "courseSlug": "proofs-for-modern-mathematics",
+  "terms": [
+    {
+      "id": "statement",
+      "term": "Statement",
+      "definitionMarkdown": "A sentence that is either true or false, but not both, and not dependent on an unbound variable. An **open sentence** (one with a free variable) is not yet a statement until every variable is quantified or assigned.",
+      "relatedTerms": ["truth-value", "universal-quantifier", "existential-quantifier"]
+    },
+    {
+      "id": "truth-value",
+      "term": "Truth value",
+      "definitionMarkdown": "The classification of a statement as true or false. Every statement has exactly one truth value.",
+      "relatedTerms": ["statement"]
+    },
+    {
+      "id": "universal-quantifier",
+      "term": "Universal quantifier ($\\forall$)",
+      "definitionMarkdown": "$\\forall x \\in S,\\ P(x)$ is true exactly when $P(x)$ holds for every element $x$ of $S$, with no exceptions.",
+      "relatedTerms": ["existential-quantifier", "quantifier-negation"]
+    },
+    {
+      "id": "existential-quantifier",
+      "term": "Existential quantifier ($\\exists$)",
+      "definitionMarkdown": "$\\exists x \\in S,\\ P(x)$ is true exactly when $P(x)$ holds for at least one element $x$ of $S$ (a single witness suffices).",
+      "relatedTerms": ["universal-quantifier", "quantifier-negation"]
+    },
+    {
+      "id": "quantifier-negation",
+      "term": "Quantifier negation",
+      "definitionMarkdown": "$\\neg(\\forall x, P(x)) \\iff \\exists x, \\neg P(x)$ and $\\neg(\\exists x, P(x)) \\iff \\forall x, \\neg P(x)$. Applied one quantifier at a time, from the outside in, for statements with more than one quantifier.",
+      "relatedTerms": ["universal-quantifier", "existential-quantifier", "mixed-quantifier-negation"]
+    },
+    {
+      "id": "conjunction",
+      "term": "Conjunction ($\\land$)",
+      "definitionMarkdown": "\"$P$ and $Q$,\" true exactly when both $P$ and $Q$ are true.",
+      "relatedTerms": ["disjunction", "negation-of-conjunction"]
+    },
+    {
+      "id": "disjunction",
+      "term": "Disjunction ($\\lor$)",
+      "definitionMarkdown": "\"$P$ or $Q$,\" true when at least one of $P$, $Q$ is true.",
+      "relatedTerms": ["conjunction", "negation-of-disjunction"]
+    },
+    {
+      "id": "negation-connective",
+      "term": "Negation ($\\neg$)",
+      "definitionMarkdown": "\"Not $P$,\" true exactly when $P$ is false.",
+      "relatedTerms": ["conjunction", "disjunction", "conditional"]
+    },
+    {
+      "id": "conditional",
+      "term": "Conditional ($\\to$)",
+      "definitionMarkdown": "\"If $P$ then $Q$,\" false only when $P$ is true and $Q$ is false; true in every other case.",
+      "relatedTerms": ["negation-of-conditional", "contrapositive"]
+    },
+    {
+      "id": "truth-table",
+      "term": "Truth table",
+      "definitionMarkdown": "A table enumerating every combination of truth values for a compound statement's component statements, alongside the resulting truth value of the whole statement.",
+      "relatedTerms": ["conjunction", "disjunction", "conditional"]
+    },
+    {
+      "id": "de-morgans-laws",
+      "term": "De Morgan's laws",
+      "definitionMarkdown": "$\\neg(P \\land Q) \\iff (\\neg P \\lor \\neg Q)$ and $\\neg(P \\lor Q) \\iff (\\neg P \\land \\neg Q)$.",
+      "relatedTerms": ["negation-of-conjunction", "negation-of-disjunction"]
+    },
+    {
+      "id": "negation-of-conjunction",
+      "term": "Negation of a conjunction",
+      "definitionMarkdown": "$\\neg(P \\land Q) \\iff (\\neg P \\lor \\neg Q)$ — one of De Morgan's laws.",
+      "relatedTerms": ["de-morgans-laws", "conjunction"]
+    },
+    {
+      "id": "negation-of-disjunction",
+      "term": "Negation of a disjunction",
+      "definitionMarkdown": "$\\neg(P \\lor Q) \\iff (\\neg P \\land \\neg Q)$ — one of De Morgan's laws.",
+      "relatedTerms": ["de-morgans-laws", "disjunction"]
+    },
+    {
+      "id": "negation-of-conditional",
+      "term": "Negation of a conditional",
+      "definitionMarkdown": "$\\neg(P \\to Q) \\iff (P \\land \\neg Q)$: a conditional's negation asserts the hypothesis while denying the conclusion.",
+      "relatedTerms": ["conditional", "contrapositive"]
+    },
+    {
+      "id": "mixed-quantifier-negation",
+      "term": "Mixed quantifier negation",
+      "definitionMarkdown": "Negating a statement with several nested quantifiers (e.g. $\\forall x, \\exists y, \\ldots$) by flipping each quantifier in turn, from the outside in, and negating the innermost predicate last.",
+      "relatedTerms": ["quantifier-negation", "de-morgans-laws"]
+    },
+    {
+      "id": "formal-definition",
+      "term": "Formal definition",
+      "definitionMarkdown": "A precise, quantified restatement of an intuitive idea that can be manipulated algebraically in a proof, typically introducing a witness variable (e.g. \"$n$ is even $\\iff \\exists k \\in \\mathbb{Z}, n=2k$\").",
+      "relatedTerms": ["even-integer", "odd-integer", "divisibility"]
+    },
+    {
+      "id": "even-integer",
+      "term": "Even integer",
+      "definitionMarkdown": "$n$ is even $\\iff \\exists k \\in \\mathbb{Z}$ such that $n = 2k$.",
+      "relatedTerms": ["odd-integer", "parity-proof"]
+    },
+    {
+      "id": "odd-integer",
+      "term": "Odd integer",
+      "definitionMarkdown": "$n$ is odd $\\iff \\exists k \\in \\mathbb{Z}$ such that $n = 2k+1$.",
+      "relatedTerms": ["even-integer", "parity-proof"]
+    },
+    {
+      "id": "divisibility",
+      "term": "Divisibility ($a \\mid b$)",
+      "definitionMarkdown": "$a$ divides $b$, written $a \\mid b$, $\\iff \\exists k \\in \\mathbb{Z}$ such that $b = ak$.",
+      "relatedTerms": ["divisibility-proof", "closure-under-linear-combination"]
+    },
+    {
+      "id": "direct-proof",
+      "term": "Direct proof",
+      "definitionMarkdown": "To prove $\\forall x \\in S,\\ P(x) \\to Q(x)$: let $x$ be arbitrary, assume $P(x)$, derive $Q(x)$ through justified steps, and conclude the implication holds for every $x$ since $x$ was arbitrary.",
+      "relatedTerms": ["proof-structure", "contrapositive"]
+    },
+    {
+      "id": "proof-structure",
+      "term": "Proof structure",
+      "definitionMarkdown": "The overall shape and ordering of a proof's steps — naming assumptions and witnesses before using them, and stating a clear concluding sentence tied back to the original claim.",
+      "relatedTerms": ["direct-proof"]
+    },
+    {
+      "id": "divisibility-proof",
+      "term": "Divisibility proof",
+      "definitionMarkdown": "A direct proof that uses the formal definition of divisibility ($b=ak$ for an integer witness $k$) to establish a claim about which integers divide which.",
+      "relatedTerms": ["divisibility", "closure-under-linear-combination"]
+    },
+    {
+      "id": "closure-under-linear-combination",
+      "term": "Closure under linear combination",
+      "definitionMarkdown": "If $a$ divides both $b$ and $c$, then $a$ divides every integer linear combination $mb+nc$ of $b$ and $c$ (e.g. $b+c$, $b-c$, or $bc$ as a special case).",
+      "relatedTerms": ["divisibility-proof"]
+    },
+    {
+      "id": "parity-proof",
+      "term": "Parity proof",
+      "definitionMarkdown": "A proof about even/odd integers, often requiring a case split on the parity of one or more variables before applying the formal definitions of even and odd.",
+      "relatedTerms": ["even-integer", "odd-integer", "case-free-direct-proof"]
+    },
+    {
+      "id": "case-free-direct-proof",
+      "term": "Case-free direct proof",
+      "definitionMarkdown": "A direct proof that reaches its conclusion through a single algebraic chain, without needing to split into separate cases (e.g. by even/odd).",
+      "relatedTerms": ["direct-proof", "parity-proof"]
+    },
+    {
+      "id": "contrapositive",
+      "term": "Contrapositive",
+      "definitionMarkdown": "The contrapositive of $P \\to Q$ is $\\neg Q \\to \\neg P$. Useful when a direct proof of $P \\to Q$ is awkward but a direct proof of $\\neg Q \\to \\neg P$ is clean.",
+      "relatedTerms": ["logical-equivalence-of-conditional-and-contrapositive", "conditional"]
+    },
+    {
+      "id": "logical-equivalence-of-conditional-and-contrapositive",
+      "term": "Equivalence of a conditional and its contrapositive",
+      "definitionMarkdown": "$P \\to Q$ and $\\neg Q \\to \\neg P$ always have the same truth value, so proving one proves the other.",
+      "relatedTerms": ["contrapositive"]
+    },
+    {
+      "id": "proof-by-contradiction",
+      "term": "Proof by contradiction",
+      "definitionMarkdown": "To prove $P$: assume $\\neg P$, derive a contradiction (a statement and its negation both holding, or a known falsehood), and conclude $P$ must be true.",
+      "relatedTerms": ["deriving-a-contradiction"]
+    },
+    {
+      "id": "deriving-a-contradiction",
+      "term": "Deriving a contradiction",
+      "definitionMarkdown": "The step in a contradiction proof where the assumed negation leads, through valid reasoning, to two directly conflicting statements — the actual contradiction that closes the proof.",
+      "relatedTerms": ["proof-by-contradiction"]
+    },
+    {
+      "id": "set-membership-proof",
+      "term": "Set-membership proof (\"element chasing\")",
+      "definitionMarkdown": "A proof technique for set claims: pick an arbitrary element of one set and show, using its membership conditions, that it belongs to another set.",
+      "relatedTerms": ["subset-proof", "set-operations"]
+    },
+    {
+      "id": "subset-proof",
+      "term": "Subset proof",
+      "definitionMarkdown": "To prove $A \\subseteq B$: show $\\forall x,\\ x \\in A \\to x \\in B$ by element chasing. $A=B$ requires both $A \\subseteq B$ and $B \\subseteq A$.",
+      "relatedTerms": ["set-membership-proof", "set-operations"]
+    },
+    {
+      "id": "set-operations",
+      "term": "Set operations",
+      "definitionMarkdown": "Union ($A \\cup B$), intersection ($A \\cap B$), and related constructions used to combine sets, each defined by a membership condition on their elements.",
+      "relatedTerms": ["subset-proof", "set-membership-proof"]
+    },
+    {
+      "id": "function-definition",
+      "term": "Function",
+      "definitionMarkdown": "$f: A \\to B$ assigns exactly one element of $B$ to each element of $A$. $A$ is the domain, $B$ is the codomain.",
+      "relatedTerms": ["well-defined-function", "range-vs-codomain"]
+    },
+    {
+      "id": "well-defined-function",
+      "term": "Well-defined function",
+      "definitionMarkdown": "A rule is well-defined as a function when it produces exactly one output for every input in the domain — never zero outputs, and never more than one.",
+      "relatedTerms": ["function-definition"]
+    },
+    {
+      "id": "range-vs-codomain",
+      "term": "Range vs. codomain",
+      "definitionMarkdown": "The codomain is the declared target set $B$ of $f: A \\to B$; the range is the subset of $B$ actually attained by some input. The range is always a subset of the codomain, but the two need not be equal.",
+      "relatedTerms": ["function-definition", "surjective-function"]
+    },
+    {
+      "id": "injective-function",
+      "term": "Injective function (one-to-one)",
+      "definitionMarkdown": "$f$ is injective $\\iff \\forall a,b$ in the domain, $f(a)=f(b) \\to a=b$. Proved directly by assuming $f(a)=f(b)$ and deriving $a=b$.",
+      "relatedTerms": ["surjective-function", "bijective-function"]
+    },
+    {
+      "id": "surjective-function",
+      "term": "Surjective function (onto)",
+      "definitionMarkdown": "$f: A \\to B$ is surjective $\\iff \\forall y \\in B,\\ \\exists x \\in A$ such that $f(x)=y$. Proved by an existence argument: given $y$, construct a matching $x$.",
+      "relatedTerms": ["injective-function", "bijective-function", "range-vs-codomain"]
+    },
+    {
+      "id": "bijective-function",
+      "term": "Bijective function",
+      "definitionMarkdown": "A function that is both injective and surjective. Exactly the functions that have an inverse.",
+      "relatedTerms": ["injective-function", "surjective-function", "inverse-function"]
+    },
+    {
+      "id": "inverse-function",
+      "term": "Inverse function",
+      "definitionMarkdown": "For bijective $f: A \\to B$, the inverse $f^{-1}: B \\to A$ satisfies $f^{-1}(f(x))=x$ for all $x \\in A$ and $f(f^{-1}(y))=y$ for all $y \\in B$.",
+      "relatedTerms": ["bijective-function"]
+    },
+    {
+      "id": "induction-base-case",
+      "term": "Base case",
+      "definitionMarkdown": "The first step of an induction proof: showing $P(n_0)$ holds directly for the starting value $n_0$.",
+      "relatedTerms": ["induction-inductive-step", "mathematical-induction"]
+    },
+    {
+      "id": "induction-inductive-step",
+      "term": "Inductive step",
+      "definitionMarkdown": "The second part of an induction proof: assuming $P(k)$ holds for some fixed $k \\ge n_0$ (the inductive hypothesis) and showing $P(k+1)$ follows.",
+      "relatedTerms": ["induction-base-case", "mathematical-induction"]
+    },
+    {
+      "id": "mathematical-induction",
+      "term": "Mathematical induction",
+      "definitionMarkdown": "A technique for proving $\\forall n \\ge n_0,\\ P(n)$ by establishing a base case $P(n_0)$ and an inductive step ($P(k) \\to P(k+1)$), which together guarantee $P(n)$ for every $n \\ge n_0$.",
+      "relatedTerms": ["induction-base-case", "induction-inductive-step", "strong-induction"]
+    },
+    {
+      "id": "strong-induction",
+      "term": "Strong induction",
+      "definitionMarkdown": "A variant of induction where the inductive step may assume $P(m)$ for every $m$ with $n_0 \\le m < k$ (not just $m=k-1$) in order to prove $P(k)$. Equally valid, and often more natural when a case decomposes into pieces of arbitrary smaller size.",
+      "relatedTerms": ["mathematical-induction"]
+    },
+    {
+      "id": "recursive-definition",
+      "term": "Recursive definition",
+      "definitionMarkdown": "A sequence or structure defined by a base value together with a rule that builds each later term from earlier ones (e.g. $a_1=1,\\ a_{n+1}=2a_n+1$).",
+      "relatedTerms": ["structural-induction"]
+    },
+    {
+      "id": "structural-induction",
+      "term": "Structural induction",
+      "definitionMarkdown": "An induction proof about a recursively defined sequence or structure, where the inductive step directly mirrors the recursive rule that defines it.",
+      "relatedTerms": ["recursive-definition", "mathematical-induction"]
+    },
+    {
+      "id": "disproof-strategy",
+      "term": "Disproof strategy",
+      "definitionMarkdown": "To disprove $\\forall x \\in S,\\ P(x)$, it suffices to exhibit a single $x \\in S$ with $\\neg P(x)$ — a counterexample. Checking many examples that satisfy a claim is never itself a proof of that claim.",
+      "relatedTerms": ["counterexample-construction", "quantifier-negation"]
+    },
+    {
+      "id": "counterexample-construction",
+      "term": "Counterexample construction",
+      "definitionMarkdown": "The process of finding and verifying a specific object that satisfies a claim's hypotheses but violates its conclusion, thereby disproving a universally quantified statement.",
+      "relatedTerms": ["disproof-strategy"]
+    },
+    {
+      "id": "proof-flaw-identification",
+      "term": "Proof flaw identification",
+      "definitionMarkdown": "The skill of locating the specific invalid step in an incorrect proof — such as division by an expression that could be zero, hasty generalization from examples, circular reasoning, or a missing/incorrect induction base case.",
+      "relatedTerms": ["common-proof-errors"]
+    },
+    {
+      "id": "common-proof-errors",
+      "term": "Common proof errors",
+      "definitionMarkdown": "Recurring mistakes in student proofs: dividing by a possibly-zero quantity, generalizing from a handful of examples, assuming the conclusion (circular reasoning), mis-negating a quantifier, and omitting or mishandling an induction base case.",
+      "relatedTerms": ["proof-flaw-identification"]
+    },
+    {
+      "id": "relation-properties",
+      "term": "Relation properties",
+      "definitionMarkdown": "The reflexivity, symmetry, and transitivity of a relation are each checked independently — a relation can satisfy any combination of the three.",
+      "relatedTerms": ["reflexivity", "symmetry", "transitivity"]
+    },
+    {
+      "id": "reflexivity",
+      "term": "Reflexivity",
+      "definitionMarkdown": "A relation $R$ on $A$ is reflexive $\\iff \\forall a \\in A,\\ aRa$.",
+      "relatedTerms": ["relation-properties", "equivalence-relation"]
+    },
+    {
+      "id": "symmetry",
+      "term": "Symmetry",
+      "definitionMarkdown": "A relation $R$ on $A$ is symmetric $\\iff \\forall a,b \\in A,\\ aRb \\to bRa$.",
+      "relatedTerms": ["relation-properties", "equivalence-relation"]
+    },
+    {
+      "id": "transitivity",
+      "term": "Transitivity",
+      "definitionMarkdown": "A relation $R$ on $A$ is transitive $\\iff \\forall a,b,c \\in A,\\ (aRb \\land bRc) \\to aRc$.",
+      "relatedTerms": ["relation-properties", "equivalence-relation"]
+    },
+    {
+      "id": "equivalence-relation",
+      "term": "Equivalence relation",
+      "definitionMarkdown": "A relation that is reflexive, symmetric, and transitive all at once. Equivalence relations partition their set into equivalence classes.",
+      "relatedTerms": ["reflexivity", "symmetry", "transitivity", "equivalence-class"]
+    },
+    {
+      "id": "equivalence-class",
+      "term": "Equivalence class",
+      "definitionMarkdown": "For an equivalence relation $R$ on $A$ and $a \\in A$, the class $[a] = \\{x \\in A : xRa\\}$ — every element of $A$ belongs to exactly one equivalence class.",
+      "relatedTerms": ["equivalence-relation"]
+    },
+    {
+      "id": "invariant-argument",
+      "term": "Invariant argument",
+      "definitionMarkdown": "A proof that two objects are NOT related (or not equivalent) by computing a quantity preserved by the relation for each object and showing the results differ.",
+      "relatedTerms": ["equivalence-relation", "equivalence-class"]
+    },
+    {
+      "id": "technique-selection",
+      "term": "Proof technique selection",
+      "definitionMarkdown": "The judgment of which proof strategy — direct, contrapositive, contradiction, or induction — best fits a given claim, based on cues like an awkward direct proof, an existence/uniqueness claim, or a statement about all natural numbers built up step by step.",
+      "relatedTerms": ["direct-proof", "contrapositive", "proof-by-contradiction", "mathematical-induction"]
+    },
+    {
+      "id": "independent-proof-construction",
+      "term": "Independent proof construction",
+      "definitionMarkdown": "Writing a complete, correctly structured, and clearly communicated proof from a bare claim, without being told which technique or intermediate steps to use.",
+      "relatedTerms": ["technique-selection"]
+    }
+  ]
+}

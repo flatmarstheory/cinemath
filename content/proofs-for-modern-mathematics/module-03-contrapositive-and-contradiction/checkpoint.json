@@ -1,0 +1,185 @@
+{
+  "lessonId": "pfmm-m3-checkpoint",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-03-contrapositive-and-contradiction",
+  "title": "Checkpoint: Contrapositive and Contradiction",
+  "kind": "checkpoint",
+  "learningObjective": "Choose between direct proof, proof by contrapositive, and proof by contradiction based on the shape of a claim, and combine contrapositive or contradiction with earlier parity and divisibility results.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 20
+  },
+  "prerequisites": ["direct-proof", "contrapositive", "proof-by-contradiction", "even-integer", "odd-integer"],
+  "conceptsIntroduced": [],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "You now have three proof strategies: direct proof, proof by contrapositive (for conditionals whose hypothesis is awkward but whose negated hypothesis is easy), and proof by contradiction (for claims that aren't naturally conditionals, or where assuming the opposite is the cleanest path to an impossibility)."
+    },
+    "encounter": {
+      "bodyMarkdown": "Given a new claim, the first real skill is recognizing *which* of the three strategies fits — before you commit to writing out an entire proof in the wrong style. This checkpoint mixes that judgment call with the mechanics of both new techniques."
+    },
+    "explain": {
+      "bodyMarkdown": "No new theory. As a quick reference: reach for **direct proof** when the hypothesis is immediately usable; reach for **contrapositive** when the hypothesis is awkward but its negation is easy and the claim is a conditional; reach for **contradiction** when the claim isn't a conditional at all (existence, uniqueness, \"no such thing exists\" claims), or when assuming the opposite gives you an unusually strong extra fact to work with."
+    },
+    "reflect": {
+      "bodyMarkdown": "If choosing a strategy felt harder than executing it once chosen, revisit the *encounter* sections of Lessons 1 and 2 — they're built around exactly that decision, not just the mechanics that follow it."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m3-checkpoint-p1-choose-strategy",
+      "version": 1,
+      "lessonId": "pfmm-m3-checkpoint",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which proof strategy is the best fit for the claim: \"There is no smallest positive rational number\"?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Direct proof.",
+            "accessibleLabel": "Direct proof."
+          },
+          {
+            "id": "b",
+            "label": "Proof by contrapositive.",
+            "accessibleLabel": "Proof by contrapositive."
+          },
+          {
+            "id": "c",
+            "label": "Proof by contradiction.",
+            "accessibleLabel": "Proof by contradiction."
+          },
+          {
+            "id": "d",
+            "label": "None of these strategies can establish this claim.",
+            "accessibleLabel": "None of these strategies can establish this claim."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Ask first whether the claim is phrased as a conditional ($P \\Rightarrow Q$) at all."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "\"There is no smallest positive rational number\" is a negated existence claim, not a conditional, so neither direct proof nor contrapositive proof has an obvious hypothesis/conclusion to work with."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Try assuming the opposite: a smallest positive rational $q$ exists. What obviously smaller positive rational can you always construct from it (e.g. using $q/2$)?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Assuming a smallest positive rational $q$ exists, $q/2$ is a smaller positive rational — contradicting $q$ being smallest. This is a proof by contradiction."
+        }
+      ],
+      "solutionMarkdown": "The claim is a negated existence statement, not a conditional, so it has no hypothesis to assume directly and no contrapositive to form. Proof by contradiction fits naturally: assume a smallest positive rational $q$ exists; then $q/2$ is also a positive rational, and $q/2 < q$, contradicting the assumption that $q$ was smallest. Since assuming the opposite leads to a contradiction, no smallest positive rational number exists.",
+      "concepts": ["proof-by-contradiction"],
+      "prerequisites": ["proof-by-contradiction", "direct-proof", "contrapositive"],
+      "difficulty": 2,
+      "misconceptionTags": ["forcing-a-conditional-strategy-onto-a-non-conditional-claim"]
+    },
+    {
+      "id": "pfmm-m3-checkpoint-p2-5n-even-implies-n-even",
+      "version": 1,
+      "lessonId": "pfmm-m3-checkpoint",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the proof by contrapositive that if $5n$ is even, then $n$ is even.\n\nThe contrapositive is: if $n$ is odd, then $5n$ is odd.\n\nProof of the contrapositive: Assume $n$ is odd, so $n=2k+1$ for some integer $k$. Then\n$$5n = 5(2k+1) = 10k+5 = 2(\\underline{\\hspace{1.5cm}}) + 1,$$\nwhich is odd. Since the contrapositive is true, the original statement is $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expression inside the parentheses",
+            "acceptedValues": ["5k+2", "5k + 2"]
+          },
+          {
+            "id": "b2",
+            "label": "Truth of the original statement",
+            "acceptedValues": ["true"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Simplify $5(2k+1)$ first, then split off a final $+1$ from the remaining terms."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$5(2k+1) = 10k+5$. Rewrite $10k+5$ as $2\\cdot(\\text{something}) + 1$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$10k+5 = 10k+4+1 = 2(5k+2)+1$. The quantity inside the parentheses is an integer since $k$ is."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The first blank is $5k+2$. Since the contrapositive is now proved, and it's logically equivalent to the original conditional, the original statement is true."
+        }
+      ],
+      "solutionMarkdown": "The contrapositive of \"if $5n$ is even, then $n$ is even\" is \"if $n$ is odd, then $5n$ is odd\". Proving this directly: $n=2k+1$ gives $5n=10k+5=2(5k+2)+1$, odd since $5k+2 \\in \\mathbb{Z}$. Since a conditional and its contrapositive are logically equivalent, establishing the contrapositive establishes the original statement.",
+      "concepts": ["contrapositive", "logical-equivalence-of-conditional-and-contrapositive"],
+      "prerequisites": ["contrapositive", "odd-integer"],
+      "difficulty": 3,
+      "misconceptionTags": ["negating-the-wrong-part-of-the-conditional"]
+    },
+    {
+      "id": "pfmm-m3-checkpoint-p3-no-integer-even-and-odd",
+      "version": 1,
+      "lessonId": "pfmm-m3-checkpoint",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a proof by contradiction that no integer is both even and odd.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Suppose, for contradiction, that some integer $n$ is both even and odd."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "By definition, $n = 2j$ for some integer $j$, and $n = 2k+1$ for some integer $k$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Then $2j = 2k+1$, so $2(j-k) = 1$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "The left side, $2(j-k)$, is even, while the right side, $1$, is odd — an even number cannot equal an odd number, which is impossible. So no integer is both even and odd."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "\"No integer is both even and odd\" isn't a conditional, so proof by contradiction is the natural strategy: assume some integer manages to be both."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Once you assume one integer $n$ satisfies both definitions, you get two separate equations for $n$ — write both down using different witness letters before combining them."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Setting the two expressions for $n$ equal to each other and simplifying should produce a very small, obviously false equation."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: assume some $n$ is both even and odd, write both definitions, equate and simplify to $2(j-k)=1$, then point out this equates an even number to an odd one, which is impossible."
+        }
+      ],
+      "solutionMarkdown": "Since the claim denies the existence of an object with two properties, contradiction is the natural approach: assume such an $n$ exists (step 1) and rewrite both properties with distinct witnesses (step 2). Equating the two expressions for $n$ and simplifying (step 3) collapses everything down to $2(j-k)=1$ — the proof's final move (step 4) is recognizing that this equation itself is impossible: its left side is even by construction, but its right side, $1$, is odd, and no number is both. That impossibility is the contradiction, showing the original assumption (that some integer is both even and odd) must be false.",
+      "concepts": ["proof-by-contradiction", "even-integer", "odd-integer"],
+      "prerequisites": ["proof-by-contradiction", "even-integer", "odd-integer"],
+      "difficulty": 4,
+      "misconceptionTags": ["leaving-the-contradiction-unstated"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["contrapositive", "logical-equivalence-of-conditional-and-contrapositive", "proof-by-contradiction", "deriving-a-contradiction"],
+    "notes": "Checkpoint: a mixed-review gate for Module 3. Record per-concept correctness the same way as ordinary lessons; a low score here should point the learner back at the specific Module 3 lesson matching the concept they missed, per docs/course-map.md's checkpoint framing."
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "lessonId": "pfmm-m4-l3-injections-and-surjections",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-04-sets-functions-injections-bijections",
+  "title": "Injective and Surjective Functions",
+  "learningObjective": "Prove that a function is injective using a direct proof from the hypothesis f(a)=f(b), and prove that a function is surjective using an existence/construction argument.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 22
+  },
+  "prerequisites": ["function-definition", "well-defined-function", "direct-proof", "existential-quantifier"],
+  "conceptsIntroduced": ["injective-function", "surjective-function"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall from the previous lesson that the range of $f : A \\to B$ is $\\{f(a) : a \\in A\\}$, and that the range need not fill up the whole codomain $B$. This lesson asks two sharper questions about how $f$ relates inputs to outputs."
+    },
+    "encounter": {
+      "bodyMarkdown": "Compare two functions on the integers: $f(n) = 2n$ and $g(n) = n \\bmod 3$ (the remainder when $n$ is divided by $3$, in $\\{0,1,2\\}$).\n\n$f$ never sends two different integers to the same output — you can always recover $n$ from $f(n)$ by dividing by $2$. But $f$'s outputs are only the even integers, so it never \"reaches\" an odd number in $\\mathbb{Z}$.\n\n$g$, by contrast, does hit every value in its codomain $\\{0,1,2\\}$ — but many different integers ($0, 3, 6, -3, \\dots$) all map to the same output $0$, so information is lost.\n\nWhich function \"loses no information,\" and which one \"hits everything\" in its codomain?"
+    },
+    "explain": {
+      "bodyMarkdown": "A function $f : A \\to B$ is **injective** (or *one-to-one*) when different inputs always produce different outputs — equivalently, no output is shared by two distinct inputs:\n\n$$\\forall a, b \\in A,\\ f(a) = f(b) \\rightarrow a = b.$$\n\nThis is proved by **direct proof**: assume $f(a) = f(b)$ for arbitrary $a, b \\in A$, and derive $a = b$ using algebra or the definition of $f$.\n\nA function $f : A \\to B$ is **surjective** (or *onto*) when every element of the codomain is actually achieved:\n\n$$\\forall y \\in B,\\ \\exists x \\in A,\\ f(x) = y.$$\n\nThis is proved by an **existence/construction argument**: fix an arbitrary $y \\in B$, explicitly construct a candidate $x$ (usually by solving $f(x) = y$ for $x$), confirm $x \\in A$, and verify $f(x) = y$.\n\nIn the encounter, $f(n) = 2n$ is injective ($2a = 2b \\Rightarrow a = b$) but not surjective onto $\\mathbb{Z}$ (no input produces the output $1$). $g(n) = n \\bmod 3$ is surjective onto $\\{0,1,2\\}$ (every remainder occurs) but not injective ($g(0) = g(3) = 0$ despite $0 \\neq 3$)."
+    },
+    "reflect": {
+      "bodyMarkdown": "Injective and surjective are independent properties — a function can have either, both, or neither, and confirming one tells you nothing about the other. The most common error when proving injectivity is starting from $a = b$ and trying to derive $f(a) = f(b)$ (the wrong direction); the definition requires starting from the equal *outputs* and deriving equal *inputs*. The most common error when proving surjectivity is exhibiting a formula for $x$ without checking that it actually lies in the domain, or without explicitly verifying $f(x) = y$ afterward."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m4-l3-p1-injective-definition",
+      "version": 1,
+      "lessonId": "pfmm-m4-l3-injections-and-surjections",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which of the following is the correct definition of $f : A \\to B$ being injective?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$\\forall a, b \\in A,\\ f(a) = f(b) \\rightarrow a = b$",
+            "accessibleLabel": "For all a, b in A, if f of a equals f of b then a equals b."
+          },
+          {
+            "id": "b",
+            "label": "$\\forall a, b \\in A,\\ a = b \\rightarrow f(a) = f(b)$",
+            "accessibleLabel": "For all a, b in A, if a equals b then f of a equals f of b."
+          },
+          {
+            "id": "c",
+            "label": "$\\forall y \\in B,\\ \\exists x \\in A,\\ f(x) = y$",
+            "accessibleLabel": "For all y in B, there exists x in A such that f of x equals y."
+          },
+          {
+            "id": "d",
+            "label": "$\\exists a, b \\in A,\\ a \\neq b \\text{ and } f(a) = f(b)$",
+            "accessibleLabel": "There exist a, b in A with a not equal to b such that f of a equals f of b."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Injective means \"no two distinct inputs share an output.\" Rephrase that as a conditional in terms of what happens when two outputs coincide."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The definition should go from equal *outputs* to equal *inputs* — check the direction of the conditional in each option."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "(b) has the direction reversed — that's actually a trivial property every function satisfies. (c) is the definition of a different property from this lesson. (d) is the negation of injectivity, not injectivity itself."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (a), $\\forall a,b \\in A,\\ f(a)=f(b) \\rightarrow a=b$, is exactly the statement that equal outputs force equal inputs — the definition of injective."
+        }
+      ],
+      "solutionMarkdown": "Injective (\"one-to-one\") means that whenever two inputs produce the same output, those inputs must actually be the same element: $\\forall a,b\\in A,\\ f(a)=f(b)\\rightarrow a=b$, option (a). Option (b) states the reverse conditional, which every function satisfies automatically (a function can't send one input to two outputs) and says nothing about injectivity. Option (c) is the definition of surjective, covered later in this lesson. Option (d) is the negation of injectivity — it describes a function that *fails* to be injective.",
+      "concepts": ["injective-function"],
+      "prerequisites": ["universal-quantifier", "function-definition"],
+      "difficulty": 1,
+      "misconceptionTags": ["reversing-injective-conditional"]
+    },
+    {
+      "id": "pfmm-m4-l3-p2-prove-linear-injective",
+      "version": 1,
+      "lessonId": "pfmm-m4-l3-injections-and-surjections",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the direct proof that $f : \\mathbb{Z} \\to \\mathbb{Z}$, $f(n) = 2n + 3$, is injective.\n\nAssume $f(a) = f(b)$ for arbitrary $a, b \\in \\mathbb{Z}$. Then $2a + 3 = 2b + 3$. Subtracting $3$ from both sides gives $2a = $ ___. Dividing both sides by $2$ gives $a = $ ___. Since $f(a) = f(b)$ implies $a = b$, $f$ is injective.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Result of subtracting 3 from both sides", "acceptedValues": ["2b"] },
+          { "id": "b2", "label": "Result of dividing both sides by 2", "acceptedValues": ["b"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Start from $2a + 3 = 2b + 3$ and isolate $a$ using ordinary algebra, one step at a time."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Subtracting the same quantity from both sides of an equation preserves equality — subtract $3$ from each side."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "After subtracting, you should have $2a = 2b$. What operation isolates $a$ from there?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$2a + 3 = 2b + 3 \\Rightarrow 2a = 2b \\Rightarrow a = b$, exactly the conclusion injectivity requires."
+        }
+      ],
+      "solutionMarkdown": "Assume $f(a) = f(b)$ for arbitrary $a, b \\in \\mathbb{Z}$, i.e. $2a + 3 = 2b + 3$. Subtracting $3$ from both sides gives $2a = 2b$. Dividing both sides by $2$ (valid since $2 \\neq 0$) gives $a = b$. Since $a, b$ were arbitrary elements of the domain and $f(a)=f(b)$ forced $a=b$, the definition of injective is satisfied, so $f$ is injective.",
+      "concepts": ["injective-function"],
+      "prerequisites": ["direct-proof", "function-definition"],
+      "difficulty": 2,
+      "misconceptionTags": ["reversing-injective-conditional"]
+    },
+    {
+      "id": "pfmm-m4-l3-p3-cube-surjective",
+      "version": 1,
+      "lessonId": "pfmm-m4-l3-injections-and-surjections",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps into a valid proof that $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^3$, is surjective.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Let $y \\in \\mathbb{R}$ be arbitrary." },
+          { "id": "s2", "textMarkdown": "Let $x = \\sqrt[3]{y}$, the real cube root of $y$, which exists and is a real number for every real $y$." },
+          { "id": "s3", "textMarkdown": "Compute $f(x) = x^3 = (\\sqrt[3]{y})^3 = y$." },
+          { "id": "s4", "textMarkdown": "So $x \\in \\mathbb{R}$ satisfies $f(x) = y$. Since $y$ was arbitrary, $f$ is surjective." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This is a surjectivity proof, so it follows the existence/construction pattern: fix an arbitrary target value first."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "After fixing the target $y$, propose a specific candidate input in terms of $y$ before verifying anything about it."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Verification means plugging your candidate $x$ back into $f$ and checking it actually equals $y$ — do this after $x$ has been named, not before."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: fix $y$, construct $x = \\sqrt[3]{y}$, verify $f(x)=y$ by direct computation, then conclude using the arbitrariness of $y$."
+        }
+      ],
+      "solutionMarkdown": "Surjectivity proofs follow the existence/construction pattern: fix an arbitrary codomain element, exhibit a specific input, then verify.\n\n1. \"Let $y \\in \\mathbb{R}$ be arbitrary.\" — fixes the target value the proof must hit.\n2. \"Let $x = \\sqrt[3]{y}$ ...\" — proposes a concrete candidate input; the real cube root function is defined on all of $\\mathbb{R}$ (unlike the square root), so this is a legitimate real number for every real $y$, positive, negative, or zero.\n3. \"Compute $f(x) = x^3 = (\\sqrt[3]{y})^3 = y$.\" — verifies the candidate actually works, by direct computation.\n4. \"So $x \\in \\mathbb{R}$ satisfies $f(x) = y$ ...\" — concludes surjectivity from the arbitrariness of $y$.",
+      "concepts": ["surjective-function"],
+      "prerequisites": ["existential-quantifier", "function-definition"],
+      "difficulty": 3,
+      "misconceptionTags": ["constructing-candidate-without-verifying-domain-membership"]
+    },
+    {
+      "id": "pfmm-m4-l3-p4-square-neither",
+      "version": 1,
+      "lessonId": "pfmm-m4-l3-injections-and-surjections",
+      "type": "multiple_choice",
+      "promptMarkdown": "Let $f : \\mathbb{Z} \\to \\mathbb{Z}$ be given by $f(n) = n^2$. Which is true of $f$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$f$ is injective but not surjective.",
+            "accessibleLabel": "f is injective but not surjective."
+          },
+          {
+            "id": "b",
+            "label": "$f$ is surjective but not injective.",
+            "accessibleLabel": "f is surjective but not injective."
+          },
+          {
+            "id": "c",
+            "label": "$f$ is neither injective nor surjective.",
+            "accessibleLabel": "f is neither injective nor surjective."
+          },
+          {
+            "id": "d",
+            "label": "$f$ is both injective and surjective.",
+            "accessibleLabel": "f is both injective and surjective."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Check injectivity by looking for two distinct integers with the same square."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Check surjectivity by asking whether every integer in the codomain $\\mathbb{Z}$ (including negative integers, and integers like $2$) is actually a perfect square."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$f(1) = 1$ and $f(-1) = 1$, but $1 \\neq -1$ — that alone breaks injectivity. Separately, is there an integer $n$ with $n^2 = 2$?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$f(1)=f(-1)=1$ with $1 \\neq -1$ shows $f$ is not injective. No integer squares to $2$ (or to any negative integer), so $f$ is not surjective either. Both properties fail."
+        }
+      ],
+      "solutionMarkdown": "**Not injective:** $f(1) = 1^2 = 1$ and $f(-1) = (-1)^2 = 1$, so two distinct inputs ($1$ and $-1$) share the same output. This single counterexample refutes injectivity.\n\n**Not surjective:** the codomain is all of $\\mathbb{Z}$, but $2 \\in \\mathbb{Z}$ is never achieved — there is no integer $n$ with $n^2 = 2$ (its only real square roots, $\\pm\\sqrt{2}$, are irrational). So not every codomain element is hit.\n\nSince $f$ fails both properties, the correct answer is (c), neither.",
+      "concepts": ["injective-function", "surjective-function"],
+      "prerequisites": ["function-definition"],
+      "difficulty": 3,
+      "misconceptionTags": ["assuming-injective-and-surjective-are-linked"]
+    },
+    {
+      "id": "pfmm-m4-l3-p5-shift-both",
+      "version": 1,
+      "lessonId": "pfmm-m4-l3-injections-and-surjections",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps into a valid combined proof that $f : \\mathbb{Z} \\to \\mathbb{Z}$, $f(n) = n + 5$, is both injective and surjective.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "To show injective: assume $f(a) = f(b)$ for arbitrary $a, b \\in \\mathbb{Z}$." },
+          { "id": "s2", "textMarkdown": "Then $a + 5 = b + 5$, so $a = b$. Since $f(a)=f(b)$ forced $a=b$, $f$ is injective." },
+          { "id": "s3", "textMarkdown": "To show surjective: let $y \\in \\mathbb{Z}$ be arbitrary." },
+          { "id": "s4", "textMarkdown": "Let $x = y - 5$, which is an integer since $y$ is an integer." },
+          { "id": "s5", "textMarkdown": "Then $f(x) = x + 5 = (y-5) + 5 = y$, so $y$ is achieved. Since $y$ was arbitrary, $f$ is surjective." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5"],
+        "alternateValidOrders": [["s3", "s4", "s5", "s1", "s2"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This proof has two independent halves — an injectivity argument and a surjectivity argument. Each half must stay internally in order (assume/fix before concluding), but the two halves could in principle be swapped as wholes."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The injectivity half starts from assuming equal outputs $f(a)=f(b)$; the surjectivity half starts from fixing an arbitrary target $y$ and constructing an input."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Within the surjectivity half, the candidate $x = y-5$ must be named before you can verify $f(x) = y$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "One valid order: assume $f(a)=f(b)$, derive $a=b$ (injective); then fix $y$, construct $x=y-5$, verify $f(x)=y$ (surjective). The whole surjective block could instead come first, but each block's internal order must be preserved."
+        }
+      ],
+      "solutionMarkdown": "The proof combines the two strategies from this lesson, one right after the other.\n\n**Injective:** Assume $f(a)=f(b)$ for arbitrary $a,b\\in\\mathbb{Z}$, i.e. $a+5=b+5$. Then $a=b$, so $f$ is injective.\n\n**Surjective:** Let $y \\in \\mathbb{Z}$ be arbitrary. Let $x = y - 5$; since $y \\in \\mathbb{Z}$ and $\\mathbb{Z}$ is closed under subtraction, $x \\in \\mathbb{Z}$. Then $f(x) = x+5 = (y-5)+5 = y$, so $y$ is achieved. Since $y$ was arbitrary, $f$ is surjective.\n\nEach half is a self-contained proof and must keep its own internal order (assumption/construction before conclusion), but the two halves address independent properties and could be presented in either order relative to each other.",
+      "concepts": ["injective-function", "surjective-function"],
+      "prerequisites": ["direct-proof", "existential-quantifier"],
+      "difficulty": 4,
+      "misconceptionTags": ["assuming-injective-and-surjective-are-linked"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["injective-function", "surjective-function"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

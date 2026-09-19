@@ -1,0 +1,272 @@
+{
+  "lessonId": "pfmm-m7-l1-relations-and-their-properties",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-07-relations-equivalence-invariants",
+  "title": "Relations and Their Properties",
+  "learningObjective": "Define a relation on a set, and prove or disprove that a given relation is reflexive, symmetric, or transitive.",
+  "estimatedMinutes": { "min": 15, "max": 25 },
+  "prerequisites": ["set-operations", "function-definition", "direct-proof", "divisibility"],
+  "conceptsIntroduced": [
+    "relation-properties",
+    "reflexivity",
+    "symmetry",
+    "transitivity"
+  ],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall that a **direct proof** of $\\forall x \\in S, P(x)$ picks an arbitrary element and shows $P(x)$ holds, and that $a \\mid b$ formally means $\\exists k \\in \\mathbb{Z}, b = ak$. This lesson uses both to study how pairs of objects relate to each other."
+    },
+    "encounter": {
+      "bodyMarkdown": "Compare three familiar relations: \"$\\leq$\" on $\\mathbb{R}$, \"is a sibling of\" on the set of people, and \"divides\" ($\\mid$) on the positive integers.\n\nEvery real number is $\\leq$ itself, but is every person their own sibling? If $a \\leq b$, must $b \\leq a$? If $x$ is a sibling of $y$, is $y$ a sibling of $x$? If $a \\mid b$ and $b \\mid c$, does $a \\mid c$? These three relations don't all behave the same way — and pinning down exactly *how* they differ is the goal of this lesson."
+    },
+    "explain": {
+      "bodyMarkdown": "A **relation** $R$ on a set $A$ is just a way of saying, for each pair $(a,b)$ with $a, b \\in A$, whether $a$ is related to $b$ (written $aRb$) or not. Three properties describe how a relation behaves:\n\n- **Reflexive**: $\\forall a \\in A,\\ aRa$. Every element is related to itself.\n- **Symmetric**: $\\forall a, b \\in A,\\ aRb \\Rightarrow bRa$. The relation never points only one way.\n- **Transitive**: $\\forall a, b, c \\in A,\\ (aRb \\wedge bRc) \\Rightarrow aRc$. Relatedness chains through a middle element.\n\nEach property is a *universally quantified* claim, so **proving** one means a direct proof: let arbitrary element(s) be given, assume the hypothesis, and derive the conclusion using the definition of $R$. **Disproving** one only requires a single counterexample: one specific pair (or triple) where the implication fails.\n\nFor example, \"$\\leq$\" on $\\mathbb{R}$ is reflexive ($a \\leq a$ always), transitive ($a\\leq b \\wedge b \\leq c \\Rightarrow a \\leq c$), but *not* symmetric — $1 \\leq 2$ is true while $2 \\leq 1$ is false, so the single pair $(1,2)$ disproves symmetry."
+    },
+    "reflect": {
+      "bodyMarkdown": "The three properties are logically independent: a relation can have any combination of them, and knowing two tells you nothing for free about the third. A common error is assuming a relation is reflexive just because it \"feels\" self-related in most cases — reflexivity requires *every* element of the full set to relate to itself, with no exceptions, exactly like any other $\\forall$ claim."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m7-l1-p1-divides-properties",
+      "version": 1,
+      "lessonId": "pfmm-m7-l1-relations-and-their-properties",
+      "type": "multiple_choice",
+      "promptMarkdown": "Consider the relation \"divides\" ($\\mid$) on the set of positive integers: $a R b \\iff a \\mid b$. Which combination of properties correctly describes this relation?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Reflexive, symmetric, and transitive",
+            "accessibleLabel": "Reflexive, symmetric, and transitive."
+          },
+          {
+            "id": "b",
+            "label": "Reflexive and transitive, but not symmetric",
+            "accessibleLabel": "Reflexive and transitive, but not symmetric."
+          },
+          {
+            "id": "c",
+            "label": "Symmetric and transitive, but not reflexive",
+            "accessibleLabel": "Symmetric and transitive, but not reflexive."
+          },
+          {
+            "id": "d",
+            "label": "Reflexive and symmetric, but not transitive",
+            "accessibleLabel": "Reflexive and symmetric, but not transitive."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Check each property one at a time against the definition $a \\mid b \\iff \\exists k \\in \\mathbb{Z}, b = ak$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Reflexive: does every positive integer divide itself? Symmetric: if $a \\mid b$, does $b \\mid a$ always follow — try $a=2, b=4$. Transitive: if $a \\mid b$ and $b \\mid c$, does $a \\mid c$?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$a \\mid a$ always holds since $a = a \\cdot 1$, so it's reflexive. But $2 \\mid 4$ while $4 \\nmid 2$, so it fails symmetry. For transitivity, try writing $b=ak$ and $c=bj$ and see what you get for $c$ in terms of $a$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Reflexive: $a = a \\cdot 1$, so $a \\mid a$. Not symmetric: $2 \\mid 4$ but $4 \\nmid 2$. Transitive: if $b=ak$ and $c=bj$, then $c = a(kj)$, and $kj$ is an integer, so $a \\mid c$. That's option (b)."
+        }
+      ],
+      "solutionMarkdown": "**Reflexive:** for any positive integer $a$, $a = a \\cdot 1$, so $a \\mid a$ by definition (witness $k=1$). This holds for every $a$, so divides is reflexive.\n\n**Not symmetric:** a single counterexample suffices. Take $a=2, b=4$: $2 \\mid 4$ since $4 = 2\\cdot 2$, but $4 \\nmid 2$ since there is no integer $k$ with $2 = 4k$ (that would force $k = 1/2$). So symmetry fails.\n\n**Transitive:** assume $a \\mid b$ and $b \\mid c$. By definition, $b = ak$ and $c = bj$ for integers $k, j$. Substituting, $c = (ak)j = a(kj)$, and $kj$ is an integer, so $a \\mid c$. This holds for arbitrary $a,b,c$, so divides is transitive.\n\nSo \"divides\" on the positive integers is reflexive and transitive but not symmetric — option (b).",
+      "concepts": ["relation-properties", "reflexivity", "symmetry", "transitivity"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 1,
+      "misconceptionTags": ["assuming-all-relations-symmetric"]
+    },
+    {
+      "id": "pfmm-m7-l1-p2-fill-reflexive-mod5",
+      "version": 1,
+      "lessonId": "pfmm-m7-l1-relations-and-their-properties",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the proof that \"$\\equiv \\pmod 5$\" is reflexive on $\\mathbb{Z}$: for any integer $a$, $a - a =$ ___, which equals $5 \\cdot$ ___, so $a \\equiv a \\pmod 5$.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Value of a - a", "acceptedValues": ["0"] },
+          { "id": "b2", "label": "Integer multiplied by 5", "acceptedValues": ["0"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Recall $a \\equiv b \\pmod 5$ means $a - b = 5k$ for some integer $k$. Here you need $a \\equiv a$, so set $b=a$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Compute $a - a$ directly — it's the same for every integer $a$, with no algebra needed."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Once you know $a - a$ equals a specific number, express that number as $5$ times some integer $k$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$a - a = 0$, and $0 = 5 \\cdot 0$, so the witness is $k=0$ and $a \\equiv a \\pmod 5$."
+        }
+      ],
+      "solutionMarkdown": "For any integer $a$, $a - a = 0$. Since $0 = 5 \\cdot 0$ and $0$ is an integer, this matches the definition of congruence mod 5 with witness $k=0$: $a - a = 5 \\cdot 0$. So $a \\equiv a \\pmod 5$ for every integer $a$, and \"$\\equiv \\pmod 5$\" is reflexive.",
+      "concepts": ["reflexivity", "relation-properties"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["reflexivity-without-explicit-witness"]
+    },
+    {
+      "id": "pfmm-m7-l1-p3-not-symmetric-less-than",
+      "version": 1,
+      "lessonId": "pfmm-m7-l1-relations-and-their-properties",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which pair $(a,b)$ demonstrates that \"$<$\" on $\\mathbb{R}$ is **not** symmetric — that is, $a < b$ is true but $b < a$ is false?",
+      "answerSpec": {
+        "options": [
+          { "id": "a", "label": "$(1, 2)$", "accessibleLabel": "The pair one, two." },
+          { "id": "b", "label": "$(2, 1)$", "accessibleLabel": "The pair two, one." },
+          { "id": "c", "label": "$(3, 3)$", "accessibleLabel": "The pair three, three." },
+          { "id": "d", "label": "$(-1, -2)$", "accessibleLabel": "The pair negative one, negative two." }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "You need a pair where the hypothesis $a < b$ is actually true first — otherwise there's nothing to check."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Check each pair: is the first number strictly less than the second? Only then ask whether the reverse also holds."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$(2,1)$: is $2 < 1$? No, so the hypothesis fails and this pair proves nothing. $(3,3)$: is $3 < 3$? No. $(-1,-2)$: is $-1 < -2$? No."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$(1,2)$: $1 < 2$ is true, and $2 < 1$ is false, so $a<b$ does not imply $b<a$ here — this is the valid counterexample to symmetry."
+        }
+      ],
+      "solutionMarkdown": "To disprove symmetry, you need a pair where the hypothesis $a<b$ holds but the conclusion $b<a$ fails. Checking each option: $(2,1)$ has $2<1$ false, so the hypothesis itself fails — it demonstrates nothing about symmetry. Similarly $(3,3)$ and $(-1,-2)$ both fail the hypothesis ($3<3$ and $-1<-2$ are both false). Only $(1,2)$ has a true hypothesis ($1<2$) paired with a false conclusion ($2<1$ is false), so $(1,2)$ is the counterexample showing \"$<$\" is not symmetric.",
+      "concepts": ["symmetry", "relation-properties"],
+      "prerequisites": ["direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["counterexample-with-false-hypothesis"]
+    },
+    {
+      "id": "pfmm-m7-l1-p4-order-transitive-mod5",
+      "version": 1,
+      "lessonId": "pfmm-m7-l1-relations-and-their-properties",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a direct proof that \"$\\equiv \\pmod 5$\" is transitive: if $a \\equiv b \\pmod 5$ and $b \\equiv c \\pmod 5$, then $a \\equiv c \\pmod 5$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Assume $a \\equiv b \\pmod 5$ and $b \\equiv c \\pmod 5$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "By definition, $a - b = 5k$ and $b - c = 5j$ for some integers $k, j$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Adding the two equations: $(a-b) + (b-c) = 5k + 5j$, so $a - c = 5(k+j)$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since $k+j$ is an integer, $a - c$ is $5$ times an integer, so $a \\equiv c \\pmod 5$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "A direct proof of an implication starts by assuming the hypothesis in full."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "After assuming both congruences, immediately unpack each one using the formal definition of $\\equiv \\pmod 5$, introducing witness integers."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "With $a-b=5k$ and $b-c=5j$ in hand, combine them algebraically — adding the two equations eliminates $b$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: assume both hypotheses, rewrite each with its definition, add the equations to get $a-c=5(k+j)$, then conclude by matching the definition of $\\equiv \\pmod 5$ again."
+        }
+      ],
+      "solutionMarkdown": "A transitivity proof for a relation defined by an equation follows a fixed shape: **assume both hypotheses, unpack each with the definition, combine algebraically, then match the conclusion's definition.**\n\n1. Assume $a \\equiv b \\pmod 5$ and $b \\equiv c \\pmod 5$ — both hypotheses of the implication.\n2. Unpack each with the definition: $a-b=5k$ and $b-c=5j$ for some integers $k,j$.\n3. Add the two equations. The $b$ terms cancel: $(a-b)+(b-c) = a-c$, giving $a-c = 5k+5j = 5(k+j)$.\n4. Since $k+j$ is an integer, $a-c$ has the form $5 \\cdot (\\text{integer})$, so $a \\equiv c \\pmod 5$ by definition — completing the proof.",
+      "concepts": ["transitivity", "relation-properties"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["skipping-witness-introduction"]
+    },
+    {
+      "id": "pfmm-m7-l1-p5-independence-of-properties",
+      "version": 1,
+      "lessonId": "pfmm-m7-l1-relations-and-their-properties",
+      "type": "multiple_choice",
+      "promptMarkdown": "Suppose $R$ is a relation on a set $A$ that is symmetric and transitive, but there is some element $a_0 \\in A$ that is not related by $R$ to anything at all (not even to itself). Some learners claim this situation is impossible, reasoning: \"if $a_0 R b$ for some $b$, then symmetry gives $b R a_0$, and transitivity then gives $a_0 R a_0$ — so symmetric and transitive relations must always be reflexive.\" Which statement correctly identifies the flaw in that reasoning?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "The reasoning is correct: symmetry and transitivity together always force reflexivity, so this scenario cannot actually occur.",
+            "accessibleLabel": "The reasoning is correct: symmetry and transitivity together always force reflexivity."
+          },
+          {
+            "id": "b",
+            "label": "The reasoning silently assumes $a_0$ is related to *some* $b$; if $a_0$ is related to nothing at all, the symmetry-then-transitivity argument never gets started, so $a_0 R a_0$ is never forced — reflexivity is a genuinely independent requirement covering every element individually.",
+            "accessibleLabel": "The reasoning silently assumes a_0 is related to some b; if a_0 is related to nothing at all, the argument never gets started, so reflexivity is a genuinely independent requirement."
+          },
+          {
+            "id": "c",
+            "label": "The reasoning is flawed only because transitivity requires at least three distinct elements to apply, and $A$ might not have that many.",
+            "accessibleLabel": "The reasoning is flawed only because transitivity requires at least three distinct elements."
+          },
+          {
+            "id": "d",
+            "label": "The reasoning is flawed because symmetric relations can never also be transitive.",
+            "accessibleLabel": "The reasoning is flawed because symmetric relations can never also be transitive."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Re-read the claimed argument carefully: \"if $a_0 R b$ for some $b$...\" — is that hypothesis guaranteed to be true?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Reflexivity is $\\forall a \\in A, aRa$. Ask whether the symmetry-and-transitivity argument actually reaches every single element of $A$, or only elements that are already related to something."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "If $a_0$ is related to nothing, there is no $b$ with $a_0 R b$ to even begin the chain \"$a_0 R b \\Rightarrow b R a_0 \\Rightarrow a_0 R a_0$\" — the argument has no hypothesis to work from for that element."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (b) is correct: the classic argument only shows $aRa$ for elements $a$ that are already related to *something*; an element related to nothing is a live counterexample to \"symmetric + transitive $\\Rightarrow$ reflexive,\" which is exactly why reflexivity must be checked as its own independent condition."
+        }
+      ],
+      "solutionMarkdown": "The tempting argument \"$a_0 R b \\Rightarrow b R a_0 \\Rightarrow a_0 R a_0$\" (by symmetry then transitivity) only applies to an element $a_0$ for which *some* $b$ with $a_0 R b$ already exists. It says nothing about an element that is related to nothing at all — for such an element, there is no starting pair to apply symmetry or transitivity to, so $a_0 R a_0$ is never derived. This is exactly why reflexivity, symmetry, and transitivity are listed as three separate, independent conditions in the definition of an equivalence relation: none of them can be derived from the other two in general. A relation that is symmetric and transitive on the pairs it does relate, but leaves some element untouched, is a genuine counterexample to the flawed claim, so option (b) correctly names the gap.",
+      "concepts": ["relation-properties", "reflexivity", "symmetry", "transitivity"],
+      "prerequisites": ["direct-proof"],
+      "difficulty": 4,
+      "misconceptionTags": ["symmetric-transitive-implies-reflexive"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["relation-properties", "reflexivity", "symmetry", "transitivity"],
+    "notes": "Plain-language 'developing'/'solid' snapshot per concept, matching earlier lessons, ahead of the full mastery model (Phase 3, ROADMAP.md)."
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "lessonId": "pfmm-m6-l2-finding-flaws-in-proofs",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-06-counterexamples-and-proof-debugging",
+  "title": "Finding Flaws in Proofs",
+  "learningObjective": "Identify common categories of proof errors — division by a possibly-zero expression, hasty generalization, circular reasoning, mis-negated quantifiers, and missing base cases — in a shown argument.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 20
+  },
+  "prerequisites": ["disproof-strategy", "counterexample-construction", "mathematical-induction", "quantifier-negation"],
+  "conceptsIntroduced": ["proof-flaw-identification", "common-proof-errors"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall from the last lesson that checking a few supporting examples never proves a universal claim, and that induction proofs (an earlier module) require both a base case and an inductive step."
+    },
+    "encounter": {
+      "bodyMarkdown": "Here is a \"proof\" that $1=2$. Let $a=b$ for some nonzero real numbers. Then:\n\n$$a=b \\implies a^2=ab \\implies a^2-b^2=ab-b^2 \\implies (a-b)(a+b)=b(a-b) \\implies a+b=b \\implies b+b=b \\implies 2b=b \\implies 2=1.$$\n\nEvery individual algebraic manipulation looks legitimate, yet the conclusion is absurd. Somewhere, exactly one step is illegitimate. Which one, and why?"
+    },
+    "explain": {
+      "bodyMarkdown": "The flaw is in the step $(a-b)(a+b)=b(a-b) \\implies a+b=b$: both sides were divided by $(a-b)$. But $a=b$, so $a-b=0$ — and dividing by zero is not a valid algebraic step, no matter how the equation is dressed up. This is one instance of a small set of proof errors worth recognizing on sight:\n\n- **Division by an expression that could be zero.** Always check that anything you divide by is guaranteed nonzero, as this proof fails to.\n- **Hasty generalization.** Checking a claim on finitely many examples and declaring it universally true, as the $n^2+n+41$ example from the previous lesson showed is unreliable.\n- **Circular reasoning.** Assuming, at some intermediate step, a statement equivalent to (or as strong as) the very conclusion being proved.\n- **Mis-negating a quantifier.** Negating a quantified statement without flipping the quantifier, or flipping only the outermost one in a multiply-quantified statement (from an earlier module).\n- **Missing or incorrect base case in induction.** Presenting only an inductive step, or verifying the base case for the wrong starting value, as covered in an earlier module.\n\nSpotting the flaw means checking a shown \"proof\" against this list rather than re-deriving the whole argument from scratch: ask whether any step divides by something that could vanish, whether the conclusion was ever assumed early, whether a quantifier was mishandled, and whether an induction's base case was actually verified."
+    },
+    "reflect": {
+      "bodyMarkdown": "These five error categories account for the overwhelming majority of flawed \"proofs\" you'll encounter, including ones a careless reader would accept because each individual line looks fine in isolation. The skill this lesson builds is reading a proof adversarially — checking each step's legitimacy on its own terms, rather than being carried along by the argument's overall momentum toward a conclusion that sounds plausible."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m6-l2-p1-division-by-zero",
+      "version": 1,
+      "lessonId": "pfmm-m6-l2-finding-flaws-in-proofs",
+      "type": "multiple_choice",
+      "promptMarkdown": "In the \"proof\" that $1=2$ from the Encounter section, which step is invalid?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Assuming $a=b$ for some nonzero real numbers",
+            "accessibleLabel": "Assuming a equals b for some nonzero real numbers."
+          },
+          {
+            "id": "b",
+            "label": "Dividing both sides of $(a-b)(a+b)=b(a-b)$ by $(a-b)$, which equals zero",
+            "accessibleLabel": "Dividing both sides of the equation a minus b times a plus b equals b times a minus b, by a minus b, which equals zero."
+          },
+          {
+            "id": "c",
+            "label": "Multiplying both sides of $a=b$ by $a$ to get $a^2=ab$",
+            "accessibleLabel": "Multiplying both sides of a equals b by a to get a squared equals a b."
+          },
+          {
+            "id": "d",
+            "label": "Subtracting $b^2$ from both sides",
+            "accessibleLabel": "Subtracting b squared from both sides."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Multiplying both sides of an equation by the same quantity (c), and subtracting the same quantity from both sides (d), are always valid — check those first."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Assuming $a=b$ (a) is just the starting hypothesis, not a derived step, so it can't itself be \"invalid.\""
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Look specifically at the step that divides both sides by $(a-b)$. What is the actual numerical value of $a-b$, given that $a=b$?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Since $a=b$, $a-b=0$. Dividing both sides of an equation by $0$ is never a valid algebraic step — option (b) is the flaw."
+        }
+      ],
+      "solutionMarkdown": "Multiplying both sides by $a$ (c) and subtracting $b^2$ from both sides (d) are always legitimate operations on an equation, and assuming $a=b$ (a) is simply the proof's starting hypothesis, not a derived step. The flaw is step (b): going from $(a-b)(a+b)=b(a-b)$ to $a+b=b$ requires dividing both sides by $(a-b)$. But since $a=b$ by hypothesis, $a-b=0$, and dividing by zero is never valid — it can turn a true equation into an arbitrary false one, which is exactly what happens here.",
+      "concepts": ["proof-flaw-identification", "common-proof-errors"],
+      "prerequisites": [],
+      "difficulty": 1,
+      "misconceptionTags": ["dividing-by-expression-that-could-be-zero"]
+    },
+    {
+      "id": "pfmm-m6-l2-p2-hasty-generalization",
+      "version": 1,
+      "lessonId": "pfmm-m6-l2-finding-flaws-in-proofs",
+      "type": "multiple_choice",
+      "promptMarkdown": "A student argues: \"$3$ is prime, $5$ is prime, and $7$ is prime. Since three odd numbers in a row are all prime, all odd numbers are prime.\" What is the flaw in this argument?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Hasty generalization: concluding a universal claim from a handful of examples, without an argument covering every case — and indeed $9=3\\times3$ is odd but not prime",
+            "accessibleLabel": "Hasty generalization: concluding a universal claim from a handful of examples, without an argument covering every case, and indeed 9 equals 3 times 3 is odd but not prime."
+          },
+          {
+            "id": "b",
+            "label": "Circular reasoning: the conclusion was assumed at the start",
+            "accessibleLabel": "Circular reasoning: the conclusion was assumed at the start."
+          },
+          {
+            "id": "c",
+            "label": "Division by zero somewhere in the argument",
+            "accessibleLabel": "Division by zero somewhere in the argument."
+          },
+          {
+            "id": "d",
+            "label": "A missing induction base case",
+            "accessibleLabel": "A missing induction base case."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "There's no algebraic division happening here at all, and nothing resembling an induction proof with a base case and inductive step — rule those out."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Is the conclusion (\"all odd numbers are prime\") ever assumed as a premise partway through? If not, it isn't circular."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The argument's entire support is three specific examples. Does checking three cases ever logically guarantee a claim about *all* odd numbers?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Checking finitely many cases and generalizing to all odd numbers is hasty generalization — and it produces a false conclusion here, since $9$ is odd but $9=3\\times3$ is not prime — option (a)."
+        }
+      ],
+      "solutionMarkdown": "There is no division anywhere in this argument (ruling out (c)), no induction structure with a base case to be missing (ruling out (d)), and the conclusion is never assumed as a premise (ruling out (b), circular reasoning). The actual flaw is **hasty generalization**: the argument treats three supporting examples as sufficient evidence for a universal claim about every odd number. It is not — and the claim is in fact false, since $9$ is odd but $9=3\\times3$ is composite, not prime. This is the same error pattern as the $n^2+n+41$ example from the previous lesson: a run of correct small cases says nothing about all cases.",
+      "concepts": ["proof-flaw-identification", "common-proof-errors"],
+      "prerequisites": ["disproof-strategy"],
+      "difficulty": 2,
+      "misconceptionTags": ["hasty-generalization-from-examples"]
+    },
+    {
+      "id": "pfmm-m6-l2-p3-missing-base-case-flaw",
+      "version": 1,
+      "lessonId": "pfmm-m6-l2-finding-flaws-in-proofs",
+      "type": "multiple_choice",
+      "promptMarkdown": "A student presents the following as a complete proof that $\\forall n \\geq 1$, $3^n>n$:\n\n> \"Inductive step: assume $3^k>k$ for some $k$. Then $3^{k+1}=3\\cdot3^k>3k>k+1$ (since $k \\geq 1$). Therefore $3^n>n$ for all $n \\geq 1$.\"\n\nWhat is missing from this argument?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "A verified base case, e.g. checking $3^1>1$ directly",
+            "accessibleLabel": "A verified base case, e.g. checking 3 to the 1 is greater than 1 directly."
+          },
+          {
+            "id": "b",
+            "label": "A check that $3^{k+1}=3\\cdot 3^k$",
+            "accessibleLabel": "A check that 3 to the k plus 1 equals 3 times 3 to the k."
+          },
+          {
+            "id": "c",
+            "label": "A proof that $k \\geq 1$",
+            "accessibleLabel": "A proof that k is greater than or equal to 1."
+          },
+          {
+            "id": "d",
+            "label": "Nothing; the argument is already a complete, valid proof",
+            "accessibleLabel": "Nothing; the argument is already a complete, valid proof."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Compare this argument against the two required components of a valid induction proof from an earlier module."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The inductive step's algebra ($3^{k+1}=3\\cdot3^k>3k>k+1$) is actually correct, and nothing in the argument needs a separate proof that $k \\geq 1$ — that's simply the range being quantified over."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Ask: does anything in the quoted argument ever establish that $3^1>1$, or any other starting case, is actually true?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The argument jumps straight into the inductive step with no base case ever verified — option (a)."
+        }
+      ],
+      "solutionMarkdown": "The inductive step's algebra is valid: $3^{k+1}=3\\cdot3^k$, and since $3^k>k$ by hypothesis, $3\\cdot3^k>3k$, and since $k \\geq 1$, $3k \\geq k+2>k+1$. So the implication $P(k)\\Rightarrow P(k+1)$ genuinely holds. What's missing is the **base case**: the argument never verifies $3^1>1$ (or any starting value) directly. Without it, the inductive step only shows a chain of implications with nothing established to start the chain — exactly the missing-base-case error from the induction module, now appearing inside a proof that otherwise looks complete.",
+      "concepts": ["proof-flaw-identification", "common-proof-errors"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 2,
+      "misconceptionTags": ["missing-base-case-in-induction"]
+    },
+    {
+      "id": "pfmm-m6-l2-p4-circular-reasoning",
+      "version": 1,
+      "lessonId": "pfmm-m6-l2-finding-flaws-in-proofs",
+      "type": "multiple_choice",
+      "promptMarkdown": "A student tries to prove that the equation $x^2=x+1$ has a real solution as follows: \"Let $x$ be the real number satisfying $x^2=x+1$. Squaring the original equation and substituting $x+1$ for $x^2$ shows this is consistent, so such a real $x$ exists.\" What is the flaw?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Circular reasoning: the proof assumes a real solution $x$ already exists in its very first sentence, which is the conclusion it is supposed to establish",
+            "accessibleLabel": "Circular reasoning: the proof assumes a real solution x already exists in its very first sentence, which is the conclusion it is supposed to establish."
+          },
+          {
+            "id": "b",
+            "label": "Division by zero",
+            "accessibleLabel": "Division by zero."
+          },
+          {
+            "id": "c",
+            "label": "Hasty generalization from a few examples",
+            "accessibleLabel": "Hasty generalization from a few examples."
+          },
+          {
+            "id": "d",
+            "label": "A mis-negated quantifier",
+            "accessibleLabel": "A mis-negated quantifier."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "There's no division, no examples being checked, and no negation of any quantified statement here — rule those categories out."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Look closely at the very first sentence: \"Let $x$ be the real number satisfying $x^2=x+1$.\" What is this sentence implicitly taking for granted?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The claim to be proved is precisely that such an $x$ exists. Does the first sentence already assume that?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Yes — \"let $x$ be *the* real number satisfying...\" presumes a real solution already exists, which is exactly what the proof is supposed to establish. This is circular reasoning — option (a)."
+        }
+      ],
+      "solutionMarkdown": "There's no algebraic division (ruling out (b)), no appeal to a handful of checked examples (ruling out (c)), and no quantifier being negated at all (ruling out (d)). The flaw is that the very first sentence, \"Let $x$ be the real number satisfying $x^2=x+1$,\" already assumes a real solution exists — which is exactly the statement the proof set out to prove. Any subsequent algebra performed on this assumed $x$ can only ever show that the equation is *self-consistent*, not that a real solution actually exists. This is **circular reasoning**: the conclusion is smuggled in as a premise. (A valid proof would instead need to independently exhibit a real root, e.g. via the quadratic formula, $x=\\frac{1\\pm\\sqrt5}{2}$, or an intermediate value argument.)",
+      "concepts": ["proof-flaw-identification", "common-proof-errors"],
+      "prerequisites": [],
+      "difficulty": 3,
+      "misconceptionTags": ["circular-reasoning-assumes-conclusion"]
+    },
+    {
+      "id": "pfmm-m6-l2-p5-contrapositive-divisibility",
+      "version": 1,
+      "lessonId": "pfmm-m6-l2-finding-flaws-in-proofs",
+      "type": "proof_ordering",
+      "promptMarkdown": "This problem is a correct proof, not a flawed one — arrange the following steps into a valid proof, by contrapositive, that if $n^2$ is divisible by $3$, then $n$ is divisible by $3$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "State the contrapositive: if $n$ is not divisible by $3$, then $n^2$ is not divisible by $3$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Since $n$ is not divisible by $3$, write $n=3k+1$ or $n=3k+2$ for some integer $k$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Case $n=3k+1$: $n^2=(3k+1)^2=9k^2+6k+1=3(3k^2+2k)+1$, which is not divisible by $3$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Case $n=3k+2$: $n^2=(3k+2)^2=9k^2+12k+4=3(3k^2+4k+1)+1$, which is not divisible by $3$."
+          },
+          {
+            "id": "s5",
+            "textMarkdown": "In both cases, $n^2$ is not divisible by $3$, proving the contrapositive."
+          },
+          {
+            "id": "s6",
+            "textMarkdown": "Since the contrapositive is true and is logically equivalent to the original statement, the original statement — if $n^2$ is divisible by $3$ then $n$ is divisible by $3$ — is also true."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "alternateValidOrders": [["s1", "s2", "s4", "s3", "s5", "s6"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This proof strategy — proving $\\neg Q \\Rightarrow \\neg P$ instead of $P \\Rightarrow Q$ directly — was introduced in an earlier module. Start by stating exactly what the contrapositive says."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "\"Not divisible by $3$\" needs to be translated into an algebraic form ($n=3k+1$ or $n=3k+2$) before any computation can proceed."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Both cases need to be checked (the two forms of $n$ not divisible by $3$) before the proof can conclude the contrapositive holds in general; the two case-computation steps can be done in either order relative to each other."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: state the contrapositive, express $n$ in the two non-divisible-by-3 forms, compute $n^2$ in each case (either order), summarize that both cases fail divisibility, then conclude the original statement via the equivalence of a statement and its contrapositive."
+        }
+      ],
+      "solutionMarkdown": "This proof combines two earlier ideas: proving a statement via its **contrapositive**, and working with **divisibility** through the remainder form $n=3k+r$. It opens by stating the contrapositive precisely: not divisible by $3$ implies square not divisible by $3$. Since \"not divisible by $3$\" means $n$ leaves remainder $1$ or $2$ when divided by $3$, the proof writes $n=3k+1$ or $n=3k+2$ and checks both cases algebraically, in either order, showing each produces $n^2=3(\\text{integer})+1$ — not divisible by $3$. Having covered both cases, the proof concludes the contrapositive is true, and therefore, by the logical equivalence of a conditional statement and its contrapositive, the original statement is true as well. This combination of technique (contrapositive) and content (divisibility remainders) is exactly the kind of synthesis the course's capstone proofs will require.",
+      "concepts": ["proof-flaw-identification"],
+      "prerequisites": [],
+      "difficulty": 4,
+      "misconceptionTags": []
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["proof-flaw-identification", "common-proof-errors"],
+    "notes": "Tracks whether the learner can classify a flawed proof's error into one of the five standard categories (division by zero, hasty generalization, circular reasoning, mis-negated quantifier, missing base case) rather than only vaguely sensing something is wrong. Plain-language indicator for the first vertical slice; full mastery model is Phase 3 scope."
+  }
+}

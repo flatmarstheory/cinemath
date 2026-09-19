@@ -1,0 +1,162 @@
+{
+  "lessonId": "pfmm-m7-checkpoint",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-07-relations-equivalence-invariants",
+  "title": "Checkpoint: Relations, Equivalence, and Invariants",
+  "kind": "checkpoint",
+  "learningObjective": "Demonstrate mastery of relation properties, equivalence relations, and invariant arguments from this module by identifying, proving, and disproving them without further scaffolding.",
+  "estimatedMinutes": { "min": 10, "max": 20 },
+  "prerequisites": ["relation-properties", "reflexivity", "symmetry", "transitivity", "equivalence-relation", "equivalence-class", "invariant-argument"],
+  "conceptsIntroduced": [],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "This checkpoint draws on both lessons of this module: relation properties (reflexive, symmetric, transitive), equivalence relations and their classes, and invariant arguments for disproving equivalence."
+    },
+    "encounter": {
+      "bodyMarkdown": "No new puzzle here — this checkpoint asks you to apply what you've already worked out about \"$\\equiv \\pmod n$\"-style relations to a fresh relation and a fresh pair of numbers, without the lesson's scaffolding."
+    },
+    "explain": {
+      "bodyMarkdown": "No new theory. Use the definitions of reflexive/symmetric/transitive, equivalence relation, and invariant argument exactly as given in Lessons 1 and 2 of this module."
+    },
+    "reflect": {
+      "bodyMarkdown": "If any of these problems felt unfamiliar, revisit the corresponding lesson before moving to the next module: relation properties and direct verification (Lesson 1), or equivalence relations and invariant arguments (Lesson 2)."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m7-checkpoint-p1-identify-equivalence-relation",
+      "version": 1,
+      "lessonId": "pfmm-m7-checkpoint",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which of the following relations on $\\mathbb{Z}$ is an equivalence relation?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$a \\sim b \\iff a \\leq b$",
+            "accessibleLabel": "a is related to b iff a is less than or equal to b."
+          },
+          {
+            "id": "b",
+            "label": "$a \\sim b \\iff a - b$ is even",
+            "accessibleLabel": "a is related to b iff a minus b is even."
+          },
+          {
+            "id": "c",
+            "label": "$a \\sim b \\iff a \\mid b$",
+            "accessibleLabel": "a is related to b iff a divides b."
+          },
+          {
+            "id": "d",
+            "label": "$a \\sim b \\iff a \\neq b$",
+            "accessibleLabel": "a is related to b iff a does not equal b."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Check reflexivity first for each option — this alone eliminates one of them immediately."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "For (a), is $2 \\leq 1$ true when $1 \\leq 2$ is true? For (c), does $2 \\mid 4$ imply $4 \\mid 2$? For (d), is $a \\neq a$ ever true?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "(a) fails symmetry (like $<$, $\\leq$ isn't symmetric). (c) fails symmetry, as shown in Lesson 1. (d) fails reflexivity, since $a \\neq a$ is always false."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "(b) is reflexive ($a-a=0$ is even), symmetric ($a-b$ even $\\Rightarrow$ $b-a=-(a-b)$ is even), and transitive (sum of two even numbers is even) — it's an equivalence relation, matching \"same parity\" from Lesson 2."
+        }
+      ],
+      "solutionMarkdown": "(a) $a \\leq b$ is reflexive and transitive but not symmetric ($1 \\leq 2$ doesn't give $2 \\leq 1$). (c) $a \\mid b$ is reflexive and transitive but not symmetric, as shown in Lesson 1. (d) $a \\neq b$ is not even reflexive, since $a \\neq a$ is always false. (b) $a - b$ even is reflexive ($a-a=0$, even), symmetric (if $a-b$ is even then $b-a=-(a-b)$ is also even), and transitive (if $a-b$ and $b-c$ are even, their sum $a-c$ is even) — it is an equivalence relation (the same-parity relation from Lesson 2).",
+      "concepts": ["equivalence-relation", "relation-properties"],
+      "prerequisites": ["reflexivity", "symmetry", "transitivity"],
+      "difficulty": 2,
+      "misconceptionTags": ["equivalence-relation-missing-property"]
+    },
+    {
+      "id": "pfmm-m7-checkpoint-p2-order-transitive-parity",
+      "version": 1,
+      "lessonId": "pfmm-m7-checkpoint",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a direct proof that $a \\sim b \\iff a - b$ is even is transitive on $\\mathbb{Z}$.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Assume $a - b$ is even and $b - c$ is even." },
+          { "id": "s2", "textMarkdown": "By definition, $a - b = 2k$ and $b - c = 2j$ for some integers $k, j$." },
+          { "id": "s3", "textMarkdown": "Adding, $(a-b)+(b-c) = 2k+2j$, so $a - c = 2(k+j)$." },
+          { "id": "s4", "textMarkdown": "Since $k+j$ is an integer, $a-c$ is even, so $a \\sim c$." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This mirrors the transitivity proof for $\\equiv \\pmod 5$ from Lesson 1, but with the definition of \"even\" instead of \"divisible by 5\"."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Start by assuming both hypotheses, then unpack each with the definition of even, introducing witness integers."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Add the two witness equations to eliminate $b$ and produce an expression for $a-c$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: assume both hypotheses, rewrite with witnesses $k,j$, add to get $a-c=2(k+j)$, then conclude $a \\sim c$ by definition."
+        }
+      ],
+      "solutionMarkdown": "Assume $a-b$ and $b-c$ are both even, so $a-b=2k$ and $b-c=2j$ for integers $k,j$. Adding: $a-c = (a-b)+(b-c) = 2k+2j = 2(k+j)$. Since $k+j$ is an integer, $a-c$ is even, so $a \\sim c$. This is exactly the same argument shape as the mod-5 transitivity proof from Lesson 1, applied to the invariant \"even/odd\" instead of \"remainder mod 5\".",
+      "concepts": ["transitivity", "relation-properties"],
+      "prerequisites": ["direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["skipping-witness-introduction"]
+    },
+    {
+      "id": "pfmm-m7-checkpoint-p3-fill-invariant-13-20",
+      "version": 1,
+      "lessonId": "pfmm-m7-checkpoint",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Use an invariant argument to show $13$ and $20$ are not related under $a \\sim b \\iff a - b$ is even: $13$ is ___ (even/odd) and $20$ is ___ (even/odd), and since these differ, $13 \\not\\sim 20$.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Parity of 13", "acceptedValues": ["odd"] },
+          { "id": "b2", "label": "Parity of 20", "acceptedValues": ["even"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The invariant preserved by this relation is parity (even or odd) — two related numbers must share it."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Determine the parity of each number individually first."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$13 = 2\\cdot 6 + 1$; $20 = 2 \\cdot 10$. What does each remainder tell you about parity?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$13$ is odd, $20$ is even — different parities mean $13 - 20$ is odd (in fact $13-20=-7$), not even, so $13 \\not\\sim 20$."
+        }
+      ],
+      "solutionMarkdown": "$13$ is odd (it equals $2\\cdot6+1$) and $20$ is even (it equals $2\\cdot10$). Since these two numbers have different values of the invariant \"parity,\" they cannot be related by $a \\sim b \\iff a-b$ is even — and indeed $13-20=-7$, which is odd, confirming $13 \\not\\sim 20$.",
+      "concepts": ["invariant-argument"],
+      "prerequisites": ["equivalence-relation"],
+      "difficulty": 3,
+      "misconceptionTags": ["disproving-without-invariant"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["relation-properties", "equivalence-relation", "invariant-argument"],
+    "notes": "Checkpoint result feeds the same plain-language 'developing'/'solid' snapshot as regular lessons; a low score here should route the learner back to Lesson 1 or 2 of this module before continuing."
+  }
+}

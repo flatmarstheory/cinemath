@@ -1,7 +1,7 @@
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import { z } from "zod";
-import { lessonSchema, type Lesson } from "./schema";
+import { glossarySchema, lessonSchema, type Glossary, type Lesson } from "./schema";
 import { quantifierSpec } from "./grading";
 
 export const courseSchema = z.object({
@@ -30,13 +30,16 @@ export class ContentValidationError extends Error {
   }
 }
 
+// Reserved filenames at any level under content/ that are not lesson files.
+const RESERVED_FILES = new Set(["catalog.json", "glossary.json"]);
+
 function findLessonFiles(root: string): string[] {
   const files: string[] = [];
   const walk = (dir: string) => {
     for (const entry of readdirSync(dir).sort()) {
       const path = join(dir, entry);
       if (statSync(path).isDirectory()) walk(path);
-      else if (entry.endsWith(".json") && entry !== "catalog.json")
+      else if (entry.endsWith(".json") && !RESERVED_FILES.has(entry))
         files.push(path);
     }
   };
@@ -46,13 +49,21 @@ function findLessonFiles(root: string): string[] {
 
 /**
  * Discovers and validates every authored lesson under `contentDir`, plus the
- * course catalog at `<contentDir>/catalog.json`. This is the single place
- * that reads authored JSON off disk, shared by the app, the CLI validator
- * (scripts/validate-content.ts), and tests.
+ * course catalog at `<contentDir>/catalog.json` and, if present, the course
+ * glossary at `<contentDir>/<course-slug>/glossary.json` (Phase 6).
+ *
+ * `lessons` contains only `status: "published"` content, matching what the
+ * public app renders; `allLessons` (including drafts) is for the Phase 6
+ * author/admin content workflow (`src/app/admin/content`), which needs to
+ * see and validate unpublished lessons without exposing them to learners.
+ * This is the single place that reads authored JSON off disk, shared by the
+ * app, the CLI validator (scripts/validate-content.ts), and tests.
  */
 export function loadContent(contentDir: string): {
   course: Course;
   lessons: Lesson[];
+  allLessons: Lesson[];
+  glossary: Glossary | null;
 } {
   const catalogPath = join(contentDir, "catalog.json");
   let course: Course;
@@ -64,7 +75,7 @@ export function loadContent(contentDir: string): {
     throw new ContentValidationError(relative(contentDir, catalogPath), cause);
   }
 
-  const lessons = findLessonFiles(contentDir).map((file) => {
+  const allLessons = findLessonFiles(contentDir).map((file) => {
     let lesson: Lesson;
     try {
       lesson = lessonSchema.parse(
@@ -92,11 +103,36 @@ export function loadContent(contentDir: string): {
     return lesson;
   });
 
-  if (new Set(lessons.map((l) => l.lessonId)).size !== lessons.length)
+  if (new Set(allLessons.map((l) => l.lessonId)).size !== allLessons.length)
     throw new ContentValidationError(
       contentDir,
       new Error("Lesson ids must be unique across the course"),
     );
 
-  return { course, lessons };
+  const glossaryPath = join(contentDir, course.slug, "glossary.json");
+  let glossary: Glossary | null = null;
+  if (existsSync(glossaryPath)) {
+    try {
+      glossary = glossarySchema.parse(
+        JSON.parse(readFileSync(glossaryPath, "utf-8")) as unknown,
+      );
+    } catch (cause) {
+      throw new ContentValidationError(
+        relative(contentDir, glossaryPath),
+        cause,
+      );
+    }
+    if (glossary.courseSlug !== course.slug)
+      throw new ContentValidationError(
+        relative(contentDir, glossaryPath),
+        new Error("Glossary must belong to the seeded course"),
+      );
+  }
+
+  return {
+    course,
+    allLessons,
+    lessons: allLessons.filter((l) => l.status === "published"),
+    glossary,
+  };
 }

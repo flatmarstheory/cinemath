@@ -1,0 +1,226 @@
+{
+  "lessonId": "pfmm-m8-l2-capstone-workshop-independent-proofs",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-08-capstone-proof-workshop",
+  "title": "Capstone Workshop: Independent Proofs",
+  "kind": "capstone",
+  "learningObjective": "Independently construct and clearly write up complete proofs of course-level claims with no technique hints, synthesizing the whole course.",
+  "estimatedMinutes": { "min": 25, "max": 30 },
+  "prerequisites": ["direct-proof", "contrapositive", "proof-by-contradiction", "mathematical-induction", "disproof-strategy", "divisibility", "technique-selection"],
+  "conceptsIntroduced": ["independent-proof-construction"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "This workshop assumes the technique-selection instinct from the previous capstone lesson, plus every proof technique from the course: direct proof, contrapositive, contradiction, and induction."
+    },
+    "encounter": {
+      "bodyMarkdown": "Selecting the right technique, as in the previous lesson, is only half the job. The other half is writing a proof clearly enough that someone else — a grader, a classmate, your future self — can follow every step without filling in gaps. This workshop asks you to do both at once, with no scaffolding beyond the claim itself."
+    },
+    "explain": {
+      "bodyMarkdown": "No new proof techniques are introduced here. What's new is the format: two of these problems are **free-response proofs**, graded by rubric-based AI feedback rather than automatic checking, exactly like the free-response problem in Module 1. Write your reasoning out in full sentences, define every variable you introduce, and justify each algebraic step — a correct final formula with no justification earns much weaker feedback than the same formula embedded in a clearly reasoned argument."
+    },
+    "reflect": {
+      "bodyMarkdown": "AI feedback on a free-response proof is educational feedback grounded in the stated rubric, never a formal verification or certification that your proof is airtight — treat it the way you'd treat a knowledgeable peer's comments, not a compiler's pass/fail verdict."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m8-l2-p1-free-response-n2-n-2-even",
+      "version": 1,
+      "lessonId": "pfmm-m8-l2-capstone-workshop-independent-proofs",
+      "type": "proof_free_response",
+      "promptMarkdown": "**AI feedback beta.** Prove that for every integer $n$, $n^2+n+2$ is even. Write a complete, clearly justified proof — you'll get short, rubric-based feedback on your reasoning, not just a right/wrong mark.",
+      "answerSpec": {
+        "rubric": [
+          {
+            "id": "identifies-key-fact",
+            "description": "Uses that $n(n+1)$ is always even (a product of two consecutive integers, one of which is always even) or an equivalent correct argument for the parity of $n^2+n$."
+          },
+          {
+            "id": "correct-derivation",
+            "description": "The derivation from that fact to the conclusion that $n^2+n+2$ is even is mathematically correct and complete, e.g. writing $n^2+n=2m$ for an integer $m$ and then $n^2+n+2=2m+2=2(m+1)$."
+          },
+          {
+            "id": "clear-communication",
+            "description": "The proof clearly defines any variables it introduces (such as the witness integer) and justifies each step rather than jumping to the conclusion."
+          }
+        ],
+        "minWords": 30
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Restate the goal: show $n^2+n+2$ can be written as $2$ times an integer, for an arbitrary integer $n$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Recall from earlier in this module that $n^2+n$ factors as $n(n+1)$, a product of two consecutive integers."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "One of $n, n+1$ is always even, so $n(n+1)$ is even — write $n(n+1)=2m$ for some integer $m$. Then substitute into $n^2+n+2$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n^2+n+2 = n(n+1)+2 = 2m+2 = 2(m+1)$, and $m+1$ is an integer, so $n^2+n+2$ is even by definition."
+        }
+      ],
+      "solutionMarkdown": "Let $n$ be an arbitrary integer. Note $n^2+n = n(n+1)$, a product of two consecutive integers. Among any two consecutive integers, exactly one is even, so $n(n+1)$ is even: there is an integer $m$ with $n(n+1) = 2m$.\n\nThen\n$$n^2+n+2 = n(n+1)+2 = 2m+2 = 2(m+1).$$\nSince $m+1$ is an integer, $n^2+n+2$ has the form $2 \\times (\\text{integer})$, so by definition $n^2+n+2$ is even. Since $n$ was an arbitrary integer, this holds for every integer $n$.",
+      "concepts": ["independent-proof-construction"],
+      "prerequisites": ["direct-proof", "divisibility"],
+      "difficulty": 3,
+      "misconceptionTags": ["asserting-conclusion-without-matching-definition-form"]
+    },
+    {
+      "id": "pfmm-m8-l2-p2-free-response-induction-odd-sum",
+      "version": 1,
+      "lessonId": "pfmm-m8-l2-capstone-workshop-independent-proofs",
+      "type": "proof_free_response",
+      "promptMarkdown": "**AI feedback beta.** Prove, using induction, that for every positive integer $n$:\n\n$$1 + 3 + 5 + \\cdots + (2n-1) = n^2$$\n\nState your base case, your inductive hypothesis, and your inductive step explicitly. You'll get short, rubric-based feedback on your reasoning, not just a right/wrong mark.",
+      "answerSpec": {
+        "rubric": [
+          {
+            "id": "states-base-case",
+            "description": "Explicitly states and verifies a base case (typically $n=1$: the sum $1$ equals $1^2$)."
+          },
+          {
+            "id": "states-inductive-hypothesis",
+            "description": "Explicitly states the inductive hypothesis: assume the formula holds for some particular integer $k \\geq 1$, i.e. $1+3+\\cdots+(2k-1)=k^2$."
+          },
+          {
+            "id": "states-inductive-step",
+            "description": "Explicitly performs the inductive step, adding the next odd term $(2k+1)$ to both sides of the inductive hypothesis and showing the result equals $(k+1)^2$."
+          },
+          {
+            "id": "correct-final-derivation",
+            "description": "The algebra is correct throughout, e.g. $k^2+(2k+1) = (k+1)^2$, and the proof concludes the formula holds for all positive integers $n$ by induction."
+          }
+        ],
+        "minWords": 40
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "An induction proof has a fixed shape: verify a base case, state the inductive hypothesis, then perform the inductive step."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Base case: check $n=1$ directly. Inductive hypothesis: assume the formula holds for some integer $k \\geq 1$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "For the inductive step, add the next odd number in the sequence, $2k+1$ (which comes right after $2k-1$), to both sides of the inductive hypothesis, and simplify the right-hand side."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$k^2+(2k+1) = k^2+2k+1 = (k+1)^2$, which matches the formula for $n=k+1$, completing the inductive step."
+        }
+      ],
+      "solutionMarkdown": "**Base case** ($n=1$): the left side is just $1$ (the sum has one term, $2\\cdot1-1=1$), and $1^2=1$, so the formula holds for $n=1$.\n\n**Inductive hypothesis**: assume, for some integer $k \\geq 1$, that $1+3+5+\\cdots+(2k-1) = k^2$.\n\n**Inductive step**: we show the formula then holds for $n=k+1$. The sum up to the $(k+1)$-th odd number adds $2k+1$ (the next odd number after $2k-1$) to the sum up to the $k$-th:\n$$1+3+\\cdots+(2k-1)+(2k+1) = k^2 + (2k+1)$$\nusing the inductive hypothesis. Simplifying the right side: $k^2+2k+1 = (k+1)^2$. So\n$$1+3+\\cdots+(2(k+1)-1) = (k+1)^2,$$\nwhich is exactly the formula for $n=k+1$.\n\nBy the principle of mathematical induction, $1+3+5+\\cdots+(2n-1)=n^2$ holds for every positive integer $n$.",
+      "concepts": ["independent-proof-construction"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 4,
+      "misconceptionTags": ["missing-explicit-inductive-hypothesis"]
+    },
+    {
+      "id": "pfmm-m8-l2-p3-order-subset-size-induction",
+      "version": 1,
+      "lessonId": "pfmm-m8-l2-capstone-workshop-independent-proofs",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of an induction proof of the claim: for every positive integer $n$, every subset of $\\{1, 2, \\ldots, n\\}$ has at most $n$ elements.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Base case ($n=1$): the only subsets of $\\{1\\}$ are $\\emptyset$ and $\\{1\\}$, with $0$ and $1$ elements respectively, both at most $1$." },
+          { "id": "s2", "textMarkdown": "Inductive hypothesis: assume every subset of $\\{1,2,\\ldots,k\\}$ has at most $k$ elements, for some integer $k \\geq 1$." },
+          { "id": "s3", "textMarkdown": "Let $S$ be any subset of $\\{1,2,\\ldots,k+1\\}$. Case 1: if $k+1 \\notin S$, then $S \\subseteq \\{1,\\ldots,k\\}$, so by the inductive hypothesis $S$ has at most $k$ elements, hence at most $k+1$ elements." },
+          { "id": "s4", "textMarkdown": "Case 2: if $k+1 \\in S$, then $S \\setminus \\{k+1\\} \\subseteq \\{1,\\ldots,k\\}$, so by the inductive hypothesis $S \\setminus \\{k+1\\}$ has at most $k$ elements, so $S$ has at most $k+1$ elements." },
+          { "id": "s5", "textMarkdown": "In both cases, $S$ has at most $k+1$ elements, so every subset of $\\{1,\\ldots,k+1\\}$ has at most $k+1$ elements." },
+          { "id": "s6", "textMarkdown": "By induction, every subset of $\\{1,2,\\ldots,n\\}$ has at most $n$ elements, for every positive integer $n$." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "alternateValidOrders": [["s1", "s2", "s4", "s3", "s5", "s6"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This is an induction proof about sets: verify the base case, state the hypothesis, then handle the inductive step by splitting into cases on whether $k+1$ belongs to the subset."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The inductive step needs to cover *every* subset $S$ of $\\{1,\\ldots,k+1\\}$, and the natural split is whether $S$ contains the newly added element $k+1$ or not."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Both cases must be checked and combined into a single 'in both cases' statement before the inductive step is complete — neither case alone covers every possible subset $S$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: base case, inductive hypothesis, case where $k+1 \\notin S$, case where $k+1 \\in S$ (either case order works), combine into 'in both cases,' then the final induction conclusion."
+        }
+      ],
+      "solutionMarkdown": "This is a case-split induction proof.\n\n1. **Base case** ($n=1$): directly check both subsets of $\\{1\\}$.\n2. **Inductive hypothesis**: assume the claim for $\\{1,\\ldots,k\\}$.\n3–4. **Inductive step**: an arbitrary subset $S$ of $\\{1,\\ldots,k+1\\}$ either omits $k+1$ (so $S$ is really a subset of $\\{1,\\ldots,k\\}$, covered by the hypothesis) or contains $k+1$ (so removing it gives a subset of $\\{1,\\ldots,k\\}$, also covered by the hypothesis, and adding $k+1$ back increases the count by at most $1$). These two cases can be checked in either order.\n5. Combining both cases shows every subset of $\\{1,\\ldots,k+1\\}$ has at most $k+1$ elements.\n6. By induction, the claim holds for every positive integer $n$.",
+      "concepts": ["independent-proof-construction"],
+      "prerequisites": ["mathematical-induction", "set-operations"],
+      "difficulty": 4,
+      "misconceptionTags": ["induction-missing-case-split"]
+    },
+    {
+      "id": "pfmm-m8-l2-p4-identify-technique-from-excerpt",
+      "version": 1,
+      "lessonId": "pfmm-m8-l2-capstone-workshop-independent-proofs",
+      "type": "multiple_choice",
+      "promptMarkdown": "A finished proof begins: \"Suppose, toward a contradiction, that $\\sqrt{2}$ is rational. Then $\\sqrt{2} = a/b$ for integers $a,b$ with no common factor... [algebra follows] ...so both $a$ and $b$ are even, contradicting that they share no common factor.\" Which proof technique does this excerpt use?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Contrapositive",
+            "accessibleLabel": "Contrapositive."
+          },
+          {
+            "id": "b",
+            "label": "Direct proof",
+            "accessibleLabel": "Direct proof."
+          },
+          {
+            "id": "c",
+            "label": "Proof by contradiction",
+            "accessibleLabel": "Proof by contradiction."
+          },
+          {
+            "id": "d",
+            "label": "Mathematical induction",
+            "accessibleLabel": "Mathematical induction."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Look at the opening phrase: what does \"suppose, toward a contradiction, that ¬P\" signal about the proof's structure?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "A direct proof would start by assuming the hypothesis of a conditional claim, not the negation of the claim itself. A contrapositive proof would restate the claim as $\\neg Q \\Rightarrow \\neg P$ and prove that directly, without deriving an absurdity. Induction proceeds via a base case and inductive step, with no assumption of a negated claim."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The excerpt assumes the *opposite* of the claim (\"$\\sqrt2$ is rational\") and derives an absurd conclusion (a fraction in lowest terms with both numerator and denominator even), rather than proving an equivalent conditional directly."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Assuming the negation of the target claim and deriving an absurdity is the defining structure of proof by contradiction — option (c)."
+        }
+      ],
+      "solutionMarkdown": "The excerpt opens with \"Suppose, toward a contradiction, that $\\neg P$ holds\" (here, that $\\sqrt2$ is rational) and ends by deriving an absurd, self-contradictory conclusion (a fraction in lowest terms whose numerator and denominator are both even). This assume-the-negation-then-derive-an-absurdity structure is exactly proof by contradiction, not a direct proof (which assumes a hypothesis and computes forward to a conclusion), a contrapositive proof (which restates and directly proves an equivalent conditional), or induction (which uses a base case and inductive step, with no assumed negation).",
+      "concepts": ["independent-proof-construction", "technique-selection"],
+      "prerequisites": ["proof-by-contradiction"],
+      "difficulty": 3,
+      "misconceptionTags": ["confusing-contradiction-with-contrapositive"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["independent-proof-construction"],
+    "notes": "Free-response problems here are graded by AI feedback (Phase 4, docs/grading-policy.md), never deterministically; the plain-language mastery snapshot should reflect submission and rubric-coverage trends rather than a strict correct/incorrect count for those two problems."
+  }
+}

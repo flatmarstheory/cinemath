@@ -1,0 +1,180 @@
+{
+  "lessonId": "pfmm-m2-checkpoint",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-02-direct-proofs-and-definitions",
+  "title": "Checkpoint: Direct Proofs and Definitions",
+  "kind": "checkpoint",
+  "learningObjective": "Combine direct-proof strategy, divisibility-proof technique, and parity case-splitting to prove claims that draw on more than one of Module 2's lessons at once.",
+  "estimatedMinutes": {
+    "min": 10,
+    "max": 20
+  },
+  "prerequisites": ["direct-proof", "divisibility-proof", "parity-proof", "even-integer", "odd-integer", "divisibility"],
+  "conceptsIntroduced": [],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Across this module you proved claims directly (Lesson 1), proved divisibility claims by rewriting witnesses and factoring (Lesson 2), and proved parity claims, sometimes splitting into even/odd cases (Lesson 3). This checkpoint has no new theory — it asks you to combine those three strategies."
+    },
+    "encounter": {
+      "bodyMarkdown": "Some of the most useful proofs in number theory aren't purely about parity *or* purely about divisibility — they need both at once, plus the basic direct-proof recipe holding everything together. This checkpoint's problems are exactly that kind of proof."
+    },
+    "explain": {
+      "bodyMarkdown": "No new definitions here. The one thing worth restating: when a proof needs more than one formal definition, rewrite *every* hypothesis with its own witness letter before doing any algebra, and only reach for a case split (even/odd) when the hypothesis genuinely leaves parity undetermined."
+    },
+    "reflect": {
+      "bodyMarkdown": "If any of these three problems felt unfamiliar rather than just a recombination of familiar pieces, it's worth revisiting the corresponding lesson (Lesson 1 for proof structure, Lesson 2 for divisibility, Lesson 3 for parity and case splits) before moving on to Module 3, which builds directly on all three."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m2-checkpoint-p1-even-odd-sum-representation",
+      "version": 1,
+      "lessonId": "pfmm-m2-checkpoint",
+      "type": "multiple_choice",
+      "promptMarkdown": "You are about to write a direct proof that the sum of an even integer and an odd integer is odd. Which pair of representations is the correct way to open the proof?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Let the even integer be $n=2j$ and the odd integer be $m=2k+1$, for integers $j,k$.",
+            "accessibleLabel": "Let the even integer be n equals 2j, and the odd integer be m equals 2k plus 1, for integers j and k."
+          },
+          {
+            "id": "b",
+            "label": "Let the even integer be $n=2k$ and the odd integer be $m=2k+1$, using the same $k$ for both.",
+            "accessibleLabel": "Let the even integer be n equals 2k, and the odd integer be m equals 2k plus 1, using the same k for both."
+          },
+          {
+            "id": "c",
+            "label": "Let the even integer be $n=2j+1$ and the odd integer be $m=2k$, for integers $j,k$.",
+            "accessibleLabel": "Let the even integer be n equals 2j plus 1, and the odd integer be m equals 2k, for integers j and k."
+          },
+          {
+            "id": "d",
+            "label": "Let both integers be $2j$, for the same integer $j$.",
+            "accessibleLabel": "Let both integers be 2j, for the same integer j."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Recall the correct formal representations: even integers are $2(\\text{integer})$, odd integers are $2(\\text{integer})+1$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The two integers in this claim are two separate, unrelated objects — their witnesses should use two different letters."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (b) reuses the same letter $k$ for both witnesses, which would wrongly force a specific relationship between $n$ and $m$. Option (c) swaps which formula goes with even and which goes with odd. Option (d) doesn't even represent an odd integer."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (a) uses $2j$ for the even integer and $2k+1$ for the odd integer, with distinct letters $j,k$ — exactly right."
+        }
+      ],
+      "solutionMarkdown": "An even integer must be represented as $2\\cdot(\\text{integer})$ and an odd integer as $2\\cdot(\\text{integer})+1$, using a distinct witness letter for each object since they are two independent arbitrary integers. Option (a) does this correctly: $n=2j$, $m=2k+1$. Option (b) reuses $k$ for both, which would secretly assume a relationship between $n$ and $m$ that the hypothesis never stated. Option (c) has the formulas backwards. Option (d) represents two even integers, not one even and one odd.",
+      "concepts": ["direct-proof", "even-integer", "odd-integer"],
+      "prerequisites": ["direct-proof", "even-integer", "odd-integer"],
+      "difficulty": 2,
+      "misconceptionTags": ["reusing-one-variable-for-two-arbitrary-objects", "confusing-odd-and-even-formula"]
+    },
+    {
+      "id": "pfmm-m2-checkpoint-p2-even-divides-implies-two-divides",
+      "version": 1,
+      "lessonId": "pfmm-m2-checkpoint",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the direct proof that if $a$ is even and $a \\mid b$, then $2 \\mid b$.\n\nProof: Assume $a$ is even and $a \\mid b$. By definition, $a = 2c$ for some integer $c$, and $b = ak$ for some integer $k$. Substituting,\n$$b = ak = (2c)k = 2(\\underline{\\hspace{1.5cm}}).$$\nSince $ck$ is an integer, $2 \\mid b$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expression inside the parentheses",
+            "acceptedValues": ["ck", "c*k", "c k", "kc", "k*c", "k c"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "You have two hypotheses here — rewrite both with the formal definitions before substituting one into the other."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$a$ even gives $a=2c$; $a \\mid b$ gives $b=ak$. Substitute the first equation's right-hand side for $a$ in the second."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$b = ak = (2c)k$. Regroup the multiplication so a single factor of $2$ is pulled out front."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$(2c)k = 2(ck)$, so the blank is $ck$, and since $c,k$ are integers, $ck$ is too, giving $2 \\mid b$."
+        }
+      ],
+      "solutionMarkdown": "This combines two definitions from Lessons 2 and 3: rewrite \"$a$ is even\" as $a=2c$, and \"$a\\mid b$\" as $b=ak$, each with its own witness letter. Substituting the first into the second, $b=(2c)k=2(ck)$. Since $c,k \\in \\mathbb{Z}$, their product $ck$ is an integer, so this equation is exactly the definition of $2 \\mid b$.",
+      "concepts": ["even-integer", "divisibility-proof", "direct-proof"],
+      "prerequisites": ["even-integer", "divisibility-proof", "direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["substituting-before-both-definitions-are-written"]
+    },
+    {
+      "id": "pfmm-m2-checkpoint-p3-odd-square-minus-one-div-8",
+      "version": 1,
+      "lessonId": "pfmm-m2-checkpoint",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a direct proof that if $n$ is odd, then $8 \\mid (n^2-1)$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Assume $n$ is odd, so $n = 2k+1$ for some integer $k$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "$n^2-1 = (2k+1)^2 - 1 = 4k^2+4k = 4k(k+1)$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Since $k$ and $k+1$ are consecutive integers, one of them is even, so $k(k+1) = 2m$ for some integer $m$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Therefore $n^2-1 = 4 \\cdot 2m = 8m$, so $8 \\mid (n^2-1)$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Start, as always, by rewriting the hypothesis with the formal definition of odd, then expand $n^2-1$ algebraically."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "After expanding, you'll have $4k(k+1)$ — this alone only shows $4 \\mid (n^2-1)$. You need one more fact about $k(k+1)$ to reach a factor of $8$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$k$ and $k+1$ are consecutive integers, so — by the parity fact from Lesson 3 — one of them must be even, which is exactly what lets you pull out one more factor of $2$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: rewrite $n$ via its definition, expand and factor to $4k(k+1)$, invoke the consecutive-integers parity fact to write $k(k+1)=2m$, then conclude $n^2-1=8m$."
+        }
+      ],
+      "solutionMarkdown": "This proof layers a parity argument on top of a direct-proof expansion. First, $n$ is rewritten via the definition of odd and $n^2-1$ is expanded and factored to $4k(k+1)$ (steps 1–2) — this alone only proves $4\\mid(n^2-1)$. The extra factor of $2$ needed for $8\\mid(n^2-1)$ comes from a fact about *any* two consecutive integers, $k$ and $k+1$: exactly one of them is even (the same fact proved in Lesson 3's case-split proof that $n(n+1)$ is always even), so $k(k+1)=2m$ for some integer $m$ (step 3). Substituting gives $n^2-1 = 4(2m) = 8m$ (step 4), completing the proof.",
+      "concepts": ["direct-proof", "divisibility-proof", "parity-proof"],
+      "prerequisites": ["direct-proof", "divisibility-proof", "parity-proof", "odd-integer"],
+      "difficulty": 4,
+      "misconceptionTags": ["stopping-before-reaching-the-full-target-factor"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["direct-proof", "proof-structure", "divisibility-proof", "closure-under-linear-combination", "parity-proof", "case-free-direct-proof"],
+    "notes": "Checkpoint: a mixed-review gate for Module 2. Record per-concept correctness the same way as ordinary lessons; a low score here should point the learner back at the specific Module 2 lesson matching the concept they missed, per docs/course-map.md's checkpoint framing."
+  }
+}

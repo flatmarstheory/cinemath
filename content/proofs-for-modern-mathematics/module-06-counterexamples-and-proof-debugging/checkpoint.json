@@ -1,0 +1,181 @@
+{
+  "lessonId": "pfmm-m6-checkpoint",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-06-counterexamples-and-proof-debugging",
+  "title": "Checkpoint: Counterexamples and Proof Debugging",
+  "kind": "checkpoint",
+  "learningObjective": "Demonstrate fluency with disproving false universal claims by counterexample and identifying flaws in shown arguments.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 20
+  },
+  "prerequisites": ["disproof-strategy", "counterexample-construction", "proof-flaw-identification", "common-proof-errors"],
+  "conceptsIntroduced": [],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "This checkpoint reviews both lessons of this module: disproving a universal claim with a single counterexample, and recognizing the standard categories of proof errors — division by zero, hasty generalization, circular reasoning, mis-negated quantifiers, and missing base cases."
+    },
+    "encounter": {
+      "bodyMarkdown": "The three problems below ask you to recognize why checking many examples never proves a universal claim, construct a counterexample against a deterministic checker, and order the steps of a disproof from scratch."
+    },
+    "explain": {
+      "bodyMarkdown": "No new theory is introduced here. Before answering, decide whether the problem is asking you to disprove a claim (find one counterexample) or to diagnose a flawed argument (name which of the five error categories applies)."
+    },
+    "reflect": {
+      "bodyMarkdown": "If any problem here was difficult, revisit Lesson 1 for the mechanics of constructing and verifying a counterexample against a claim's domain and predicate, or Lesson 2 for the checklist of common proof errors."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m6-checkpoint-p1-examples-vs-disproof",
+      "version": 1,
+      "lessonId": "pfmm-m6-checkpoint",
+      "type": "multiple_choice",
+      "promptMarkdown": "The claim $\\forall n \\in \\mathbb{Z}_{\\geq 0},\\ n^2+n+41$ is prime holds true for every integer from $n=0$ to $n=39$, but fails at $n=41$. What does this illustrate?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Checking $40$ consecutive true cases is enough to prove a universal claim",
+            "accessibleLabel": "Checking 40 consecutive true cases is enough to prove a universal claim."
+          },
+          {
+            "id": "b",
+            "label": "Checking many supporting examples never proves a universal claim; one counterexample, such as $n=41$, is enough to disprove it",
+            "accessibleLabel": "Checking many supporting examples never proves a universal claim; one counterexample, such as n equals 41, is enough to disprove it."
+          },
+          {
+            "id": "c",
+            "label": "The claim is true because it holds for the majority of small values",
+            "accessibleLabel": "The claim is true because it holds for the majority of small values."
+          },
+          {
+            "id": "d",
+            "label": "Quantifiers are irrelevant to whether a claim about integers is true",
+            "accessibleLabel": "Quantifiers are irrelevant to whether a claim about integers is true."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Recall the asymmetry between proving and disproving a $\\forall$ statement from Lesson 1."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Does any number of true supporting examples logically rule out a failure at some later, unchecked value?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Compare that to what a single failing example (like $n=41$) accomplishes."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "No number of supporting examples proves a $\\forall$ claim, since a later failure always remains possible; but one failing example immediately disproves it — option (b)."
+        }
+      ],
+      "solutionMarkdown": "No finite number of supporting examples, however large, can prove a $\\forall$ claim (ruling out (a) and (c)) — there could always be a failure at some later, unchecked value, exactly as happens here at $n=41$. Quantifiers are very much relevant to a claim's truth (ruling out (d)): the claim asserts primality for *every* nonnegative integer, and a single failure anywhere in that range is enough to make the universal claim false, by the negation rule. This asymmetry — many examples can't prove, but one counterexample can disprove — is the central idea of this module.",
+      "concepts": ["disproof-strategy"],
+      "prerequisites": ["disproof-strategy"],
+      "difficulty": 2,
+      "misconceptionTags": ["hasty-generalization-from-examples"]
+    },
+    {
+      "id": "pfmm-m6-checkpoint-p2-product-not-positive",
+      "version": 1,
+      "lessonId": "pfmm-m6-checkpoint",
+      "type": "counterexample_builder",
+      "promptMarkdown": "The following claim is false:\n\n$$\\forall n \\in \\mathbb{Z},\\ n(n-1)>0.$$\n\nConstruct a counterexample: give a specific integer $n$ for which $n(n-1)>0$ is false (i.e., $n(n-1) \\leq 0$).",
+      "answerSpec": {
+        "constraints": ["n must be an integer (n ∈ ℤ)"],
+        "predicateDescription": "The submitted n must satisfy n(n-1) ≤ 0, i.e. n² ≤ n, violating the claim n(n-1) > 0.",
+        "checker": "integer-square-not-greater",
+        "checkerNotes": "Parse the learner's submitted integer n, expand n(n-1) = n² - n, and note n(n-1) ≤ 0 is exactly the condition n² ≤ n. Evaluate n*n <= n and accept if true. Valid answers include n = 0 and n = 1; any other integer satisfying n² ≤ n is also accepted."
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Expand $n(n-1)=n^2-n$. The claim $n(n-1)>0$ is equivalent to $n^2>n$ — a form you've disproved before."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "You need an integer where $n^2-n$ is *not* strictly positive, i.e. $n^2 \\leq n$. Try small integers, including $0$ and $1$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Check $n=0$: is $0(0-1)=0>0$? Check $n=1$: is $1(1-1)=0>0$?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n=0$ works: $n(n-1)=0\\cdot(-1)=0$, and $0>0$ is false. ($n=1$ also works: $1\\cdot0=0$.)"
+        }
+      ],
+      "solutionMarkdown": "Expanding, $n(n-1)=n^2-n$, so the claim $n(n-1)>0$ is exactly $n^2>n$ in disguise — the same predicate from an earlier counterexample problem, just factored differently. Take $n=0$: $n(n-1)=0\\cdot(-1)=0$, and $0>0$ is false, so $n=0$ is a valid counterexample. ($n=1$ also works, since $1\\cdot0=0$; every integer strictly between $0$ and $1$ would as well, but there are none, since $n$ is required to be an integer.)",
+      "concepts": ["counterexample-construction", "disproof-strategy"],
+      "prerequisites": ["disproof-strategy"],
+      "difficulty": 3,
+      "misconceptionTags": []
+    },
+    {
+      "id": "pfmm-m6-checkpoint-p3-prime-not-odd",
+      "version": 1,
+      "lessonId": "pfmm-m6-checkpoint",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the following steps into a valid disproof of the claim: \"$\\forall$ primes $p$, $p$ is odd.\"",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Recall that to disprove a $\\forall$ statement, it suffices to exhibit one counterexample."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Consider $p=2$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "$2$ is prime, since its only positive divisors are $1$ and $2$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "$2$ is not odd, since $2=2\\cdot1$ is even."
+          },
+          {
+            "id": "s5",
+            "textMarkdown": "Conclude: $p=2$ is a prime that is not odd, so the claim \"$\\forall$ primes $p$, $p$ is odd\" is false."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5"],
+        "alternateValidOrders": [["s1", "s2", "s4", "s3", "s5"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Start by recalling the disproof strategy itself, then propose a specific candidate value."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The candidate must be verified against both the claim's hypothesis (being prime) and its conclusion (being odd, which must fail) — the two verification steps can happen in either order."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The concluding sentence must reference both verifications and come last."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: recall the strategy, propose $p=2$, verify it is prime and verify it is not odd (either order), then conclude the claim is false."
+        }
+      ],
+      "solutionMarkdown": "The disproof follows the standard counterexample pattern from Lesson 1: recall that one counterexample suffices to disprove a $\\forall$ claim, propose a specific candidate ($p=2$), verify it satisfies the claim's hypothesis (it is prime) and violates the claim's conclusion (it is not odd) — these two verifications can be done in either order, since neither depends on the other — and conclude. $2$ is in fact the only even prime, which is exactly why it is the counterexample here: every other prime is odd, but the claim asserted *all* primes are odd, and one exception is enough to falsify it.",
+      "concepts": ["disproof-strategy", "counterexample-construction"],
+      "prerequisites": ["disproof-strategy"],
+      "difficulty": 3,
+      "misconceptionTags": []
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["disproof-strategy", "counterexample-construction", "proof-flaw-identification", "common-proof-errors"],
+    "notes": "Checkpoint aggregate: confirms the learner reliably distinguishes disproving a universal claim (one counterexample) from proving one, and can construct and order a complete counterexample-based disproof before moving to Module 7. Plain-language indicator for the first vertical slice; full mastery model is Phase 3 scope."
+  }
+}

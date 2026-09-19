@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { lessons, course } from "@/lib/content";
+import { lessons, allLessons, course } from "@/lib/content";
 import { LessonPlayer } from "@/components/lesson-player";
 
 export function generateStaticParams() {
@@ -12,12 +12,18 @@ export default async function LessonPage({
 }) {
   const { slug } = await params;
   const index = lessons.findIndex((item) => item.lessonId === slug);
-  if (index === -1) notFound();
-  return (
-    <LessonPlayer
-      lesson={lessons[index]}
-      courseTitle={course.title}
-      lessonNumber={index + 1}
-    />
-  );
+  if (index !== -1)
+    return (
+      <LessonPlayer
+        lesson={lessons[index]}
+        courseTitle={course.title}
+        lessonNumber={index + 1}
+      />
+    );
+  // Draft lessons (Phase 6 "Instructor/editor publishing workflow") are
+  // excluded from `lessons`/static generation but must still be reachable
+  // by an editor's direct preview link (see src/app/admin/content).
+  const draft = allLessons.find((item) => item.lessonId === slug);
+  if (!draft) notFound();
+  return <LessonPlayer lesson={draft} courseTitle={course.title} />;
 }

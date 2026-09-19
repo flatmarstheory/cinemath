@@ -1,0 +1,291 @@
+{
+  "lessonId": "pfmm-m3-l1-proof-by-contrapositive",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-03-contrapositive-and-contradiction",
+  "title": "Proof by Contrapositive",
+  "learningObjective": "Prove a conditional statement by proving its logically equivalent contrapositive instead, when the contrapositive is easier to establish directly.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 25
+  },
+  "prerequisites": ["conditional", "negation-connective", "direct-proof", "even-integer", "odd-integer"],
+  "conceptsIntroduced": ["contrapositive", "logical-equivalence-of-conditional-and-contrapositive"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall the direct-proof recipe from Module 2 — assume the hypothesis, derive the conclusion — and the fact you already proved there: if $n$ is odd, then $n^2$ is odd (Module 2, Lesson 1). Also recall negation from Module 1: to negate a statement, you flip its truth condition precisely, not loosely."
+    },
+    "encounter": {
+      "bodyMarkdown": "Try a direct proof of: \"if $n^2$ is even, then $n$ is even.\" Assume $n^2$ is even, so $n^2 = 2j$ for some integer $j$. Now what? There's no clean algebraic way to extract a statement about $n$ from $n^2=2j$ — you'd need to take a square root of an unspecified even number, which doesn't obviously produce an integer form for $n$. Compare this to the *reversed* claim, \"if $n$ is odd, then $n^2$ is odd\" — a claim you already proved directly, with no difficulty at all. Is there a way to use that easy claim to establish the hard one?"
+    },
+    "explain": {
+      "bodyMarkdown": "Every conditional $P \\Rightarrow Q$ has a **contrapositive**: $\\neg Q \\Rightarrow \\neg P$. These two statements are **logically equivalent** — one is true exactly when the other is — because $P \\Rightarrow Q$ is false only when $P$ is true and $Q$ is false, which is exactly the same situation as $\\neg Q$ true and $\\neg P$ false, making $\\neg Q \\Rightarrow \\neg P$ false too. Since they always agree, **proving the contrapositive proves the original statement**.\n\nA **proof by contrapositive** of $\\forall x \\in S,\\ P(x) \\Rightarrow Q(x)$ has this shape:\n\n1. State: \"It suffices to prove the contrapositive: $\\neg Q(x) \\Rightarrow \\neg P(x)$.\"\n2. Give a **direct proof** of $\\neg Q(x) \\Rightarrow \\neg P(x)$: assume $\\neg Q(x)$, derive $\\neg P(x)$.\n3. Conclude that, since the contrapositive holds, the original statement $P(x) \\Rightarrow Q(x)$ holds too.\n\nFor \"if $n^2$ is even, then $n$ is even,\" the contrapositive is \"if $n$ is *not* even, then $n^2$ is *not* even\" — i.e., \"if $n$ is odd, then $n^2$ is odd,\" which is exactly the claim you already know how to prove directly."
+    },
+    "reflect": {
+      "bodyMarkdown": "Contrapositive proof is worth reaching for whenever the *hypothesis* is awkward to unpack algebraically but its *negation* is easy — negating \"even\" gives \"odd,\" which has a clean algebraic form, while negating \"$n^2$ is even\" and working forward from $n^2=2j$ does not. A common error is writing the **converse** ($Q \\Rightarrow P$) or the **inverse** ($\\neg P \\Rightarrow \\neg Q$) instead of the contrapositive — only $\\neg Q \\Rightarrow \\neg P$ is guaranteed logically equivalent to the original; the converse and inverse can have different truth values entirely."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m3-l1-p1-identify-contrapositive",
+      "version": 1,
+      "lessonId": "pfmm-m3-l1-proof-by-contrapositive",
+      "type": "multiple_choice",
+      "promptMarkdown": "What is the contrapositive of \"If $x>2$, then $x^2>4$\"?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "If $x^2 \\le 4$, then $x \\le 2$.",
+            "accessibleLabel": "If x squared is less than or equal to 4, then x is less than or equal to 2."
+          },
+          {
+            "id": "b",
+            "label": "If $x \\le 2$, then $x^2 \\le 4$.",
+            "accessibleLabel": "If x is less than or equal to 2, then x squared is less than or equal to 4."
+          },
+          {
+            "id": "c",
+            "label": "If $x^2>4$, then $x>2$.",
+            "accessibleLabel": "If x squared is greater than 4, then x is greater than 2."
+          },
+          {
+            "id": "d",
+            "label": "If $x \\le 2$, then $x^2>4$.",
+            "accessibleLabel": "If x is less than or equal to 2, then x squared is greater than 4."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The contrapositive of $P \\Rightarrow Q$ is $\\neg Q \\Rightarrow \\neg P$ — negate both parts, and swap their order."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Here $P$ is \"$x>2$\" and $Q$ is \"$x^2>4$\". Negating a strict inequality like \"$>$\" produces \"$\\le$\"."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$\\neg Q$ is \"$x^2 \\le 4$\" and $\\neg P$ is \"$x \\le 2$\". The contrapositive states $\\neg Q \\Rightarrow \\neg P$, in that order."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The contrapositive is \"if $x^2 \\le 4$, then $x \\le 2$\" — option (a). Option (b) is the inverse ($\\neg P \\Rightarrow \\neg Q$); option (c) is the converse ($Q \\Rightarrow P$)."
+        }
+      ],
+      "solutionMarkdown": "The contrapositive of $P \\Rightarrow Q$ is $\\neg Q \\Rightarrow \\neg P$: negate each part and reverse their order. With $P=$\"$x>2$\" and $Q=$\"$x^2>4$\", we get $\\neg Q=$\"$x^2\\le4$\" and $\\neg P=$\"$x\\le2$\", so the contrapositive is \"if $x^2\\le4$, then $x\\le2$\" — option (a). Option (b) reverses the negations without swapping order (the *inverse*, $\\neg P \\Rightarrow \\neg Q$), and option (c) swaps order without negating (the *converse*, $Q \\Rightarrow P$) — neither is guaranteed to share a truth value with the original statement.",
+      "concepts": ["contrapositive", "negation-connective"],
+      "prerequisites": ["conditional", "negation-connective"],
+      "difficulty": 1,
+      "misconceptionTags": ["confusing-contrapositive-with-converse-or-inverse"]
+    },
+    {
+      "id": "pfmm-m3-l1-p2-choose-contrapositive-strategy",
+      "version": 1,
+      "lessonId": "pfmm-m3-l1-proof-by-contrapositive",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which of these two claims is better suited to a proof by contrapositive, rather than a direct proof?\n\n- Claim A: \"If $n^2$ is even, then $n$ is even.\"\n- Claim B: \"If $n$ is even, then $n^2$ is even.\"",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Claim A, since its hypothesis (\"$n^2$ is even\") is hard to unpack algebraically, while its negated hypothesis (\"$n$ is odd\") is easy.",
+            "accessibleLabel": "Claim A, since its hypothesis, n squared is even, is hard to unpack algebraically, while its negated hypothesis, n is odd, is easy."
+          },
+          {
+            "id": "b",
+            "label": "Claim B, for the same reason.",
+            "accessibleLabel": "Claim B, for the same reason."
+          },
+          {
+            "id": "c",
+            "label": "Both claims are equally well suited to contrapositive proof.",
+            "accessibleLabel": "Both claims are equally well suited to contrapositive proof."
+          },
+          {
+            "id": "d",
+            "label": "Neither claim can be proved by contrapositive.",
+            "accessibleLabel": "Neither claim can be proved by contrapositive."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Contrapositive proof pays off exactly when the hypothesis is awkward to use directly, but its negation is a form you already know how to manipulate."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "For Claim B, \"$n$ is even\" already gives you $n=2k$, which is immediately usable in a direct proof — no detour needed."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "For Claim A, \"$n^2$ is even\" doesn't have a convenient algebraic form to start from, but its negation, \"$n$ is odd\", gives you $n=2k+1$, which is very usable."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Claim A benefits from contrapositive; Claim B is already easy directly, so applying contrapositive to it would add an unnecessary detour."
+        }
+      ],
+      "solutionMarkdown": "Claim B (\"if $n$ is even, then $n^2$ is even\") is already easy to prove directly: the hypothesis $n=2k$ is immediately usable. Claim A (\"if $n^2$ is even, then $n$ is even\") has the opposite problem: its hypothesis, \"$n^2$ is even,\" gives no convenient starting algebraic form for $n$, while its negated hypothesis, \"$n$ is odd,\" does ($n=2k+1$). That asymmetry — an awkward hypothesis paired with an easy negated hypothesis — is exactly the signal to reach for a contrapositive proof.",
+      "concepts": ["contrapositive"],
+      "prerequisites": ["contrapositive", "direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["using-contrapositive-when-direct-proof-is-simpler"]
+    },
+    {
+      "id": "pfmm-m3-l1-p3-square-even-implies-even",
+      "version": 1,
+      "lessonId": "pfmm-m3-l1-proof-by-contrapositive",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a proof by contrapositive that if $n^2$ is even, then $n$ is even.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "To prove \"if $n^2$ is even, then $n$ is even,\" it suffices to prove the contrapositive: \"if $n$ is odd, then $n^2$ is odd.\""
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Assume $n$ is odd, so $n=2k+1$ for some integer $k$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "$n^2 = (2k+1)^2 = 4k^2+4k+1 = 2(2k^2+2k)+1$, which is odd."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since the contrapositive is true, the original statement \"if $n^2$ is even, then $n$ is even\" is also true."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "A contrapositive proof must state which statement it's actually going to prove *before* proving it, so the reader knows why the following direct proof establishes the original claim."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Once the contrapositive is stated, prove it exactly like any other direct proof: assume the (new) hypothesis, rewrite with a definition, then compute."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The final line must explicitly connect back to the *original* claim, not just restate the contrapositive's own conclusion."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: state the contrapositive, assume $n$ odd, compute $n^2$ and show it's odd, then conclude the original statement holds."
+        }
+      ],
+      "solutionMarkdown": "A contrapositive proof opens by naming the equivalent statement it will actually prove (step 1), so the reader can follow why what comes next is relevant. The middle two steps are an ordinary direct proof of that contrapositive: assume $n$ is odd and rewrite it via the definition (step 2), then compute $n^2$ and show it lands in the odd form $2m+1$ (step 3) — this is exactly the fact from Module 2, Lesson 1. The proof closes by invoking logical equivalence explicitly: because the contrapositive is now established, the original conditional must hold too (step 4).",
+      "concepts": ["contrapositive", "direct-proof", "odd-integer"],
+      "prerequisites": ["contrapositive", "direct-proof", "odd-integer"],
+      "difficulty": 3,
+      "misconceptionTags": ["forgetting-to-state-contrapositive-explicitly"]
+    },
+    {
+      "id": "pfmm-m3-l1-p4-3n-plus-2-even",
+      "version": 1,
+      "lessonId": "pfmm-m3-l1-proof-by-contrapositive",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the proof by contrapositive that if $3n+2$ is even, then $n$ is even.\n\nThe contrapositive is: if $n$ is odd, then $3n+2$ is odd.\n\nProof of the contrapositive: Assume $n$ is odd, so $n=2k+1$ for some integer $k$. Then\n$$3n+2 = 3(2k+1)+2 = 6k+5 = 2(\\underline{\\hspace{1.5cm}}) + 1,$$\nwhich is odd. Since the contrapositive is true, the original statement is $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expression inside the parentheses",
+            "acceptedValues": ["3k+2", "3k + 2"]
+          },
+          {
+            "id": "b2",
+            "label": "Truth of the original statement",
+            "acceptedValues": ["true"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Simplify $3(2k+1)+2$ fully first, then separate a final $+1$ from the rest, the same way you would for any odd-integer proof."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$3(2k+1)+2 = 6k+3+2 = 6k+5$. Rewrite $6k+5$ as $2\\cdot(\\text{something}) + 1$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$6k+5 = 6k+4+1 = 2(3k+2)+1$. The quantity inside the parentheses is an integer since $k$ is."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The first blank is $3k+2$. Since the contrapositive is now proved true, and it's logically equivalent to the original conditional, the original statement is also true."
+        }
+      ],
+      "solutionMarkdown": "The contrapositive of \"if $3n+2$ is even, then $n$ is even\" is \"if $n$ is odd, then $3n+2$ is odd\" (negate and swap). Proving this directly: $n=2k+1$ gives $3n+2 = 6k+5 = 2(3k+2)+1$, which is odd since $3k+2$ is an integer. Because the contrapositive is logically equivalent to the original conditional, establishing the contrapositive establishes that the original statement is true as well.",
+      "concepts": ["contrapositive", "logical-equivalence-of-conditional-and-contrapositive"],
+      "prerequisites": ["contrapositive", "odd-integer"],
+      "difficulty": 3,
+      "misconceptionTags": ["negating-the-wrong-part-of-the-conditional"]
+    },
+    {
+      "id": "pfmm-m3-l1-p5-square-odd-implies-odd",
+      "version": 1,
+      "lessonId": "pfmm-m3-l1-proof-by-contrapositive",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a proof by contrapositive that if $n^2$ is odd, then $n$ is odd.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "To prove \"if $n^2$ is odd, then $n$ is odd,\" it suffices to prove the contrapositive: \"if $n$ is even, then $n^2$ is even.\""
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Assume $n$ is even, so $n=2k$ for some integer $k$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "$n^2 = (2k)^2 = 4k^2 = 2(2k^2)$, which is even."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since the contrapositive is true, the original statement \"if $n^2$ is odd, then $n$ is odd\" is also true."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Negate both \"$n^2$ is odd\" and \"$n$ is odd\", then swap their order, to find the contrapositive to state first."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The contrapositive's hypothesis is \"$n$ is even\" — rewrite it with the formal definition before computing $n^2$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "After computing $n^2$, you need the result written as $2\\cdot(\\text{integer})$ to match the definition of even."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: state the contrapositive, assume $n$ even, compute $n^2$ and show it's even, then conclude the original statement holds."
+        }
+      ],
+      "solutionMarkdown": "Negating and swapping \"if $n^2$ is odd, then $n$ is odd\" gives the contrapositive \"if $n$ is even, then $n^2$ is even,\" stated first (step 1). The middle steps prove this directly: $n=2k$ (step 2) gives $n^2=4k^2=2(2k^2)$, manifestly even (step 3). The proof closes by invoking the logical equivalence between a conditional and its contrapositive to transfer this result back to the original claim about odd numbers (step 4).",
+      "concepts": ["contrapositive", "direct-proof", "even-integer"],
+      "prerequisites": ["contrapositive", "direct-proof", "even-integer"],
+      "difficulty": 4,
+      "misconceptionTags": ["forgetting-to-state-contrapositive-explicitly"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["contrapositive", "logical-equivalence-of-conditional-and-contrapositive"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

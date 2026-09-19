@@ -1,6 +1,6 @@
 # Architecture
 
-**Current Phase 3 implementation:** see [accounts, persistence, mastery, and deployment](phase-3.md). **Phase 4 addition:** see [AI proof feedback beta](phase-4.md) for the feature-flagged `proof_free_response` grading flow, its API routes, and the admin review queue — it layers onto this architecture and doesn't change it. The descriptions below document the Phase 1/2 guest experience. Account mode adds an API and persistent SQLite storage and supersedes the former no-database deployment instructions.
+**Current Phase 3 implementation:** see [accounts, persistence, mastery, and deployment](phase-3.md). **Phase 4 addition:** see [AI proof feedback beta](phase-4.md) for the feature-flagged `proof_free_response` grading flow, its API routes, and the admin review queue — it layers onto this architecture and doesn't change it. **Phase 6 addition:** see [Phase 6: first complete course](phase-6.md) for the completed 8-module course, the glossary/search/prerequisite-map/certificate pages, and the lightweight draft/published content-publishing workflow — it also layers onto this architecture (same content loader, same Zod-validated JSON-file authoring model) rather than replacing it. The descriptions below document the Phase 1/2 guest experience. Account mode adds an API and persistent SQLite storage and supersedes the former no-database deployment instructions.
 
 ## Application
 

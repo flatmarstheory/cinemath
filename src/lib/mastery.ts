@@ -16,8 +16,22 @@ export type ReviewItem = {
   lessonTitle: string;
   conceptId: string;
   score: number;
-  reason: "developing" | "unfinished";
+  reason: "developing" | "unfinished" | "due";
 };
+// Phase 6 "review scheduling improvements" (ROADMAP.md): a small,
+// deterministic spaced-repetition tier on top of the Phase 3 mastery score,
+// not a full SRS algorithm (out of scope per ROADMAP.md "full spaced
+// repetition system" as a non-goal for the vertical slice; this keeps that
+// boundary while still spacing out review of concepts a learner already
+// cleared). Higher mastery earns a longer gap before a concept is
+// resurfaced; a concept below REVIEW_THRESHOLD is always due regardless of
+// how recently it was practiced.
+export function reviewIntervalDays(score: number) {
+  if (score < 0.4) return 1;
+  if (score < 0.6) return 3;
+  if (score < 0.8) return 7;
+  return 14;
+}
 type Attempt = Progress["records"][number]["attempts"][number];
 export function updateMastery(
   score: number,
@@ -101,29 +115,38 @@ export function masteryForLesson(lesson: Lesson, progress: Progress) {
 export function reviewQueue(
   lessons: Lesson[],
   progressByLesson: Map<string, Progress>,
+  now: number = Date.now(),
 ): ReviewItem[] {
   return masteryForCourse(lessons, progressByLesson)
-    .filter((record) => record.score < REVIEW_THRESHOLD)
+    .filter((record) => {
+      if (record.score < REVIEW_THRESHOLD) return true;
+      if (!record.lastPracticedAt) return false;
+      const daysSince =
+        (now - Date.parse(record.lastPracticedAt)) / 86400000;
+      return daysSince >= reviewIntervalDays(record.score);
+    })
     .flatMap((record) => {
       const lesson = lessons.find(
         (l) =>
           progressByLesson.has(l.lessonId) &&
           l.problems.some((p) => p.concepts.includes(record.conceptId)),
       );
-      return lesson
-        ? [
-            {
-              lessonId: lesson.lessonId,
-              lessonTitle: lesson.title,
-              conceptId: record.conceptId,
-              score: record.score,
-              reason:
-                progressByLesson.get(lesson.lessonId)?.stage === "complete"
-                  ? ("developing" as const)
-                  : ("unfinished" as const),
-            },
-          ]
-        : [];
+      if (!lesson) return [];
+      const unfinished =
+        progressByLesson.get(lesson.lessonId)?.stage !== "complete";
+      return [
+        {
+          lessonId: lesson.lessonId,
+          lessonTitle: lesson.title,
+          conceptId: record.conceptId,
+          score: record.score,
+          reason: unfinished
+            ? ("unfinished" as const)
+            : record.score < REVIEW_THRESHOLD
+              ? ("developing" as const)
+              : ("due" as const),
+        },
+      ];
     })
     .sort(
       (a, b) => a.score - b.score || a.conceptId.localeCompare(b.conceptId),

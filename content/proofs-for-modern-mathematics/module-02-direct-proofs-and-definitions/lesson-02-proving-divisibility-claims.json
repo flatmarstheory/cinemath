@@ -1,0 +1,283 @@
+{
+  "lessonId": "pfmm-m2-l2-proving-divisibility-claims",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-02-direct-proofs-and-definitions",
+  "title": "Proving Divisibility Claims",
+  "learningObjective": "Prove general divisibility claims directly by rewriting each hypothesis with the formal definition of divides and showing the resulting quantity is an integer multiple of the divisor.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 25
+  },
+  "prerequisites": ["divisibility", "direct-proof"],
+  "conceptsIntroduced": ["divisibility-proof", "closure-under-linear-combination"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall the direct-proof recipe from the previous lesson — let an arbitrary object be given, assume the hypothesis, rewrite it with a formal definition, then do algebra until the conclusion's definition appears. Also recall $a \\mid b \\iff \\exists k \\in \\mathbb{Z},\\ b = ak$, and that you already proved a first divisibility fact: transitivity, $a\\mid b \\wedge b \\mid c \\Rightarrow a \\mid c$."
+    },
+    "encounter": {
+      "bodyMarkdown": "Does $a \\mid b$ and $a \\mid c$ imply $a \\mid (b+c)$? Try $a=3, b=6, c=9$: indeed $3\\mid 6$, $3 \\mid 9$, and $3 \\mid 15$. Is this a coincidence of friendly numbers, or does it always happen — and if it always happens, *why*, in a way that would also tell you what else $a$ is guaranteed to divide?"
+    },
+    "explain": {
+      "bodyMarkdown": "A **divisibility proof** almost always follows the same shape: rewrite every \"$x \\mid y$\" hypothesis as \"$y = xk$ for some integer $k$\" (using a *different* letter for each witness), substitute into whatever expression the conclusion is about, and factor the divisor back out. What remains inside the parentheses is automatically an integer, because integers are closed under addition, subtraction, and multiplication — so it is a valid witness for the conclusion's own divisibility claim.\n\nThis pattern has a name: **closure under linear combination**. If $a \\mid b$ and $a \\mid c$, then $b = aj$ and $c=ak$, so for *any* integers $m,n$: $mb + nc = a(mj+nk)$, and $mj+nk$ is an integer. Taking $m=n=1$ gives $a \\mid (b+c)$; taking $m=1,n=-1$ gives $a \\mid (b-c)$. The single algebraic fact — factoring $a$ back out after substitution — proves an entire family of divisibility claims at once."
+    },
+    "reflect": {
+      "bodyMarkdown": "The proof only works because each hypothesis is rewritten with its *own* witness letter ($j$ for $b$, $k$ for $c$) — reusing one letter for both would wrongly assume the two quotients are equal. It's also worth being precise about what divisibility does and doesn't guarantee: $a \\mid b$ says nothing about the relative *size* of $a$ and $b$ in general (only about $|a|$ versus $|b|$ once $b \\neq 0$ is known), so claims like \"$a \\mid b$ implies $a \\le b$\" are tempting but false once negative integers are allowed."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m2-l2-p1-definition-of-divides",
+      "version": 1,
+      "lessonId": "pfmm-m2-l2-proving-divisibility-claims",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which of the following is the correct formal definition of $a \\mid b$ for integers $a, b$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$\\exists k \\in \\mathbb{Z}$ such that $b = ak$.",
+            "accessibleLabel": "There exists an integer k such that b equals a times k."
+          },
+          {
+            "id": "b",
+            "label": "$\\exists k \\in \\mathbb{Z}$ such that $a = bk$.",
+            "accessibleLabel": "There exists an integer k such that a equals b times k."
+          },
+          {
+            "id": "c",
+            "label": "$a < b$ and $b$ is a multiple of $a$.",
+            "accessibleLabel": "a is less than b and b is a multiple of a."
+          },
+          {
+            "id": "d",
+            "label": "$\\exists k \\in \\mathbb{Q}$ such that $b = ak$.",
+            "accessibleLabel": "There exists a rational number k such that b equals a times k."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "\"$a$ divides $b$\" means $b$ is an integer multiple of $a$ — pay attention to which of the two letters plays the role of the multiple."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The witness $k$ must be an integer, and the equation must express $b$ (not $a$) as $a$ times that witness."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (b) has the roles of $a$ and $b$ swapped — that equation defines $b \\mid a$, not $a \\mid b$. Option (c) adds a size restriction that isn't part of the definition (e.g. $5 \\mid 5$ and $(-2)\\mid 4$ are both true despite failing $a<b$). Option (d) allows non-integer witnesses, which would make far more pairs \"divide\" than the definition intends."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (a), $\\exists k \\in \\mathbb{Z},\\ b=ak$, is the standard definition: $b$ is exactly $a$ times an integer."
+        }
+      ],
+      "solutionMarkdown": "By definition, $a \\mid b$ means $b$ is an integer multiple of $a$: there exists an integer $k$ with $b = ak$. Option (b) swaps the roles of $a$ and $b$, defining $b \\mid a$ instead. Option (c) imposes an extraneous size condition that many true divisibility facts violate (e.g. $5 \\mid 5$, or $(-2) \\mid 4$ with $a > b$). Option (d) weakens the definition by allowing rational witnesses, which is not what divisibility means for integers.",
+      "concepts": ["divisibility", "formal-definition"],
+      "prerequisites": ["divisibility"],
+      "difficulty": 1,
+      "misconceptionTags": ["swapping-roles-in-divisibility-definition"]
+    },
+    {
+      "id": "pfmm-m2-l2-p2-difference-divisibility",
+      "version": 1,
+      "lessonId": "pfmm-m2-l2-proving-divisibility-claims",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the direct proof that if $a \\mid b$ and $a \\mid c$, then $a \\mid (b - c)$.\n\nProof: Assume $a \\mid b$ and $a \\mid c$. By definition, $b = aj$ and $c = ak$ for some integers $j, k$. Then\n$$b - c = aj - ak = a(\\underline{\\hspace{1.5cm}}).$$\nSince this quantity is an integer, $a \\mid (b-c)$, with witness $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expression inside the parentheses",
+            "acceptedValues": ["j-k", "j - k"]
+          },
+          {
+            "id": "b2",
+            "label": "The integer witness for a | (b-c)",
+            "acceptedValues": ["j-k", "j - k"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Factor $a$ out of $aj - ak$ the same way you would factor a common factor out of any two-term expression."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$aj - ak = a(j - k)$. The witness for $a \\mid (b-c)$ is whatever integer sits in that parenthesis."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Since $j$ and $k$ are both integers, $j - k$ is also an integer — integers are closed under subtraction."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Both blanks are $j-k$: it's the factored expression, and it's exactly the integer that witnesses $a \\mid (b-c)$."
+        }
+      ],
+      "solutionMarkdown": "Rewrite both hypotheses with distinct witness letters — $b=aj$, $c=ak$ — then substitute into $b-c$: $b-c = aj-ak = a(j-k)$. Because $j,k \\in \\mathbb{Z}$ and integers are closed under subtraction, $j-k$ is an integer, so this equation is precisely the statement $a \\mid (b-c)$, with witness $j-k$.",
+      "concepts": ["divisibility-proof", "closure-under-linear-combination"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["reusing-one-variable-for-two-arbitrary-objects"]
+    },
+    {
+      "id": "pfmm-m2-l2-p3-multiple-divisibility",
+      "version": 1,
+      "lessonId": "pfmm-m2-l2-proving-divisibility-claims",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a direct proof that if $a \\mid b$, then $a \\mid (bc)$ for every integer $c$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $c$ be an arbitrary integer, and assume $a \\mid b$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "By definition, $b = ak$ for some integer $k$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "$bc = (ak)c = a(kc)$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since $kc$ is an integer, $a \\mid (bc)$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Because the claim is \"for every integer $c$\", the arbitrary $c$ must be introduced before anything is computed involving it."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The hypothesis $a \\mid b$ needs to be rewritten via its definition before you can substitute it into $bc$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Multiplying the rewritten form of $b$ by $c$ and regrouping is what produces a single factor of $a$ times an integer."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: introduce the arbitrary $c$ and the hypothesis, rewrite $b$ via the definition, substitute and regroup, then conclude using the definition again."
+        }
+      ],
+      "solutionMarkdown": "Since the claim quantifies over every integer $c$, $c$ is introduced as arbitrary alongside the hypothesis (step 1). The hypothesis is then rewritten with its formal definition, $b=ak$ (step 2), which makes substitution into $bc$ possible: $bc=(ak)c=a(kc)$ (step 3). Because integers are closed under multiplication, $kc$ is an integer, so this final equation matches the definition of $a \\mid (bc)$ (step 4).",
+      "concepts": ["divisibility-proof", "closure-under-linear-combination"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["substituting-before-both-definitions-are-written"]
+    },
+    {
+      "id": "pfmm-m2-l2-p4-square-divisibility",
+      "version": 1,
+      "lessonId": "pfmm-m2-l2-proving-divisibility-claims",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the direct proof that if $a \\mid b$, then $a^2 \\mid b^2$.\n\nProof: Assume $a \\mid b$. By definition, $b = ak$ for some integer $k$. Then\n$$b^2 = (ak)^2 = \\underline{\\hspace{1.5cm}}.$$\nSince $k^2$ is an integer, this equation shows $a^2 \\mid b^2$, with witness $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expanded form of (ak)^2",
+            "acceptedValues": ["a^2k^2", "a^2*k^2", "(a^2)(k^2)", "a^2 k^2"]
+          },
+          {
+            "id": "b2",
+            "label": "The integer witness for a^2 | b^2",
+            "acceptedValues": ["k^2"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Expand $(ak)^2$ by squaring both factors separately, since $(xy)^2 = x^2y^2$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$(ak)^2 = a^2k^2$. You need this written as $a^2$ times *something*, so the definition of $a^2 \\mid b^2$ becomes visible."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Once $b^2 = a^2 \\cdot k^2$, the witness for $a^2 \\mid b^2$ is whatever multiplies $a^2$ on the right-hand side."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$b^2 = a^2k^2$, and since $k$ is an integer, $k^2$ is too, so $a^2 \\mid b^2$ with witness $k^2$."
+        }
+      ],
+      "solutionMarkdown": "Rewrite the hypothesis with its formal definition, $b=ak$, then square both sides: $b^2 = (ak)^2 = a^2k^2$. This is already in the exact shape the conclusion needs — $b^2$ equal to $a^2$ times an integer — since $k \\in \\mathbb{Z}$ implies $k^2 \\in \\mathbb{Z}$. So $a^2 \\mid b^2$, with witness $k^2$. The strategy generalizes: whenever $a\\mid b$, every fixed power satisfies $a^n \\mid b^n$, by the same squaring-or-raising trick.",
+      "concepts": ["divisibility-proof", "direct-proof"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 4,
+      "misconceptionTags": ["forgetting-to-square-both-factors"]
+    },
+    {
+      "id": "pfmm-m2-l2-p5-invalid-consequence",
+      "version": 1,
+      "lessonId": "pfmm-m2-l2-proving-divisibility-claims",
+      "type": "multiple_choice",
+      "promptMarkdown": "Let $a, b, c$ be integers. Which of the following is **not** a valid general consequence of $a \\mid b$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "If $a \\mid b$ and $a \\mid c$, then $a \\mid (b+c)$.",
+            "accessibleLabel": "If a divides b and a divides c, then a divides b plus c."
+          },
+          {
+            "id": "b",
+            "label": "$a \\mid b$ implies $a \\le b$.",
+            "accessibleLabel": "a divides b implies a is less than or equal to b."
+          },
+          {
+            "id": "c",
+            "label": "If $a \\mid b$, then $a \\mid (bc)$ for every integer $c$.",
+            "accessibleLabel": "If a divides b, then a divides b times c, for every integer c."
+          },
+          {
+            "id": "d",
+            "label": "If $a \\mid b$ and $b \\neq 0$, then $|a| \\le |b|$.",
+            "accessibleLabel": "If a divides b and b is not zero, then the absolute value of a is less than or equal to the absolute value of b."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Three of these four claims are proved (or provable by the same method) elsewhere in this lesson or module. Look for the one making an unjustified claim about ordinary size, not absolute value."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Try to find a single counterexample to each candidate using both positive and negative integers before deciding which one fails."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Consider $a = 4$, $b = -8$. Is $4 \\mid (-8)$? Compare $a$ and $b$ directly (not their absolute values)."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$4 \\mid (-8)$ is true (witness $k=-2$), but $4 \\le -8$ is false. So \"$a \\mid b$ implies $a \\le b$\" fails in general — that's the invalid consequence."
+        }
+      ],
+      "solutionMarkdown": "Options (a) and (c) are exactly the closure facts proved in this lesson. Option (d) is true whenever $b \\neq 0$: from $b=ak$ with $k \\neq 0$ (since $b\\neq0$), $|k|\\ge 1$, so $|b|=|a||k|\\ge|a|$.\n\nOption (b), \"$a \\mid b$ implies $a \\le b$\", is **false** in general: take $a=4$, $b=-8$. Then $4 \\mid (-8)$ since $-8 = 4\\cdot(-2)$, but $4 \\le -8$ is false. Divisibility constrains magnitude (once $b\\neq0$), not signed order — mixing those two ideas is a common but incorrect intuition carried over from divisibility among positive integers only.",
+      "concepts": ["divisibility"],
+      "prerequisites": ["divisibility"],
+      "difficulty": 4,
+      "misconceptionTags": ["confusing-divisibility-with-size-order"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["divisibility-proof", "closure-under-linear-combination", "divisibility"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

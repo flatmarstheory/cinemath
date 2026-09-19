@@ -135,12 +135,21 @@ export const problemSchema = z.discriminatedUnion("type", [
   }),
 ]);
 const section = z.object({ bodyMarkdown: z.string() });
+// "checkpoint" and "capstone" are the same gradable/authorable Lesson shape
+// (Phase 6, ROADMAP.md) — only their UI framing and course-page grouping
+// differ (docs/course-map.md). "draft" content is excluded from the public
+// course by src/lib/content.ts but still validated and previewable by
+// authors/admins (Phase 6 "Instructor/editor publishing workflow").
+export const lessonKinds = ["lesson", "checkpoint", "capstone"] as const;
+export type LessonKind = (typeof lessonKinds)[number];
 export const lessonSchema = z
   .object({
     lessonId: text,
     courseSlug: text,
     moduleSlug: text,
     title: text,
+    kind: z.enum(lessonKinds).default("lesson"),
+    status: z.enum(["draft", "published"]).default("published"),
     learningObjective: text,
     estimatedMinutes: z
       .object({ min: z.number().positive(), max: z.number().positive() })
@@ -191,3 +200,20 @@ export const answerSchema = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("proof"), text: z.string() }),
 ]);
 export type Answer = z.infer<typeof answerSchema>;
+
+// Course glossary (Phase 6, ROADMAP.md "Content search and glossary
+// linking"). A term's `id` is a concept id, the same kebab-case ids used by
+// `Problem.concepts`/`conceptsIntroduced`, so lesson content and the
+// glossary always share one vocabulary (docs/content-authoring-guide.md).
+export const glossaryTermSchema = z.object({
+  id: text,
+  term: text,
+  definitionMarkdown: text,
+  relatedTerms: ids.default([]),
+});
+export const glossarySchema = z.object({
+  courseSlug: text,
+  terms: z.array(glossaryTermSchema).min(1),
+});
+export type GlossaryTerm = z.infer<typeof glossaryTermSchema>;
+export type Glossary = z.infer<typeof glossarySchema>;

@@ -1,0 +1,242 @@
+{
+  "lessonId": "pfmm-m4-l1-sets-and-set-operations",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-04-sets-functions-injections-bijections",
+  "title": "Sets and Set Operations",
+  "learningObjective": "Prove subset and set-equality relationships between sets using element-chasing arguments over the intersection, union, and membership operations.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 22
+  },
+  "prerequisites": ["statement", "universal-quantifier", "direct-proof"],
+  "conceptsIntroduced": ["set-membership-proof", "subset-proof", "set-operations"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall that a **direct proof** of $\\forall x \\in S, P(x)$ works by picking an arbitrary $x \\in S$ and showing $P(x)$ holds, without assuming anything extra about $x$. This lesson applies exactly that strategy to statements about sets."
+    },
+    "encounter": {
+      "bodyMarkdown": "Let $A = \\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 4\\}$ and $B = \\{n \\in \\mathbb{Z} : n \\text{ is even}\\}$.\n\nIs $A \\subseteq B$? Checking a few elements — $4, 8, 12$ — all look even. But checking finitely many elements of an infinite set never proves a universal claim. How could you show $A \\subseteq B$ for *every* element of $A$ at once, without listing them?"
+    },
+    "explain": {
+      "bodyMarkdown": "For sets $A$ and $B$, **$A$ is a subset of $B$**, written $A \\subseteq B$, exactly when\n\n$$\\forall x,\\ x \\in A \\rightarrow x \\in B.$$\n\nThis is a universally quantified conditional, so it is proved the same way any $\\forall$-conditional statement is proved: by **element chasing**. Pick an arbitrary $x \\in A$ (naming it, but assuming nothing about it beyond membership in $A$), then show $x \\in B$ using only the definitions of $A$ and $B$. Since $x$ was arbitrary, the argument establishes the claim for *every* element of $A$ at once — this is exactly the direct-proof strategy applied to set membership.\n\nTwo sets are **equal**, $A = B$, exactly when $A \\subseteq B$ and $B \\subseteq A$ — each element chase is a separate, one-directional proof.\n\nThe standard set operations you'll chase elements through:\n\n- **Intersection**: $x \\in A \\cap B \\iff x \\in A \\text{ and } x \\in B$.\n- **Union**: $x \\in A \\cup B \\iff x \\in A \\text{ or } x \\in B$.\n\nWhen the hypothesis involves a union (an \"or\"), the proof typically splits into cases, one per disjunct."
+    },
+    "reflect": {
+      "bodyMarkdown": "The most common error is treating a handful of checked examples as a proof of $A \\subseteq B$ — as with any $\\forall$ statement, no finite number of examples establishes it. The second common error is starting an element-chasing proof by assuming $x$ has some *specific* value, rather than keeping it fully general; the moment you assume something about $x$ beyond \"$x \\in A$\", the proof no longer covers every element."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m4-l1-p1-subset-definition",
+      "version": 1,
+      "lessonId": "pfmm-m4-l1-sets-and-set-operations",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which of the following is the correct definition of $A \\subseteq B$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$\\forall x,\\ x \\in A \\rightarrow x \\in B$",
+            "accessibleLabel": "For every x, if x is an element of A then x is an element of B."
+          },
+          {
+            "id": "b",
+            "label": "$\\exists x,\\ x \\in A \\text{ and } x \\in B$",
+            "accessibleLabel": "There exists an x that is an element of both A and B."
+          },
+          {
+            "id": "c",
+            "label": "$\\forall x,\\ x \\in B \\rightarrow x \\in A$",
+            "accessibleLabel": "For every x, if x is an element of B then x is an element of A."
+          },
+          {
+            "id": "d",
+            "label": "$\\forall x,\\ x \\in A \\text{ and } x \\in B$",
+            "accessibleLabel": "For every x, x is an element of both A and B."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Being a subset is a claim about *every* element of $A$, so the definition should start with $\\forall x$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "It should say that membership in $A$ forces membership in $B$ — a conditional, not a conjunction, and not with the roles of $A$ and $B$ swapped."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (c) has the conditional backwards (that would define $B \\subseteq A$). Option (d) claims every $x$ is in both sets, which is far stronger than subset. Option (b) is only an existential claim."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (a), $\\forall x,\\ x \\in A \\rightarrow x \\in B$, is exactly the statement that every element of $A$ is also an element of $B$ — the definition of $A \\subseteq B$."
+        }
+      ],
+      "solutionMarkdown": "$A \\subseteq B$ means every element of $A$ is also an element of $B$. Symbolically, that is a universally quantified conditional: $\\forall x,\\ x \\in A \\rightarrow x \\in B$, option (a). Option (c) reverses the conditional, which would instead define $B \\subseteq A$. Option (d) asserts every $x$ is in both sets simultaneously, which is far stronger (and generally false). Option (b) only asserts the sets share at least one element, which doesn't capture \"subset\" at all.",
+      "concepts": ["subset-proof"],
+      "prerequisites": ["universal-quantifier", "statement"],
+      "difficulty": 1,
+      "misconceptionTags": ["reversing-subset-conditional"]
+    },
+    {
+      "id": "pfmm-m4-l1-p2-multiple-of-four-subset-even",
+      "version": 1,
+      "lessonId": "pfmm-m4-l1-sets-and-set-operations",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the element-chasing proof that $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 4\\} \\subseteq \\{n \\in \\mathbb{Z} : n \\text{ is even}\\}$.\n\nLet $n$ be an arbitrary element of $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 4\\}$. By definition, $n = 4k$ for some integer $k$. Then $n = 2 \\cdot (\\text{___})$, and since $k$ is an integer, $2k$ is an ___. Therefore $n$ is even, so $n$ belongs to $\\{n \\in \\mathbb{Z} : n \\text{ is even}\\}$.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Expression equal to n/2", "acceptedValues": ["2k"] },
+          { "id": "b2", "label": "Type of number 2k is", "acceptedValues": ["integer"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "You need to rewrite $n = 4k$ in the form $n = 2 \\cdot (\\text{something})$ to match the definition of even."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "An integer $n$ is even exactly when $n = 2m$ for some integer $m$. Match $4k$ to that pattern."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$4k = 2 \\cdot (2k)$. The blank inside the parentheses is what's being doubled."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n = 2 \\cdot (2k)$, and $2k$ is an integer because it's a product of integers. That makes $n$ even by definition."
+        }
+      ],
+      "solutionMarkdown": "Element chasing: let $n$ be an arbitrary element of $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 4\\}$, so $n = 4k$ for some $k \\in \\mathbb{Z}$. Rewrite $n = 4k = 2 \\cdot (2k)$. Since $k$ is an integer, $2k$ is also an integer (integers are closed under multiplication), so $n = 2 \\cdot (2k)$ exhibits $n$ as twice an integer — exactly the definition of even. Since $n$ was an arbitrary element of the first set, every multiple of $4$ is even, establishing the subset relation.",
+      "concepts": ["set-membership-proof", "subset-proof"],
+      "prerequisites": ["universal-quantifier", "direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["checking-examples-instead-of-arbitrary-element"]
+    },
+    {
+      "id": "pfmm-m4-l1-p3-intersection-subset-first-set",
+      "version": 1,
+      "lessonId": "pfmm-m4-l1-sets-and-set-operations",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps into a valid proof that for any sets $A$ and $B$, $A \\cap B \\subseteq A$.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Let $x$ be an arbitrary element of $A \\cap B$." },
+          { "id": "s2", "textMarkdown": "By definition of intersection, $x \\in A$ and $x \\in B$." },
+          { "id": "s3", "textMarkdown": "In particular, $x \\in A$." },
+          { "id": "s4", "textMarkdown": "Since $x$ was an arbitrary element of $A \\cap B$, every element of $A \\cap B$ is an element of $A$, so $A \\cap B \\subseteq A$." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This is a subset proof, so it should start with element chasing: name an arbitrary element of the left-hand set."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Unpack what membership in $A \\cap B$ means before concluding anything about membership in $A$ alone."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Once you know both $x \\in A$ and $x \\in B$, the conclusion $x \\in A$ follows immediately — you're only asked to show membership in $A$, so the $x \\in B$ part is not needed further."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: name the arbitrary element, unpack the intersection definition, extract the $A$-membership part, then conclude the subset relation from the arbitrariness of $x$."
+        }
+      ],
+      "solutionMarkdown": "The proof follows the standard element-chasing pattern for a subset claim.\n\n1. \"Let $x$ be an arbitrary element of $A \\cap B$.\" — introduces the arbitrary element with no assumptions beyond membership in $A \\cap B$.\n2. \"By definition of intersection, $x \\in A$ and $x \\in B$.\" — unpacks what membership in the intersection means.\n3. \"In particular, $x \\in A$.\" — extracts exactly the fact needed; the $x \\in B$ half of step 2 is not needed for this particular conclusion.\n4. \"Since $x$ was an arbitrary element of $A \\cap B$, ... $A \\cap B \\subseteq A$.\" — the arbitrariness of $x$ upgrades the single-element fact to a statement about every element, i.e., the subset relation.",
+      "concepts": ["set-membership-proof", "subset-proof", "set-operations"],
+      "prerequisites": ["universal-quantifier", "direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["extracting-more-than-is-needed"]
+    },
+    {
+      "id": "pfmm-m4-l1-p4-first-set-subset-union",
+      "version": 1,
+      "lessonId": "pfmm-m4-l1-sets-and-set-operations",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the proof that for any sets $A$ and $B$, $A \\subseteq A \\cup B$.\n\nLet $x$ be an arbitrary element of $A$. By definition of union, $x \\in A \\cup B$ exactly when $x \\in A$ ___ $x \\in B$. Since $x \\in A$ is already known to be true, this ___ is automatically satisfied, so $x \\in A \\cup B$. Since $x$ was arbitrary, $A \\subseteq A \\cup B$.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Logical connective joining the two membership conditions", "acceptedValues": ["or"] },
+          { "id": "b2", "label": "Type of logical statement being satisfied", "acceptedValues": ["disjunction", "or statement", "or"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Recall the definition of union from the Explain section: $x \\in A \\cup B \\iff x \\in A \\text{ or } x \\in B$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "A disjunction (\"or\" statement) is true as soon as *at least one* side is true — you don't need both."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "You already know $x \\in A$ holds (that's how $x$ was chosen), so the first disjunct is already satisfied."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The connective is \"or\", and since $x \\in A$ is true, the disjunction $x \\in A \\text{ or } x \\in B$ is true regardless of whether $x \\in B$ holds."
+        }
+      ],
+      "solutionMarkdown": "Let $x$ be an arbitrary element of $A$. By definition, $x \\in A \\cup B$ exactly when $x \\in A \\text{ or } x \\in B$ — a disjunction. Since $x \\in A$ is already known (that's the hypothesis), the disjunction is true no matter what is true of $x \\in B$; a disjunction only needs one true disjunct. So $x \\in A \\cup B$. Since $x$ was an arbitrary element of $A$, this holds for every element of $A$, establishing $A \\subseteq A \\cup B$.",
+      "concepts": ["set-membership-proof", "subset-proof", "set-operations"],
+      "prerequisites": ["direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["believing-disjunction-needs-both-sides"]
+    },
+    {
+      "id": "pfmm-m4-l1-p5-distributive-intersection-union",
+      "version": 1,
+      "lessonId": "pfmm-m4-l1-sets-and-set-operations",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps into a valid element-chasing proof that for any sets $A$, $B$, $C$:\n\n$$A \\cap (B \\cup C) \\subseteq (A \\cap B) \\cup (A \\cap C)$$",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Let $x$ be an arbitrary element of $A \\cap (B \\cup C)$." },
+          { "id": "s2", "textMarkdown": "By definition of intersection, $x \\in A$ and $x \\in B \\cup C$." },
+          { "id": "s3", "textMarkdown": "By definition of union, $x \\in B$ or $x \\in C$." },
+          { "id": "s4", "textMarkdown": "Case 1: if $x \\in B$, then since $x \\in A$ also holds, $x \\in A \\cap B$, so $x \\in (A \\cap B) \\cup (A \\cap C)$." },
+          { "id": "s5", "textMarkdown": "Case 2: if $x \\in C$, then since $x \\in A$ also holds, $x \\in A \\cap C$, so $x \\in (A \\cap B) \\cup (A \\cap C)$." },
+          { "id": "s6", "textMarkdown": "In either case $x \\in (A \\cap B) \\cup (A \\cap C)$. Since $x$ was arbitrary, $A \\cap (B \\cup C) \\subseteq (A \\cap B) \\cup (A \\cap C)$." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "alternateValidOrders": [["s1", "s2", "s3", "s5", "s4", "s6"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Start by element chasing as usual, then unpack the intersection before the union, since the intersection is the outermost operation."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Once you know $x \\in B \\cup C$, that's a disjunction — proofs about disjunctive hypotheses split into cases, one per disjunct."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "In each case, remember you still have $x \\in A$ available from unpacking the outer intersection — combine it with whichever of $x\\in B$ or $x \\in C$ the case gives you."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: name $x$, unpack $\\cap$ to get $x\\in A$ and $x \\in B\\cup C$, unpack $\\cup$ to split into the two cases $x\\in B$ / $x\\in C$, handle each case by forming $A\\cap B$ or $A\\cap C$, then conclude. The two case steps may appear in either order relative to each other."
+        }
+      ],
+      "solutionMarkdown": "This is an element-chasing proof whose hypothesis unpacks into a disjunction, so it needs a case split.\n\n1. \"Let $x$ be an arbitrary element of $A \\cap (B \\cup C)$.\" — the standard opening for a subset proof.\n2. \"By definition of intersection, $x \\in A$ and $x \\in B \\cup C$.\" — unpack the outermost operation first.\n3. \"By definition of union, $x \\in B$ or $x \\in C$.\" — unpack the inner disjunction; this forces a case split.\n4/5. In Case 1 ($x \\in B$), pairing with the earlier fact $x \\in A$ gives $x \\in A \\cap B$, hence $x \\in (A \\cap B) \\cup (A \\cap C)$. In Case 2 ($x \\in C$), pairing with $x \\in A$ gives $x \\in A \\cap C$, hence the same conclusion. These two steps are independent of each other and may be swapped.\n6. \"In either case ... Since $x$ was arbitrary ...\" — a case analysis is only complete once every case reaches the same conclusion, and the arbitrariness of $x$ then upgrades it to the full subset statement.\n\nEach implication used is genuinely true: $x \\in A \\wedge (x\\in B \\vee x \\in C)$ is logically equivalent to $(x \\in A \\wedge x \\in B) \\vee (x \\in A \\wedge x \\in C)$ by the distributive law of logic, which is exactly what this element chase re-derives set-theoretically.",
+      "concepts": ["set-membership-proof", "subset-proof", "set-operations"],
+      "prerequisites": ["direct-proof", "universal-quantifier"],
+      "difficulty": 4,
+      "misconceptionTags": ["skipping-case-split-on-disjunctive-hypothesis"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["set-membership-proof", "subset-proof", "set-operations"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

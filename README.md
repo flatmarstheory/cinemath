@@ -2,7 +2,7 @@
 
 An interactive, proof-driven learning platform for advanced mathematics.
 
-Phase 1 implemented one anonymous, end-to-end lesson: **Statements, Truth Values, and Quantifiers**. Phase 2 generalized the pipeline (a file-discovery content loader and CLI validator, a new fill-in-the-blank interaction, a small extensible counterexample-checker registry, problem-level analytics events, and a non-persistent preview mode) and authored three more Module 1 lessons, for **4 lessons and 20 problems total** across six interaction types: multiple choice, structured quantifier negation, fill-in-the-blank, numeric, keyboard-accessible proof ordering, and integer counterexamples. Math is rendered with KaTeX and MathML.
+Phase 1 implemented one anonymous, end-to-end lesson: **Statements, Truth Values, and Quantifiers**. Phase 2 generalized the pipeline (a file-discovery content loader and CLI validator, a new fill-in-the-blank interaction, a small extensible counterexample-checker registry, problem-level analytics events, and a non-persistent preview mode) and authored three more Module 1 lessons. Phases 3–5 added accounts and mastery, a feature-flagged AI proof-feedback beta, and closed-beta measurement infrastructure. Phase 6 completed the course: **all 8 modules, 28 lesson files, and 127 problems**, plus a glossary, content search, a prerequisite map, a completion certificate, a lightweight content-publishing workflow, and improved review scheduling — see [Phase 6](docs/phase-6.md). Math is rendered with KaTeX and MathML.
 
 ## Run locally
 
@@ -43,7 +43,7 @@ Guest progress is local to this browser and origin. Account progress syncs acros
 - `src/app`: Next.js App Router pages and responsive styling.
 - `src/components`: accessible lesson, answer, hint, and math rendering UI.
 - `src/lib`: shared Zod schemas, the content loader, deterministic grading, state transitions, progress validation, and analytics event derivation.
-- `content`: seeded course/module metadata and four fully authored lessons, discovered automatically by the content loader.
+- `content`: seeded course/module metadata, a course glossary, and all 28 authored lessons across 8 modules, discovered automatically by the content loader.
 - `scripts/validate-content.ts`: standalone CLI content validator, also run by `npm run check` and CI.
 - `tests`, `e2e`: grading (including every problem type), persistence, math rendering, content-loader failure modes, full learner journeys, preview mode, and accessibility checks.
 - [Architecture and deployment](docs/architecture.md): behavior, limitations, and deployment instructions.
@@ -61,6 +61,12 @@ A feature-flagged AI proof-feedback beta is implemented on one Lesson 4 problem:
 ## Phase 5
 
 ROADMAP.md's Phase 5 ("Closed beta and learning validation") has no code deliverables of its own — recruiting learners, running interviews, and picking the next course from evidence are product activities. What's implemented is the measurement infrastructure that phase depends on: a durable, privacy-documented event log for the existing lesson/problem interaction events, an optional post-lesson feedback form, pure aggregation covering the roadmap's "Measure" list (completion funnel, drop-off, time per problem, retries, hint-use rate, solution-reveal rate, seven-day return rate, concept mastery progression), and an operator-only `/admin/metrics` dashboard. See [Phase 5](docs/phase-5.md). No beta has been run and no data is seeded; the dashboard starts empty.
+
+## Phase 6
+
+The course is now complete: all 8 modules from `docs/course-map.md`, each module 2-7 ending in a mixed-review checkpoint, module 8 a two-lesson capstone workshop that never names a proof technique in its prompts. New: a course glossary (`/glossary`, linked from the dashboard, lesson summaries, and search), a prerequisite map (`/course/prerequisites`), client-side content search (`/search`), a printable completion certificate (`/certificate`), a lightweight draft/published content-status workflow (`/admin/content`, token-gated like `/admin/metrics`), and a small deterministic review-scheduling improvement (concepts resurface after a mastery-scaled interval, not only when below the review threshold). See [Phase 6](docs/phase-6.md) for the full writeup, and [the accessibility](docs/accessibility-audit.md) and [performance](docs/performance-audit.md) audits it also ran.
+
+**Note:** this environment had no Node.js/npm installed while Phase 6 was authored, so `npm run check` could not actually be run here — every new schema/content change was instead checked against a standalone script re-implementing the Zod rules. Run `npm run check` and `npm run test:e2e` yourself before deploying.
 
 ## Phase status
 

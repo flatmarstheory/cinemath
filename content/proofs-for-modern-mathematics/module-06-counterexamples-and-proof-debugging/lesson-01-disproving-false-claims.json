@@ -1,0 +1,290 @@
+{
+  "lessonId": "pfmm-m6-l1-disproving-false-claims",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-06-counterexamples-and-proof-debugging",
+  "title": "Disproving False Claims",
+  "learningObjective": "Disprove false universally quantified claims by constructing and verifying a single counterexample, rather than by checking many supporting examples.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 20
+  },
+  "prerequisites": ["statement", "universal-quantifier", "existential-quantifier", "quantifier-negation"],
+  "conceptsIntroduced": ["disproof-strategy", "counterexample-construction"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall the negation rule: $\\neg(\\forall x \\in S,\\ P(x)) \\iff \\exists x \\in S,\\ \\neg P(x)$."
+    },
+    "encounter": {
+      "bodyMarkdown": "Consider the claim $\\forall n \\in \\mathbb{Z}_{\\geq 0},\\ n^2+n+41 \\text{ is prime}$. Check it for $n=0,1,2,3,4$: you get $41, 43, 47, 53, 61$ — all prime. In fact this expression is prime for every integer $n$ from $0$ to $39$. It would be easy to conclude the claim is true. But at $n=41$: $41^2+41+41=41(41+1+1)=41\\cdot 43$, which is composite. The claim is false, despite $40$ supporting examples in a row. What does this tell you about the relationship between \"checking many examples\" and \"proving a universal claim\"?"
+    },
+    "explain": {
+      "bodyMarkdown": "Checking examples, no matter how many, can never prove a $\\forall$ statement — there could always be a failure at some unchecked value, as the $n=41$ example shows. But checking examples *can* disprove a $\\forall$ statement, immediately, the moment you find one that fails.\n\nThis follows directly from the negation rule you already know: to disprove $\\forall x \\in S,\\ P(x)$, it suffices to exhibit a single $x_0 \\in S$ with $\\neg P(x_0)$ — a **counterexample**. This is the **disproof strategy** for universal claims: find one witness to the negation, verify it satisfies the domain constraint ($x_0 \\in S$) and violates the predicate ($\\neg P(x_0)$), and you're done. No further argument is needed, because $\\exists x \\in S, \\neg P(x)$ is exactly the negation of the original claim — one witness settles it completely.\n\nThis is asymmetric with proving a $\\forall$ statement true, which generally requires an argument covering every element of $S$ (often by direct proof or induction), not just one."
+    },
+    "reflect": {
+      "bodyMarkdown": "The $n^2+n+41$ example is a standard warning against **hasty generalization**: a claim can be true for a long, convincing run of small cases and still be false. When disproving, the two things to double-check are that your candidate counterexample actually lies in the claim's stated domain (it's easy to accidentally propose a value the claim never applied to) and that it genuinely violates the predicate, not something close to it."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m6-l1-p1-what-disproof-requires",
+      "version": 1,
+      "lessonId": "pfmm-m6-l1-disproving-false-claims",
+      "type": "multiple_choice",
+      "promptMarkdown": "What must you do to disprove a claim of the form $\\forall x \\in S,\\ P(x)$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Exhibit one $x_0 \\in S$ with $\\neg P(x_0)$",
+            "accessibleLabel": "Exhibit one x-naught in S with not P of x-naught."
+          },
+          {
+            "id": "b",
+            "label": "Prove $\\neg P(x)$ for every $x \\in S$",
+            "accessibleLabel": "Prove not P of x for every x in S."
+          },
+          {
+            "id": "c",
+            "label": "Show that the claim feels unlikely to be true",
+            "accessibleLabel": "Show that the claim feels unlikely to be true."
+          },
+          {
+            "id": "d",
+            "label": "Check a large number of examples where $P(x)$ happens to hold",
+            "accessibleLabel": "Check a large number of examples where P of x happens to hold."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Apply the negation rule from a previous lesson to $\\forall x \\in S, P(x)$: what does its negation look like?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$\\neg(\\forall x \\in S, P(x)) \\iff \\exists x \\in S, \\neg P(x)$ — an existential claim needs only one witness."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (b) describes disproving a much stronger claim ($\\forall x, \\neg P(x)$) than is needed. Options (c) and (d) aren't proofs at all — a feeling isn't a proof, and supporting examples don't disprove anything."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "By the negation rule, disproving $\\forall x \\in S, P(x)$ means proving its negation $\\exists x \\in S, \\neg P(x)$, which requires only one witness — option (a)."
+        }
+      ],
+      "solutionMarkdown": "By the quantifier negation rule, $\\neg(\\forall x \\in S, P(x))$ is logically equivalent to $\\exists x \\in S, \\neg P(x)$. Proving *that* existential statement requires only a single witness $x_0 \\in S$ with $\\neg P(x_0)$ — option (a). Proving $\\neg P(x)$ for *every* $x \\in S$ (b) would disprove a different, stronger claim than the negation actually requires. A feeling that a claim is false (c) is not a proof, and examples where $P(x)$ *holds* (d) are irrelevant to disproving the claim — they don't touch the required witness at all.",
+      "concepts": ["disproof-strategy", "quantifier-negation"],
+      "prerequisites": ["quantifier-negation", "universal-quantifier"],
+      "difficulty": 1,
+      "misconceptionTags": ["disproving-forall-by-proving-negation-for-all-x"]
+    },
+    {
+      "id": "pfmm-m6-l1-p2-even-square-counterexample",
+      "version": 1,
+      "lessonId": "pfmm-m6-l1-disproving-false-claims",
+      "type": "counterexample_builder",
+      "promptMarkdown": "The following claim is false:\n\n$$\\forall n \\in \\mathbb{Z},\\ \\text{if } n^2 \\text{ is even, then } n \\text{ is odd.}$$\n\nConstruct a counterexample: give a specific integer $n$ for which $n^2$ is even but $n$ is not odd.",
+      "answerSpec": {
+        "constraints": ["n must be an integer (n ∈ ℤ)"],
+        "predicateDescription": "The submitted n must be even, since n even both makes n² even (satisfying the claim's hypothesis) and makes n not odd (violating the claim's conclusion).",
+        "checker": "integer-even-with-even-square",
+        "checkerNotes": "Parse the learner's submitted integer n, then check that n is even and that n² is also even. Any even n — for example n = 0, n = 2, or n = -4 — satisfies both, since an even integer's square is always even; this is exactly what disproves the claim, because such an n has an even square yet is not odd."
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "To disprove this implication-shaped claim, you need an $n$ where the hypothesis ($n^2$ is even) holds but the conclusion ($n$ is odd) fails."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Think about which integers have an even square in the first place — is there a simple characterization?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "An even integer's square is always even (an even number times itself is even). So any even $n$ automatically satisfies the claim's hypothesis."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Take any even $n$, such as $n=2$: $n^2=4$ is even (hypothesis holds), and $n=2$ is not odd (conclusion fails). This disproves the claim."
+        }
+      ],
+      "solutionMarkdown": "The claim asserts that an even square forces an odd $n$. But an even integer's square is always even (if $n=2m$, then $n^2=4m^2=2(2m^2)$, which is even), so any even $n$ already satisfies the hypothesis \"$n^2$ is even\" while being even itself — directly contradicting the conclusion \"$n$ is odd.\" For instance, $n=2$: $n^2=4$ is even, but $2$ is not odd. This single counterexample disproves the universal claim.",
+      "concepts": ["counterexample-construction", "disproof-strategy"],
+      "prerequisites": ["disproof-strategy"],
+      "difficulty": 2,
+      "misconceptionTags": []
+    },
+    {
+      "id": "pfmm-m6-l1-p3-domain-constraint-counterexample",
+      "version": 1,
+      "lessonId": "pfmm-m6-l1-disproving-false-claims",
+      "type": "multiple_choice",
+      "promptMarkdown": "The following claim is false:\n\n$$\\forall n \\in \\mathbb{Z} \\text{ with } n>1,\\ n^2-n+1 \\text{ is prime.}$$\n\nFour students propose the following as counterexamples. Which one is actually a valid counterexample — that is, satisfies the claim's own domain constraint ($n$ is an integer greater than $1$) while making $n^2-n+1$ composite?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$n=0$: since $0^2-0+1=1$, which is not prime",
+            "accessibleLabel": "n equals 0, since 0 squared minus 0 plus 1 equals 1, which is not prime."
+          },
+          {
+            "id": "b",
+            "label": "$n=1$: since $1^2-1+1=1$, which is not prime",
+            "accessibleLabel": "n equals 1, since 1 squared minus 1 plus 1 equals 1, which is not prime."
+          },
+          {
+            "id": "c",
+            "label": "$n=5$: since $5^2-5+1=21=3\\times 7$, which is composite",
+            "accessibleLabel": "n equals 5, since 5 squared minus 5 plus 1 equals 21, which is 3 times 7, and is composite."
+          },
+          {
+            "id": "d",
+            "label": "$n=3.5$: since $3.5^2-3.5+1=9.75$, which is not an integer",
+            "accessibleLabel": "n equals 3.5, since 3.5 squared minus 3.5 plus 1 equals 9.75, which is not an integer."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "A valid counterexample must satisfy the claim's own domain constraint first — here, $n$ must be an integer with $n>1$ — before it even matters what $n^2-n+1$ evaluates to."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Check each option's $n$ against \"integer, and $n>1$\" before checking anything about primality."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$n=0$ and $n=1$ both fail $n>1$. $n=3.5$ is not an integer at all. Only one option is both a valid integer greater than $1$ and gives a composite value."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n=5$ is an integer with $5>1$, satisfying the domain, and $5^2-5+1=21=3\\times7$ is composite, violating the predicate — option (c) is the only valid counterexample."
+        }
+      ],
+      "solutionMarkdown": "A counterexample must first satisfy the claim's own domain restriction — here, being an integer with $n>1$ — before its value under the predicate matters at all. Option (a), $n=0$, and option (b), $n=1$, both fail $n>1$, so they're outside the claim's domain entirely and can't serve as counterexamples, regardless of what $n^2-n+1$ equals for them. Option (d), $n=3.5$, isn't an integer, so it's also outside the domain. Only option (c), $n=5$, is a genuine integer with $n>1$: it evaluates to $5^2-5+1=21=3\\times7$, which is composite, violating the claim's predicate while satisfying its domain — a valid counterexample.",
+      "concepts": ["counterexample-construction", "disproof-strategy"],
+      "prerequisites": ["disproof-strategy"],
+      "difficulty": 3,
+      "misconceptionTags": ["counterexample-violating-domain-constraint"]
+    },
+    {
+      "id": "pfmm-m6-l1-p4-real-inequality-counterexample",
+      "version": 1,
+      "lessonId": "pfmm-m6-l1-disproving-false-claims",
+      "type": "multiple_choice",
+      "promptMarkdown": "To disprove the claim $\\forall x \\in \\mathbb{R},\\ x^2 \\geq x$, which of the following real numbers is a valid counterexample?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$x=2$, since $2^2=4 \\geq 2$",
+            "accessibleLabel": "x equals 2, since 2 squared equals 4, which is greater than or equal to 2."
+          },
+          {
+            "id": "b",
+            "label": "$x=-1$, since $(-1)^2=1 \\geq -1$",
+            "accessibleLabel": "x equals negative 1, since negative 1 squared equals 1, which is greater than or equal to negative 1."
+          },
+          {
+            "id": "c",
+            "label": "$x=0.5$, since $0.5^2=0.25<0.5$",
+            "accessibleLabel": "x equals 0.5, since 0.5 squared equals 0.25, which is less than 0.5."
+          },
+          {
+            "id": "d",
+            "label": "$x=1$, since $1^2=1 \\geq 1$",
+            "accessibleLabel": "x equals 1, since 1 squared equals 1, which is greater than or equal to 1."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "A valid counterexample must make the inequality $x^2 \\geq x$ actually false, i.e. $x^2<x$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Compute $x^2$ and compare it to $x$ for each option — three of the four options actually satisfy $x^2 \\geq x$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Try a value strictly between $0$ and $1$, where squaring makes a positive number smaller."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$x=0.5$ gives $x^2=0.25$, and $0.25<0.5$, so $x^2 \\geq x$ fails — this is the counterexample. The other three options all satisfy $x^2 \\geq x$, as shown in their own labels."
+        }
+      ],
+      "solutionMarkdown": "For $x^2 \\geq x$ to fail, you need $x^2<x$, which happens exactly for $0<x<1$ (where squaring a number strictly between $0$ and $1$ makes it smaller). Options (a), (b), and (d) all satisfy $x^2 \\geq x$, as their own justifications show, so none of them disprove the claim. Option (c), $x=0.5$, gives $x^2=0.25<0.5=x$, so $x^2 \\geq x$ is false — a valid counterexample to the universal claim.",
+      "concepts": ["counterexample-construction", "disproof-strategy"],
+      "prerequisites": ["disproof-strategy"],
+      "difficulty": 2,
+      "misconceptionTags": ["counterexample-violating-domain-constraint"]
+    },
+    {
+      "id": "pfmm-m6-l1-p5-irrational-sum-counterexample",
+      "version": 1,
+      "lessonId": "pfmm-m6-l1-disproving-false-claims",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the following steps into a valid disproof of the claim: \"The sum of two irrational numbers is always irrational.\"",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Propose $\\sqrt2$ and $-\\sqrt2$ as candidate irrational numbers."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Recall that $\\sqrt2$ is irrational, and that $-\\sqrt2$ is irrational as well, since a nonzero rational multiple of an irrational number is irrational."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Compute the sum: $\\sqrt2+(-\\sqrt2)=0$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Note that $0$ is rational, since $0=\\frac{0}{1}$."
+          },
+          {
+            "id": "s5",
+            "textMarkdown": "Conclude: $\\sqrt2$ and $-\\sqrt2$ are both irrational, but their sum $0$ is rational, so the claim is false."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "A disproof by counterexample starts by proposing specific witnesses, here two numbers, before doing anything else with them."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Before computing the sum, you need to establish both proposed numbers actually satisfy the claim's hypothesis (being irrational)."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "After computing the sum, a separate step is needed to classify that sum as rational or irrational, before the final conclusion can be drawn."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: propose the witnesses, verify both are irrational, compute their sum, classify the sum as rational, then conclude the claim is false."
+        }
+      ],
+      "solutionMarkdown": "The disproof follows the standard counterexample pattern: **propose** specific witnesses ($\\sqrt2$ and $-\\sqrt2$), **verify** they satisfy the claim's hypothesis (both irrational), **compute** the quantity the claim makes an assertion about (their sum, $0$), **classify** that result ($0$ is rational), and **conclude** that since the hypothesis held but the claimed conclusion failed, the universal claim is false. Each step depends on the one before it — you can't classify a sum you haven't computed, and you can't compute a sum from numbers not yet proposed.",
+      "concepts": ["counterexample-construction", "disproof-strategy"],
+      "prerequisites": ["disproof-strategy"],
+      "difficulty": 4,
+      "misconceptionTags": ["counterexample-violating-domain-constraint"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["disproof-strategy", "counterexample-construction"],
+    "notes": "Tracks whether the learner correctly identifies that a single counterexample suffices to disprove a universal claim, and whether they check a candidate counterexample against the claim's stated domain before checking the predicate. Plain-language indicator for the first vertical slice; full mastery model is Phase 3 scope."
+  }
+}

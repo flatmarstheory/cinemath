@@ -1,0 +1,281 @@
+{
+  "lessonId": "pfmm-m5-l3-induction-on-recursive-structures",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-05-induction-and-recursive-reasoning",
+  "title": "Induction on Recursively Defined Sequences",
+  "learningObjective": "Prove closed-form claims about recursively defined sequences by induction, matching the inductive step directly to the sequence's recursive rule.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 25
+  },
+  "prerequisites": ["mathematical-induction", "induction-base-case", "induction-inductive-step", "strong-induction"],
+  "conceptsIntroduced": ["recursive-definition", "structural-induction"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall that an inductive step proves $P(k+1)$ using the inductive hypothesis $P(k)$ (or, for strong induction, $P(m)$ for all smaller $m$)."
+    },
+    "encounter": {
+      "bodyMarkdown": "A sequence is defined by $a_1=1$ and $a_{n+1}=2a_n+1$ for $n \\geq 1$. Computing a few terms: $a_1=1$, $a_2=2(1)+1=3$, $a_3=2(3)+1=7$. This suggests $a_n=2^n-1$. How would you prove this closed-form formula holds for every $n$, given only the recursive rule that generates the sequence one term at a time?"
+    },
+    "explain": {
+      "bodyMarkdown": "A **recursive definition** specifies a sequence by an initial value (or values) together with a rule expressing each later term using earlier ones — exactly like $a_1=1,\\ a_{n+1}=2a_n+1$. Proving a closed-form claim about such a sequence is a natural fit for induction, because the recursive rule *is* the mechanism connecting term $k$ to term $k+1$ (or $k-1,k-2$ to $k$, for a rule using more than one prior term):\n\n- **Base case:** verify the closed form matches the given initial value(s) of the sequence.\n- **Inductive step:** assume the closed form holds at $k$ (the inductive hypothesis), substitute it into the recursive rule for $a_{k+1}$, and simplify until it matches the closed form at $k+1$.\n\nThis pattern — an inductive step that mirrors a recursive rule term-for-term — is sometimes called **structural induction**, since the proof's structure is dictated directly by how the object (here, the sequence) is recursively built. When a recursive rule references more than one prior term (as with the Fibonacci-style example from the last lesson), the matching proof needs strong induction instead of weak induction, for the same reason as before."
+    },
+    "reflect": {
+      "bodyMarkdown": "The inductive step for a recursively defined sequence should almost always begin by writing down the recursive rule itself (\"$a_{k+1}=2a_k+1$ by definition\") before substituting the inductive hypothesis — skipping straight to algebra on the closed form, without ever invoking the actual recursive rule, is a common way to lose track of what's actually being proven. A separate, unrelated error is verifying the closed form for a few small $n$ by direct computation and treating that as sufficient — computing $a_1,a_2,a_3$ confirms the pattern *looks* right, but only the inductive step proves it continues forever."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m5-l3-p1-compute-term",
+      "version": 1,
+      "lessonId": "pfmm-m5-l3-induction-on-recursive-structures",
+      "type": "numeric",
+      "promptMarkdown": "A sequence is defined by $a_1=1$ and $a_{n+1}=2a_n+1$ for $n \\geq 1$. Compute $a_3$.",
+      "answerSpec": {
+        "correctValue": 7,
+        "tolerance": 0,
+        "toleranceType": "absolute"
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Apply the recursive rule one step at a time, starting from $a_1$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "First compute $a_2=2a_1+1$, then use that result to compute $a_3=2a_2+1$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$a_1=1$, so $a_2=2(1)+1=3$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$a_3=2a_2+1=2(3)+1=7$."
+        }
+      ],
+      "solutionMarkdown": "Apply the recursive rule twice, starting from $a_1=1$: $a_2=2a_1+1=2(1)+1=3$, then $a_3=2a_2+1=2(3)+1=7$. So $a_3=7$.",
+      "concepts": ["recursive-definition"],
+      "prerequisites": [],
+      "difficulty": 1,
+      "misconceptionTags": []
+    },
+    {
+      "id": "pfmm-m5-l3-p2-closed-form-proof",
+      "version": 1,
+      "lessonId": "pfmm-m5-l3-induction-on-recursive-structures",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "For the sequence $a_1=1$, $a_{n+1}=2a_n+1$, complete the induction proof that $a_n=2^n-1$ for every integer $n \\geq 1$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "base",
+            "label": "Base case, $n=1$: value of $2^1-1$",
+            "acceptedValues": ["1"]
+          },
+          {
+            "id": "ih",
+            "label": "Inductive hypothesis: assume, for some integer $k \\geq 1$, that $a_k=$",
+            "acceptedValues": ["2^k-1", "2^k - 1"]
+          },
+          {
+            "id": "sub",
+            "label": "By the recursive rule and the inductive hypothesis, $a_{k+1}=2a_k+1=2(2^k-1)+1=$",
+            "acceptedValues": ["2^(k+1)-1", "2^{k+1}-1", "2^(k+1) - 1"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Base case: check that the closed form gives $a_1=1$, matching the sequence's definition."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Inductive hypothesis: write the closed form with $k$ in place of $n$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Inductive step: start from the recursive rule $a_{k+1}=2a_k+1$, then substitute the inductive hypothesis's expression for $a_k$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$2(2^k-1)+1=2\\cdot 2^k-2+1=2^{k+1}-1$, matching the closed form at $n=k+1$."
+        }
+      ],
+      "solutionMarkdown": "**Base case ($n=1$):** the closed form gives $2^1-1=1$, matching $a_1=1$.\n\n**Inductive hypothesis:** assume, for some fixed integer $k \\geq 1$, that $a_k=2^k-1$.\n\n**Inductive step:** by the recursive definition, $a_{k+1}=2a_k+1$. Substituting the inductive hypothesis for $a_k$: $a_{k+1}=2(2^k-1)+1=2\\cdot 2^k-2+1=2^{k+1}-1$.\n\nThis matches the closed form at $n=k+1$. By induction, $a_n=2^n-1$ for all integers $n \\geq 1$. Notice the inductive step's first move is always to invoke the recursive rule itself ($a_{k+1}=2a_k+1$) before doing any algebra — the rule is what justifies replacing $a_{k+1}$ with an expression in $a_k$ at all.",
+      "concepts": ["recursive-definition", "structural-induction"],
+      "prerequisites": ["mathematical-induction", "recursive-definition"],
+      "difficulty": 2,
+      "misconceptionTags": ["skipping-recursive-rule-in-inductive-step"]
+    },
+    {
+      "id": "pfmm-m5-l3-p3-quadratic-sequence",
+      "version": 1,
+      "lessonId": "pfmm-m5-l3-induction-on-recursive-structures",
+      "type": "proof_ordering",
+      "promptMarkdown": "For the sequence $b_1=2$, $b_{n+1}=b_n+2n+1$, arrange the following steps into a valid induction proof that $b_n=n^2+1$ for every integer $n \\geq 1$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Base case: $b_1=2$, and $1^2+1=2$, so the formula holds for $n=1$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Inductive hypothesis: assume $b_k=k^2+1$ for some fixed integer $k \\geq 1$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "By the recursive definition, $b_{k+1}=b_k+2k+1$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Substitute the inductive hypothesis: $b_{k+1}=(k^2+1)+2k+1=k^2+2k+2$."
+          },
+          {
+            "id": "s5",
+            "textMarkdown": "Rewrite: $k^2+2k+2=(k+1)^2+1$, which is the formula's value at $n=k+1$."
+          },
+          {
+            "id": "s6",
+            "textMarkdown": "Conclude: by induction, $b_n=n^2+1$ for every integer $n \\geq 1$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "As usual: base case, then inductive hypothesis, then inductive step, then conclusion."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Within the inductive step, the recursive rule must be invoked before the inductive hypothesis is substituted into it."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "After substitution, an algebraic simplification step comes first, followed by a step recognizing the result matches the target formula."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: base case, hypothesis, recursive rule for $b_{k+1}$, substitute and simplify, recognize the match with $n=k+1$, conclude."
+        }
+      ],
+      "solutionMarkdown": "The proof begins with the **base case**: $b_1=2$ matches $1^2+1=2$. It states the **inductive hypothesis** $b_k=k^2+1$ for a fixed $k \\geq 1$. The inductive step first invokes the **recursive rule**, $b_{k+1}=b_k+2k+1$ — this is what justifies expressing $b_{k+1}$ in terms of $b_k$ at all. Substituting the hypothesis gives $b_{k+1}=(k^2+1)+2k+1=k^2+2k+2$, which is then rewritten as $(k+1)^2+1$, recognizably the closed form at $n=k+1$. The proof concludes by invoking induction. Each step depends on the result of the one before it, so this order is forced.",
+      "concepts": ["recursive-definition", "structural-induction"],
+      "prerequisites": ["mathematical-induction", "recursive-definition"],
+      "difficulty": 3,
+      "misconceptionTags": ["skipping-recursive-rule-in-inductive-step"]
+    },
+    {
+      "id": "pfmm-m5-l3-p4-checking-cases-not-proof",
+      "version": 1,
+      "lessonId": "pfmm-m5-l3-induction-on-recursive-structures",
+      "type": "multiple_choice",
+      "promptMarkdown": "For the sequence $c_1=3$, $c_{n+1}=3c_n$, a student computes $c_1=3$, $c_2=9$, $c_3=27$, observes these match $3^1,3^2,3^3$, and declares \"$c_n=3^n$ for all $n \\geq 1$, proven.\" Why is this not a valid proof?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Checking finitely many terms never rules out the formula failing at some larger, unchecked $n$; only an inductive step shows the pattern continues indefinitely",
+            "accessibleLabel": "Checking finitely many terms never rules out the formula failing at some larger, unchecked n; only an inductive step shows the pattern continues indefinitely."
+          },
+          {
+            "id": "b",
+            "label": "The computed values $c_1,c_2,c_3$ are actually wrong",
+            "accessibleLabel": "The computed values c1, c2, c3 are actually wrong."
+          },
+          {
+            "id": "c",
+            "label": "The formula $c_n=3^n$ is false, so no proof of it can exist",
+            "accessibleLabel": "The formula c sub n equals 3 to the n is false, so no proof of it can exist."
+          },
+          {
+            "id": "d",
+            "label": "Recursive sequences can never have a closed-form formula",
+            "accessibleLabel": "Recursive sequences can never have a closed-form formula."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Double check the arithmetic first: is $c_1=3,\\ c_2=9,\\ c_3=27$ consistent with $c_{n+1}=3c_n$?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The arithmetic is correct, and in fact $c_n=3^n$ is a true formula for this sequence — so the flaw isn't in the math, it's in the *method*."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Ask what guarantees the pattern continues at $n=4,5,6,\\dots$ — has anything been shown that rules out a deviation at, say, $n=100$?"
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Nothing rules out the formula failing at some unchecked $n$; checking three cases, however correct, is not the same as proving the recursive rule preserves the formula from any $k$ to $k+1$ — option (a)."
+        }
+      ],
+      "solutionMarkdown": "The computed values are correct ($c_1=3,\\ c_2=3\\cdot3=9,\\ c_3=3\\cdot9=27$), and the formula $c_n=3^n$ is in fact true — so the issue isn't a wrong answer, it's an invalid method. Checking three terms only confirms the formula's *behavior on those three terms*; it gives no logical guarantee about $n=4$, $n=100$, or any other unchecked value. A genuine proof needs the inductive step: showing that *whenever* the formula holds at some arbitrary $k$, the recursive rule forces it to hold at $k+1$ as well, which is what rules out failure at every later term simultaneously, not just the ones checked by hand.",
+      "concepts": ["recursive-definition", "mathematical-induction"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 2,
+      "misconceptionTags": ["checking-examples-instead-of-inducting"]
+    },
+    {
+      "id": "pfmm-m5-l3-p5-geometric-sequence",
+      "version": 1,
+      "lessonId": "pfmm-m5-l3-induction-on-recursive-structures",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "For the sequence $c_1=3$, $c_{n+1}=3c_n$, complete the induction proof that $c_n=3^n$ for every integer $n \\geq 1$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "base",
+            "label": "Base case, $n=1$: value of $3^1$",
+            "acceptedValues": ["3"]
+          },
+          {
+            "id": "ih",
+            "label": "Inductive hypothesis: assume, for some integer $k \\geq 1$, that $c_k=$",
+            "acceptedValues": ["3^k"]
+          },
+          {
+            "id": "sub",
+            "label": "By the recursive rule and the inductive hypothesis, $c_{k+1}=3c_k=3\\cdot 3^k=$",
+            "acceptedValues": ["3^(k+1)", "3^{k+1}"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Base case: does the closed form give $c_1=3$, matching the definition?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "State the inductive hypothesis with $k$ in place of $n$: $c_k=$ what?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Start the inductive step from the recursive rule itself, $c_{k+1}=3c_k$, then substitute the inductive hypothesis for $c_k$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$3\\cdot 3^k=3^{k+1}$ by the laws of exponents, matching the closed form at $n=k+1$."
+        }
+      ],
+      "solutionMarkdown": "**Base case ($n=1$):** $3^1=3$, matching $c_1=3$.\n\n**Inductive hypothesis:** assume, for some fixed integer $k \\geq 1$, that $c_k=3^k$.\n\n**Inductive step:** by the recursive definition, $c_{k+1}=3c_k$. Substituting the hypothesis: $c_{k+1}=3\\cdot 3^k=3^{k+1}$.\n\nThis matches the closed form at $n=k+1$. By induction, $c_n=3^n$ for every integer $n \\geq 1$. As in the earlier problems in this lesson, the inductive step's structure is dictated entirely by the recursive rule — writing $c_{k+1}=3c_k$ before substituting is what makes the step a valid derivation rather than an unjustified guess.",
+      "concepts": ["recursive-definition", "structural-induction"],
+      "prerequisites": ["mathematical-induction", "recursive-definition"],
+      "difficulty": 4,
+      "misconceptionTags": ["skipping-recursive-rule-in-inductive-step"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["recursive-definition", "structural-induction"],
+    "notes": "Tracks whether the learner grounds each inductive step in the sequence's actual recursive rule before substituting the inductive hypothesis, and whether they recognize that matching a few computed terms to a formula is not a proof. Plain-language indicator for the first vertical slice; full mastery model is Phase 3 scope."
+  }
+}

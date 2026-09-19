@@ -1,0 +1,262 @@
+{
+  "lessonId": "pfmm-m7-l2-equivalence-relations-and-invariants",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-07-relations-equivalence-invariants",
+  "title": "Equivalence Relations and Invariants",
+  "learningObjective": "Recognize equivalence relations, reason about equivalence classes, and use an invariant argument to prove two objects are not equivalent.",
+  "estimatedMinutes": { "min": 15, "max": 25 },
+  "prerequisites": ["relation-properties", "reflexivity", "symmetry", "transitivity", "direct-proof"],
+  "conceptsIntroduced": [
+    "equivalence-relation",
+    "equivalence-class",
+    "invariant-argument"
+  ],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall from the previous lesson that a relation can be reflexive, symmetric, and transitive, and that you already proved \"$\\equiv \\pmod 5$\" is reflexive and transitive."
+    },
+    "encounter": {
+      "bodyMarkdown": "\"$\\equiv \\pmod 5$\" splits the integers into groups: $\\ldots, -5, 0, 5, 10, \\ldots$ all land together, $\\ldots, -4,1,6,11,\\ldots$ land together, and so on. Every integer falls into exactly one such group.\n\nGiven two specific integers, like $17$ and $24$, how could you *prove* they are essentially \"the same\" (same group) or provably \"different\" (different groups) — without listing out every group?"
+    },
+    "explain": {
+      "bodyMarkdown": "A relation that is reflexive, symmetric, **and** transitive all at once is called an **equivalence relation** — it behaves enough like equality to meaningfully partition a set into groups.\n\nFor an equivalence relation $R$ on $A$ and an element $a \\in A$, the **equivalence class** of $a$ is $[a] = \\{x \\in A : xRa\\}$ — every element related to $a$. Every element of $A$ belongs to exactly one equivalence class, and two elements have the *same* class exactly when they're related.\n\nTo prove $a$ and $b$ are equivalent, you show $aRb$ directly, usually via the relation's definition. To prove $a$ and $b$ are **not** equivalent, checking finitely many properties they *share* never suffices — instead, find an **invariant**: a quantity that any two related elements must share. If $a$ and $b$ have *different* values of that invariant, they cannot possibly be related, because the invariant would then have to match.\n\nFor \"$\\equiv \\pmod 5$\", the natural invariant is the remainder upon division by $5$: two integers are related exactly when their remainders mod $5$ agree. So $17$ and $24$ are related iff $17 \\bmod 5 = 24 \\bmod 5$."
+    },
+    "reflect": {
+      "bodyMarkdown": "An invariant argument is a disproof strategy: it shows non-equivalence by exhibiting a mismatch, the same way a counterexample disproves a $\\forall$ statement. The common error is treating \"I didn't find a difference\" as proof of equivalence — the only way to *prove* equivalence is to exhibit $aRb$ directly (or show the invariant genuinely matches), never by the mere absence of an obvious difference."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m7-l2-p1-definition-of-equivalence-relation",
+      "version": 1,
+      "lessonId": "pfmm-m7-l2-equivalence-relations-and-invariants",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which is the correct definition of an equivalence relation on a set $A$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "A relation that is reflexive only.",
+            "accessibleLabel": "A relation that is reflexive only."
+          },
+          {
+            "id": "b",
+            "label": "A relation that is symmetric and transitive, but not necessarily reflexive.",
+            "accessibleLabel": "A relation that is symmetric and transitive, but not necessarily reflexive."
+          },
+          {
+            "id": "c",
+            "label": "A relation that is reflexive, symmetric, and transitive.",
+            "accessibleLabel": "A relation that is reflexive, symmetric, and transitive."
+          },
+          {
+            "id": "d",
+            "label": "A relation that is reflexive and transitive, but antisymmetric rather than symmetric.",
+            "accessibleLabel": "A relation that is reflexive and transitive, but antisymmetric rather than symmetric."
+          }
+        ],
+        "correctOptionIds": ["c"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Recall the three properties from the previous lesson: reflexivity, symmetry, transitivity."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "An equivalence relation needs to behave like equality in every respect these three properties capture, not just one or two."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (d) describes a *partial order*-like combination (reflexive, antisymmetric, transitive), a different concept, not an equivalence relation."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "An equivalence relation requires all three: reflexive, symmetric, and transitive together — option (c)."
+        }
+      ],
+      "solutionMarkdown": "An equivalence relation is defined as a relation on $A$ that is simultaneously reflexive, symmetric, and transitive — all three properties, none optional. Options (a) and (b) each drop at least one required property, and option (d) substitutes antisymmetry for symmetry, which describes a different kind of relation (used for orderings, not equivalences).",
+      "concepts": ["equivalence-relation"],
+      "prerequisites": ["reflexivity", "symmetry", "transitivity"],
+      "difficulty": 1,
+      "misconceptionTags": ["equivalence-relation-missing-property"]
+    },
+    {
+      "id": "pfmm-m7-l2-p2-fill-symmetric-mod5",
+      "version": 1,
+      "lessonId": "pfmm-m7-l2-equivalence-relations-and-invariants",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the proof that \"$\\equiv \\pmod 5$\" is symmetric, continuing the verification that it is an equivalence relation: if $a \\equiv b \\pmod 5$, then $a - b = 5k$ for some integer $k$, so $b - a = 5 \\cdot$ ___, and since ___ is an integer, $b \\equiv a \\pmod 5$.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Expression multiplying 5 (in terms of k)", "acceptedValues": ["-k"] },
+          { "id": "b2", "label": "Which quantity is an integer", "acceptedValues": ["-k"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Start from $a - b = 5k$ and algebraically solve for $b - a$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$b - a$ is exactly the negative of $a - b$. Negate both sides of $a-b=5k$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$-(a-b) = -5k = 5(-k)$. So $b-a = 5 \\cdot (-k)$, and you need to name what plays the role of the witness integer."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$b - a = 5 \\cdot (-k)$, and $-k$ is an integer since $k$ is, so $b \\equiv a \\pmod 5$ with witness $-k$."
+        }
+      ],
+      "solutionMarkdown": "Since $a \\equiv b \\pmod 5$, we have $a - b = 5k$ for some integer $k$. Negating both sides: $b - a = -(a-b) = -5k = 5(-k)$. Since $k$ is an integer, so is $-k$, so $b-a$ has the form $5 \\cdot (\\text{integer})$ — exactly the definition of $b \\equiv a \\pmod 5$. Combined with reflexivity and transitivity from the previous lesson, this completes the verification that \"$\\equiv \\pmod 5$\" is an equivalence relation.",
+      "concepts": ["equivalence-relation", "symmetry"],
+      "prerequisites": ["symmetry", "direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["sign-error-in-symmetric-proof"]
+    },
+    {
+      "id": "pfmm-m7-l2-p3-order-invariant-argument",
+      "version": 1,
+      "lessonId": "pfmm-m7-l2-equivalence-relations-and-invariants",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of an invariant argument proving that $17$ and $24$ are **not** congruent mod $5$ (i.e., $17 \\not\\equiv 24 \\pmod 5$).",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Compute $17 \\bmod 5$: since $17 = 5 \\cdot 3 + 2$, the remainder is $2$." },
+          { "id": "s2", "textMarkdown": "Compute $24 \\bmod 5$: since $24 = 5 \\cdot 4 + 4$, the remainder is $4$." },
+          { "id": "s3", "textMarkdown": "The invariant (remainder mod $5$) is $2$ for $17$ and $4$ for $24$, and $2 \\neq 4$, so the invariant differs." },
+          { "id": "s4", "textMarkdown": "Since $17$ and $24$ have different remainders mod $5$, they are not congruent: $17 \\not\\equiv 24 \\pmod 5$." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": [["s2", "s1", "s3", "s4"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "An invariant argument computes the same quantity for both objects, then compares."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "For mod-5 congruence, the relevant invariant is the remainder upon division by $5$. Compute it for each number before comparing."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The two remainder computations can happen in either order, but both must come before you compare them, and the comparison must come before the final conclusion."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Compute $17 \\bmod 5 = 2$ and $24 \\bmod 5 = 4$ (in either order), observe $2 \\neq 4$, then conclude $17 \\not\\equiv 24 \\pmod 5$."
+        }
+      ],
+      "solutionMarkdown": "An invariant argument for non-equivalence follows the shape: **compute the invariant for both objects, compare, and conclude non-equivalence from a mismatch.**\n\n1. $17 = 5\\cdot 3 + 2$, so $17 \\bmod 5 = 2$.\n2. $24 = 5 \\cdot 4 + 4$, so $24 \\bmod 5 = 4$. (Steps 1 and 2 can be swapped — neither depends on the other.)\n3. The invariant values, $2$ and $4$, are different.\n4. Since two objects related by an equivalence relation must share every invariant of that relation, and the remainder mod $5$ differs here, $17$ and $24$ cannot be congruent mod $5$: $17 \\not\\equiv 24 \\pmod 5$.",
+      "concepts": ["invariant-argument", "equivalence-relation"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["disproving-without-invariant"]
+    },
+    {
+      "id": "pfmm-m7-l2-p4-cannot-conclude-equivalence",
+      "version": 1,
+      "lessonId": "pfmm-m7-l2-equivalence-relations-and-invariants",
+      "type": "multiple_choice",
+      "promptMarkdown": "You want to determine whether $33$ and $48$ are equivalent under \"$\\equiv \\pmod 5$\". You check that neither is negative, both are odd... wait, $48$ is even; you notice you can't immediately spot an obvious difference between them. Why can you **not** yet conclude that $33 \\equiv 48 \\pmod 5$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Failing to notice an obvious difference is not the same as showing the invariant matches — you must explicitly compute both remainders mod 5 and confirm they are equal.",
+            "accessibleLabel": "Failing to notice an obvious difference is not the same as showing the invariant matches; you must explicitly compute both remainders."
+          },
+          {
+            "id": "b",
+            "label": "Two integers are always equivalent mod 5 unless proven otherwise, so no further work is needed.",
+            "accessibleLabel": "Two integers are always equivalent mod 5 unless proven otherwise."
+          },
+          {
+            "id": "c",
+            "label": "Equivalence mod 5 can only be disproved, never proved.",
+            "accessibleLabel": "Equivalence mod 5 can only be disproved, never proved."
+          },
+          {
+            "id": "d",
+            "label": "Since both numbers are positive, they are automatically equivalent mod 5.",
+            "accessibleLabel": "Since both numbers are positive, they are automatically equivalent mod 5."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Compare this to disproving a $\\forall$ statement: not finding a counterexample after a few tries doesn't prove the statement true either."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "What would actually establish $33 \\equiv 48 \\pmod 5$? Recall the definition requires $33 - 48 = 5k$ for some integer $k$, or equivalently, matching remainders."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Try computing $33 \\bmod 5$ and $48 \\bmod 5$ directly rather than eyeballing the numbers."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$33 = 5\\cdot 6+3$ so $33 \\bmod 5=3$; $48=5\\cdot9+3$ so $48\\bmod5=3$. The remainders do match here, but only because you explicitly computed and compared them — never because no difference was obvious at a glance."
+        }
+      ],
+      "solutionMarkdown": "\"I couldn't find a difference\" is not a proof of anything — it's the absence of a disproof, which is logically weaker. To *prove* equivalence, you must explicitly demonstrate the invariant matches: compute $33 \\bmod 5 = 3$ and $48 \\bmod 5 = 3$, see that both equal $3$, and only then conclude $33 \\equiv 48 \\pmod 5$. Options (b) and (d) invent rules with no basis in the definition, and (c) is false — equivalence is proved directly via the definition or a matching invariant, just as often as it's disproved via a mismatched one.",
+      "concepts": ["invariant-argument", "equivalence-relation"],
+      "prerequisites": ["direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["absence-of-difference-as-proof-of-equivalence"]
+    },
+    {
+      "id": "pfmm-m7-l2-p5-order-parity-equivalence-classes",
+      "version": 1,
+      "lessonId": "pfmm-m7-l2-equivalence-relations-and-invariants",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a proof that \"has the same parity as\" (aRb iff $a$ and $b$ are both even or both odd) is an equivalence relation on $\\mathbb{Z}$ with exactly two equivalence classes.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "Define $R$ on $\\mathbb{Z}$ by $aRb \\iff a$ and $b$ have the same parity (both even or both odd)." },
+          { "id": "s2", "textMarkdown": "Reflexive: for any integer $a$, $a$ trivially has the same parity as itself, so $aRa$." },
+          { "id": "s3", "textMarkdown": "Symmetric: if $a$ has the same parity as $b$, then by the same fact, $b$ has the same parity as $a$, so $aRb \\Rightarrow bRa$." },
+          { "id": "s4", "textMarkdown": "Transitive: if $a,b$ have the same parity and $b,c$ have the same parity, then $a$, $b$, and $c$ all share that one parity, so in particular $a$ and $c$ share it, giving $aRb \\wedge bRc \\Rightarrow aRc$." },
+          { "id": "s5", "textMarkdown": "Since $R$ is reflexive, symmetric, and transitive, $R$ is an equivalence relation." },
+          { "id": "s6", "textMarkdown": "Every integer is either even or odd, and never both, so the equivalence classes are exactly the set of even integers and the set of odd integers — exactly two classes." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "First state precisely what the relation is, then verify each of the three defining properties in turn, then conclude with the equivalence classes."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The property checks (reflexive, symmetric, transitive) should come in that standard order, each depending only on the definition, not on each other."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "You can only correctly call $R$ an equivalence relation after all three properties are verified — that conclusion step must come after reflexive, symmetric, and transitive, but before identifying the classes."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: define $R$, verify reflexive, verify symmetric, verify transitive, conclude $R$ is an equivalence relation, then identify the two equivalence classes (evens and odds)."
+        }
+      ],
+      "solutionMarkdown": "This proof combines the equivalence-relation verification pattern with an explicit description of the resulting classes.\n\n1. State the relation precisely: same parity.\n2–4. Verify reflexivity, symmetry, and transitivity in turn, each directly from the definition of \"same parity\" — no step depends on a later one.\n5. Only once all three properties are confirmed can you conclude $R$ is an equivalence relation.\n6. Finally, since every integer is even or odd (and never both, by the mutually exclusive definitions), the class of any even integer is the set of all even integers, and the class of any odd integer is the set of all odd integers — so there are exactly two equivalence classes.",
+      "concepts": ["equivalence-relation", "equivalence-class"],
+      "prerequisites": ["reflexivity", "symmetry", "transitivity"],
+      "difficulty": 4,
+      "misconceptionTags": ["conflating-equivalence-classes-with-elements"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["equivalence-relation", "equivalence-class", "invariant-argument"],
+    "notes": "Plain-language 'developing'/'solid' snapshot per concept, matching earlier lessons, ahead of the full mastery model (Phase 3, ROADMAP.md)."
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "lessonId": "pfmm-m2-l3-proving-even-odd-claims",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-02-direct-proofs-and-definitions",
+  "title": "Proving Claims About Even and Odd Integers",
+  "learningObjective": "Prove claims about even and odd integers directly, choosing between a single clean algebraic derivation and an exhaustive case split on parity as the claim demands.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 25
+  },
+  "prerequisites": ["direct-proof", "even-integer", "odd-integer"],
+  "conceptsIntroduced": ["parity-proof", "case-free-direct-proof"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall the direct-proof recipe and the formal definitions $n$ even $\\iff n=2k$, $n$ odd $\\iff n=2k+1$ (for some integer $k$), and the closure idea from the previous lesson: factoring a common integer back out of an algebraic expression reveals the definition you're chasing."
+    },
+    "encounter": {
+      "bodyMarkdown": "\"The sum of two even integers is even\" needed no case analysis: both hypotheses pinned down the exact algebraic form of $a$ and $b$, and the algebra did the rest. Now consider: \"$n(n+1)$ is always even, for *every* integer $n$.\" Here there's only *one* hypothesis — $n$ is an integer — and it says nothing about $n$'s parity. Can you still find a single clean algebraic identity for $n(n+1)$ that reveals a factor of $2$, without knowing whether $n$ itself is even or odd?"
+    },
+    "explain": {
+      "bodyMarkdown": "Some claims (like the sum of two evens) admit a **case-free direct proof**: the hypotheses already fix enough algebraic structure that one chain of equalities finishes the job. Other claims — a **parity proof** — need you to split on a fact that's *always true but not given*: every integer is either even or odd, with no third option and no overlap. When neither the algebraic form of $n$ nor a fixed form for a related quantity is available directly from the hypothesis, split into cases:\n\n1. **Case 1:** assume the object is even; rewrite it as $2k$ and finish the argument in this case.\n2. **Case 2:** assume the object is odd; rewrite it as $2k+1$ and finish the argument in this case.\n3. **Conclude**, because the two cases are **exhaustive** (every integer is one or the other) and each case independently reaches the desired conclusion.\n\nFor $n(n+1)$: if $n$ is even, $n=2k$, so $n(n+1) = 2k(n+1)$ is even directly. If $n$ is odd, then $n+1$ is even, so $n+1=2k$, and $n(n+1) = n \\cdot 2k$ is even directly. Either way, $n(n+1)$ is even — the case split works because *at least one* of $n, n+1$ is always even, even though which one varies."
+    },
+    "reflect": {
+      "bodyMarkdown": "A case-split proof is only valid if the cases are genuinely **exhaustive** (covering every possibility, with nothing left out) and each case is carried all the way to the target conclusion — stopping partway through one case, or forgetting a case entirely, leaves the proof incomplete. A second common error is representing an arbitrary odd integer as $n=2k$ (that's the form for *even*) or as $n=k$ with no constraint at all (that captures every integer, not just odd ones) — only $n=2k+1$ correctly and exclusively describes an arbitrary odd integer."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m2-l3-p1-odd-representation",
+      "version": 1,
+      "lessonId": "pfmm-m2-l3-proving-even-odd-claims",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which representation correctly and exclusively describes an arbitrary odd integer $n$, for use in a proof?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$n = 2k+1$ for some integer $k$",
+            "accessibleLabel": "n equals 2k plus 1 for some integer k."
+          },
+          {
+            "id": "b",
+            "label": "$n = 2k$ for some integer $k$",
+            "accessibleLabel": "n equals 2k for some integer k."
+          },
+          {
+            "id": "c",
+            "label": "$n = k$ for some integer $k$",
+            "accessibleLabel": "n equals k for some integer k."
+          },
+          {
+            "id": "d",
+            "label": "$n = k+1$ for some integer $k$",
+            "accessibleLabel": "n equals k plus 1 for some integer k."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The representation must produce *only* odd integers as $k$ ranges over all integers, and it must be able to produce *every* odd integer."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Check option (b) against small values of $k$: does $2k$ ever come out odd?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Options (c) and (d) let $n$ range over *every* integer as $k$ varies (not just odd ones) — $k=2$ in (c) gives the even number $2$, and $k=1$ in (d) gives the even number $2$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Only $n=2k+1$ produces exclusively odd values ($\\ldots,-1,1,3,5,\\ldots$) and produces every odd integer as $k$ ranges over $\\mathbb{Z}$."
+        }
+      ],
+      "solutionMarkdown": "An arbitrary odd integer must be represented by a formula that produces exactly the odd integers, no more and no fewer, as the free integer parameter varies. $n=2k+1$ does this: as $k$ ranges over $\\mathbb{Z}$, $2k+1$ takes every odd value and no even one. Option (b), $n=2k$, is the definition of *even*. Options (c) and (d) place no parity restriction on $n$ at all — both even and odd values are produced — so using either in a proof about odd integers would fail to capture the hypothesis.",
+      "concepts": ["odd-integer", "formal-definition"],
+      "prerequisites": ["odd-integer"],
+      "difficulty": 1,
+      "misconceptionTags": ["confusing-odd-and-even-formula"]
+    },
+    {
+      "id": "pfmm-m2-l3-p2-even-square-div-by-4",
+      "version": 1,
+      "lessonId": "pfmm-m2-l3-proving-even-odd-claims",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the direct proof that the square of any even integer is divisible by $4$.\n\nProof: Let $n$ be an arbitrary even integer. By definition, $n=2k$ for some integer $k$. Then\n$$n^2 = (2k)^2 = \\underline{\\hspace{1.5cm}}.$$\nSince $k^2$ is an integer, $4 \\mid n^2$, with witness $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expanded form of (2k)^2",
+            "acceptedValues": ["4k^2", "4*k^2", "4 k^2"]
+          },
+          {
+            "id": "b2",
+            "label": "The integer witness for 4 | n^2",
+            "acceptedValues": ["k^2"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Expand $(2k)^2$ by squaring both the $2$ and the $k$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$(2k)^2 = 4k^2$. You need this written as $4$ times *something* for the definition of $4 \\mid n^2$ to become visible."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Once $n^2 = 4 \\cdot k^2$, the witness for $4 \\mid n^2$ is whatever multiplies $4$ on the right-hand side."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n^2 = 4k^2$, and since $k$ is an integer, $k^2$ is too, so $4 \\mid n^2$ with witness $k^2$."
+        }
+      ],
+      "solutionMarkdown": "Rewrite the hypothesis with the formal definition of even, $n=2k$, then square: $n^2=(2k)^2=4k^2$. This is already exactly the shape $4 \\cdot (\\text{integer})$, since $k \\in \\mathbb{Z}$ implies $k^2 \\in \\mathbb{Z}$. So $4 \\mid n^2$, with witness $k^2$ — no case split was needed because the single hypothesis \"$n$ is even\" already pinned down $n$'s exact algebraic form.",
+      "concepts": ["parity-proof", "even-integer"],
+      "prerequisites": ["even-integer", "direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["failing-to-identify-integer-witness"]
+    },
+    {
+      "id": "pfmm-m2-l3-p3-consecutive-sum-odd",
+      "version": 1,
+      "lessonId": "pfmm-m2-l3-proving-even-odd-claims",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a case-split proof that the sum of any two consecutive integers is odd.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $n$ be an arbitrary integer; consider the two consecutive integers $n$ and $n+1$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Case 1: $n$ is even. Then $n=2k$ for some integer $k$, so $n+(n+1) = 2k+(2k+1) = 4k+1 = 2(2k)+1$, which is odd."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Case 2: $n$ is odd. Then $n=2k+1$ for some integer $k$, so $n+(n+1) = (2k+1)+(2k+2) = 4k+3 = 2(2k+1)+1$, which is odd."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since every integer $n$ is either even or odd, these two cases are exhaustive, so the sum of any two consecutive integers is odd."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": [["s1", "s3", "s2", "s4"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This claim has only one hypothesis (\"$n$ is an integer\"), which doesn't pin down $n$'s parity — a case split on parity is the natural approach."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The two parity cases can be argued in either order relative to each other, but both must come after the setup step and before the concluding step."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Each case must independently rewrite $n$, compute the sum, and show the result is odd — neither case can be skipped or left incomplete."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: introduce $n$ and the consecutive pair, handle the even case, handle the odd case (either case first is fine), then conclude from exhaustiveness."
+        }
+      ],
+      "solutionMarkdown": "Since the hypothesis (\"$n$ is an integer\") doesn't fix $n$'s parity, the proof splits into the two exhaustive, mutually exclusive possibilities (step 1 sets this up). In each case, $n$ is rewritten with the definition matching that case's assumption, and the sum $n+(n+1)$ is computed and shown to be twice an integer plus $1$ (steps 2 and 3 — order between them doesn't matter, since neither depends on the other). The proof concludes by noting that because every integer falls into one of the two cases, the odd conclusion holds unconditionally (step 4).",
+      "concepts": ["parity-proof", "case-free-direct-proof"],
+      "prerequisites": ["even-integer", "odd-integer", "direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["leaving-a-case-incomplete-or-omitted"]
+    },
+    {
+      "id": "pfmm-m2-l3-p4-odd-product-plus-one",
+      "version": 1,
+      "lessonId": "pfmm-m2-l3-proving-even-odd-claims",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the direct proof that if $m$ and $n$ are both odd integers, then $mn+1$ is even.\n\nProof: Let $m, n$ be arbitrary odd integers. By definition, $m=2j+1$ and $n=2k+1$ for some integers $j,k$. Then\n$$mn+1 = (2j+1)(2k+1)+1 = 4jk+2j+2k+2 = 2(\\underline{\\hspace{1.5cm}}).$$\nSince $2jk+j+k+1$ is an integer, $mn+1$ is $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expression inside the parentheses",
+            "acceptedValues": ["2jk+j+k+1", "2jk + j + k + 1"]
+          },
+          {
+            "id": "b2",
+            "label": "Parity of mn+1",
+            "acceptedValues": ["even"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Expand $(2j+1)(2k+1)$ first, add $1$, then factor a $2$ out of every term."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$(2j+1)(2k+1) = 4jk+2j+2k+1$, so $mn+1 = 4jk+2j+2k+2$. Every one of these four terms is even."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$4jk+2j+2k+2 = 2(2jk+j+k+1)$. The quantity inside the parentheses is the witness that $mn+1$ is twice an integer."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The blank is $2jk+j+k+1$, an integer since $j,k \\in \\mathbb{Z}$, so $mn+1 = 2(2jk+j+k+1)$ is even."
+        }
+      ],
+      "solutionMarkdown": "Rewrite both hypotheses with the formal definition of odd, using distinct witnesses $j,k$, then expand and add $1$: $mn+1=(2j+1)(2k+1)+1 = 4jk+2j+2k+2$. Unlike the product $mn$ alone (which is odd), adding $1$ makes every term divisible by $2$, since $4jk+2j+2k+2 = 2(2jk+j+k+1)$ and $2jk+j+k+1$ is an integer. So $mn+1$ is even — no case split was needed, since both hypotheses already fixed the algebraic form completely.",
+      "concepts": ["parity-proof", "odd-integer"],
+      "prerequisites": ["odd-integer", "direct-proof"],
+      "difficulty": 4,
+      "misconceptionTags": ["reusing-one-variable-for-two-arbitrary-objects"]
+    },
+    {
+      "id": "pfmm-m2-l3-p5-consecutive-product-even",
+      "version": 1,
+      "lessonId": "pfmm-m2-l3-proving-even-odd-claims",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a case-split proof that $n(n+1)$ is even for every integer $n$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $n$ be an arbitrary integer."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Case 1: $n$ is even. Then $n=2k$ for some integer $k$, so $n(n+1) = 2k(n+1) = 2\\big(k(n+1)\\big)$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Case 2: $n$ is odd. Then $n+1$ is even, so $n+1=2k$ for some integer $k$, and $n(n+1) = n \\cdot 2k = 2(nk)$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "In either case, $n(n+1)$ equals $2$ times an integer, so $n(n+1)$ is even for every integer $n$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": [["s1", "s3", "s2", "s4"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "The single hypothesis \"$n$ is an integer\" doesn't fix parity, but exactly one of $n$ and $n+1$ must be even, whichever case $n$ falls into."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "In the case where $n$ is odd, it's $n+1$ — not $n$ — that gets rewritten with the definition of even."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Each case must reach the same target form, '$2$ times an integer', before the final step can invoke both cases together."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: introduce arbitrary $n$, handle the even-$n$ case, handle the odd-$n$ case (either case first is fine), then conclude by exhaustiveness."
+        }
+      ],
+      "solutionMarkdown": "With only \"$n$ is an integer\" as a hypothesis, the proof splits on parity (step 1). If $n$ is even, $n=2k$ directly supplies the needed factor of $2$ (step 2). If $n$ is odd, $n$ itself isn't even, but its neighbor $n+1$ is, so $n+1=2k$ supplies the factor of $2$ instead (step 3) — this is the key insight that makes the case split work: *one* of the two consecutive integers is always even, even though which one depends on the case. Both cases reach the form $n(n+1) = 2(\\text{integer})$, so the conclusion follows in either case (step 4).",
+      "concepts": ["parity-proof", "case-free-direct-proof"],
+      "prerequisites": ["even-integer", "odd-integer", "direct-proof"],
+      "difficulty": 4,
+      "misconceptionTags": ["rewriting-the-wrong-quantity-in-a-case"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["parity-proof", "case-free-direct-proof", "even-integer", "odd-integer"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

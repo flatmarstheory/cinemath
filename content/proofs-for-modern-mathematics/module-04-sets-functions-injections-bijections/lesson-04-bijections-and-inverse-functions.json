@@ -1,0 +1,256 @@
+{
+  "lessonId": "pfmm-m4-l4-bijections-and-inverse-functions",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-04-sets-functions-injections-bijections",
+  "title": "Bijections and Inverse Functions",
+  "learningObjective": "Prove that a function is bijective by establishing injectivity and surjectivity together, and derive and verify its inverse function.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 22
+  },
+  "prerequisites": ["injective-function", "surjective-function", "function-definition"],
+  "conceptsIntroduced": ["bijective-function", "inverse-function"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall from the previous lesson that $f : \\mathbb{Z} \\to \\mathbb{Z}$, $f(n) = n+5$, was shown to be both injective and surjective."
+    },
+    "encounter": {
+      "bodyMarkdown": "Since $f(n) = n+5$ never loses information (injective) and reaches every integer (surjective), it should be possible to exactly \"undo\" it: given an output $y$, recover the unique input $n$ that produced it. What is the undo rule for $f(n) = n+5$, and why does having *both* properties make such a rule possible?"
+    },
+    "explain": {
+      "bodyMarkdown": "A function $f : A \\to B$ is **bijective** exactly when it is both **injective** and **surjective**. Injectivity guarantees that no output is shared by two inputs (so \"undoing\" $f$ never has to choose between candidates), and surjectivity guarantees every element of $B$ has *some* input to undo to (so the undo rule is defined everywhere on $B$). Together, they guarantee that for every $y \\in B$ there is *exactly one* $x \\in A$ with $f(x) = y$.\n\nThat unique-witness guarantee is exactly what lets us define the **inverse function** $f^{-1} : B \\to A$, by setting $f^{-1}(y)$ to be the unique $x$ with $f(x) = y$. The inverse exists precisely when $f$ is bijective, and it satisfies the two defining identities:\n\n$$f^{-1}(f(x)) = x \\quad \\text{for all } x \\in A, \\qquad f(f^{-1}(y)) = y \\quad \\text{for all } y \\in B.$$\n\nFor $f(n) = n+5$, the undo rule is $g(n) = n - 5$: applying $f$ then $g$ (or $g$ then $f$) returns the original value, since $(n+5)-5 = n$ and $(n-5)+5=n$. To find an inverse in general, solve the equation $y = f(x)$ for $x$ in terms of $y$ — the resulting formula is $f^{-1}(y)$, and it should then be checked against both identities above."
+    },
+    "reflect": {
+      "bodyMarkdown": "The most common error is trying to write down an inverse for a function that isn't injective — if two inputs share an output, \"undoing\" that output has no single well-defined answer, so no true inverse function exists on the full domain (this is exactly why $f(x)=x^2$ on all of $\\mathbb{R}$ has no inverse: both $x=2$ and $x=-2$ map to $4$). A second common error is deriving a candidate formula for $f^{-1}$ algebraically but forgetting to verify both identities, $f^{-1}(f(x))=x$ and $f(f^{-1}(y))=y$ — for some invalid manipulations, only one of the two checks would actually fail."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m4-l4-p1-bijection-definition",
+      "version": 1,
+      "lessonId": "pfmm-m4-l4-bijections-and-inverse-functions",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which of the following correctly defines $f : A \\to B$ being a bijection?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$f$ is both injective and surjective.",
+            "accessibleLabel": "f is both injective and surjective."
+          },
+          {
+            "id": "b",
+            "label": "$f$ is injective or surjective (at least one).",
+            "accessibleLabel": "f is injective or surjective, at least one of the two."
+          },
+          {
+            "id": "c",
+            "label": "$f$ is injective, regardless of surjectivity.",
+            "accessibleLabel": "f is injective, regardless of surjectivity."
+          },
+          {
+            "id": "d",
+            "label": "The domain and codomain of $f$ have the same number of elements.",
+            "accessibleLabel": "The domain and codomain of f have the same number of elements."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Bijective is defined as a conjunction of two properties covered in the previous lesson — which two, and joined by \"and\" or \"or\"?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Having only one of the two properties is not enough — recall $f(n)=2n$ (injective only) and $g(n) = n \\bmod 3$ (surjective only) from the previous lesson; neither is bijective."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (d) describes matching *sizes*, which can hold or fail independently of whether a specific function between the sets is injective/surjective, and doesn't apply cleanly to infinite sets in this course's scope."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (a) is correct: bijective means injective **and** surjective, both properties holding simultaneously — that's precisely what guarantees a well-defined inverse."
+        }
+      ],
+      "solutionMarkdown": "A bijection requires *both* properties at once: $f$ is injective (no two inputs share an output) **and** surjective (every codomain element is achieved). Option (b) only requires one of the two, which is too weak — $f(n)=2n$ on $\\mathbb{Z}\\to\\mathbb{Z}$ is injective but not surjective, yet (b) would wrongly call it bijective. Option (c) drops the surjectivity requirement entirely. Option (d) is a size comparison, not the operative definition used to prove bijectivity of a specific function.",
+      "concepts": ["bijective-function"],
+      "prerequisites": ["injective-function", "surjective-function"],
+      "difficulty": 1,
+      "misconceptionTags": ["assuming-one-property-implies-bijective"]
+    },
+    {
+      "id": "pfmm-m4-l4-p2-verify-inverse-shift",
+      "version": 1,
+      "lessonId": "pfmm-m4-l4-bijections-and-inverse-functions",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Let $f(n) = n + 5$ and $g(n) = n - 5$, both functions $\\mathbb{Z} \\to \\mathbb{Z}$. Complete the verification that $g = f^{-1}$.\n\n$f(g(n)) = g(n) + 5 = (n - 5) + 5 = $ ___.\n\n$g(f(n)) = f(n) - 5 = (n + 5) - 5 = $ ___.\n\nSince both compositions return the original input for every $n \\in \\mathbb{Z}$, $g$ is indeed the inverse of $f$.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Value of f(g(n))", "acceptedValues": ["n"] },
+          { "id": "b2", "label": "Value of g(f(n))", "acceptedValues": ["n"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Verifying an inverse means checking both composition identities, not just one."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Simplify $(n-5)+5$ using ordinary arithmetic — the $-5$ and $+5$ should cancel."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Similarly, simplify $(n+5)-5$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Both simplify to $n$: $(n-5)+5=n$ and $(n+5)-5=n$, confirming $g$ undoes $f$ in both directions."
+        }
+      ],
+      "solutionMarkdown": "To confirm $g$ is the inverse of $f$, both composition identities must hold for every $n$. $f(g(n)) = g(n)+5 = (n-5)+5 = n$. $g(f(n)) = f(n)-5 = (n+5)-5 = n$. Both compositions return the original input $n$, matching the two defining identities $f^{-1}(f(n))=n$ and $f(f^{-1}(n))=n$, so $g(n) = n-5$ is indeed $f^{-1}$.",
+      "concepts": ["inverse-function"],
+      "prerequisites": ["function-definition"],
+      "difficulty": 2,
+      "misconceptionTags": ["verifying-only-one-composition-direction"]
+    },
+    {
+      "id": "pfmm-m4-l4-p3-linear-bijective",
+      "version": 1,
+      "lessonId": "pfmm-m4-l4-bijections-and-inverse-functions",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps into a valid proof that $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = 2x - 1$, is bijective.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "To show injective: assume $f(a) = f(b)$ for arbitrary $a, b \\in \\mathbb{R}$, so $2a - 1 = 2b - 1$." },
+          { "id": "s2", "textMarkdown": "Then $2a = 2b$, so $a = b$. Hence $f$ is injective." },
+          { "id": "s3", "textMarkdown": "To show surjective: let $y \\in \\mathbb{R}$ be arbitrary, and let $x = \\dfrac{y+1}{2}$, which is a real number." },
+          { "id": "s4", "textMarkdown": "Then $f(x) = 2 \\cdot \\dfrac{y+1}{2} - 1 = (y+1) - 1 = y$, so $y$ is achieved. Hence $f$ is surjective." },
+          { "id": "s5", "textMarkdown": "Since $f$ is both injective and surjective, $f$ is bijective." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5"],
+        "alternateValidOrders": [["s3", "s4", "s1", "s2", "s5"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "A bijectivity proof is really two proofs back to back: an injectivity proof and a surjectivity proof, in either order, followed by a concluding step."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The final concluding step — that $f$ is bijective — can only come after *both* sub-proofs are complete, not after just one."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Within the surjectivity block, the candidate $x = \\frac{y+1}{2}$ must be introduced before it's plugged into $f$ to verify $f(x)=y$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: prove injective (assume $f(a)=f(b)$, derive $a=b$); prove surjective (fix $y$, construct $x$, verify $f(x)=y$); conclude bijective. The two blocks may swap order as wholes, but each block's own steps stay in sequence."
+        }
+      ],
+      "solutionMarkdown": "**Injective:** assume $f(a)=f(b)$, i.e. $2a-1=2b-1$. Then $2a=2b$, so $a=b$. Hence $f$ is injective.\n\n**Surjective:** let $y \\in \\mathbb{R}$ be arbitrary. Let $x = \\frac{y+1}{2} \\in \\mathbb{R}$. Then $f(x) = 2\\cdot\\frac{y+1}{2} - 1 = (y+1)-1 = y$, so $y$ is achieved. Hence $f$ is surjective.\n\n**Conclusion:** since $f$ is both injective and surjective, $f$ is bijective. The concluding step must come last, since it depends on both sub-proofs being finished.",
+      "concepts": ["bijective-function", "injective-function", "surjective-function"],
+      "prerequisites": ["direct-proof", "existential-quantifier"],
+      "difficulty": 3,
+      "misconceptionTags": ["assuming-one-property-implies-bijective"]
+    },
+    {
+      "id": "pfmm-m4-l4-p4-square-no-inverse",
+      "version": 1,
+      "lessonId": "pfmm-m4-l4-bijections-and-inverse-functions",
+      "type": "multiple_choice",
+      "promptMarkdown": "Why does $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = x^2$, fail to have an inverse function on its full domain?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "It is not injective on all of $\\mathbb{R}$ — for example, $f(1) = f(-1) = 1$ with $1 \\neq -1$.",
+            "accessibleLabel": "It is not injective on all of the reals, for example f of 1 equals f of negative 1 equals 1, with 1 not equal to negative 1."
+          },
+          {
+            "id": "b",
+            "label": "It is not surjective onto $\\mathbb{R}$, so it has no inverse.",
+            "accessibleLabel": "It is not surjective onto the reals, so it has no inverse."
+          },
+          {
+            "id": "c",
+            "label": "Its domain and codomain are both $\\mathbb{R}$, and inverses only exist when they differ.",
+            "accessibleLabel": "Its domain and codomain are both the reals, and inverses only exist when they differ."
+          },
+          {
+            "id": "d",
+            "label": "It is not well-defined as a function.",
+            "accessibleLabel": "It is not well-defined as a function."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "An inverse requires both injectivity and surjectivity. Check each property for $f(x)=x^2$ on all of $\\mathbb{R}$ separately."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Its lack of surjectivity onto $\\mathbb{R}$ (negative numbers are never hit) is real, but that alone would only mean the codomain should be restricted, e.g. to $[0,\\infty)$ — it wouldn't by itself block an inverse if injectivity held."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Try to find two distinct real numbers with the same square."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$f(1) = 1$ and $f(-1) = 1$, but $1 \\neq -1$, so $f$ is not injective. Without injectivity, \"undoing\" the output $1$ has two equally valid candidate inputs, so no single-valued inverse can be defined."
+        }
+      ],
+      "solutionMarkdown": "An inverse function requires $f$ to be bijective — injective and surjective together. $f(x)=x^2$ fails injectivity on all of $\\mathbb{R}$: $f(1) = 1$ and $f(-1) = 1$, yet $1 \\neq -1$, so two distinct inputs share an output. Given the output $1$, there is no *single* well-defined value to undo it to (both $1$ and $-1$ are equally valid), so no true inverse function exists on this domain. (It also fails to be surjective onto $\\mathbb{R}$, since negative outputs never occur, but the injectivity failure is what makes \"undoing\" fundamentally ambiguous, which is the deeper obstruction to an inverse existing at all.)",
+      "concepts": ["bijective-function", "inverse-function"],
+      "prerequisites": ["injective-function"],
+      "difficulty": 3,
+      "misconceptionTags": ["believing-noninjective-function-has-inverse"]
+    },
+    {
+      "id": "pfmm-m4-l4-p5-derive-inverse-linear",
+      "version": 1,
+      "lessonId": "pfmm-m4-l4-bijections-and-inverse-functions",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Let $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = 3x + 7$, which is bijective. Derive its inverse and verify it.\n\nSet $y = 3x + 7$ and solve for $x$: subtracting $7$ from both sides gives $y - 7 = 3x$, so $x = $ ___ (in terms of $y$). This gives $f^{-1}(y) = \\dfrac{y-7}{3}$.\n\nVerify: $f(f^{-1}(y)) = 3 \\cdot \\dfrac{y-7}{3} + 7 = (y - 7) + 7 = $ ___.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "x solved in terms of y", "acceptedValues": ["(y-7)/3", "(y - 7)/3"] },
+          { "id": "b2", "label": "Final simplified value", "acceptedValues": ["y"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "To derive an inverse, solve $y = f(x)$ for $x$ using ordinary algebra — undo the operations of $f$ in reverse order (subtract, then divide)."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "From $y - 7 = 3x$, isolate $x$ by dividing both sides by $3$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "To verify, substitute the candidate inverse formula back into $f$ and simplify the arithmetic fully."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$x = \\frac{y-7}{3}$, and $3\\cdot\\frac{y-7}{3}+7 = (y-7)+7 = y$, confirming the identity $f(f^{-1}(y))=y$."
+        }
+      ],
+      "solutionMarkdown": "Solve $y = 3x+7$ for $x$: subtract $7$ from both sides to get $y - 7 = 3x$, then divide both sides by $3$ to get $x = \\frac{y-7}{3}$. This candidate inverse is $f^{-1}(y) = \\frac{y-7}{3}$.\n\nVerify by composing: $f(f^{-1}(y)) = 3 \\cdot \\frac{y-7}{3} + 7 = (y-7) + 7 = y$, confirming the first identity. (The second identity, $f^{-1}(f(x)) = \\frac{(3x+7)-7}{3} = \\frac{3x}{3} = x$, holds by the same kind of cancellation, completing the verification that $f^{-1}(y) = \\frac{y-7}{3}$ is genuinely the inverse of $f$.)",
+      "concepts": ["inverse-function", "bijective-function"],
+      "prerequisites": ["function-definition"],
+      "difficulty": 4,
+      "misconceptionTags": ["verifying-only-one-composition-direction"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["bijective-function", "inverse-function"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

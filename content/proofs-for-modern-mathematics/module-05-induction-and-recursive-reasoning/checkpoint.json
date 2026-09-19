@@ -1,0 +1,203 @@
+{
+  "lessonId": "pfmm-m5-checkpoint",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-05-induction-and-recursive-reasoning",
+  "title": "Checkpoint: Induction and Recursive Reasoning",
+  "kind": "checkpoint",
+  "learningObjective": "Demonstrate fluency with the principle of mathematical induction, strong induction, and induction on recursively defined sequences by completing proofs that combine all three.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 20
+  },
+  "prerequisites": ["mathematical-induction", "strong-induction", "recursive-definition", "structural-induction"],
+  "conceptsIntroduced": [],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "This checkpoint reviews the three lessons of this module: the principle of mathematical induction (base case plus inductive step), strong induction (the hypothesis over a full range of smaller cases), and induction proofs whose inductive step mirrors a sequence's recursive rule."
+    },
+    "encounter": {
+      "bodyMarkdown": "The three problems below draw on all three lessons: choosing the right form of the inductive hypothesis, completing a base-case-plus-inductive-step proof for a new formula, and combining strong induction with a recursively defined sequence built from two prior terms."
+    },
+    "explain": {
+      "bodyMarkdown": "No new theory is introduced here. Before attempting each problem, identify which lesson's technique applies: is one prior case ($k$) enough, or do you need every smaller case ($m<k$) at once? Does the inductive step need to invoke a recursive rule directly?"
+    },
+    "reflect": {
+      "bodyMarkdown": "If any problem here was difficult, revisit the corresponding lesson: Lesson 1 for the base-case/inductive-step structure itself, Lesson 2 for when and how to state the strong inductive hypothesis, and Lesson 3 for grounding the inductive step in a sequence's actual recursive definition."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m5-checkpoint-p1-strong-hypothesis-form",
+      "version": 1,
+      "lessonId": "pfmm-m5-checkpoint",
+      "type": "multiple_choice",
+      "promptMarkdown": "You want to prove $\\forall n \\geq n_0,\\ P(n)$ using strong induction. Which statement correctly describes the strong inductive hypothesis you get to assume when proving $P(k)$ for some fixed $k>n_0$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$P(k-1)$ only",
+            "accessibleLabel": "P of k minus 1 only."
+          },
+          {
+            "id": "b",
+            "label": "$P(m)$ for every integer $m$ with $n_0 \\leq m<k$",
+            "accessibleLabel": "P of m for every integer m with n-naught less than or equal to m, less than k."
+          },
+          {
+            "id": "c",
+            "label": "$P(n)$ for all $n$, since that is exactly what we are trying to prove",
+            "accessibleLabel": "P of n for all n, since that is exactly what we are trying to prove."
+          },
+          {
+            "id": "d",
+            "label": "Nothing; strong induction requires no hypothesis at all",
+            "accessibleLabel": "Nothing; strong induction requires no hypothesis at all."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Recall the distinction between weak and strong induction from Lesson 2: what range of prior cases does each one make available?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Option (a) describes the weak inductive hypothesis, not the strong one. Option (c) would be assuming the conclusion itself — never valid."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "An inductive step needs *some* hypothesis to work from; option (d) would make the inductive step impossible."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The strong inductive hypothesis is $P(m)$ for every $m$ with $n_0 \\leq m<k$ — the full range of smaller cases, not just $k-1$ — option (b)."
+        }
+      ],
+      "solutionMarkdown": "The strong inductive hypothesis, unlike the weak one, supplies $P(m)$ for **every** integer $m$ with $n_0 \\leq m<k$, not just the single case $k-1$ (ruling out (a)). Assuming $P(n)$ for all $n$ (c) would be assuming the very statement being proved, which is circular reasoning, not a hypothesis. And an inductive step cannot proceed with no hypothesis at all (d). Option (b) is the correct, precise statement of the strong inductive hypothesis.",
+      "concepts": ["strong-induction"],
+      "prerequisites": ["strong-induction"],
+      "difficulty": 2,
+      "misconceptionTags": ["strong-hypothesis-treated-as-single-prior-case"]
+    },
+    {
+      "id": "pfmm-m5-checkpoint-p2-sum-of-squares",
+      "version": 1,
+      "lessonId": "pfmm-m5-checkpoint",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the induction proof that for every integer $n \\geq 1$,\n\n$$1^2+2^2+\\cdots+n^2=\\frac{n(n+1)(2n+1)}{6}.$$",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "base",
+            "label": "Base case, $n=1$: value of $\\frac{1\\cdot 2\\cdot 3}{6}$",
+            "acceptedValues": ["1"]
+          },
+          {
+            "id": "ih",
+            "label": "Inductive hypothesis: assume, for some integer $k \\geq 1$, that $1^2+2^2+\\cdots+k^2=$",
+            "acceptedValues": ["k(k+1)(2k+1)/6"]
+          },
+          {
+            "id": "add",
+            "label": "Inductive step: $1^2+\\cdots+k^2+(k+1)^2=\\frac{k(k+1)(2k+1)}{6}+$",
+            "acceptedValues": ["(k+1)^2"]
+          },
+          {
+            "id": "final",
+            "label": "Fully simplified and factored to match the formula at $n=k+1$, this equals",
+            "acceptedValues": ["(k+1)(k+2)(2k+3)/6"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Base case: plug $n=1$ into both sides of the claimed formula."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "State the inductive hypothesis with $k$ in place of $n$, then add the next term, $(k+1)^2$, to both sides."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Factor $(k+1)$ out of $\\frac{k(k+1)(2k+1)}{6}+(k+1)^2$ before combining the remaining terms over a common denominator."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$(k+1)\\left[\\frac{k(2k+1)}{6}+(k+1)\\right]=(k+1)\\cdot\\frac{k(2k+1)+6(k+1)}{6}=(k+1)\\cdot\\frac{2k^2+7k+6}{6}=\\frac{(k+1)(k+2)(2k+3)}{6}$, since $2k^2+7k+6=(k+2)(2k+3)$."
+        }
+      ],
+      "solutionMarkdown": "**Base case ($n=1$):** the left side is $1$, and $\\frac{1\\cdot 2\\cdot 3}{6}=1$. They match.\n\n**Inductive hypothesis:** assume, for some fixed integer $k \\geq 1$, that $1^2+2^2+\\cdots+k^2=\\frac{k(k+1)(2k+1)}{6}$.\n\n**Inductive step:** adding $(k+1)^2$ to both sides,\n\n$$1^2+\\cdots+k^2+(k+1)^2=\\frac{k(k+1)(2k+1)}{6}+(k+1)^2.$$\n\nFactor out $(k+1)$: $(k+1)\\left[\\frac{k(2k+1)}{6}+(k+1)\\right]=(k+1)\\cdot\\frac{k(2k+1)+6(k+1)}{6}=(k+1)\\cdot\\frac{2k^2+7k+6}{6}$.\n\nSince $2k^2+7k+6$ factors as $(k+2)(2k+3)$, this equals $\\frac{(k+1)(k+2)(2k+3)}{6}$, which is exactly the target formula evaluated at $n=k+1$ (since $(k+1)+1=k+2$ and $2(k+1)+1=2k+3$).\n\nBy induction, $1^2+2^2+\\cdots+n^2=\\frac{n(n+1)(2n+1)}{6}$ for all integers $n \\geq 1$. The strategy — add the next term, factor out $(k+1)$, then confirm the leftover factors match the formula shifted to $n=k+1$ — generalizes to any polynomial summation formula proved this way.",
+      "concepts": ["mathematical-induction", "induction-inductive-step"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 3,
+      "misconceptionTags": ["treating-inductive-hypothesis-as-given-for-all-k"]
+    },
+    {
+      "id": "pfmm-m5-checkpoint-p3-bounded-recursive-sequence",
+      "version": 1,
+      "lessonId": "pfmm-m5-checkpoint",
+      "type": "proof_ordering",
+      "promptMarkdown": "A sequence is defined by $a_1=1$, $a_2=1$, and $a_{n}=a_{n-1}+a_{n-2}$ for $n \\geq 3$. Arrange the following steps into a valid strong-induction proof that $a_n \\leq 2^{n-1}$ for every integer $n \\geq 1$.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Base cases: $a_1=1 \\leq 2^0=1$ and $a_2=1 \\leq 2^1=2$, so the claim holds for $n=1$ and $n=2$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Strong inductive hypothesis: assume $a_m \\leq 2^{m-1}$ for every integer $m$ with $1 \\leq m<k$, for some fixed integer $k \\geq 3$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Since $k \\geq 3$, both $k-1$ and $k-2$ are at least $1$ and strictly less than $k$, so the strong inductive hypothesis applies to both."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "By the recursive definition and the strong inductive hypothesis, $a_k=a_{k-1}+a_{k-2} \\leq 2^{k-2}+2^{k-3}$."
+          },
+          {
+            "id": "s5",
+            "textMarkdown": "Since $2^{k-2}+2^{k-3}=3\\cdot 2^{k-3} \\leq 4\\cdot 2^{k-3}=2^{k-1}$, it follows that $a_k \\leq 2^{k-1}$."
+          },
+          {
+            "id": "s6",
+            "textMarkdown": "Conclude: by strong induction, $a_n \\leq 2^{n-1}$ for every integer $n \\geq 1$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This recurrence depends on two prior terms, so — as in Lesson 2 — this calls for strong induction with two base cases, not one."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The step confirming $k-1$ and $k-2$ both fall in the range covered by the strong hypothesis must come before that hypothesis is actually applied to them."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "As in Lesson 3, the inductive step should invoke the recursive definition itself ($a_k=a_{k-1}+a_{k-2}$) before any inequality manipulation."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: two base cases, strong inductive hypothesis for $k \\geq 3$, confirm the range covers $k-1,k-2$, apply the recursive definition and hypothesis together, simplify the bound, conclude."
+        }
+      ],
+      "solutionMarkdown": "Because the recurrence $a_n=a_{n-1}+a_{n-2}$ depends on two prior terms, this proof combines Lesson 2's strong induction with Lesson 3's structural approach. It opens with **two base cases** ($n=1,2$), since the inductive step will need both $k-1$ and $k-2$ to exist and be covered by the hypothesis. The **strong inductive hypothesis** covers every $m$ from $1$ up to $k-1$, for a fixed $k \\geq 3$. Since $k \\geq 3$ guarantees both $k-1 \\geq 1$ and $k-2 \\geq 1$ (and both are $<k$), the hypothesis applies to each. The inductive step then invokes the **recursive definition** $a_k=a_{k-1}+a_{k-2}$ and bounds each term using the hypothesis, giving $a_k \\leq 2^{k-2}+2^{k-3}$, which simplifies to at most $2^{k-1}$. The proof concludes by invoking strong induction.",
+      "concepts": ["strong-induction", "recursive-definition", "structural-induction"],
+      "prerequisites": ["strong-induction", "recursive-definition"],
+      "difficulty": 4,
+      "misconceptionTags": ["strong-hypothesis-treated-as-single-prior-case", "insufficient-base-cases-for-step-size"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["mathematical-induction", "strong-induction", "recursive-definition", "structural-induction"],
+    "notes": "Checkpoint aggregate: confirms the learner can select between weak and strong induction appropriately, execute a full base-case/inductive-step proof independently, and combine strong induction with a two-term recursive definition before moving to Module 6. Plain-language indicator for the first vertical slice; full mastery model is Phase 3 scope."
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "lessonId": "pfmm-m2-l1-direct-proof-strategy",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-02-direct-proofs-and-definitions",
+  "title": "Direct Proof Strategy",
+  "learningObjective": "Construct a direct proof of a universally quantified conditional by letting an arbitrary element be given, assuming the hypothesis, and deriving the conclusion using definitions and algebra.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 25
+  },
+  "prerequisites": ["conditional", "universal-quantifier", "even-integer", "odd-integer"],
+  "conceptsIntroduced": ["direct-proof", "proof-structure"],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall from Module 1 that a conditional $P \\Rightarrow Q$ makes a claim only about what happens when $P$ holds, and that $\\forall x \\in S,\\ P(x)$ asserts something about *every* element of $S$ at once. This lesson combines both ideas into your first proof technique."
+    },
+    "encounter": {
+      "bodyMarkdown": "Compare two responses to the claim \"if $n$ is odd, then $n^2$ is odd\":\n\n- **Response A:** \"That's true — odd numbers squared are always odd.\"\n- **Response B:** \"Assume $n$ is odd, so $n = 2k+1$ for some integer $k$. Then $n^2 = 4k^2+4k+1 = 2(2k^2+2k)+1$, which is twice an integer plus $1$, so $n^2$ is odd.\"\n\nBoth responses assert the same true claim, but only one of them is a *proof*. What exactly is missing from Response A, and what structural pieces does Response B have that make it convincing for every odd integer $n$ at once, rather than just the ones you might check by hand?"
+    },
+    "explain": {
+      "bodyMarkdown": "A **direct proof** of a universally quantified conditional $\\forall x \\in S,\\ P(x) \\Rightarrow Q(x)$ follows a fixed **proof structure**:\n\n1. **Let $x$ be an arbitrary element of $S$.** Not a specific value — a generic one, so that whatever you show about it applies to every element of $S$.\n2. **Assume $P(x)$** (the hypothesis). You are not proving $P(x)$; you are supposing it holds and working out what must follow.\n3. **Derive $Q(x)$** (the conclusion), using definitions, algebra, and previously established facts as a chain of statements, each following from the last.\n4. **Conclude.** Since $x$ was arbitrary, $P(x) \\Rightarrow Q(x)$ holds no matter which $x \\in S$ you had picked, so $\\forall x \\in S,\\ P(x) \\Rightarrow Q(x)$.\n\nDefinitions do the heavy lifting in step 3. To use \"$n$ is odd\" algebraically, you rewrite it as its formal definition, $n = 2k+1$ for some integer $k$, not its English description — only the formal form can be manipulated with algebra."
+    },
+    "reflect": {
+      "bodyMarkdown": "The proof works because step 1's arbitrariness is not decorative: since $x$ was assumed to have no special property beyond membership in $S$, whatever gets derived about it holds for *every* such $x$. Two errors recur constantly. **Assuming the conclusion** — starting from $Q(x)$ and working backward, or treating \"$n^2$ is odd\" as already established — proves nothing, since it presupposes what needed to be shown. **Proving only a specific instance** — checking $n=3$ or $n=5$ and stopping — also fails a universal claim; a direct proof must use a generic representation like $n=2k+1$ that covers every odd integer simultaneously, never a particular number."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m2-l1-p1-opening-line",
+      "version": 1,
+      "lessonId": "pfmm-m2-l1-direct-proof-strategy",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which of the following is the correct way to *begin* a direct proof of the statement: \"If $n$ is even, then $n+2$ is even\"?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Assume $n$ is even, so $n = 2k$ for some integer $k$.",
+            "accessibleLabel": "Assume n is even, so n equals 2k for some integer k."
+          },
+          {
+            "id": "b",
+            "label": "Assume $n+2$ is even, so $n+2 = 2k$ for some integer $k$.",
+            "accessibleLabel": "Assume n plus 2 is even, so n plus 2 equals 2k for some integer k."
+          },
+          {
+            "id": "c",
+            "label": "Let $n = 2$.",
+            "accessibleLabel": "Let n equal 2."
+          },
+          {
+            "id": "d",
+            "label": "Suppose $n$ is odd.",
+            "accessibleLabel": "Suppose n is odd."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "A direct proof of $P \\Rightarrow Q$ opens by assuming the *hypothesis* $P$, not the conclusion $Q$ and not its negation."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Here $P$ is \"$n$ is even\" and $Q$ is \"$n+2$ is even\". The opening line should assume $P$ and rewrite it using the formal definition of even."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Option (b) assumes the conclusion instead of the hypothesis. Option (c) fixes $n$ to one specific value instead of keeping it arbitrary. Option (d) assumes the opposite of the hypothesis."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Option (a) assumes the hypothesis \"$n$ is even\" and immediately rewrites it via the definition $n=2k$, which is exactly the correct first move of a direct proof."
+        }
+      ],
+      "solutionMarkdown": "A direct proof of $P \\Rightarrow Q$ always opens by assuming $P$ (the hypothesis) for an arbitrary object, then works toward $Q$. Option (a) does exactly this: it assumes \"$n$ is even\" and restates it via the formal definition $n=2k$, ready for algebraic use.\n\nOption (b) assumes the *conclusion* $n+2$ is even, which begs the question — you cannot assume what you're trying to prove. Option (c) fixes $n$ to a single value, $2$, which would only establish the claim for that one case, not for every even $n$. Option (d) assumes $n$ is odd, which is not the hypothesis of this statement at all (it would be relevant to a different proof strategy applied to a different claim).",
+      "concepts": ["direct-proof", "conditional"],
+      "prerequisites": ["conditional", "even-integer"],
+      "difficulty": 1,
+      "misconceptionTags": ["assuming-the-conclusion", "proving-only-a-specific-instance"]
+    },
+    {
+      "id": "pfmm-m2-l1-p2-odd-square-odd",
+      "version": 1,
+      "lessonId": "pfmm-m2-l1-direct-proof-strategy",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the direct proof that if $n$ is an odd integer, then $n^2$ is odd.\n\nProof: Assume $n$ is odd. By definition, $n = 2k+1$ for some integer $k$. Then\n$$n^2 = (2k+1)^2 = 4k^2+4k+1 = 2(\\underline{\\hspace{1.5cm}}) + 1.$$\nSince $2k^2+2k$ is an integer, $n^2$ has the form $2m+1$ for an integer $m$, so $n^2$ is $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expression inside the parentheses",
+            "acceptedValues": ["2k^2+2k", "2k^2 + 2k", "2k^2+2*k"]
+          },
+          {
+            "id": "b2",
+            "label": "Parity of n^2",
+            "acceptedValues": ["odd"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Expand $(2k+1)^2$ fully first, then factor a $2$ out of the terms that are left after removing the final $+1$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$(2k+1)^2 = 4k^2+4k+1$. Write $4k^2+4k$ as $2$ times something, so the whole expression matches the pattern $2(\\text{integer}) + 1$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$4k^2+4k = 2(2k^2+2k)$, so $n^2 = 2(2k^2+2k)+1$. Whatever sits inside those parentheses is the integer $m$ from the general odd-number pattern $2m+1$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The blank is $2k^2+2k$, and since this is an integer, $n^2 = 2(2k^2+2k)+1$ matches the definition of an odd integer, so $n^2$ is odd."
+        }
+      ],
+      "solutionMarkdown": "The strategy is to rewrite the hypothesis using the formal definition of odd, then push the algebra until the result visibly matches the definition of odd again. Starting from $n=2k+1$: $n^2 = (2k+1)^2 = 4k^2+4k+1$. Factoring $2$ out of the first two terms gives $n^2 = 2(2k^2+2k)+1$. Since $k$ is an integer, $2k^2+2k$ is also an integer, so $n^2$ is exactly of the form $2m+1$ with $m = 2k^2+2k \\in \\mathbb{Z}$ — which is the definition of odd.",
+      "concepts": ["direct-proof", "odd-integer"],
+      "prerequisites": ["odd-integer", "direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["failing-to-identify-integer-witness"]
+    },
+    {
+      "id": "pfmm-m2-l1-p3-sum-of-evens",
+      "version": 1,
+      "lessonId": "pfmm-m2-l1-direct-proof-strategy",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the following steps into a valid direct proof that the sum of two even integers is even.",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Let $a$ and $b$ be arbitrary even integers."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "By definition, $a = 2j$ and $b = 2k$ for some integers $j, k$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "$a + b = 2j + 2k = 2(j+k)$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since $j+k$ is an integer, $a+b$ is twice an integer, so $a+b$ is even."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This is a direct proof: introduce arbitrary objects satisfying the hypothesis first, then rewrite the hypothesis with its formal definition."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "You need two *different* integer names (e.g. $j$ and $k$) for $a$ and $b$'s definitions — using the same letter for both would wrongly force $a=b$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Algebra on the rewritten forms must come after both definitions are in place, and the conclusion restating \"even\" must come last, after the algebra reveals a factor of $2$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: name the arbitrary evens ($a,b$), rewrite both via the definition of even, add and factor, then conclude $a+b$ is even."
+        }
+      ],
+      "solutionMarkdown": "A direct proof of a universal claim about two arbitrary objects starts by naming them (step 1) and immediately restating the hypothesis using the formal definition of even, with distinct integer names for each (step 2) — using the same letter for $a$ and $b$ would silently and wrongly assume $a=b$. Only once both are rewritten can the algebra proceed: adding them and factoring out the common $2$ (step 3). The final step restates that a common factor of $2$ is exactly what \"even\" means (step 4), completing the proof.",
+      "concepts": ["direct-proof", "even-integer"],
+      "prerequisites": ["direct-proof", "even-integer"],
+      "difficulty": 2,
+      "misconceptionTags": ["reusing-one-variable-for-two-arbitrary-objects"]
+    },
+    {
+      "id": "pfmm-m2-l1-p4-product-of-odds",
+      "version": 1,
+      "lessonId": "pfmm-m2-l1-direct-proof-strategy",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the direct proof that the product of two odd integers is odd.\n\nProof: Let $m$ and $n$ be arbitrary odd integers. By definition, $m = 2j+1$ and $n = 2k+1$ for some integers $j, k$. Then\n$$mn = (2j+1)(2k+1) = 4jk+2j+2k+1 = 2(\\underline{\\hspace{1.5cm}}) + 1.$$\nSince $2jk+j+k$ is an integer, $mn$ is $\\underline{\\hspace{1.5cm}}$.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "b1",
+            "label": "Expression inside the parentheses",
+            "acceptedValues": ["2jk+j+k", "2jk + j + k", "2*j*k+j+k"]
+          },
+          {
+            "id": "b2",
+            "label": "Parity of mn",
+            "acceptedValues": ["odd"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Expand $(2j+1)(2k+1)$ fully using distribution, then separate off a final $+1$ from the rest."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$(2j+1)(2k+1) = 4jk+2j+2k+1$. The terms $4jk+2j+2k$ all share a factor of $2$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Factor: $4jk+2j+2k = 2(2jk+j+k)$, so $mn = 2(2jk+j+k)+1$. The quantity inside the parentheses plays the role of the integer $m$ in the pattern $2m+1$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "The blank is $2jk+j+k$, an integer since $j,k$ are integers, so $mn = 2(2jk+j+k)+1$ matches the definition of odd."
+        }
+      ],
+      "solutionMarkdown": "Rewrite both hypotheses with the formal definition of odd, keeping distinct integer names $j,k$, then multiply and reorganize until the result matches the definition of odd again: $(2j+1)(2k+1) = 4jk+2j+2k+1 = 2(2jk+j+k)+1$. Since $j,k \\in \\mathbb{Z}$, the quantity $2jk+j+k$ is also an integer, so $mn$ is exactly of the form $2m+1$ — odd.",
+      "concepts": ["direct-proof", "odd-integer"],
+      "prerequisites": ["odd-integer", "direct-proof"],
+      "difficulty": 3,
+      "misconceptionTags": ["reusing-one-variable-for-two-arbitrary-objects"]
+    },
+    {
+      "id": "pfmm-m2-l1-p5-divisibility-transitivity",
+      "version": 1,
+      "lessonId": "pfmm-m2-l1-direct-proof-strategy",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the steps of a direct proof that for integers $a,b,c$: if $a \\mid b$ and $b \\mid c$, then $a \\mid c$. (Recall $a \\mid b \\iff \\exists k \\in \\mathbb{Z},\\ b = ak$.)",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Assume $a \\mid b$ and $b \\mid c$."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "By definition, $b = ak$ for some integer $k$, and $c = bj$ for some integer $j$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "Substituting the first equation into the second: $c = bj = (ak)j = a(kj)$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Since $kj$ is an integer, $c = a \\cdot (kj)$ shows $a \\mid c$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This is a direct proof with two hypotheses to assume and rewrite before any algebra can happen."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "You need both $b=ak$ and $c=bj$ before you can substitute one into the other — substitution can't come before either definition is written down."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The substitution step replaces $b$ inside $c=bj$ with $ak$, producing a single equation relating $c$ directly to $a$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: assume both hypotheses, rewrite both via the definition of divides, substitute to relate $c$ to $a$, then conclude $a \\mid c$ using the definition again."
+        }
+      ],
+      "solutionMarkdown": "This proof chains two applications of the definition of divides. First, both hypotheses are assumed and rewritten formally (steps 1–2): $b=ak$ and $c=bj$. Only with both equations available can $b$ be eliminated by substitution (step 3), producing $c = a(kj)$, a single equation expressing $c$ as $a$ times something. Since integers are closed under multiplication, $kj$ is an integer, so this final equation is precisely the definition of $a \\mid c$ (step 4). The key idea — **closure under the operations that build new witnesses from old ones** — will recur throughout the next lesson on divisibility proofs.",
+      "concepts": ["divisibility", "direct-proof"],
+      "prerequisites": ["divisibility", "direct-proof"],
+      "difficulty": 4,
+      "misconceptionTags": ["substituting-before-both-definitions-are-written"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": ["direct-proof", "proof-structure", "even-integer", "odd-integer", "divisibility"],
+    "notes": "First vertical slice: show each concept's problems-correct / problems-attempted as a plain-language 'developing' vs 'solid' indicator. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

@@ -50,6 +50,9 @@ export default function Home() {
           <p>{course.description}</p>
           <div className="course-details">
             <span>
+              {String(course.modules.length).padStart(2, "0")} modules
+            </span>
+            <span>
               {String(lessons.length).padStart(2, "0")} available{" "}
               {lessons.length === 1 ? "lesson" : "lessons"}
             </span>
@@ -60,34 +63,51 @@ export default function Home() {
             <span>Learn at your pace</span>
           </div>
         </div>
-        <div className="lesson-list">
-          {lessons.map((lesson, i) => (
-            <article className="lesson-card" key={lesson.lessonId}>
-              <div className="lesson-card-top">
-                <span className="pill">FOUNDATIONS</span>
-                <span className="muted">
-                  {lesson.estimatedMinutes.min}–{lesson.estimatedMinutes.max}{" "}
-                  min
-                </span>
+        {course.modules.map((mod, moduleIndex) => {
+          const moduleLessons = lessons.filter(
+            (l) => l.moduleSlug === mod.slug,
+          );
+          if (moduleLessons.length === 0) return null;
+          return (
+            <div className="module-group" key={mod.slug}>
+              <h3 className="module-heading">
+                <span className="eyebrow">
+                  MODULE {String(moduleIndex + 1).padStart(2, "0")}
+                </span>{" "}
+                {mod.title}
+              </h3>
+              <div className="lesson-list">
+                {moduleLessons.map((lesson, i) => (
+                  <article className="lesson-card" key={lesson.lessonId}>
+                    <div className="lesson-card-top">
+                      <span className="pill">
+                        {lesson.kind === "lesson"
+                          ? "LESSON"
+                          : lesson.kind.toUpperCase()}
+                      </span>
+                      <span className="muted">
+                        {lesson.estimatedMinutes.min}–
+                        {lesson.estimatedMinutes.max} min
+                      </span>
+                    </div>
+                    <span className="lesson-number">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <p className="eyebrow">{mod.title}</p>
+                    <h3>{lesson.title}</h3>
+                    <MathContent>{lesson.learningObjective}</MathContent>
+                    <div className="lesson-card-bottom">
+                      <span className="muted">
+                        A small lesson. A useful shift.
+                      </span>
+                      <LessonLink lesson={lesson} />
+                    </div>
+                  </article>
+                ))}
               </div>
-              <span className="lesson-number">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p className="eyebrow">
-                {
-                  course.modules.find((m) => m.slug === lesson.moduleSlug)
-                    ?.title
-                }
-              </p>
-              <h3>{lesson.title}</h3>
-              <MathContent>{lesson.learningObjective}</MathContent>
-              <div className="lesson-card-bottom">
-                <span className="muted">A small lesson. A useful shift.</span>
-                <LessonLink lesson={lesson} />
-              </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          );
+        })}
       </section>
       <section className="principles" aria-label="How learning works">
         <div>

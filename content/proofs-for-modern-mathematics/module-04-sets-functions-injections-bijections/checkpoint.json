@@ -1,0 +1,189 @@
+{
+  "lessonId": "pfmm-m4-checkpoint",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-04-sets-functions-injections-bijections",
+  "title": "Checkpoint: Sets, Functions, Injections, and Bijections",
+  "kind": "checkpoint",
+  "learningObjective": "Combine subset proofs, well-definedness/range reasoning, and injective/surjective/bijective arguments across the module's four lessons on a mix of problems.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 20
+  },
+  "prerequisites": [
+    "set-membership-proof",
+    "subset-proof",
+    "set-operations",
+    "function-definition",
+    "well-defined-function",
+    "range-vs-codomain",
+    "injective-function",
+    "surjective-function",
+    "bijective-function",
+    "inverse-function"
+  ],
+  "conceptsIntroduced": [],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "This checkpoint mixes the four lessons of this module: element-chasing subset proofs, well-definedness and range/codomain reasoning, injective and surjective proofs, and bijections with inverses. Nothing new is introduced here — every idea below was covered in one of the four lessons."
+    },
+    "encounter": {
+      "bodyMarkdown": "The problems below deliberately cross lesson boundaries: a subset proof about multiples, a single function analyzed for both injectivity and surjectivity at once, and a function that must be shown bijective and then inverted — the same kind of multi-step reasoning a full proof in this area actually requires."
+    },
+    "explain": {
+      "bodyMarkdown": "No new theory. Recall as needed: $A \\subseteq B \\iff \\forall x,\\ x\\in A \\rightarrow x \\in B$, proved by element chasing; $f:A\\to B$ is well-defined when every element of $A$ produces exactly one element of $B$, with range$(f) \\subseteq B$ possibly a strict subset; $f$ is injective when $f(a)=f(b)\\rightarrow a=b$; $f$ is surjective when every $y\\in B$ has some $x\\in A$ with $f(x)=y$; $f$ is bijective when both hold, which is exactly when $f^{-1}$ exists."
+    },
+    "reflect": {
+      "bodyMarkdown": "Checkpoint problems combine ideas that were taught separately. If a problem here feels unfamiliar even though each individual concept was covered, the gap is usually in *composing* proof strategies (e.g. running an injectivity argument and a surjectivity argument back to back) rather than in any single definition — revisit the lesson whose concept the problem is tagged with."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m4-checkpoint-p1-multiples-of-six-subset-even",
+      "version": 1,
+      "lessonId": "pfmm-m4-checkpoint",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the element-chasing proof that $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 6\\} \\subseteq \\{n \\in \\mathbb{Z} : n \\text{ is even}\\}$.\n\nLet $n$ be an arbitrary element of $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 6\\}$. By definition, $n = 6k$ for some integer $k$. Then $n = 2 \\cdot (\\text{___})$, and since $k$ is an integer, $3k$ is an ___. Therefore $n$ is even.",
+      "answerSpec": {
+        "blanks": [
+          { "id": "b1", "label": "Expression equal to n/2", "acceptedValues": ["3k"] },
+          { "id": "b2", "label": "Type of number 3k is", "acceptedValues": ["integer"] }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This mirrors the multiple-of-4 argument from Lesson 1: rewrite $6k$ in the form $2 \\cdot (\\text{something})$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "$6k = 2 \\cdot (3k)$ — identify what goes in the parentheses."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "$3k$ is a product of the integers $3$ and $k$, so by closure of $\\mathbb{Z}$ under multiplication, it is itself an integer."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n = 2\\cdot(3k)$ with $3k \\in \\mathbb{Z}$ exhibits $n$ as twice an integer, i.e. even."
+        }
+      ],
+      "solutionMarkdown": "Let $n$ be an arbitrary element of $\\{n \\in \\mathbb{Z} : n \\text{ is a multiple of } 6\\}$, so $n = 6k$ for some $k \\in \\mathbb{Z}$. Rewrite $n = 6k = 2 \\cdot (3k)$. Since $3$ and $k$ are integers, $3k$ is an integer by closure of $\\mathbb{Z}$ under multiplication, so $n = 2\\cdot(3k)$ exhibits $n$ as twice an integer — the definition of even. Since $n$ was arbitrary, every multiple of $6$ is even.",
+      "concepts": ["set-membership-proof", "subset-proof"],
+      "prerequisites": ["direct-proof"],
+      "difficulty": 2,
+      "misconceptionTags": ["checking-examples-instead-of-arbitrary-element"]
+    },
+    {
+      "id": "pfmm-m4-checkpoint-p2-triple-injective-not-surjective",
+      "version": 1,
+      "lessonId": "pfmm-m4-checkpoint",
+      "type": "multiple_choice",
+      "promptMarkdown": "Let $f : \\mathbb{Z} \\to \\mathbb{Z}$ be given by $f(n) = 3n$. Which statement correctly describes $f$?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "$f$ is well-defined and injective, but not surjective, since its range is only the multiples of $3$.",
+            "accessibleLabel": "f is well-defined and injective, but not surjective, since its range is only the multiples of 3."
+          },
+          {
+            "id": "b",
+            "label": "$f$ is well-defined and surjective, but not injective.",
+            "accessibleLabel": "f is well-defined and surjective, but not injective."
+          },
+          {
+            "id": "c",
+            "label": "$f$ is not well-defined, since $3n$ is not always an integer.",
+            "accessibleLabel": "f is not well-defined, since 3n is not always an integer."
+          },
+          {
+            "id": "d",
+            "label": "$f$ is bijective.",
+            "accessibleLabel": "f is bijective."
+          }
+        ],
+        "correctOptionIds": ["a"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "First check well-definedness: does $3n$ always produce exactly one integer for every integer $n$?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "For injectivity, assume $f(a)=f(b)$, i.e. $3a=3b$, and see what follows."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "For surjectivity, ask whether every integer in the codomain — for instance $1$ — can be written as $3n$ for some integer $n$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$3n$ is always an integer (closure under multiplication), so $f$ is well-defined. $3a=3b \\Rightarrow a=b$, so $f$ is injective. But $1$ is never $3n$ for an integer $n$ (that needs $n=1/3$), so $f$ is not surjective."
+        }
+      ],
+      "solutionMarkdown": "**Well-defined:** for every $n \\in \\mathbb{Z}$, $3n$ is a single integer, since $\\mathbb{Z}$ is closed under multiplication — so $f$ is well-defined.\n\n**Injective:** assume $f(a)=f(b)$, i.e. $3a=3b$. Dividing both sides by $3$ gives $a=b$, so $f$ is injective.\n\n**Not surjective:** the range of $f$ is $\\{3n : n\\in\\mathbb{Z}\\}$, exactly the multiples of $3$. The codomain is all of $\\mathbb{Z}$, and $1 \\in \\mathbb{Z}$ is not a multiple of $3$ (there is no integer $n$ with $3n=1$), so $f$ does not hit every codomain element — range$(f) \\subsetneq \\mathbb{Z}$.\n\nSo $f$ is well-defined and injective, but not surjective, matching (a). This also shows $f$ cannot be bijective, ruling out (d), since bijective requires surjective too.",
+      "concepts": ["function-definition", "injective-function", "surjective-function", "range-vs-codomain"],
+      "prerequisites": ["well-defined-function"],
+      "difficulty": 3,
+      "misconceptionTags": ["assuming-injective-and-surjective-are-linked", "conflating-range-and-codomain"]
+    },
+    {
+      "id": "pfmm-m4-checkpoint-p3-reflection-bijective-and-inverse",
+      "version": 1,
+      "lessonId": "pfmm-m4-checkpoint",
+      "type": "proof_ordering",
+      "promptMarkdown": "Let $f : \\mathbb{R} \\to \\mathbb{R}$, $f(x) = 5 - x$. Arrange the steps into a valid proof that $f$ is bijective, together with the observation that $f$ is its own inverse.",
+      "answerSpec": {
+        "steps": [
+          { "id": "s1", "textMarkdown": "To show injective: assume $f(a) = f(b)$ for arbitrary $a, b \\in \\mathbb{R}$, so $5 - a = 5 - b$." },
+          { "id": "s2", "textMarkdown": "Then $-a = -b$, so $a = b$. Hence $f$ is injective." },
+          { "id": "s3", "textMarkdown": "To show surjective: let $y \\in \\mathbb{R}$ be arbitrary, and let $x = 5 - y$, which is a real number." },
+          { "id": "s4", "textMarkdown": "Then $f(x) = 5 - (5 - y) = y$, so $y$ is achieved. Hence $f$ is surjective." },
+          { "id": "s5", "textMarkdown": "Since $f$ is both injective and surjective, $f$ is bijective, so $f^{-1}$ exists." },
+          { "id": "s6", "textMarkdown": "Since $f(x) = 5-x$ is exactly the same formula used to construct the surjectivity witness $x=5-y$, $f^{-1}(y) = 5 - y$ — the same rule as $f$ itself." }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "alternateValidOrders": [["s3", "s4", "s1", "s2", "s5", "s6"]]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "This combines two lessons: prove injective and surjective first (Lesson 3), then conclude bijective and identify the inverse (Lesson 4) — the inverse claim can only be made after bijectivity is established."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Within each of the injective and surjective blocks, keep the assumption/construction before its conclusion, as in previous lessons."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The final step about $f^{-1}(y) = 5-y$ depends on both the bijectivity conclusion (step 5) and the specific witness formula used in the surjectivity argument (step 3) — so it must come last."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Order: prove injective, prove surjective (in either relative order), conclude bijective, then identify the inverse formula from the surjectivity construction."
+        }
+      ],
+      "solutionMarkdown": "**Injective:** assume $f(a)=f(b)$, i.e. $5-a=5-b$. Then $-a=-b$, so $a=b$. Hence $f$ is injective.\n\n**Surjective:** let $y \\in \\mathbb{R}$ be arbitrary, and let $x = 5-y \\in \\mathbb{R}$. Then $f(x) = 5-(5-y) = y$, so $y$ is achieved. Hence $f$ is surjective.\n\n**Bijective:** since $f$ is both injective and surjective, $f$ is bijective, so an inverse $f^{-1}$ exists.\n\n**Inverse:** the surjectivity construction already exhibited, for each $y$, the unique $x=5-y$ with $f(x)=y$ — by definition that $x$ *is* $f^{-1}(y)$. So $f^{-1}(y) = 5-y$, the identical formula to $f$ itself (this function is called an involution, since applying it twice returns the original input: $f(f(x)) = 5-(5-x) = x$).",
+      "concepts": ["bijective-function", "inverse-function", "injective-function", "surjective-function"],
+      "prerequisites": ["direct-proof", "existential-quantifier"],
+      "difficulty": 4,
+      "misconceptionTags": ["assuming-one-property-implies-bijective"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": [
+      "set-membership-proof",
+      "subset-proof",
+      "set-operations",
+      "function-definition",
+      "well-defined-function",
+      "range-vs-codomain",
+      "injective-function",
+      "surjective-function",
+      "bijective-function",
+      "inverse-function"
+    ],
+    "notes": "Checkpoint: a plain-language module-level rollup of the four lessons' concepts, using the same problems-correct / problems-attempted indicator as ordinary lessons. Full tunable mastery model (alpha/beta update) is Phase 3 scope, per ROADMAP.md."
+  }
+}

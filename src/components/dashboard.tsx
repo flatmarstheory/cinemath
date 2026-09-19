@@ -236,6 +236,11 @@ export function Dashboard({ lessons }: { lessons: Lesson[] }) {
       <section className="dashboard-section">
         <p className="eyebrow">REVIEW QUEUE</p>
         <h2>Ideas worth revisiting</h2>
+        <p className="muted">
+          A concept appears here if it needs more practice, or once it
+          hasn&apos;t been practiced in a while — the more solid a concept,
+          the longer it stays off this list before resurfacing.
+        </p>
         {reviews.length === 0 ? (
           <p className="muted">
             {profile.reviewReminders
@@ -276,7 +281,11 @@ export function Dashboard({ lessons }: { lessons: Lesson[] }) {
         <ul className="mastery-list">
           {mastery.map((record: MasteryRecord) => (
             <li key={record.conceptId}>
-              <span>{record.conceptId.replaceAll("-", " ")}</span>
+              <span>
+                <Link href={`/glossary#${record.conceptId}`}>
+                  {record.conceptId.replaceAll("-", " ")}
+                </Link>
+              </span>
               <progress
                 max={1}
                 value={record.score}

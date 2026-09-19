@@ -1176,3 +1176,185 @@ select {
     scroll-behavior: auto;
   }
 }
+
+/* Phase 6: module grouping on the course landing page */
+.module-group {
+  margin-bottom: 48px;
+}
+.module-heading {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.module-heading .eyebrow {
+  color: var(--muted);
+}
+
+/* Phase 6: nav, glossary, search, prerequisite map, certificate, admin content */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.header-nav a {
+  text-decoration: none;
+}
+.header-nav a:not(.header-dashboard-link) {
+  color: var(--muted);
+}
+.glossary-list {
+  display: grid;
+  gap: 28px;
+  margin: 0;
+}
+.glossary-entry {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 24px;
+  scroll-margin-top: 100px;
+}
+.glossary-entry h2 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
+.glossary-entry dd {
+  margin: 0;
+}
+.glossary-related {
+  margin-top: 10px;
+  font-size: 13px;
+}
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 480px;
+  margin-bottom: 12px;
+}
+.search-form input {
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 12px 14px;
+  min-height: 46px;
+}
+.prereq-lesson-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+}
+.prereq-lesson-list li {
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 18px 20px;
+}
+.prereq-lesson-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.prereq-lesson-head a {
+  font-weight: 700;
+}
+.prereq-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0;
+  font-size: 13px;
+}
+.prereq-detail dt {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.prereq-detail dd {
+  margin: 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+th,
+td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.certificate {
+  border: 2px solid var(--ink);
+  padding: 60px 40px;
+  text-align: center;
+  margin-top: 20px;
+  background: var(--white);
+}
+.certificate-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.certificate-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.4rem;
+  margin-bottom: 14px;
+}
+.certificate-body {
+  margin-bottom: 6px;
+  color: var(--muted);
+}
+.certificate-course {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+}
+.certificate-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+.certificate-modules {
+  display: inline-grid;
+  gap: 6px;
+  text-align: left;
+  font-size: 13px;
+  padding-left: 20px;
+  margin: 0 auto;
+}
+@media print {
+  .site-header,
+  .site-footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+  .certificate {
+    border: none;
+    padding: 0;
+  }
+}
+@media (max-width: 1000px) {
+  .header-nav {
+    gap: 12px;
+  }
+  .header-nav a:not(.header-dashboard-link) {
+    display: none;
+  }
+  .prereq-detail {
+    grid-template-columns: 1fr;
+  }
+}

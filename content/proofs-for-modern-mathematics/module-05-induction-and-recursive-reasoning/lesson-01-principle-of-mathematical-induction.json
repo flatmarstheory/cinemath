@@ -1,0 +1,319 @@
+{
+  "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
+  "courseSlug": "proofs-for-modern-mathematics",
+  "moduleSlug": "module-05-induction-and-recursive-reasoning",
+  "title": "The Principle of Mathematical Induction",
+  "learningObjective": "State and correctly apply the principle of mathematical induction, including both the base case and the inductive step, to prove statements about all integers from some starting point onward.",
+  "estimatedMinutes": {
+    "min": 15,
+    "max": 25
+  },
+  "prerequisites": ["statement", "universal-quantifier", "direct-proof"],
+  "conceptsIntroduced": [
+    "induction-base-case",
+    "induction-inductive-step",
+    "mathematical-induction"
+  ],
+  "loop": {
+    "retrieve": {
+      "bodyMarkdown": "Recall a direct proof establishes a single statement from definitions and prior results in a finite chain of steps. But what if the statement you want to prove is really infinitely many statements at once — one for every integer $n$?"
+    },
+    "encounter": {
+      "bodyMarkdown": "Line up an infinite row of dominoes. If (1) the first domino falls, and (2) *whenever* any domino falls, the next one is guaranteed to fall too, then every domino in the row falls — no matter how long the row is.\n\nNow consider the conjecture $1+2+\\cdots+n=\\dfrac{n(n+1)}{2}$. You could check it for $n=1,2,3,\\dots$ forever and never finish, since there are infinitely many integers $n$ to check. A direct proof for \"generic $n$\" doesn't obviously work either, since the left side has a different number of terms for each $n$. How could you prove this holds for *every* positive integer $n$ at once, with a single finite argument?"
+    },
+    "explain": {
+      "bodyMarkdown": "The domino picture is exactly the **principle of mathematical induction**. To prove $\\forall n \\geq n_0,\\ P(n)$ for some starting integer $n_0$ (often $n_0=0$ or $n_0=1$), it suffices to prove two things:\n\n1. **Base case**: $P(n_0)$ is true — the first domino falls. This is usually a direct check.\n2. **Inductive step**: for an arbitrary but fixed integer $k \\geq n_0$, *assuming* $P(k)$ is true (this assumption is called the **inductive hypothesis**), prove that $P(k+1)$ is also true — whichever domino falls, the next one falls too.\n\nIf both hold, the principle of mathematical induction lets you conclude $P(n)$ is true for **all** integers $n \\geq n_0$, even though you only ever checked one base case and proved one general implication.\n\nCrucially, the inductive step does *not* assume $P(k)$ for every $k$ — that would be assuming what you're trying to prove. It assumes $P(k)$ for one arbitrary fixed $k$, and derives $P(k+1)$ from it using algebra or prior results, the same way any direct proof derives a conclusion from a hypothesis."
+    },
+    "reflect": {
+      "bodyMarkdown": "Both pieces are load-bearing: without the base case, you've only shown dominoes *would* knock each other over, with no guarantee any domino ever falls. Without the inductive step, you've only checked one domino (or a handful), with no guarantee the chain continues. A common shortcut — checking $P(1), P(2), P(3)$ and declaring the pattern proven — is not a proof at all, no matter how many cases are checked; it skips the inductive step that establishes the pattern *never* breaks."
+    }
+  },
+  "problems": [
+    {
+      "id": "pfmm-m5-l1-p1-required-components",
+      "version": 1,
+      "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
+      "type": "multiple_choice",
+      "promptMarkdown": "Which two components must a valid proof by mathematical induction contain?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "Checking $P(n)$ for several small values of $n$, and a general intuition that the pattern continues",
+            "accessibleLabel": "Checking P of n for several small values of n, and a general intuition that the pattern continues."
+          },
+          {
+            "id": "b",
+            "label": "A base case establishing $P(n_0)$, and an inductive step proving $P(k) \\Rightarrow P(k+1)$",
+            "accessibleLabel": "A base case establishing P of n-naught, and an inductive step proving P of k implies P of k plus 1."
+          },
+          {
+            "id": "c",
+            "label": "A proof that $P(n)$ is true for the largest possible $n$",
+            "accessibleLabel": "A proof that P of n is true for the largest possible n."
+          },
+          {
+            "id": "d",
+            "label": "An inductive step alone; the base case is optional if the inductive step is convincing",
+            "accessibleLabel": "An inductive step alone; the base case is optional if the inductive step is convincing."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Think back to the domino analogy: what two separate facts guarantee that *every* domino falls?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Re-read the Explain section's two numbered requirements for a valid induction proof."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Checking a few small cases (option a) never rules out failure at some larger, unchecked $n$. There is no notion of a \"largest\" integer (option c). The inductive step (option d) alone only shows implications between dominoes, not that any domino actually falls."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "A valid induction proof needs both a base case, showing the starting statement $P(n_0)$ is true, and an inductive step, showing $P(k) \\Rightarrow P(k+1)$ for arbitrary $k \\geq n_0$. Neither alone is sufficient — option (b)."
+        }
+      ],
+      "solutionMarkdown": "Mathematical induction rests on two independent guarantees, matching the domino picture: something must actually fall first (the **base case**, $P(n_0)$), and each fallen domino must guarantee the next falls (the **inductive step**, $P(k) \\Rightarrow P(k+1)$ for arbitrary $k \\geq n_0$). Checking finitely many cases (a) never proves a claim about infinitely many integers, since some later $n$ could always fail. There is no \"largest\" integer to check (c). And an inductive step with no base case (d) only proves a chain of implications with nothing to trigger it — for all you'd know, every $P(n)$ in the chain could be false. Only (b) names both necessary components.",
+      "concepts": ["mathematical-induction", "induction-base-case", "induction-inductive-step"],
+      "prerequisites": ["universal-quantifier"],
+      "difficulty": 1,
+      "misconceptionTags": ["checking-examples-instead-of-inducting"]
+    },
+    {
+      "id": "pfmm-m5-l1-p2-sum-of-integers",
+      "version": 1,
+      "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the induction proof that for every integer $n \\geq 1$,\n\n$$1+2+\\cdots+n=\\frac{n(n+1)}{2}.$$\n\nFill in each blank below using the labels as your guide.",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "base-lhs",
+            "label": "Base case, $n=1$: value of the left-hand side, $1$",
+            "acceptedValues": ["1"]
+          },
+          {
+            "id": "base-rhs",
+            "label": "Base case, $n=1$: value of the right-hand side, $\\frac{1\\cdot 2}{2}$",
+            "acceptedValues": ["1"]
+          },
+          {
+            "id": "ih",
+            "label": "Inductive hypothesis: assume, for some integer $k \\geq 1$, that $1+2+\\cdots+k=$",
+            "acceptedValues": ["k(k+1)/2"]
+          },
+          {
+            "id": "step",
+            "label": "Inductive step: $1+2+\\cdots+k+(k+1)=\\frac{k(k+1)}{2}+(k+1)$, factored and simplified, equals",
+            "acceptedValues": ["(k+1)(k+2)/2", "(k+2)(k+1)/2"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Start with the base case: plug $n=1$ into both sides of the claimed formula and check they match."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "For the inductive step, write down the inductive hypothesis exactly as the formula would read with $k$ in place of $n$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "To go from $k$ to $k+1$, add the next term, $(k+1)$, to both sides of the inductive hypothesis, then factor $(k+1)$ out of $\\frac{k(k+1)}{2}+(k+1)$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$\\frac{k(k+1)}{2}+(k+1)=(k+1)\\left(\\frac{k}{2}+1\\right)=(k+1)\\cdot\\frac{k+2}{2}=\\frac{(k+1)(k+2)}{2}$, which is exactly the target formula at $n=k+1$."
+        }
+      ],
+      "solutionMarkdown": "**Base case ($n=1$):** the left side is $1$, and the right side is $\\frac{1\\cdot 2}{2}=1$. They match.\n\n**Inductive hypothesis:** assume, for some fixed integer $k \\geq 1$, that $1+2+\\cdots+k=\\frac{k(k+1)}{2}$.\n\n**Inductive step:** we must show $1+2+\\cdots+(k+1)=\\frac{(k+1)(k+2)}{2}$. Starting from the hypothesis,\n\n$$1+2+\\cdots+k+(k+1)=\\frac{k(k+1)}{2}+(k+1).$$\n\nFactor out $(k+1)$: $\\frac{k(k+1)}{2}+(k+1)=(k+1)\\left(\\frac{k}{2}+1\\right)=(k+1)\\cdot\\frac{k+2}{2}=\\frac{(k+1)(k+2)}{2}$.\n\nThis is exactly the claimed formula with $n=k+1$. Since the base case holds and the inductive step carries $P(k)$ to $P(k+1)$, the principle of mathematical induction gives $1+2+\\cdots+n=\\frac{n(n+1)}{2}$ for all integers $n \\geq 1$.",
+      "concepts": ["mathematical-induction", "induction-base-case", "induction-inductive-step"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 2,
+      "misconceptionTags": ["treating-inductive-hypothesis-as-given-for-all-k"]
+    },
+    {
+      "id": "pfmm-m5-l1-p3-sum-of-odds",
+      "version": 1,
+      "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
+      "type": "proof_ordering",
+      "promptMarkdown": "Arrange the following steps into a valid induction proof that for every integer $n \\geq 1$,\n\n$$1+3+5+\\cdots+(2n-1)=n^2.$$",
+      "answerSpec": {
+        "steps": [
+          {
+            "id": "s1",
+            "textMarkdown": "Base case: when $n=1$, the left side is $1$ and $n^2=1^2=1$, so the claim holds."
+          },
+          {
+            "id": "s2",
+            "textMarkdown": "Inductive hypothesis: assume $1+3+5+\\cdots+(2k-1)=k^2$ for some integer $k \\geq 1$."
+          },
+          {
+            "id": "s3",
+            "textMarkdown": "The next odd term after $2k-1$ is $2(k+1)-1=2k+1$, so $1+3+\\cdots+(2k-1)+(2k+1)=k^2+(2k+1)$."
+          },
+          {
+            "id": "s4",
+            "textMarkdown": "Simplify: $k^2+2k+1=(k+1)^2$."
+          },
+          {
+            "id": "s5",
+            "textMarkdown": "Since $(k+1)^2$ is exactly the right side of the claim at $n=k+1$, the inductive step is complete."
+          },
+          {
+            "id": "s6",
+            "textMarkdown": "By the principle of mathematical induction, $1+3+5+\\cdots+(2n-1)=n^2$ holds for every integer $n \\geq 1$."
+          }
+        ],
+        "correctOrder": ["s1", "s2", "s3", "s4", "s5", "s6"],
+        "alternateValidOrders": []
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Every induction proof opens with the base case, then states the inductive hypothesis, then does the algebra, then concludes."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Figure out which step names the specific next term being added ($2k+1$), and note it must come before that term is used in an equation."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The algebraic simplification ($k^2+2k+1=(k+1)^2$) must come after the term $2k+1$ is added, and the sentence identifying this as matching $n=k+1$ must come right after that."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Correct order: base case, inductive hypothesis, add the next term, simplify, identify the match with $n=k+1$, then the concluding sentence invoking induction."
+        }
+      ],
+      "solutionMarkdown": "The proof follows the standard induction template. First, the **base case** ($n=1$) is verified directly: both sides equal $1$. Next, the **inductive hypothesis** is stated precisely: assume the formula holds for some fixed $k \\geq 1$. The **inductive step** then adds the next odd term, $2(k+1)-1=2k+1$, to both sides of the hypothesis, giving $k^2+(2k+1)$, which simplifies to $(k+1)^2$ — exactly the formula's right side at $n=k+1$. Finally, the proof invokes the principle of mathematical induction to conclude the formula holds for all $n \\geq 1$. Each piece depends on the one before it, so the order is forced: base case, hypothesis, algebraic step, identification, conclusion.",
+      "concepts": ["mathematical-induction", "induction-base-case", "induction-inductive-step"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 3,
+      "misconceptionTags": ["skipping-explicit-inductive-hypothesis"]
+    },
+    {
+      "id": "pfmm-m5-l1-p4-missing-base-case",
+      "version": 1,
+      "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
+      "type": "multiple_choice",
+      "promptMarkdown": "A student writes the following \"proof\" that $\\forall n \\geq 1$, $n^2+n$ is even:\n\n> \"Assume $k^2+k$ is even for some integer $k$. Then $(k+1)^2+(k+1)=k^2+2k+1+k+1=(k^2+k)+2(k+1)$, which is even plus even, hence even. So $n^2+n$ is even for all $n \\geq 1$.\"\n\nWhat is the flaw in this argument (even though the final claim happens to be true)?",
+      "answerSpec": {
+        "options": [
+          {
+            "id": "a",
+            "label": "The algebra in the inductive step is incorrect",
+            "accessibleLabel": "The algebra in the inductive step is incorrect."
+          },
+          {
+            "id": "b",
+            "label": "The base case was never verified — nothing establishes that $1^2+1$ is actually even",
+            "accessibleLabel": "The base case was never verified; nothing establishes that 1 squared plus 1 is actually even."
+          },
+          {
+            "id": "c",
+            "label": "The inductive hypothesis should assume the statement for all $k$ simultaneously, not just one $k$",
+            "accessibleLabel": "The inductive hypothesis should assume the statement for all k simultaneously, not just one k."
+          },
+          {
+            "id": "d",
+            "label": "There is no flaw; the argument is a complete and valid proof",
+            "accessibleLabel": "There is no flaw; the argument is a complete and valid proof."
+          }
+        ],
+        "correctOptionIds": ["b"]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Check the inductive step's algebra independently first — is $(k+1)^2+(k+1)=(k^2+k)+2(k+1)$ correct?"
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "The algebra is fine. So compare what's written against the two required components from the Explain section — is anything missing entirely?"
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "The argument jumps straight to \"assume $k^2+k$ is even\" without ever checking that this is true to begin with, for any starting value of $k$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "No base case ($n=1$: is $1^2+1=2$ even? Yes, but the proof never says so) is ever verified. Without it, the inductive step only shows a chain of implications with nothing established to start the chain — option (b)."
+        }
+      ],
+      "solutionMarkdown": "The inductive step's algebra is correct: $(k+1)^2+(k+1)=k^2+2k+1+k+1=(k^2+k)+2(k+1)$, and adding an even number ($2(k+1)$) to an even number ($k^2+k$, by hypothesis) does give an even number. The flaw is that the proof never verifies a **base case** — it never checks that $1^2+1=2$ is actually even for the starting value $n=1$. Without a verified base case, the inductive step only establishes a chain of implications ($P(1)\\Rightarrow P(2) \\Rightarrow P(3) \\Rightarrow \\cdots$) with no guarantee that $P(1)$, the first link, is actually true. (Here $P(1)$ happens to be true, so the overall claim is still correct — but the proof as written doesn't establish it, and the same missing-base-case pattern can produce a false conclusion for other claims.)",
+      "concepts": ["induction-base-case", "mathematical-induction"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 3,
+      "misconceptionTags": ["missing-base-case-in-induction"]
+    },
+    {
+      "id": "pfmm-m5-l1-p5-inequality-induction",
+      "version": 1,
+      "lessonId": "pfmm-m5-l1-principle-of-mathematical-induction",
+      "type": "proof_fill_blank",
+      "promptMarkdown": "Complete the induction proof that for every integer $n \\geq 1$,\n\n$$n<2^n.$$",
+      "answerSpec": {
+        "blanks": [
+          {
+            "id": "base",
+            "label": "Base case, $n=1$: value of $2^1$",
+            "acceptedValues": ["2"]
+          },
+          {
+            "id": "ih",
+            "label": "Inductive hypothesis: assume, for some integer $k \\geq 1$, that $k<$",
+            "acceptedValues": ["2^k"]
+          },
+          {
+            "id": "bound1",
+            "label": "Since $k \\geq 1$, $k+1 \\leq k+k=$",
+            "acceptedValues": ["2k"]
+          },
+          {
+            "id": "bound2",
+            "label": "Doubling both sides of the inductive hypothesis, $2k<2\\cdot 2^k=$",
+            "acceptedValues": ["2^(k+1)", "2^{k+1}"]
+          }
+        ]
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Base case first: is $1<2^1$ true? Compute $2^1$."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "State the inductive hypothesis using $k$ in place of $n$, then think about how to bound $k+1$ using $k$ itself before bringing in $2^{k+1}$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Since $k \\geq 1$, you can replace the $1$ in $k+1$ with another $k$ to get an upper bound: $k+1 \\leq k+k$. Then use the inductive hypothesis $k<2^k$, doubled, to compare $2k$ against $2^{k+1}$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "Chain the two inequalities: $k+1 \\leq 2k < 2\\cdot 2^k = 2^{k+1}$, so $k+1<2^{k+1}$, completing the inductive step."
+        }
+      ],
+      "solutionMarkdown": "**Base case ($n=1$):** $2^1=2$, and $1<2$, so the claim holds.\n\n**Inductive hypothesis:** assume, for some fixed integer $k \\geq 1$, that $k<2^k$.\n\n**Inductive step:** we must show $k+1<2^{k+1}$. The strategy is to bound $k+1$ by $2k$ first (using $k\\geq1$), then bound $2k$ using the inductive hypothesis doubled.\n\nSince $k \\geq 1$, we have $1 \\leq k$, so $k+1 \\leq k+k=2k$.\n\nDoubling both sides of the inductive hypothesis $k<2^k$ gives $2k<2\\cdot 2^k=2^{k+1}$.\n\nChaining these: $k+1 \\leq 2k < 2^{k+1}$, so $k+1<2^{k+1}$, which is the claim at $n=k+1$.\n\nBy induction, $n<2^n$ for every integer $n \\geq 1$. The key idea — bounding $k+1$ by $2k$ so the inductive hypothesis can be applied directly — is a common pattern whenever the step from $k$ to $k+1$ isn't a simple addition of one fixed term.",
+      "concepts": ["mathematical-induction", "induction-inductive-step"],
+      "prerequisites": ["mathematical-induction"],
+      "difficulty": 4,
+      "misconceptionTags": ["treating-inductive-hypothesis-as-given-for-all-k"]
+    }
+  ],
+  "master": {
+    "conceptsUpdated": [
+      "mathematical-induction",
+      "induction-base-case",
+      "induction-inductive-step"
+    ],
+    "notes": "Tracks whether the learner reliably includes both the base case and the inductive step, and whether they state the inductive hypothesis for a single fixed k rather than treating it as already established for all k. Plain-language 'developing' vs 'solid' indicator per the first vertical slice; full mastery model is Phase 3 scope."
+  }
+}

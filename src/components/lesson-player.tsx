@@ -253,7 +253,9 @@ export function LessonPlayer({
         <Link href="/">← Course</Link>
         <span>{courseTitle}</span>
         <span className="pill">
-          LESSON {String(lessonNumber).padStart(2, "0")}
+          {lesson.kind === "lesson"
+            ? `LESSON ${String(lessonNumber).padStart(2, "0")}`
+            : lesson.kind.toUpperCase()}
         </span>
         {preview && <span className="pill preview-pill">PREVIEW</span>}
       </nav>
@@ -549,7 +551,11 @@ export function LessonPlayer({
                   {summary.concepts.map((concept) => (
                     <li key={concept.id}>
                       <div>
-                        <strong>{concept.id.replaceAll("-", " ")}</strong>
+                        <strong>
+                          <Link href={`/glossary#${concept.id}`}>
+                            {concept.id.replaceAll("-", " ")}
+                          </Link>
+                        </strong>
                         <span>
                           {concept.correct} correct before seeing a solution /{" "}
                           {concept.attempted} attempted
