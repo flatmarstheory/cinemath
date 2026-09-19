@@ -39,5 +39,13 @@ export function deleteLearnerData() {
     const key = localStorage.key(i);
     if (key?.startsWith(STORAGE_PREFIX)) keys.push(key);
   }
+  const anonId = localStorage.getItem("cinemath:anon-id:v1");
   keys.forEach((key) => localStorage.removeItem(key));
+  // Best-effort: purge this guest's server-side analytics/feedback rows too,
+  // now that the local id that ties them together is gone.
+  if (anonId) {
+    import("./analytics-client")
+      .then(({ purgeAnalytics }) => purgeAnalytics(anonId))
+      .catch(() => {});
+  }
 }

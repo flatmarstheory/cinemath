@@ -20,9 +20,11 @@ import {
 import { accountAction, learnerData } from "@/lib/account-client";
 import { requestProofFeedback } from "@/lib/ai-feedback-client";
 import { ReviewPractice } from "./review-practice";
+import { LessonFeedback } from "./lesson-feedback";
 import { MathContent } from "./math-content";
 import { AnswerInput } from "./answer-input";
 import { analyticsEventFor, emitAnalyticsEvent } from "@/lib/analytics";
+import { anonLearnerId, sendAnalyticsEvent } from "@/lib/analytics-client";
 
 const feedbackCategoryLabel: Record<string, string> = {
   correct: "Correct",
@@ -159,9 +161,16 @@ export function LessonPlayer({
     const problemBefore = lesson.problems[progress.index];
     const next = transition(lesson, progress, action);
     setProgress(next);
-    emitAnalyticsEvent(
-      analyticsEventFor(lesson, problemBefore, progress, next, action),
+    const event = analyticsEventFor(
+      lesson,
+      problemBefore,
+      progress,
+      next,
+      action,
     );
+    emitAnalyticsEvent(event);
+    if (!preview)
+      sendAnalyticsEvent(event, account.current || anonLearnerId());
     persist(next);
   };
   if (reviewConcept && !preview)
@@ -566,6 +575,12 @@ export function LessonPlayer({
                   Revisit the explanation
                 </button>
               </div>
+              {!preview && (
+                <LessonFeedback
+                  lessonId={lesson.lessonId}
+                  learnerId={account.current || anonLearnerId()}
+                />
+              )}
             </>
           )}
         </div>

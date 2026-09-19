@@ -132,9 +132,15 @@ export async function POST(req: NextRequest) {
         409,
       );
     if (body.action === "logout" || body.action === "delete-account") {
-      if (body.action === "delete-account")
+      if (body.action === "delete-account") {
         db.prepare("DELETE FROM users WHERE id=?").run(account.id);
-      else
+        db.prepare("DELETE FROM analytics_events WHERE learner_id=?").run(
+          account.id,
+        );
+        db.prepare("DELETE FROM feedback_responses WHERE learner_id=?").run(
+          account.id,
+        );
+      } else
         db.prepare("DELETE FROM sessions WHERE token=?").run(
           hashToken(req.cookies.get(cookie)!.value),
         );
@@ -144,6 +150,12 @@ export async function POST(req: NextRequest) {
     }
     if (body.action === "delete-data") {
       db.prepare("DELETE FROM progress WHERE user_id=?").run(account.id);
+      db.prepare("DELETE FROM analytics_events WHERE learner_id=?").run(
+        account.id,
+      );
+      db.prepare("DELETE FROM feedback_responses WHERE learner_id=?").run(
+        account.id,
+      );
       db.prepare("UPDATE users SET profile=? WHERE id=?").run(
         JSON.stringify({ displayName: "", reviewReminders: true }),
         account.id,

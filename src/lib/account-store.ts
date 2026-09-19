@@ -32,7 +32,34 @@ export function openStore(
       input_tokens INTEGER,
       output_tokens INTEGER,
       reviewed INTEGER NOT NULL DEFAULT 0
-    );`);
+    );
+    CREATE TABLE IF NOT EXISTS analytics_events (
+      id TEXT PRIMARY KEY,
+      created_at INTEGER NOT NULL,
+      learner_id TEXT NOT NULL,
+      lesson_id TEXT NOT NULL,
+      problem_id TEXT,
+      type TEXT NOT NULL,
+      payload TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS analytics_events_learner ON analytics_events(learner_id, created_at);
+    CREATE INDEX IF NOT EXISTS analytics_events_lesson ON analytics_events(lesson_id, created_at);
+    CREATE TABLE IF NOT EXISTS feedback_responses (
+      id TEXT PRIMARY KEY,
+      created_at INTEGER NOT NULL,
+      learner_id TEXT NOT NULL,
+      lesson_id TEXT NOT NULL,
+      clarity TEXT NOT NULL,
+      challenge TEXT NOT NULL,
+      hints_helped TEXT NOT NULL,
+      would_return INTEGER NOT NULL,
+      willing_to_continue TEXT NOT NULL,
+      most_engaging TEXT,
+      most_confusing TEXT,
+      next_topic TEXT,
+      comments TEXT
+    );
+    CREATE INDEX IF NOT EXISTS feedback_responses_lesson ON feedback_responses(lesson_id, created_at);`);
   return db;
 }
 let shared: DatabaseSync | undefined;
@@ -80,4 +107,14 @@ export function allowAiFeedback(
   now = Date.now(),
 ) {
   return rateLimit(db, `ai:${key}`, AI_FEEDBACK_DAILY_LIMIT, 86400000, now);
+}
+// ROADMAP.md Phase 5: generous hourly cap on the analytics beacon, just to
+// bound abuse from a single learner/IP — not a meaningful product limit.
+export const ANALYTICS_HOURLY_LIMIT = 600;
+export function allowAnalytics(db: DatabaseSync, key: string, now = Date.now()) {
+  return rateLimit(db, `analytics:${key}`, ANALYTICS_HOURLY_LIMIT, 3600000, now);
+}
+export const FEEDBACK_DAILY_LIMIT = 10;
+export function allowFeedback(db: DatabaseSync, key: string, now = Date.now()) {
+  return rateLimit(db, `feedback:${key}`, FEEDBACK_DAILY_LIMIT, 86400000, now);
 }

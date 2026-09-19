@@ -58,6 +58,10 @@ Authentication, server-persisted progress, profiles, deterministic chronological
 
 A feature-flagged AI proof-feedback beta is implemented on one Lesson 4 problem: server-side-only model calls, structured-output validation with a retry and a deterministic fallback, per-identity usage limits, a low-confidence admin review queue, and cost-tracking via logged token usage. See [Phase 4: AI proof feedback beta](docs/phase-4.md) for the full flow. `CINEMATH_AI_FEEDBACK_ENABLED` and `ANTHROPIC_API_KEY` must both be set for it to activate; it is off by default and never blocks lesson completion when it's off or unavailable.
 
+## Phase 5
+
+ROADMAP.md's Phase 5 ("Closed beta and learning validation") has no code deliverables of its own — recruiting learners, running interviews, and picking the next course from evidence are product activities. What's implemented is the measurement infrastructure that phase depends on: a durable, privacy-documented event log for the existing lesson/problem interaction events, an optional post-lesson feedback form, pure aggregation covering the roadmap's "Measure" list (completion funnel, drop-off, time per problem, retries, hint-use rate, solution-reveal rate, seven-day return rate, concept mastery progression), and an operator-only `/admin/metrics` dashboard. See [Phase 5](docs/phase-5.md). No beta has been run and no data is seeded; the dashboard starts empty.
+
 ## Phase status
 
-Phase 1 and Phase 2's build scope are both implemented, with automated checks covering them. Public deployment, the five-person unaided learner trial, and the Phase 4 beta-learner rollout remain release validation steps; they are not claimed as completed by local tests. See the release checklist in [architecture.md](docs/architecture.md).
+Phase 1 and Phase 2's build scope are both implemented, with automated checks covering them. Public deployment, the five-person unaided learner trial, the Phase 4 beta-learner rollout, and the Phase 5 closed beta itself remain release validation steps; they are not claimed as completed by local tests. See the release checklist in [architecture.md](docs/architecture.md).
