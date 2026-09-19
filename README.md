@@ -54,6 +54,10 @@ Guest progress is local to this browser and origin. Account progress syncs acros
 
 Authentication, server-persisted progress, profiles, deterministic chronological mastery, resume, targeted review, and privacy controls are implemented. See [Phase 3 architecture and operations](docs/phase-3.md) for the exact mastery model, storage setup, concurrency behavior, and retention policy. Password recovery is not included; no email addresses are collected. Production hosting requires one Node instance with a persistent SQLite disk.
 
+## Phase 4
+
+A feature-flagged AI proof-feedback beta is implemented on one Lesson 4 problem: server-side-only model calls, structured-output validation with a retry and a deterministic fallback, per-identity usage limits, a low-confidence admin review queue, and cost-tracking via logged token usage. See [Phase 4: AI proof feedback beta](docs/phase-4.md) for the full flow. `CINEMATH_AI_FEEDBACK_ENABLED` and `ANTHROPIC_API_KEY` must both be set for it to activate; it is off by default and never blocks lesson completion when it's off or unavailable.
+
 ## Phase status
 
-Phase 1 and Phase 2's build scope are both implemented, with automated checks covering them. Public deployment and the five-person unaided learner trial remain release validation steps; they are not claimed as completed by local tests. See the release checklist in [architecture.md](docs/architecture.md).
+Phase 1 and Phase 2's build scope are both implemented, with automated checks covering them. Public deployment, the five-person unaided learner trial, and the Phase 4 beta-learner rollout remain release validation steps; they are not claimed as completed by local tests. See the release checklist in [architecture.md](docs/architecture.md).

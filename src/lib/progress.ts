@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { answerSchema, type Answer, type Lesson } from "./schema";
 import { grade, initialAnswer } from "./grading";
+import {
+  proofFeedbackResultSchema,
+  type ProofFeedbackResult,
+} from "./proof-feedback-schema";
 
 // docs/grading-policy.md: two incorrect attempts OR any correct submission.
 export const INCORRECT_ATTEMPTS_TO_REVEAL = 2;
@@ -10,6 +14,8 @@ const attemptSchema = z.object({
   at: z.string().datetime(),
   hintsUsed: z.number().int().min(0).max(3),
   solutionRevealed: z.boolean(),
+  // Present only for proof_free_response attempts (docs/grading-policy.md).
+  aiFeedback: proofFeedbackResultSchema.optional(),
 });
 const recordSchema = z.object({
   draft: answerSchema,
@@ -65,6 +71,14 @@ export type Action =
   | { type: "start" }
   | { type: "draft"; answer: Answer }
   | { type: "submit"; at: string }
+  // AI grading is IO, done outside the reducer (like other server calls);
+  // this records the already-computed result, deterministically.
+  | {
+      type: "submit_proof";
+      at: string;
+      text: string;
+      feedback: ProofFeedbackResult;
+    }
   | { type: "hint" }
   | { type: "solution" }
   | { type: "next" }
@@ -100,6 +114,22 @@ export function transition(
         at: action.at,
         hintsUsed: record.hintsUsed,
         solutionRevealed: record.solutionRevealed,
+      });
+      break;
+    }
+    case "submit_proof": {
+      if (problem.type !== "proof_free_response") return progress;
+      if (record.attempts.some((a) => a.correct)) return progress;
+      const draft: Answer = { kind: "proof", text: action.text };
+      if (!grade(problem, draft).valid) return progress;
+      record.draft = draft;
+      record.attempts.push({
+        answer: draft,
+        correct: action.feedback.category === "correct",
+        at: action.at,
+        hintsUsed: record.hintsUsed,
+        solutionRevealed: record.solutionRevealed,
+        aiFeedback: action.feedback,
       });
       break;
     }
@@ -152,8 +182,23 @@ export function decodeProgress(lesson: Lesson, raw: string): Progress {
     )
       throw new Error("Invalid saved option selection");
     for (const [j, attempt] of record.attempts.entries()) {
-      const result = grade(problem, attempt.answer);
       const before = { ...record, attempts: record.attempts.slice(0, j) };
+      // AI-graded attempts can't be re-derived from grade(); check the
+      // recorded feedback is internally consistent instead.
+      if (problem.type === "proof_free_response") {
+        if (
+          attempt.answer.kind !== "proof" ||
+          !attempt.aiFeedback ||
+          !grade(problem, attempt.answer).valid ||
+          attempt.correct !== (attempt.aiFeedback.category === "correct") ||
+          (attempt.solutionRevealed && !canReveal(before)) ||
+          attempt.hintsUsed > record.hintsUsed ||
+          (attempt.solutionRevealed && !record.solutionRevealed)
+        )
+          throw new Error("Invalid saved attempt");
+        continue;
+      }
+      const result = grade(problem, attempt.answer);
       if (
         !result.valid ||
         result.correct !== attempt.correct ||

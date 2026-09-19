@@ -1,6 +1,6 @@
 # Architecture
 
-**Current Phase 3 implementation:** see [accounts, persistence, mastery, and deployment](phase-3.md). The descriptions below document the Phase 1/2 guest experience. Account mode adds an API and persistent SQLite storage and supersedes the former no-database deployment instructions.
+**Current Phase 3 implementation:** see [accounts, persistence, mastery, and deployment](phase-3.md). **Phase 4 addition:** see [AI proof feedback beta](phase-4.md) for the feature-flagged `proof_free_response` grading flow, its API routes, and the admin review queue — it layers onto this architecture and doesn't change it. The descriptions below document the Phase 1/2 guest experience. Account mode adds an API and persistent SQLite storage and supersedes the former no-database deployment instructions.
 
 ## Application
 

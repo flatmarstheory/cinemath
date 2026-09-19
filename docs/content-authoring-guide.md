@@ -73,7 +73,7 @@ Notes:
 | `proof_ordering` | `{ steps: {id, textMarkdown}[], correctOrder: string[], alternateValidOrders?: string[][] }` |
 | `proof_fill_blank` | `{ blanks: {id, label, acceptedValues: string[]}[] }` — `label` is the accessible field label shown next to each blank's input; `acceptedValues` are matched case- and whitespace-insensitively. |
 | `counterexample_builder` | `{ constraints: string[], predicateDescription: string, checkerNotes: string, checker }` — `checkerNotes` describes, in plain language, exactly how the checker validates a submission; `checker` selects one of a small, closed registry of deterministic integer-predicate checkers (see below). |
-| `proof_free_response` | Not used until Phase 4; when introduced, `answerSpec` holds the rubric reference, not a gradable spec. |
+| `proof_free_response` | `{ rubric: {id, description}[], minWords: number }` — a rubric reference for AI-assisted feedback (Phase 4, `docs/grading-policy.md`), not a gradable spec: `answerSpec` alone never determines correctness. `solutionMarkdown` doubles as the reference solution grounding AI feedback and is never sent to the client verbatim during grading. |
 
 For multiple-choice options, `accessibleLabel` is an authored spoken-language description used as the form control name. Keep `label` as Markdown with KaTeX math for the visible option.
 

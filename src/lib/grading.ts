@@ -50,9 +50,14 @@ export function initialAnswer(problem: Problem): Answer {
           problem.answerSpec.blanks.map((b) => [b.id, ""]),
         ),
       };
+    case "proof_free_response":
+      return { kind: "proof", text: "" };
     default:
       return { kind: "number", value: "" };
   }
+}
+export function proofWordCount(text: string) {
+  return text.trim().length ? text.trim().split(/\s+/).length : 0;
 }
 export type Grade =
   | { valid: false; message: string }
@@ -150,6 +155,24 @@ export function grade(problem: Problem, answer: Answer): Grade {
           .includes(answer.values[b.id]!.trim().toLowerCase()),
       );
       break;
+    }
+    case "proof_free_response": {
+      // Never determines correctness — that comes from AI feedback, recorded
+      // as a separate step (docs/grading-policy.md). This only checks the
+      // attempt is substantial enough to submit for feedback.
+      if (
+        answer.kind !== "proof" ||
+        proofWordCount(answer.text) < problem.answerSpec.minWords
+      )
+        return {
+          valid: false,
+          message: `Write at least ${problem.answerSpec.minWords} words before requesting feedback.`,
+        };
+      return {
+        valid: true,
+        correct: false,
+        message: "Submitted for feedback.",
+      };
     }
     case "numeric": {
       if (

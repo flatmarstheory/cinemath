@@ -1,6 +1,6 @@
 "use client";
 import { MathContent } from "./math-content";
-import { quantifierSpec } from "@/lib/grading";
+import { proofWordCount, quantifierSpec } from "@/lib/grading";
 import type { Answer, Problem } from "@/lib/schema";
 
 export function AnswerInput({
@@ -184,6 +184,32 @@ export function AnswerInput({
             />
           </label>
         ))}
+      </fieldset>
+    );
+  }
+  if (problem.type === "proof_free_response" && answer.kind === "proof") {
+    const words = proofWordCount(answer.text);
+    const met = words >= problem.answerSpec.minWords;
+    return (
+      <fieldset className="proof-answer" disabled={disabled}>
+        <legend>Write your proof</legend>
+        <p className="muted">
+          State your assumptions and argue step by step, not just the final
+          line. Aim for at least {problem.answerSpec.minWords} words.
+        </p>
+        <label className="proof-label" htmlFor={`${problem.id}-proof`}>
+          Your proof
+        </label>
+        <textarea
+          id={`${problem.id}-proof`}
+          value={answer.text}
+          rows={10}
+          onChange={(e) => onChange({ kind: "proof", text: e.target.value })}
+        />
+        <p className="muted" aria-live="polite">
+          {words} {words === 1 ? "word" : "words"}
+          {!met && ` · ${problem.answerSpec.minWords - words} more to go`}
+        </p>
       </fieldset>
     );
   }

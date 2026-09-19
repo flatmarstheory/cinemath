@@ -26,9 +26,9 @@ Every deterministic problem's `answerSpec` must be sufficient, on its own, for a
 - Hint 4 (worked solution) and the full gated solution unlock after **two incorrect attempts on that problem OR after any correct submission**, whichever comes first. This threshold is configuration, not a hard rule, and must be stated wherever it's implemented so it can be tuned later.
 - Revealing the full solution does not block lesson completion; it is recorded in the completion summary's "solution reveal" count, consistent with the success metric in `ROADMAP.md` (full-solution reveal rate should stay low enough to show productive struggle).
 
-## AI-assisted feedback (`proof_free_response`, future phases)
+## AI-assisted feedback (`proof_free_response`, Phase 4)
 
-`proof_free_response` is **not** part of the first vertical slice's five problems (see `docs/course-map.md`), but the policy is defined here so Phase 4 has no ambiguity to resolve later.
+`proof_free_response` is **not** part of the first vertical slice's five problems (see `docs/course-map.md`); it was introduced in Phase 4 as a separately gated beta (`docs/phase-4.md`) on top of the validated slice, never inside it.
 
 AI feedback must:
 

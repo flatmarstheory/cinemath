@@ -269,6 +269,59 @@
       "misconceptionTags": [
         "asserting-conclusion-without-matching-definition-form"
       ]
+    },
+    {
+      "id": "pfmm-m1-l4-p6-free-response-odd-square",
+      "version": 1,
+      "lessonId": "pfmm-m1-l4-reading-and-writing-formal-definitions",
+      "type": "proof_free_response",
+      "promptMarkdown": "**AI feedback beta.** Write a direct proof that: if $n$ is odd, then $n^2$ is odd. Use the formal definition of odd from this lesson, and show every step — you'll get short, rubric-based feedback on your reasoning, not just a right/wrong mark.",
+      "answerSpec": {
+        "rubric": [
+          {
+            "id": "uses-definition",
+            "description": "Introduces the witness integer from the formal definition of odd ($n = 2k+1$ for some integer $k$) rather than asserting oddness informally."
+          },
+          {
+            "id": "correct-computation",
+            "description": "Correctly computes $n^2$ in terms of $k$ (expanding $(2k+1)^2$)."
+          },
+          {
+            "id": "matches-conclusion-form",
+            "description": "Rewrites the result as $2m+1$ for an explicit integer $m$, matching the definition of odd, rather than just stating the answer is odd."
+          },
+          {
+            "id": "clear-conclusion",
+            "description": "States a clear concluding sentence that connects the algebra back to the claim being proved."
+          }
+        ],
+        "minWords": 25
+      },
+      "hints": [
+        {
+          "order": 1,
+          "bodyMarkdown": "Restate the goal precisely: assuming $n$ is odd, show $n^2$ satisfies the formal definition of odd."
+        },
+        {
+          "order": 2,
+          "bodyMarkdown": "Start exactly like the even-square proof earlier in this lesson, but from the definition of odd: $n = 2k+1$ for some integer $k$."
+        },
+        {
+          "order": 3,
+          "bodyMarkdown": "Expand $(2k+1)^2$, then try to factor the result into the form $2(\\text{something}) + 1$."
+        },
+        {
+          "order": 4,
+          "bodyMarkdown": "$n^2 = (2k+1)^2 = 4k^2+4k+1 = 2(2k^2+2k)+1$. Since $2k^2+2k$ is an integer, $n^2$ has the form $2m+1$, so $n^2$ is odd by definition."
+        }
+      ],
+      "solutionMarkdown": "Assume $n$ is odd, so by definition $n = 2k+1$ for some integer $k$. Then $n^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k) + 1$. Since $k$ is an integer, $2k^2+2k$ is also an integer, so $n^2$ has the form $2m+1$ with $m = 2k^2+2k$ an integer. By the definition of odd, $n^2$ is therefore odd.",
+      "concepts": ["odd-integer", "formal-definition"],
+      "prerequisites": ["odd-integer", "even-integer"],
+      "difficulty": 3,
+      "misconceptionTags": [
+        "asserting-conclusion-without-matching-definition-form"
+      ]
     }
   ],
   "master": {

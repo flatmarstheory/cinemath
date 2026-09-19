@@ -20,8 +20,10 @@ export function ReviewPractice({
   onSave: (next: Progress) => void;
   message: string;
 }) {
+  // proof_free_response needs AI grading, which this synchronous review flow
+  // doesn't perform; only deterministic problem types are used for review.
   const indices = lesson.problems.flatMap((p, i) =>
-    p.concepts.includes(concept) ? [i] : [],
+    p.concepts.includes(concept) && p.type !== "proof_free_response" ? [i] : [],
   );
   const [position, setPosition] = useState(0);
   const [practice, setPractice] = useState(

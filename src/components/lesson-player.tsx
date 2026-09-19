@@ -18,10 +18,18 @@ import {
   type Progress,
 } from "@/lib/progress";
 import { accountAction, learnerData } from "@/lib/account-client";
+import { requestProofFeedback } from "@/lib/ai-feedback-client";
 import { ReviewPractice } from "./review-practice";
 import { MathContent } from "./math-content";
 import { AnswerInput } from "./answer-input";
 import { analyticsEventFor, emitAnalyticsEvent } from "@/lib/analytics";
+
+const feedbackCategoryLabel: Record<string, string> = {
+  correct: "Correct",
+  mostly_correct: "Mostly correct",
+  needs_revision: "Needs revision",
+  insufficient: "Insufficient",
+};
 
 export function LessonPlayer({
   lesson,
@@ -35,6 +43,7 @@ export function LessonPlayer({
   const [progress, setProgress] = useState<Progress | null>(null);
   const [storageMessage, setStorageMessage] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [aiPending, setAiPending] = useState(false);
   const [showTheory, setShowTheory] = useState(false);
   // Detected client-side (not via server searchParams) so this route stays statically generated.
   const [preview, setPreview] = useState(false);
@@ -179,6 +188,36 @@ export function LessonPlayer({
     setFeedback(result.message);
     if (result.valid) act({ type: "submit", at: new Date().toISOString() });
   };
+  const submitProof = async (event: FormEvent) => {
+    event.preventDefault();
+    const draft = record.draft;
+    if (draft.kind !== "proof" || problem.type !== "proof_free_response")
+      return;
+    const result = grade(problem, draft);
+    setFeedback(result.message);
+    if (!result.valid) return;
+    setAiPending(true);
+    try {
+      const feedbackResult = await requestProofFeedback({
+        accountId: account.current,
+        lessonId: lesson.lessonId,
+        problemId: problem.id,
+        problemVersion: problem.version,
+        text: draft.text,
+      });
+      setFeedback("");
+      act({
+        type: "submit_proof",
+        at: new Date().toISOString(),
+        text: draft.text,
+        feedback: feedbackResult,
+      });
+    } catch (error) {
+      setFeedback((error as Error).message);
+    } finally {
+      setAiPending(false);
+    }
+  };
   const summary = summarize(lesson, progress);
   const theory = (
     <>
@@ -290,7 +329,11 @@ export function LessonPlayer({
               <div className="problem-prompt">
                 <MathContent>{problem.promptMarkdown}</MathContent>
               </div>
-              <form onSubmit={submit}>
+              <form
+                onSubmit={
+                  problem.type === "proof_free_response" ? submitProof : submit
+                }
+              >
                 <AnswerInput
                   problem={problem}
                   answer={record.draft}
@@ -298,11 +341,21 @@ export function LessonPlayer({
                     act({ type: "draft", answer });
                     setFeedback("");
                   }}
-                  disabled={solved}
+                  disabled={solved || aiPending}
                 />
                 <div className="submit-row">
-                  <button type="submit" className="button" disabled={solved}>
-                    {solved ? "Correct ✓" : "Check answer"}
+                  <button
+                    type="submit"
+                    className="button"
+                    disabled={solved || aiPending}
+                  >
+                    {solved
+                      ? "Correct ✓"
+                      : aiPending
+                        ? "Reading your proof…"
+                        : problem.type === "proof_free_response"
+                          ? "Get feedback"
+                          : "Check answer"}
                   </button>
                   <span className="muted">
                     {record.attempts.length}{" "}
@@ -317,10 +370,34 @@ export function LessonPlayer({
                 aria-live="polite"
               >
                 {feedback ||
-                  (latest
-                    ? grade(problem, latest.answer).message
-                    : "Your reasoning matters more than speed.")}
+                  (problem.type === "proof_free_response"
+                    ? aiPending
+                      ? "Reading your proof…"
+                      : "Write your proof, then request feedback."
+                    : latest
+                      ? grade(problem, latest.answer).message
+                      : "Your reasoning matters more than speed.")}
               </div>
+              {problem.type === "proof_free_response" && latest?.aiFeedback && (
+                <div className="ai-feedback" role="status" aria-live="polite">
+                  <p className="pill">
+                    {feedbackCategoryLabel[latest.aiFeedback.category]}
+                  </p>
+                  <p>{latest.aiFeedback.rationale}</p>
+                  <p className="muted">Next step: {latest.aiFeedback.nextStep}</p>
+                  {latest.aiFeedback.fallback && (
+                    <p className="muted">
+                      AI feedback was unavailable for this attempt — you can
+                      revise, reveal the worked solution once unlocked, or
+                      continue.
+                    </p>
+                  )}
+                  <p className="muted">
+                    Educational feedback grounded in this problem&apos;s
+                    rubric — not formal proof verification.
+                  </p>
+                </div>
+              )}
               <section className="hint-panel" aria-labelledby="hint-heading">
                 <div>
                   <h2 id="hint-heading">A little help along the way</h2>

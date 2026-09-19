@@ -116,6 +116,23 @@ export const problemSchema = z.discriminatedUnion("type", [
         "Blank ids must be unique",
       ),
   }),
+  z.object({
+    ...base,
+    type: z.literal("proof_free_response"),
+    // A rubric reference for AI-assisted feedback (docs/grading-policy.md),
+    // not a gradable spec — this type is never graded deterministically.
+    answerSpec: z
+      .object({
+        rubric: z
+          .array(z.object({ id: text, description: text }))
+          .min(1),
+        minWords: z.number().int().positive(),
+      })
+      .refine(
+        (s) => new Set(s.rubric.map((r) => r.id)).size === s.rubric.length,
+        "Rubric ids must be unique",
+      ),
+  }),
 ]);
 const section = z.object({ bodyMarkdown: z.string() });
 export const lessonSchema = z
@@ -171,5 +188,6 @@ export const answerSchema = z.discriminatedUnion("kind", [
     relation: z.enum(["", "=", "neq"]),
   }),
   z.object({ kind: z.literal("blanks"), values: z.record(text, z.string()) }),
+  z.object({ kind: z.literal("proof"), text: z.string() }),
 ]);
 export type Answer = z.infer<typeof answerSchema>;

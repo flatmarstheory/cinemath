@@ -39,7 +39,8 @@ export function analyticsEventFor(
       if (before.stage === "intro" && after.stage === "practice")
         return { type: "lesson_start", lessonId };
       return null;
-    case "submit": {
+    case "submit":
+    case "submit_proof": {
       const beforeRecord = before.records[before.index];
       const afterRecord = after.records[before.index];
       if (afterRecord.attempts.length === beforeRecord.attempts.length)
